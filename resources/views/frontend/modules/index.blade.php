@@ -1,0 +1,1 @@
+@extends(VIEW_FRONTEND_MASTER)
