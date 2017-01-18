@@ -11,6 +11,7 @@ define('DIR_IMAGE', 'media/');
 
 define('VIEW_FRONTEND', 'frontend');
 define('VIEW_FRONTEND_MASTER', 'frontend.layouts.master');
+define('VIEW_FRONTEND_ACCOUNT', 'frontend.layouts.account');
 define('VIEW_FRONTEND_INCS', 'frontend.incs');
 define('VIEW_FRONTEND_BLOCKS', 'frontend.blocks');
 define('VIEW_FRONTEND_MODULES', 'frontend.modules');

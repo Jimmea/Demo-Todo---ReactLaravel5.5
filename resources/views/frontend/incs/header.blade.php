@@ -35,7 +35,7 @@
 				</a>
 			</li>
 			<li class="nav-profile anonymous-user">
-				<a href="" target="_self">
+				<a href="{{ route('auth::login') }}">
 					<div class="login-state">
 						<div class="img-profile icon svg-icon--top-nav-bar--userhead svg-icon--top-nav-bar--userhead-dims fsrHidden"></div>
 						<span class="username icon-user--default" id="offCanvasDisplayName" >
