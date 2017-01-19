@@ -18,6 +18,6 @@ class WelcomeController extends Controller
      */
     public function getIndex()
     {
-        return view(NEW_V1.'.index');
+        return view(NEW_V1.'.home.index');
     }
 }

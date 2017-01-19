@@ -10,6 +10,6 @@ class CategoryController extends Controller
 {
     public function getCategory()
     {
-
+        return view(NEW_V1.'.category.index');
     }
 }

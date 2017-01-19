@@ -1,7 +1,45 @@
-<?php
-/**
- * Created by PhpStorm.
- * User: hung
- * Date: 19/01/17
- * Time: 11:40
- */
+<link href='http://css01.media-allrecipes.com/assets/deployables/v-1.55.0.3383/main-css.bundled.Css' rel='stylesheet'/>
+<link rel="stylesheet" href="{{ asset('css/family.min.css') }}">
+<script src='http://js01.media-allrecipes.com/assets/deployables/v-1.55.0.3383/main-top.bundled.js' ></script>
+<style type="text/css">
+    #grid[data-columns]::before {
+        visibility: hidden;
+    }
+    @media screen and (max-width:625px) {
+        #grid[data-columns]::before {
+            content: '1 .column.size-1of1';
+        }
+        .right-rail #grid[data-columns]::before {
+            content: '2 .column.size-1of2';
+        }
+    }
+    @media screen and (min-width: 626px) and (max-width: 767px) {
+        #grid[data-columns]::before {
+            content: '2 .column.size-1of2';
+        }
+        .right-rail #grid[data-columns]::before {
+            content: '4 .column.size-1of4';
+        }
+    }
+    @media screen and (min-width: 768px) and (max-width: 1023px) {
+        #grid[data-columns]::before {
+            content: '2 .column.size-1of2';
+        }
+    }
+    @media screen and (min-width: 1024px) and (max-width: 1269px) {
+        #grid[data-columns]::before {
+            content: '3 .column.size-1of3';
+        }
+    }
+    @media screen and (min-width: 1270px) {
+        #grid[data-columns]::before {
+            content: '4 .column.size-1of4';
+        }
+    }
+    /*For related recipes right rail*/
+    @media screen and (min-width: 960px) {
+        .right-rail #grid[data-columns]::before {
+            content: '2 .column.size-1of2';
+        }
+    }
+</style>
