@@ -19,7 +19,7 @@ Route::group(['middleware' => 'web','as'=> 'tintuc::', 'namespace' => 'Modules\T
     ]);
 
     // Danh sách router cho bài viết chi tiết
-    Route::get('/new/{id}/{slug}', [
+    Route::get('/news/{id?}/{slug?}', [
         'as'=> 'getNewDetail',
         'uses' => 'NewDetailController@getNewDetail'
     ]);

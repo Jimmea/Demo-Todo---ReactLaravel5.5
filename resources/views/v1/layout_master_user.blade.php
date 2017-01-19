@@ -66,26 +66,26 @@
         </section>
         <div data-ng-controller="ar_controllers_private_profile_nav" data-ng-init="init()" class="ng-scope">
             <ul class="profile-subnav">
-                <li data-ng-class="{selected: selectedSubNav === 'about-me'}" ng-click="sendAnalyticsBeacon()" class="selected">
-                    <a href="" data-spa="true" ng-click="setSubNav('about-me')">About Me</a>
+                <li class="{{ $page_type == 'about' ? 'selected' : '' }}">
+                    <a href="{{ route('user::about') }}">About Me</a>
                 </li>
-                <li data-ng-class="{selected: selectedSubNav === 'favorites'}" ng-click="sendAnalyticsBeacon()">
-                    <a href="" data-spa="true" ng-click="setSubNav('favorites')">Favorites</a>
+                <li class="{{ $page_type == 'collection' ? 'selected' : '' }}">
+                    <a href="{{ route('user::collection') }}">Favorites</a>
                 </li>
-                <li data-ng-class="{selected: selectedSubNav === 'followers'  || selectedSubNav === 'following' || selectedSubNav === 'findfriends'}" ng-click="sendAnalyticsBeacon()">
-                    <a href="" data-spa="true" ng-click="setSubNav('followers')">Friends</a>
+                <li class="{{ $page_type == 'friend' ? 'selected' : '' }}">
+                    <a href="{{ route('user::friend') }}">Friends</a>
                 </li>
-                <li data-ng-class="{selected: selectedSubNav === 'made-it'}" ng-click="sendAnalyticsBeacon()">
-                    <a href="" data-spa="true" ng-click="setSubNav('made-it')">I Made It</a>
+                <li class="{{ $page_type == 'made' ? 'selected' : '' }}">
+                    <a href="{{ route('user::made') }}">I Made It</a>
                 </li>
-                <li data-ng-class="{selected: selectedSubNav === 'photos'}" ng-click="sendAnalyticsBeacon()">
-                    <a href="" data-spa="true" ng-click="setSubNav('photos')">My Photos</a>
+                <li class="{{ $page_type == 'photo' ? 'selected' : '' }}">
+                    <a href="{{ route('user::photo') }}">My Photos</a>
                 </li>
-                <li data-ng-class="{selected: selectedSubNav === 'reviews'}" ng-click="sendAnalyticsBeacon()">
-                    <a href="" data-spa="true" ng-click="setSubNav('reviews')">My Reviews</a>
+                <li class="{{ $page_type == 'review' ? 'selected' : '' }}">
+                    <a href="{{ route('user::review') }}">My Reviews</a>
                 </li>
-                <li data-ng-class="{selected: selectedSubNav === 'recipes'}" ng-click="sendAnalyticsBeacon()">
-                    <a href="" data-spa="true" ng-click="setSubNav('recipes')">Personal Recipes</a>
+                <li class="{{ $page_type == 'recipe' ? 'selected' : '' }}">
+                    <a href="{{ route('user::recipe') }}">Personal Recipes</a>
                 </li>
             </ul>
         </div>

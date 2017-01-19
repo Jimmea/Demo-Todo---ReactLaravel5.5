@@ -18,6 +18,6 @@ class NewDetailController extends Controller
      */
     public function getNewDetail($id= 0,$slug='')
     {
-
+        return view(NEW_V1.'.news.index');
     }
 }

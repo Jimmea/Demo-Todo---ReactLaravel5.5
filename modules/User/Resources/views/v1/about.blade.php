@@ -1,8 +1,6 @@
-@extends(MASTER_V1.'.layout_master_user')
-@section('seo')
+@extends(VIEW_FRONTEND_ACCOUNT)
 
-@stop
-@section('user_content')
+@section('account_content')
 <div data-ng-view="" class="profile-wrapper full-page ng-scope">
 	<div data-ng-init="init()" class="ng-scope">
 		<div ng-controller="ar_profile_social_private" class="ng-scope">
