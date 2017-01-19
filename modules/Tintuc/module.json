@@ -1,0 +1,16 @@
+{
+    "name": "Tintuc",
+    "alias": "tintuc",
+    "description": "",
+    "keywords": [],
+    "active": 1,
+    "order": 0,
+    "providers": [
+        "Modules\\Tintuc\\Providers\\TintucServiceProvider"
+    ],
+    "aliases": {},
+    "files": [
+        "start.php"
+    ],
+    "requires": []
+}

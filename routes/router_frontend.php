@@ -17,3 +17,4 @@ Route::group(['namespace'=>'Frontend'], function ()
 		Route::get('recipe', ['as'=>'recipe', 'uses'=>'UserController@recipe']);
 	});
 });
+?>
