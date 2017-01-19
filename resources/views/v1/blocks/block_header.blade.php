@@ -1,7 +1,7 @@
 <header class="header new-nav">
     <section class="header-topbar">
         <div class="top-left">
-           <p>Trang thông tin chia sẻ món ăn nội hàng ngày</p>
+           <p>Trang thông tin chia sẻ món ăn nội trợ hàng ngày</p>
         </div>
         <div class="top-right">
             <ul type="none">
