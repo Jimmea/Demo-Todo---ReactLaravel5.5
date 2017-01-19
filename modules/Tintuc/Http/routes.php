@@ -9,7 +9,7 @@
 
 Route::group(['middleware' => 'web','as'=> 'tintuc::', 'namespace' => 'Modules\Tintuc\Http\Controllers'], function()
 {
-    // Router Trang tru
+    // Router Trang chủ
     Route::get('/', 'WelcomeController@getIndex');
 
     // Danh sách router cho danh mục
