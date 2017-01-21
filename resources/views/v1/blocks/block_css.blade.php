@@ -86,8 +86,8 @@
         display: block;
         background: #eee;
         overflow: hidden;
-        height: 40px;
-        line-height: 40px;
+        height: 30px;
+        line-height: 30px;
         padding: 0 20px;
     }
     .header-topbar .top-left {
@@ -95,7 +95,9 @@
         float: left;
     }
     .header-topbar .top-left p{
-        text-transform: uppercase;
+        font-size: 14px;
+        color:#438fcc;
+
     }
     .header-topbar .top-right {
         float: right;
@@ -105,9 +107,23 @@
     }
     .header-topbar .top-right ul li a {
         padding: 5px 10px;
-        font-size: 14px;
+        font-size: 13px;
     }
     .browse-recipe-tab {
         top:6.75rem !important;
+    }
+    #ar_home_index .slider {
+        /*width: 73%;*/
+    }
+    .full-page .grid-fixed {
+        margin-top: 20px;
+    }
+    .full-page .grid-fixed .grid-col--fixed-tiles {
+        /*width: 45%;*/
+        overflow: hidden;
+        float: left;
+    }
+    #profile-follow-content .cook-invitation {
+        top: 40px;
     }
 </style>

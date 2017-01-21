@@ -5,9 +5,11 @@
         </div>
         <div class="top-right">
             <ul type="none">
+                <li><a href="">Đồ ăn đêm</a></li>
+                <li><a href="">Hỏi đáp nấu ăn</a></li>
                 <li><a href="">Đăng tin món ăn</a></li>
                 <li><a href="">Hỗ trợ đặt bàn</a></li>
-                <li><a href="">Hỗ trợ công thức nấu ăn</a></li>
+                <li><a href="">Hỗ trợ công thức nấu ăn ngay</a></li>
             </ul>
             <div class="clearfix"></div>
         </div>
@@ -17,7 +19,7 @@
             <li class="ar-logo-tab">
                 <a href="/" target="_self">
                     <div class="ar-logo">
-                        <img alt="Allrecipes" height="36" src="http://images.media-allrecipes.com/ar-images/ARlogo.svg" width="96">
+                        {{--<img alt="Allrecipes" height="36" src="http://images.media-allrecipes.com/ar-images/ARlogo.svg" width="96">--}}
                     </div>
                 </a>
             </li>
@@ -29,11 +31,11 @@
             </li>
             <li class="search-tab">
                 <div class="nav-search">
-                    <input id="searchText" type="text" placeholder="Find a recipe" class="fsrVisible">
+                    <input id="searchText" type="text" placeholder="Tìm kiếm công thức nấu ăn, địa điểm ăn uống ..." class="fsrVisible">
                     <button class="btn-basic--small search-button">
                         <span class="icon svg-icon--top-nav-bar--search-magnify svg-icon--top-nav-bar--search-magnify-dims"></span>
                     </button>
-                    <div id="ingredientSearch" class="ingredient-searchtxt">Ingredient Search</div>
+                    {{--<div id="ingredientSearch" class="ingredient-searchtxt">Ingredient Search</div>--}}
                 </div>
             </li>
             <li class="social-notification">

@@ -1,0 +1,1009 @@
+@import url(https://fonts.googleapis.com/css?family=Source+Sans+Pro);
+@-ms-keyframes spin {
+  from {
+    -ms-transform: rotate(0deg);
+  }
+  to {
+    -ms-transform: rotate(360deg);
+  }
+}
+@-moz-keyframes spin {
+  from {
+    -moz-transform: rotate(0deg);
+  }
+  to {
+    -moz-transform: rotate(360deg);
+  }
+}
+@-webkit-keyframes spin {
+  from {
+    -webkit-transform: rotate(0deg);
+  }
+  to {
+    -webkit-transform: rotate(360deg);
+  }
+}
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+.extole-js-widget-view html,
+.extole-js-widget-view body,
+.extole-js-widget-view div,
+.extole-js-widget-view span,
+.extole-js-widget-view applet,
+.extole-js-widget-view object,
+.extole-js-widget-view iframe,
+.extole-js-widget-view h1,
+.extole-js-widget-view h2,
+.extole-js-widget-view h3,
+.extole-js-widget-view h4,
+.extole-js-widget-view h5,
+.extole-js-widget-view h6,
+.extole-js-widget-view p,
+.extole-js-widget-view blockquote,
+.extole-js-widget-view pre,
+.extole-js-widget-view hr,
+.extole-js-widget-view a,
+.extole-js-widget-view abbr,
+.extole-js-widget-view address,
+.extole-js-widget-view cite,
+.extole-js-widget-view code,
+.extole-js-widget-view del,
+.extole-js-widget-view dfn,
+.extole-js-widget-view em,
+.extole-js-widget-view img,
+.extole-js-widget-view ins,
+.extole-js-widget-view kbd,
+.extole-js-widget-view q,
+.extole-js-widget-view s,
+.extole-js-widget-view samp,
+.extole-js-widget-view small,
+.extole-js-widget-view strong,
+.extole-js-widget-view sub,
+.extole-js-widget-view sup,
+.extole-js-widget-view tt,
+.extole-js-widget-view var,
+.extole-js-widget-view b,
+.extole-js-widget-view u,
+.extole-js-widget-view i,
+.extole-js-widget-view dl,
+.extole-js-widget-view dt,
+.extole-js-widget-view dd,
+.extole-js-widget-view ol,
+.extole-js-widget-view ul,
+.extole-js-widget-view li,
+.extole-js-widget-view fieldset,
+.extole-js-widget-view form,
+.extole-js-widget-view label,
+.extole-js-widget-view legend,
+.extole-js-widget-view table,
+.extole-js-widget-view caption,
+.extole-js-widget-view tbody,
+.extole-js-widget-view tfoot,
+.extole-js-widget-view thead,
+.extole-js-widget-view tr,
+.extole-js-widget-view th,
+.extole-js-widget-view td,
+.extole-js-widget-view article,
+.extole-js-widget-view aside,
+.extole-js-widget-view canvas,
+.extole-js-widget-view details,
+.extole-js-widget-view figcaption,
+.extole-js-widget-view figure,
+.extole-js-widget-view footer,
+.extole-js-widget-view header,
+.extole-js-widget-view hgroup,
+.extole-js-widget-view menu,
+.extole-js-widget-view nav,
+.extole-js-widget-view section,
+.extole-js-widget-view summary,
+.extole-js-widget-view time,
+.extole-js-widget-view mark,
+.extole-js-widget-view audio,
+.extole-js-widget-view video {
+  margin: 0;
+  padding: 0;
+}
+.extole-js-widget-view article,
+.extole-js-widget-view aside,
+.extole-js-widget-view details,
+.extole-js-widget-view figcaption,
+.extole-js-widget-view figure,
+.extole-js-widget-view footer,
+.extole-js-widget-view header,
+.extole-js-widget-view hgroup,
+.extole-js-widget-view menu,
+.extole-js-widget-view nav,
+.extole-js-widget-view section {
+  display: block;
+}
+.extole-js-widget-view h1,
+.extole-js-widget-view h2,
+.extole-js-widget-view h3,
+.extole-js-widget-view h4,
+.extole-js-widget-view h5,
+.extole-js-widget-view h6 {
+  font-size: 100%;
+}
+.extole-js-widget-view table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+.extole-js-widget-view strong,
+.extole-js-widget-view b,
+.extole-js-widget-view mark {
+  font-weight: 700;
+  font-style: inherit;
+}
+.extole-js-widget-view em,
+.extole-js-widget-view i,
+.extole-js-widget-view cite,
+.extole-js-widget-view q,
+.extole-js-widget-view address,
+.extole-js-widget-view dfn,
+.extole-js-widget-view var {
+  font-style: italic;
+  font-weight: inherit;
+}
+.extole-js-widget-view abbr[title],
+.extole-js-widget-view dfn[title] {
+  cursor: help;
+  border-bottom: 1px dotted;
+}
+.extole-js-widget-view ins {
+  border-bottom: 1px solid;
+}
+.extole-js-widget-view a,
+.extole-js-widget-view u,
+.extole-js-widget-view ins {
+  text-decoration: none;
+}
+.extole-js-widget-view del,
+.extole-js-widget-view s {
+  text-decoration: line-through;
+}
+.extole-js-widget-view pre,
+.extole-js-widget-view code,
+.extole-js-widget-view samp,
+.extole-js-widget-view kbd {
+  font-family: monospace;
+}
+.extole-js-widget-view small {
+  font-size: 0.75em;
+}
+.extole-js-widget-view img {
+  border: 0;
+  font-style: italic;
+}
+.extole-js-widget-view input,
+.extole-js-widget-view select,
+.extole-js-widget-view option,
+.extole-js-widget-view optgroup,
+.extole-js-widget-view textarea {
+  font: inherit;
+}
+.extole-js-widget-view * {
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+.extole-js-widget-view article,
+.extole-js-widget-view aside,
+.extole-js-widget-view details,
+.extole-js-widget-view figcaption,
+.extole-js-widget-view figure,
+.extole-js-widget-view footer,
+.extole-js-widget-view header,
+.extole-js-widget-view hgroup,
+.extole-js-widget-view nav,
+.extole-js-widget-view section {
+  display: block;
+}
+.extole-js-widget-view audio[controls],
+.extole-js-widget-view canvas,
+.extole-js-widget-view video {
+  display: inline-block;
+  *display: inline;
+  *zoom: 1;
+}
+.extole-js-widget-view html {
+  font-size: 100%;
+  overflow-y: scroll;
+  -webkit-overflow-scrolling: touch;
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+  -webkit-text-size-adjust: 100%;
+  -ms-text-size-adjust: 100%;
+}
+.extole-js-widget-view body {
+  margin: 0;
+  text-rendering: optimizeLegibility;
+}
+.extole-js-widget-view img {
+  border: 0;
+  -ms-interpolation-mode: bicubic;
+  display: block;
+}
+.extole-js-widget-view img,
+.extole-js-widget-view object,
+.extole-js-widget-view embed {
+  max-width: 100%;
+  height: auto;
+}
+@font-face {
+  font-family: 'extole-icon';
+  src: url('../font/extole-icon.eot?68476410');
+  src: url('../font/extole-icon.eot?68476410#iefix') format('embedded-opentype'), url('../font/extole-icon.woff?68476410') format('woff'), url('../font/extole-icon.ttf?68476410') format('truetype'), url('../font/extole-icon.svg?68476410#extole-icon') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+/* Chrome hack: SVG is rendered more smooth in Windozze. 100% magic, uncomment if you need it. */
+/* Note, that will break hinting! In other OS-es font will be not as sharp as it could be */
+/*
+@media screen and (-webkit-min-device-pixel-ratio:0) {
+  @font-face {
+    font-family: 'extole-icon';
+    src: url('../font/extole-icon.svg?68476410#extole-icon') format('svg');
+  }
+}
+*/
+[class^="extole-icon-"]:before,
+[class*=" extole-icon-"]:before {
+  font-family: "extole-icon";
+  font-style: normal;
+  font-weight: normal;
+  speak: none;
+  display: inline-block;
+  text-decoration: inherit;
+  width: 1em;
+  margin-right: .2em;
+  text-align: center;
+  /* opacity: .8; */
+  /* For safety - reset parent styles, that can break glyph codes*/
+  font-variant: normal;
+  text-transform: none;
+  /* fix buttons height, for twitter bootstrap */
+  line-height: 1em;
+  /* Animation center compensation - margins should be symmetric */
+  /* remove if not needed */
+  margin-left: .2em;
+  /* you can be more comfortable with increased icons size */
+  /* font-size: 120%; */
+  /* Font smoothing. That was taken from TWBS */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  /* Uncomment for 3D effect */
+  /* text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.3); */
+}
+.extole-icon-docs:before {
+  content: '\e810';
+}
+.extole-icon-cancel:before {
+  content: '\e811';
+}
+.extole-icon-right-open:before {
+  content: '\e812';
+}
+.extole-icon-address-book:before {
+  content: '\e813';
+}
+/*
+
+Base Styles - DO NOT EDIT - to add custom styling beyond the exposed variables, edit custom-overrides.less
+
+*/
+.extole-js-with-user {
+  display: none;
+}
+.extole-js-is-with-user .extole-js-with-user {
+  display: block;
+}
+.extole-js-without-user {
+  display: none;
+}
+.extole-js-is-without-user .extole-js-without-user {
+  display: block;
+}
+.extole-widget-wrapper {
+  font-family: 'Source Sans Pro', sans-serif;;
+  background: #F1F2F2;
+  border-radius: 0px;
+  color: #2d2d2d;
+  overflow: hidden;
+  position: relative;
+}
+.extole-widget-wrapper .extole-close-button {
+  position: absolute;
+  top: 13px;
+  right: 11px;
+  cursor: pointer;
+  font-size: 14px;
+}
+.extole-widget-wrapper a {
+  color: #2d2d2d;
+  text-decoration: none;
+}
+.extole-widget-wrapper p {
+  font-size: 12px;
+}
+.extole-widget-wrapper button {
+  font-family: 'Source Sans Pro', sans-serif;;
+}
+.extole-widget-wrapper .extole-clear-fix {
+  clear: both;
+}
+.extole-widget-wrapper .extole-widget-button {
+  background: #999999;
+  color: #FFF;
+  cursor: pointer;
+  display: block;
+  border: none;
+  border-radius: 0px;
+  -webkit-transition: background 0.1s linear;
+  -moz-transition: background 0.1s linear;
+  -ms-transition: background 0.1s linear;
+  -o-transition: background 0.1s linear;
+}
+.extole-widget-wrapper .extole-widget-button:hover {
+  background: #ff934f;
+}
+.extole-widget-wrapper .extole-header-wrapper {
+  background: #F1F2F2;
+  border-top-left-radius: 0px;
+  border-top-right-radius: 0px;
+  position: relative;
+  overflow: hidden;
+  text-align: center;
+  padding: 25px 20px;
+}
+.extole-widget-wrapper .extole-header-headline {
+  font-family: 'Source Sans Pro', sans-serif;;
+  color: #2d2d2d;
+  font-size: 20px;
+  padding-bottom: 10px;
+}
+.extole-widget-wrapper .extole-header-subheadline {
+  font-size: 12px;
+  line-height: 18px;
+}
+.extole-widget-wrapper .extole-attaboy-wrapper {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+}
+.extole-widget-wrapper .extole-attaboy-wrapper a {
+  text-decoration: underline;
+}
+.extole-widget-wrapper .extole-attaboy-wrapper .extole-js-attaboy-modal {
+  position: absolute;
+  background-color: #000000;
+  opacity: 0;
+  height: 100%;
+  left: 0;
+  top: 0;
+  width: 100%;
+  -webkit-transition: opacity 0.2s ease;
+  -moz-transition: opacity 0.2s ease;
+  -ms-transition: opacity 0.2s ease;
+  -o-transition: opacity 0.2s ease;
+}
+.extole-widget-wrapper .extole-attaboy-wrapper .extole-js-attaboy-modal.extole-js-attaboy-modal-is-visible {
+  opacity: 0.5;
+}
+.extole-widget-wrapper .extole-attaboy-wrapper .extole-js-attaboy-content-wrapper {
+  position: absolute;
+  left: 0;
+  top: 100%;
+  width: 100%;
+  height: 100%;
+  box-sizing: border-box;
+  padding: 10px 10px 0 10px;
+  -webkit-transition: top 0.2s ease;
+  -moz-transition: top 0.2s ease;
+  -ms-transition: top 0.2s ease;
+  -o-transition: top 0.2s ease;
+}
+.extole-widget-wrapper .extole-attaboy-wrapper .extole-js-attaboy-content-wrapper.extole-js-attaboy-content-wrapper-is-in-view {
+  top: 0;
+}
+.extole-widget-wrapper .extole-attaboy-wrapper .extole-js-attaboy-content-wrapper .extole-attaboy-content {
+  box-sizing: border-box;
+  width: 100%;
+  height: 100%;
+  background: #F1F2F2;
+  border-top-right-radius: 0px;
+  border-top-left-radius: 0px;
+  padding: 10px 10px 0;
+}
+.extole-widget-wrapper .extole-attaboy-wrapper .extole-js-attaboy-content-wrapper .extole-attaboy-headline {
+  font-family: 'Source Sans Pro', sans-serif;;
+  color: #2d2d2d;
+  font-size: 18px;
+  margin-bottom: 10px;
+}
+.extole-widget-wrapper .extole-attaboy-wrapper .extole-js-attaboy-content-wrapper .extole-attaboy-subheadline {
+  font-size: 12px;
+  line-height: 18px;
+}
+.extole-widget-wrapper .extole-js-attaboy-success-view {
+  display: none;
+}
+.extole-widget-wrapper .extole-js-attaboy-is-in-success-state .extole-js-attaboy-success-view {
+  display: block;
+}
+.extole-widget-wrapper .extole-js-attaboy-error-view {
+  display: none;
+}
+.extole-widget-wrapper .extole-js-attaboy-is-in-error-state .extole-js-attaboy-error-view {
+  display: block;
+}
+.extole-widget-wrapper .extole-js-attaboy-try-again-view {
+  display: none;
+}
+.extole-widget-wrapper .extole-js-attaboy-is-in-try-again-state .extole-js-attaboy-try-again-view {
+  display: block;
+}
+.extole-widget-wrapper .extole-tabs-wrapper {
+  table-layout: fixed;
+  border-collapse: collapse;
+  height: 30px;
+  width: 100%;
+  background: #E5E5E5;
+  font-size: 12px;
+}
+.extole-widget-wrapper .extole-tabs-wrapper .extole-tab {
+  text-align: center;
+  color: #FFF;
+  cursor: pointer;
+  -webkit-transition: background 0.1s linear;
+  -moz-transition: background 0.1s linear;
+  -ms-transition: background 0.1s linear;
+  -o-transition: background 0.1s linear;
+}
+.extole-widget-wrapper .extole-tabs-wrapper .extole-tab:nth-child(n + 2) {
+  border-left: 1px solid #FFF;
+}
+.extole-widget-wrapper .extole-tabs-wrapper .extole-tab.extole-email:hover,
+.extole-widget-wrapper .extole-tabs-wrapper .extole-tab.extole-email.extole-js-widget-panel-button-active {
+  background: #a0a0a0;
+}
+.extole-widget-wrapper .extole-tabs-wrapper .extole-tab.extole-facebook:hover,
+.extole-widget-wrapper .extole-tabs-wrapper .extole-tab.extole-facebook.extole-js-widget-panel-button-active {
+  background: #3B5998;
+}
+.extole-widget-wrapper .extole-tabs-wrapper .extole-tab.extole-twitter:hover,
+.extole-widget-wrapper .extole-tabs-wrapper .extole-tab.extole-twitter.extole-js-widget-panel-button-active {
+  background: #4099FF;
+}
+.extole-widget-wrapper .extole-panels-wrapper {
+  height: 295px;
+  margin: 0 auto;
+  width: 80%;
+  padding-top: 30px;
+}
+.extole-widget-wrapper .extole-panels-wrapper .extole-input {
+  position: relative;
+}
+.extole-widget-wrapper .extole-panels-wrapper .extole-input .extole-not-you {
+  position: absolute;
+  top: -14px;
+  right: 5px;
+  font-size: 10px;
+  color: #AAAAAA;
+}
+.extole-widget-wrapper .extole-panels-wrapper .extole-input input,
+.extole-widget-wrapper .extole-panels-wrapper .extole-input textarea {
+  display: block;
+  width: 100%;
+  border: 1px solid #E5E5E5;
+  color: #666666;
+  padding: 4px 8px;
+  margin-bottom: 10px;
+  resize: none;
+  font-size: 12px;
+  line-height: 18px;
+}
+.extole-widget-wrapper .extole-panels-wrapper .extole-input input.extole-js-validation-error,
+.extole-widget-wrapper .extole-panels-wrapper .extole-input textarea.extole-js-validation-error {
+  border-color: red !important;
+}
+.extole-widget-wrapper .extole-panels-wrapper .extole-input input:focus,
+.extole-widget-wrapper .extole-panels-wrapper .extole-input textarea:focus {
+  border-color: #999999;
+  outline: 0;
+}
+.extole-widget-wrapper .extole-panels-wrapper .extole-input input.extole-js-is-logged-in:focus,
+.extole-widget-wrapper .extole-panels-wrapper .extole-input textarea.extole-js-is-logged-in:focus {
+  border: 1px solid #E5E5E5;
+}
+.extole-widget-wrapper .extole-panels-wrapper .extole-input input.extole-medium,
+.extole-widget-wrapper .extole-panels-wrapper .extole-input textarea.extole-medium {
+  height: 60px;
+}
+.extole-widget-wrapper .extole-panels-wrapper .extole-input input.extole-large,
+.extole-widget-wrapper .extole-panels-wrapper .extole-input textarea.extole-large {
+  height: 100px;
+}
+.extole-widget-wrapper .extole-panels-wrapper .extole-email-input-prompt {
+  text-align: center;
+  padding: 25px 0 30px;
+}
+.extole-widget-wrapper .extole-panels-wrapper .extole-validation-error-message {
+  color: red;
+  border: 1px solid red;
+  font-size: 10px;
+  position: absolute;
+  top: -16px;
+  background: #FFF;
+  padding: 2px 8px;
+  text-align: left;
+}
+.extole-widget-wrapper .extole-panels-wrapper .extole-validation-error-message:after,
+.extole-widget-wrapper .extole-panels-wrapper .extole-validation-error-message:before {
+  top: 100%;
+  left: 15px;
+  border: solid transparent;
+  content: " ";
+  height: 0;
+  width: 0;
+  position: absolute;
+  pointer-events: none;
+}
+.extole-widget-wrapper .extole-panels-wrapper .extole-validation-error-message:after {
+  border-top-color: #FFF;
+  border-width: 4px;
+  margin-left: -4px;
+}
+.extole-widget-wrapper .extole-panels-wrapper .extole-validation-error-message:before {
+  border-top-color: red;
+  border-width: 5px;
+  margin-left: -5px;
+}
+.extole-widget-wrapper .extole-panels-wrapper .extole-submit-button {
+  font-size: 14px;
+  height: 35px;
+  display: block;
+  margin: 20px auto;
+  padding: 0 25px;
+  text-align: center;
+  color: #FFF;
+  cursor: pointer;
+  border-radius: 0px;
+}
+.extole-widget-wrapper .extole-panels-wrapper .extole-submit-button span {
+  padding: 0 5px;
+  position: relative;
+}
+.extole-widget-wrapper .extole-panels-wrapper .extole-submit-button-default-content {
+  display: block;
+}
+.extole-widget-wrapper .extole-panels-wrapper .extole-submit-button-pending-content {
+  display: none;
+}
+.extole-widget-wrapper .extole-panels-wrapper .extole-js-panel-is-pending .extole-submit-button {
+  outline: none;
+  background: #D7D7D7;
+}
+.extole-widget-wrapper .extole-panels-wrapper .extole-js-panel-is-pending .extole-submit-button:hover,
+.extole-widget-wrapper .extole-panels-wrapper .extole-js-panel-is-pending .extole-submit-button:focus {
+  background: #D7D7D7;
+}
+.extole-widget-wrapper .extole-panels-wrapper .extole-js-panel-is-pending .extole-submit-button-default-content {
+  display: none;
+}
+.extole-widget-wrapper .extole-panels-wrapper .extole-js-panel-is-pending .extole-submit-button-pending-content {
+  display: block;
+}
+.extole-widget-wrapper .extole-panels-wrapper .extole-spinner {
+  display: inline-block;
+  height: 14px;
+  width: 14px;
+  position: relative;
+  top: 2px;
+  border: 2px solid #FFF;
+  border-top: 2px solid #E5E5E5;
+  border-radius: 100%;
+  -webkit-animation: spin 1s linear infinite;
+  -moz-animation: spin 1s linear infinite;
+  animation: spin 1s linear infinite;
+}
+.extole-widget-wrapper .extole-panels-wrapper .extole-cloudsponge-button {
+  position: absolute;
+  right: -25px;
+  top: 10px;
+  cursor: pointer;
+  font-size: 14px;
+}
+.extole-widget-wrapper .extole-panels-wrapper .extole-content-preview {
+  background: #FFF;
+  padding: 10px;
+  border: 1px solid #E5E5E5;
+  text-align: left;
+  font-size: 11px;
+  line-height: 14px;
+}
+.extole-widget-wrapper .extole-panels-wrapper .extole-content-preview .extole-content-preview-image-wrapper {
+  float: left;
+  width: 90px;
+  height: 90px;
+  text-align: center;
+  overflow: hidden;
+  -webkit-transition: background-color 0.1s linear;
+  -moz-transition: background-color 0.1s linear;
+  -ms-transition: background-color 0.1s linear;
+  -o-transition: background-color 0.1s linear;
+}
+.extole-widget-wrapper .extole-panels-wrapper .extole-content-preview .extole-content-preview-text-wrapper {
+  padding-left: 100px;
+}
+.extole-widget-wrapper .extole-panels-wrapper .extole-content-preview .extole-content-preview-title {
+  font-weight: bold;
+  color: #444;
+  -webkit-transition: background-color 0.1s linear;
+  -moz-transition: background-color 0.1s linear;
+  -ms-transition: background-color 0.1s linear;
+  -o-transition: background-color 0.1s linear;
+}
+.extole-widget-wrapper .extole-panels-wrapper .extole-content-preview .extole-content-preview-description {
+  font-weight: normal;
+  margin-top: 5px;
+  -webkit-transition: background-color 0.1s linear;
+  -moz-transition: background-color 0.1s linear;
+  -ms-transition: background-color 0.1s linear;
+  -o-transition: background-color 0.1s linear;
+}
+.extole-widget-wrapper .extole-panels-wrapper .extole-js-facebook-panel-og-preview-pending .extole-content-preview-image-wrapper {
+  background: #F0F0F0;
+}
+.extole-widget-wrapper .extole-panels-wrapper .extole-js-facebook-panel-og-preview-pending .extole-content-preview-image-wrapper img {
+  display: none;
+}
+.extole-widget-wrapper .extole-panels-wrapper .extole-js-facebook-panel-og-preview-pending .extole-content-preview-text-wrapper p {
+  background: #F0F0F0;
+  color: transparent;
+}
+.extole-widget-wrapper .extole-panels-wrapper .extole-tweet-character-count {
+  text-align: right;
+  padding-right: 5px;
+}
+.extole-widget-wrapper .extole-panels-wrapper .extole-tweet-character-count p {
+  font-size: 12px;
+}
+.extole-widget-wrapper .extole-share-link-view {
+  width: 90%;
+  text-align: center;
+  margin: 0 auto;
+}
+.extole-widget-wrapper .extole-share-link-and-button-positioner {
+  position: relative;
+  display: inline-block;
+  max-width: 100%;
+  margin: 10px 0 15px;
+}
+.extole-widget-wrapper .extole-share-link-wrapper {
+  background-color: #FFF;
+  position: relative;
+  border: 1px solid #E5E5E5;
+  max-width: 100%;
+  overflow: hidden;
+  border-bottom-right-radius: 0px;
+  border-top-right-radius: 0px;
+  -webkit-transition: border-color 0.2s ease;
+  -moz-transition: border-color 0.2s ease;
+  -ms-transition: border-color 0.2s ease;
+  -o-transition: border-color 0.2s ease;
+}
+.extole-widget-wrapper .extole-js-has-been-copied .extole-share-link-wrapper {
+  border-color: #999999;
+}
+.extole-widget-wrapper .extole-share-link {
+  line-height: 20px;
+  text-align: center;
+  font-size: 12px;
+  padding: 0 28px 0 5px;
+  display: inline-block;
+  background-color: #FFF;
+  color: #999999;
+}
+.extole-widget-wrapper .extole-copy-button {
+  width: 24px;
+  line-height: 18px;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  border-bottom-left-radius: 0;
+  border-top-left-radius: 0;
+}
+.extole-widget-wrapper .extole-copy-button i {
+  position: relative;
+  top: 2px;
+  font-size: 14px;
+}
+.extole-widget-wrapper .extole-js-copy-button-unsupported .extole-copy-button {
+  display: none;
+}
+.extole-widget-wrapper .extole-js-copy-button-unsupported .extole-share-link {
+  padding: 0 10px;
+}
+.extole-widget-wrapper .extole-js-copy-button-unsupported .extole-share-link-wrapper {
+  border-bottom-right-radius: 0;
+  border-top-right-radius: 0;
+}
+.extole-widget-wrapper .extole-js-copy-button.extole-js-copy-button-hover {
+  background: #ff934f;
+}
+.extole-widget-wrapper .extole-footer {
+  padding-bottom: 20px;
+  text-align: center;
+}
+.extole-widget-wrapper .extole-footer a {
+  font-size: 10px;
+  text-decoration: none;
+}
+.extole-widget-wrapper .extole-footer img.extole-logo {
+  display: inline-block;
+  height: 20px;
+  top: 5px;
+  padding-left: 4px;
+}
+.extole-widget-wrapper .extole-how-it-works-modal {
+  position: absolute;
+  background-color: #000000;
+  opacity: 0.5;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+}
+.extole-widget-wrapper .extole-how-it-works {
+  position: absolute;
+  text-align: center;
+  width: 100%;
+  left: 0;
+  bottom: 45px;
+  background: #FFF;
+  background: #F1F2F2;
+  padding-top: 18px;
+}
+.extole-widget-wrapper .extole-how-it-works .extole-how-it-works-headline {
+  font-family: 'Source Sans Pro', sans-serif;;
+  color: #2d2d2d;
+  font-size: 18px;
+}
+.extole-widget-wrapper .extole-how-it-works .extole-how-it-works-subheadline {
+  font-size: 12px;
+  padding: 15px 35px;
+}
+.extole-widget-wrapper .extole-how-it-works .extole-how-it-works-footer {
+  padding: 20px;
+  background: #F1F2F2;
+}
+.extole-widget-wrapper .extole-how-it-works .extole-how-it-works-footer p {
+  font-size: 10px;
+}
+.extole-widget-wrapper .extole-how-it-works .extole-how-it-works-footer p a {
+  text-decoration: underline;
+}
+.extole-widget-wrapper .extole-how-it-works:after,
+.extole-widget-wrapper .extole-how-it-works:before {
+  top: 100%;
+  left: 107px;
+  border: solid transparent;
+  content: " ";
+  height: 0;
+  width: 0;
+  position: absolute;
+  pointer-events: none;
+}
+.extole-widget-wrapper .extole-how-it-works:after {
+  border-top-color: #F1F2F2;
+  border-width: 4px;
+  margin-left: -4px;
+}
+.extole-widget-wrapper .extole-how-it-works:before {
+  border-width: 5px;
+  margin-left: -5px;
+}
+.extole-modal-overlay {
+  position: fixed;
+  top: 0px;
+  left: 0px;
+  width: 100%;
+  height: 100%;
+  background-color: #000000;
+  opacity: 0.6;
+}
+@media only screen and (max-width: 480px) {
+  .extole-widget-wrapper {
+    margin-left: 0 !important;
+    left: 0 !important;
+    width: 100% !important;
+    border-radius: 0 !important;
+  }
+}
+/*
+
+Add custom styles here
+
+*/
+.extole-js-widget-view {
+  max-width: 575px;
+  height: 570px;
+}
+.extole-js-widget-wrapper.extole-widget-wrapper {
+  height: 570px;
+}
+.extole-widget-wrapper .extole-header-headline {
+  font-size: 17px;
+}
+.extole-widget-wrapper .extole-header-subheadline {
+  font-size: 15px;
+}
+.extole-widget-wrapper .extole-header-wrapper {
+  text-align: left;
+}
+.extole-widget-wrapper .extole-footer img.extole-logo {
+  vertical-align: middle;
+  height: 25px;
+  padding-bottom: 5px;
+}
+.extole-widget-wrapper .extole-footer {
+  margin-top: 20px;
+}
+.extole-widget-wrapper .extole-panels-wrapper .extole-input input,
+.extole-widget-wrapper .extole-panels-wrapper .extole-input textarea {
+  font-size: 15px;
+}
+.extole-js-widget-footer-how-it-works-link {
+  display: none;
+}
+.extole-js-panel-link-view-dashboard {
+  display: none;
+}
+.extole-widget-wrapper .extole-panels-wrapper .extole-submit-button {
+  width: 100%;
+  background: #FF6604;
+  border-radius: 0px;
+}
+.extole-icon-right-open {
+  display: none;
+}
+.extole-widget-wrapper .extole-header-subheadline {
+  color: #7f7f7f;
+}
+.extole-widget-wrapper .extole-copy-button {
+  display: none;
+}
+.extole-widget-wrapper .extole-share-link-view {
+  width: 100%;
+  padding-left: 57.5px;
+  padding-right: 57.5px;
+  text-align: initial;
+}
+.extole-widget-wrapper p {
+  padding-left: 5px;
+  padding-bottom: 5px;
+}
+.extole-widget-wrapper .extole-share-link-and-button-positioner {
+  margin: 0 auto;
+  width: 100%;
+}
+.extole-widget-wrapper .extole-panels-wrapper .extole-submit-button {
+  margin-top: 10px;
+}
+#emailMsg {
+  height: 90px !important;
+}
+#friendEmailAdds {
+  height: 30px !important;
+  padding: 5px 0px 5px 5px;
+  font-style: italic;
+}
+#yourEmailAdds {
+  height: 30px !important;
+  padding: 5px 0px 5px 5px;
+  font-style: italic;
+}
+.extole-js-panel-link-view-email.extole-tab.extole-email.extole-js-widget-panel-button-active {
+  font-size: 15px;
+  background: #a0a0a0 !important;
+  border-top-left-radius: 1.5em;
+  border-top-right-radius: 1.5em;
+}
+.extole-js-panel-link-view-facebook.extole-tab.extole-facebook {
+  font-size: 15px;
+}
+.extole-widget-wrapper .extole-panels-wrapper {
+  height: 300px;
+}
+.extole-widget-wrapper .extole-tabs-wrapper {
+  border-collapse: initial;
+  background: initial;
+  font-size: 15px;
+}
+.extole-widget-wrapper .extole-tabs-wrapper .extole-tab {
+  border-top-right-radius: 1.5em;
+  border-top-left-radius: 1.5em;
+  background: #c6c6c6;
+}
+.extole-widget-wrapper .extole-tabs-wrapper .extole-tab.extole-facebook:hover,
+.extole-widget-wrapper .extole-tabs-wrapper .extole-tab.extole-facebook.extole-js-widget-panel-button-active {
+  background: #3B5998;
+  border-top-right-radius: 1.5em;
+  border-top-left-radius: 1.5em;
+}
+.extole-widget-wrapper .extole-tabs-wrapper .extole-tab:nth-child(n + 2) {
+  background: #899bc1;
+}
+.extole-widget-wrapper .extole-widget-button {
+  background: #FF6604;
+}
+.extole-widget-wrapper .extole-widget-button:hover {
+  background: #ff934f;
+}
+/* CSS OVERWRITES FROM CLIENT */
+.extole-widget-wrapper .extole-tabs-wrapper {
+  width: 100% !important;
+  border-spacing: 5px;
+  margin: -5px auto;
+}
+@media (max-width: 414px) {
+  .extole-js-widget-view {
+    height: 600px !important;
+  }
+  .extole-js-widget-wrapper.extole-widget-wrapper {
+    height: 600px !important;
+  }
+}
+@media (min-width: 568px) {
+  .extole-widget-wrapper .extole-tabs-wrapper {
+    width: 82% !important;
+  }
+  .extole-widget-wrapper .extole-header-wrapper {
+    width: 90%;
+    margin: 0 auto;
+  }
+}
+@media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
+  .extole-widget-wrapper .extole-tabs-wrapper {
+    width: 80% !important;
+    margin: 0 auto;
+  }
+}
+.extole-widget-wrapper .extole-tabs-wrapper .extole-tab {
+  border-radius: 0 !important;
+  height: 50px;
+}
+.extole-widget-wrapper .extole-tabs-wrapper .extole-tab.extole-email:hover,
+.extole-widget-wrapper .extole-tabs-wrapper .extole-tab.extole-email.extole-js-widget-panel-button-active {
+  background-color: #dbdbda !important;
+  color: #7f7f7f;
+  font-size: 16px !important;
+}
+.extole-widget-wrapper .extole-tabs-wrapper .extole-tab.extole-email {
+  font-size: 16px !important;
+  color: #7f7f7f !important;
+}
+.extole-js-panel-link-view-facebook.extole-tab.extole-facebook,
+.extole-widget-wrapper .extole-panels-wrapper .extole-submit-button {
+  font-size: 16px !important;
+}
+.extole-widget-wrapper .extole-panels-wrapper .extole-submit-button {
+  background-color: #a0a0a0 !important;
+  height: 50px !important;
+}
+.extole-widget-wrapper .extole-footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  padding-bottom: 5px;
+}

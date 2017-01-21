@@ -2,11 +2,11 @@
 
 @section('content')
     <div class="container-content body-content">
-        <section class="profile-header" style="background:url(http://images.media-allrecipes.com/ar-images/profiles/covers/mexican-food-header.jpg) no-repeat" ng-show="displayCoverPhotoSection" profile-toggle-display="">
-            <div data-ng-controller="ar_controllers_profileHeader" data-ng-init="init(21311124);" class="ng-scope">
+        <section class="profile-header" style="background:url(http://images.media-allrecipes.com/ar-images/profiles/covers/mexican-food-header.jpg) no-repeat"  >
+            <div>
                 <ul class="cook-details">
                     <li>
-                        <a href="/cook/my/" target="_self">
+                        <a href="" target="_self">
                             <img class="img-profile" src="http://images.media-allrecipes.com/mobile/allrecipes/images/icon-user-default_v2.png">
                         </a>
                     </li>
@@ -14,44 +14,44 @@
                         <h4 class="light">Truong Xuan Bui</h4>
                         <ul>
                             <li>
-                                <span class="icon--cook-card-follower-white" title="My Followers"></span>
-                                <span>Followers</span>
+                                <span class="icon--cook-card-follower-white" title="Số lượt theo dõi"></span>
+                                <span>Số lượt theo dõi</span>
                             </li>
                             <li>
-                                <span ng-bind="::(user.FollowersCount > 0 ? (user.FollowersCount | largeNumberDisplay) : 0)" class="ng-binding">0</span>
-                            </li>
-                        </ul>
-                        <ul>
-                            <li>
-                                <span class="icon--cook-card-favorite" title="My Favorites"></span>
-                                <span>Favorites</span>
-                            </li>
-                            <li>
-                                <span ng-bind="user.FavoriteCount > 0 ? (user.FavoriteCount | largeNumberDisplay) : 0" class="ng-binding">0</span>
+                                <span>Theo dõi <strong>0</strong></span>
                             </li>
                         </ul>
                         <ul>
                             <li>
-                                <span class="icon--cook-card-made" title="Recipes I've Made"></span>
-                                <span>Recipes Made</span>
+                                <span class="icon--cook-card-favorite" title="Bài viết ưu thích"></span>
+                                <span>Bài viết ưu thích</span>
                             </li>
                             <li>
-                                <span ng-bind="::(user.MadeRecipesCount > 0 ? (user.MadeRecipesCount | largeNumberDisplay) : 0)" class="ng-binding">0</span>
+                                <span>Ưu thích <strong>0</strong></span>
+                            </li>
+                        </ul>
+                        <ul>
+                            <li>
+                                <span class="icon--cook-card-made" title="Công thức tôi làm"></span>
+                                <span>Công thức tôi đã làm</span>
+                            </li>
+                            <li>
+                                <span>Đã đăng <strong>0</strong></span>
                             </li>
                         </ul>
                     </li>
                 </ul>
             </div>
-            <div id="profile-actions-menu" ng-controller="ar_controllers_profile_gear" class="profile-header__settings ng-scope" data-ng-init="init('/cook/21311124/')">
-                <span class="icon--gear--profile profile" popup-trigger="profileOptions" ng-click="removeProfileNotification()" id="c0b5960e-fe9d-4038-a4b4-f475be92df4d"></span>
-                <ul ng-class="'profile-header__settings nav-tab'" popup-panel="profileOptions" class="profile-header__settings nav-tab ng-hide" id="5c40fae9-ed12-4e70-8787-793efb399258">
+            <div id="profile-actions-menu"  class="profile-header__settings">
+                <span class="icon--gear--profile profile"></span>
+                <ul class="profile-header__settings nav-tab ng-hide">
                     <li><a href="/cook/my/profile-settings/?tab=editProfile" target="_self">Edit profile</a></li>
                     <li><a href="http://allrecipes.com/cook/21311124/" target="_self">See public profile</a></li>
                     <li><a href="/cook/my/profile-settings/?tab=tastePrefs" target="_self">Taste Preferences</a></li>
                     <li><a href="/cook/my/account-settings/" target="_self">Account settings</a></li>
                 </ul>
             </div>
-            <div ng-controller="ar_controllers_profile_notification" class="private-notification--settings ng-scope ng-hide" data-ng-hide="hideFollowNotification" ng-init="init('PrivateProfileNotification')">
+            <div class="private-notification--settings ng-hide">
                 <div class="lo-message-box">
                     <div class="lo-msg-arrow-up"></div>
                     <div class="lo-message-box__box">
@@ -64,28 +64,22 @@
                 </div>
             </div>
         </section>
-        <div data-ng-controller="ar_controllers_private_profile_nav" data-ng-init="init()" class="ng-scope">
+        <div class="private-profile-nav">
             <ul class="profile-subnav">
-                <li data-ng-class="{selected: selectedSubNav === 'about-me'}" ng-click="sendAnalyticsBeacon()" class="selected">
-                    <a href="" data-spa="true" ng-click="setSubNav('about-me')">About Me</a>
+                <li class="selected">
+                    <a href="#profile-general-content" class="profile-general-tab"> Tổng quan</a>
                 </li>
-                <li data-ng-class="{selected: selectedSubNav === 'favorites'}" ng-click="sendAnalyticsBeacon()">
-                    <a href="" data-spa="true" ng-click="setSubNav('favorites')">Favorites</a>
+                <li>
+                    <a href="#profile-fastfood-content" class="profile-general-tab"> Bán đồ ăn</a>
                 </li>
-                <li data-ng-class="{selected: selectedSubNav === 'followers'  || selectedSubNav === 'following' || selectedSubNav === 'findfriends'}" ng-click="sendAnalyticsBeacon()">
-                    <a href="" data-spa="true" ng-click="setSubNav('followers')">Friends</a>
+                <li>
+                    <a href="#profile-favorite-content" class="profile-general-tab"> Favorites</a>
                 </li>
-                <li data-ng-class="{selected: selectedSubNav === 'made-it'}" ng-click="sendAnalyticsBeacon()">
-                    <a href="" data-spa="true" ng-click="setSubNav('made-it')">I Made It</a>
+                <li>
+                    <a href="#profile-follow-content" class="profile-general-tab"> Follow</a>
                 </li>
-                <li data-ng-class="{selected: selectedSubNav === 'photos'}" ng-click="sendAnalyticsBeacon()">
-                    <a href="" data-spa="true" ng-click="setSubNav('photos')">My Photos</a>
-                </li>
-                <li data-ng-class="{selected: selectedSubNav === 'reviews'}" ng-click="sendAnalyticsBeacon()">
-                    <a href="" data-spa="true" ng-click="setSubNav('reviews')">My Reviews</a>
-                </li>
-                <li data-ng-class="{selected: selectedSubNav === 'recipes'}" ng-click="sendAnalyticsBeacon()">
-                    <a href="" data-spa="true" ng-click="setSubNav('recipes')">Personal Recipes</a>
+                <li>
+                    <a href="#profile-about-content" class="profile-general-tab"> About</a>
                 </li>
             </ul>
         </div>
