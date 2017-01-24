@@ -162,12 +162,14 @@ return [
         Illuminate\Translation\TranslationServiceProvider::class,
         Illuminate\Validation\ValidationServiceProvider::class,
         Illuminate\View\ViewServiceProvider::class,
-        Nwidart\Modules\LaravelModulesServiceProvider::class,
+
+
 
         /*
          * Package Service Providers...
          */
-
+        Nwidart\Modules\LaravelModulesServiceProvider::class,
+        Barryvdh\Debugbar\ServiceProvider::class,
         //
 
         /*
@@ -227,6 +229,7 @@ return [
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
         'Modules' => Nwidart\Modules\Facades\Module::class,
+        'Debugbar' => Barryvdh\Debugbar\Facade::class,
     ],
 
 ];

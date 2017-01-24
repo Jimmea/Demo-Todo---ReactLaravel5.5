@@ -8,6 +8,12 @@ use Illuminate\Routing\Controller;
 
 class NewDetailController extends Controller
 {
+
+    public function getNewDetailTest()
+    {
+         return view(NEW_V1.'.new_detail.index');
+    }
+
     /**
      * Created by : Hungokata
      * Time : 11:14 / 19/01/17

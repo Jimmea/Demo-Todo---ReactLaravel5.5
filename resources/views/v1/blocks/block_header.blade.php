@@ -1,26 +1,41 @@
 <header class="header new-nav">
-    <section>
+    <section class="header-topbar">
+        <div class="top-left">
+           <p>Trang thông tin chia sẻ món ăn nội trợ hàng ngày</p>
+        </div>
+        <div class="top-right">
+            <ul type="none">
+                <li><a href="">Đồ ăn đêm</a></li>
+                <li><a href="">Hỏi đáp nấu ăn</a></li>
+                <li><a href="">Đăng tin món ăn</a></li>
+                <li><a href="">Hỗ trợ đặt bàn</a></li>
+                <li><a href="">Hỗ trợ công thức nấu ăn ngay</a></li>
+            </ul>
+            <div class="clearfix"></div>
+        </div>
+    </section>
+    <section class="header-search">
         <ul class="ar-nav-section">
             <li class="ar-logo-tab">
                 <a href="/" target="_self">
                     <div class="ar-logo">
-                        <img alt="Allrecipes" height="36" src="http://images.media-allrecipes.com/ar-images/ARlogo.svg" width="96">
+                        {{--<img alt="Allrecipes" height="36" src="http://images.media-allrecipes.com/ar-images/ARlogo.svg" width="96">--}}
                     </div>
                 </a>
             </li>
             <li class="browse-recipes">
                 <a id="navmenu_recipes" class="recipes-txt">
-                    <span>BROWSE</span>
+                    <span>Công thức</span>
                     <span class="icon--chevron-down"></span>
                 </a>
             </li>
             <li class="search-tab">
                 <div class="nav-search">
-                    <input id="searchText" type="text" placeholder="Find a recipe" class="fsrVisible">
+                    <input id="searchText" type="text" placeholder="Tìm kiếm công thức nấu ăn, địa điểm ăn uống ..." class="fsrVisible">
                     <button class="btn-basic--small search-button">
                         <span class="icon svg-icon--top-nav-bar--search-magnify svg-icon--top-nav-bar--search-magnify-dims"></span>
                     </button>
-                    <div id="ingredientSearch" class="ingredient-searchtxt">Ingredient Search</div>
+                    {{--<div id="ingredientSearch" class="ingredient-searchtxt">Ingredient Search</div>--}}
                 </div>
             </li>
             <li class="social-notification">
@@ -495,6 +510,31 @@
                     <a href="http://press.allrecipes.com/" ng-click="setAnalyticsData('newsroom')" target="_self">Newsroom</a>
                 </li>
             </ul>
+        </div>
+    </section>
+    <section class="header-keywords">
+        <div class="history-keyword">
+            <div class="link-keyword">
+                <a href="">Bánh chưng tết &nbsp; | &nbsp; </a>
+                <a href="">Thịt kho &nbsp; | &nbsp; </a>
+                <a href="">Món ngon cuối tuần &nbsp; | &nbsp; </a>
+                <a href="" class="light-bold">Vào bếp cùng a &nbsp; | &nbsp; </a>
+                <a href="" class="light-bold">Mua bán đồ bếp &nbsp; | &nbsp; </a>
+                <a href="">Làm mứt tết &nbsp;  </a>
+            </div>
+        </div>
+        <div class="menu-link">
+            <div class="container">
+                <a class="link-title">Tìm kiếm nổi bật </a>
+                <a href="#">Món ăn ngon ngày tết</a>
+                <a href="#">Món bánh tết</a>
+                <a href="#">Cách làm bánh giò</a>
+                <a href="#">Sale bếp xinh </a>
+                <a href="#">Bếp nướng giảm giá ngày tết</a>
+                <a href="#">Bếp lẫu</a>
+                <a href="#">Bánh tráng trộn tại gia</a>
+                <a href="#">Làm thịt kho</a>
+            </div>
         </div>
     </section>
 </header>

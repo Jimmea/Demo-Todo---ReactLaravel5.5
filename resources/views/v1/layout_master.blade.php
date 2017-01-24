@@ -14,7 +14,7 @@
 
         {{-- section css--}}
         @include(MASTER_V1 . '.blocks.block_css')
-
+        @yield('css')
     </head>
     <body>
 

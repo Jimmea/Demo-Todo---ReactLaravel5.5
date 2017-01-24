@@ -9,7 +9,7 @@
 
 Route::group(['middleware' => 'web','as'=> 'tintuc::', 'namespace' => 'Modules\Tintuc\Http\Controllers'], function()
 {
-    // Router Trang tru
+    // Router Trang chủ
     Route::get('/', 'WelcomeController@getIndex');
 
     // Danh sách router cho danh mục
@@ -19,9 +19,9 @@ Route::group(['middleware' => 'web','as'=> 'tintuc::', 'namespace' => 'Modules\T
     ]);
 
     // Danh sách router cho bài viết chi tiết
-    Route::get('/news/{id?}/{slug?}', [
+    Route::get('/new/{id?}/{slug?}', [
         'as'=> 'getNewDetail',
-        'uses' => 'NewDetailController@getNewDetail'
+        'uses' => 'NewDetailController@getNewDetailTest'
     ]);
 
     // Danh sách router load ajax

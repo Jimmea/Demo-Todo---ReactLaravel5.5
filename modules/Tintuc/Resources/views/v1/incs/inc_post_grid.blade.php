@@ -1,5 +1,5 @@
 <section id="grid" data-columns="4" class="grid salvattore-grid grid-fixed">
-    @for($i=1; $i <= 12; $i++)
+    @for($i=1; $i <= 8; $i++)
     <div class="column size-1of4">
         <article class="grid-col--fixed-tiles">
             <img src="http://pubads.g.doubleclick.net/gampad/ad?iu=/3865/DFP_1x1_impression_tracker&amp;sz=1x1&amp;t=adpartner%3Dhillshirefarm_earned_impression&amp;c=7c55959a-c0f1-41a3-837e-34a6603aa2de">
@@ -12,9 +12,6 @@
                 <a href="/recipe/245931/game-day-chili-pups/?internalSource=rotd&amp;referringContentType=home page&amp;clickId=cardslot 1" data-internal-referrer-link="rotd" data-click-id="cardslot 1" ar-infinite-scroll-page="1" class="ng-isolate-scope" target="_self">
                     Game Day Chili Pups
                 </a>
-                <div class="grid-col__video"><a href="/recipe/245931/game-day-chili-pups/?internalSource=rotd&amp;referringContentType=home page&amp;clickId=cardslot 1" data-internal-referrer-link="rotd" data-click-id="cardslot 1" ar-infinite-scroll-page="1" class="ng-isolate-scope" target="_self">
-                    </a><a href="/video/5409/game-day-chili-pups?internalSource=rotd&amp;referringContentType=home page&amp;clickId=cardslot 1" data-internal-referrer-link="rotd" data-click-id="cardslot 1" class="ng-isolate-scope" target="_self"><span class="icon--videoplay-small-white"></span></a>
-                </div>
             </h3>
             <a href="/recipe/245931/game-day-chili-pups/?internalSource=rotd&amp;referringContentType=home page&amp;clickId=cardslot 1" data-internal-referrer-link="rotd" data-click-id="cardslot 1" class="ng-isolate-scope" target="_self">
                 <div class="grid-col__ratings">
