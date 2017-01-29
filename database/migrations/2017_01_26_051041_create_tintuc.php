@@ -65,17 +65,6 @@ class CreateTintuc extends Migration
             });
         }
 
-        Schema::creates('new_pictures', function (Blueprint $table) {
-           $table->increments('nep_id');
-           $table->integer('nep_new_id')->unsigned()->index();
-           $table->string('nep_picture');
-           $table->string('nep_note');
-           $table->string('nep_description');
-           $table->tinyInteger('nep_main_picture');
-           $table->tinyInteger('nep_version'); // mobile and desktop
-            $table->timestamps();
-        });
-
         Schema::creates('new_fastfoods', function (Blueprint $table) {
            $table->integer('nef_new_id')->unsigned()->unique()->index();
            $table->integer('nef_price');
@@ -122,7 +111,6 @@ class CreateTintuc extends Migration
     {
         Schema::dropIfExists('tintucs');
         Schema::dropIfExists('new_fastfoods');
-        Schema::dropIfExists('new_pictures');
 
         for ($i=1; $i<=20; $i++)
         {
