@@ -14,7 +14,13 @@ class CreateStaticsTable extends Migration
     public function up()
     {
         Schema::create('statics', function (Blueprint $table) {
-            $table->increments('id');
+            $table->increments('sta_id');
+            $table->integer('sta_category_id')->unsigned()->index();
+            $table->string('sta_title');
+            $table->tinyInteger('sta_order');
+            $table->text('sta_description');
+            $table->string('sta_new');
+            $table->string('sta_status');
             $table->timestamps();
         });
     }

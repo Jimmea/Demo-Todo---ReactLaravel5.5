@@ -13,7 +13,7 @@ class CreateTintucPicturesTable extends Migration
      */
     public function up()
     {
-        Schema::creates('new_pictures', function (Blueprint $table) {
+        Schema::create('new_pictures', function (Blueprint $table) {
             $table->increments('nep_id');
             $table->integer('nep_new_id')->unsigned()->index();
             $table->string('nep_picture');

@@ -50,7 +50,7 @@ class CreateTintuc extends Migration
 
         for ($i=1; $i<=20; $i++)
         {
-            Schema::creates('new_content_'.$i, function (Blueprint $table) {
+            Schema::create('new_content_'.$i, function (Blueprint $table) {
                 $table->integer('nec_id')->unsigned()->index();
                 $table->string('nec_video');
                 $table->text('nec_content');
@@ -65,7 +65,7 @@ class CreateTintuc extends Migration
             });
         }
 
-        Schema::creates('new_fastfoods', function (Blueprint $table) {
+        Schema::create('new_fastfoods', function (Blueprint $table) {
            $table->integer('nef_new_id')->unsigned()->unique()->index();
            $table->integer('nef_price');
            $table->integer('nef_price_ship');
@@ -87,7 +87,7 @@ class CreateTintuc extends Migration
         });
 
         for ($i=1; $i<=10; $i++) {
-            Schema::creates('new_comment_'.$i, function (Blueprint $table) {
+            Schema::create('new_comment_'.$i, function (Blueprint $table) {
                 $table->increments('nec_id');
                 $table->integer('nec_user_id');
                 $table->integer('nec_parent_id');

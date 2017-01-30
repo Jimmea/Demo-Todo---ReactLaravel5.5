@@ -14,7 +14,10 @@ class CreateIpLocationsTable extends Migration
     public function up()
     {
         Schema::create('ip_locations', function (Blueprint $table) {
-            $table->increments('id');
+            $table->increments('il_id');
+            $table->string('il_location');
+            $table->string('il_isvn');
+            $table->string('il_vncity');
             $table->timestamps();
         });
     }

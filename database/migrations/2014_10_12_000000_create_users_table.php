@@ -34,8 +34,8 @@ class CreateUsersTable extends Migration
 
         Schema::create('user_socials', function (Blueprint $table) {
             $table->increments('uss_id');
-            $table->string('uss_user_id')->unsigned()->index();
-            $table->string('uss_provider_id');
+            $table->integer('uss_user_id')->unsigned()->index();
+            $table->integer('uss_provider_id');
             $table->string('uss_provider');
             $table->timestamps();
         });

@@ -14,7 +14,10 @@ class CreateTranslateDisplaysTable extends Migration
     public function up()
     {
         Schema::create('translate_displays', function (Blueprint $table) {
-            $table->increments('id');
+            $table->increments('tra_id');
+            $table->string('tra_md5');
+            $table->string('tra_text');
+            $table->string('tra_source');
             $table->timestamps();
         });
     }

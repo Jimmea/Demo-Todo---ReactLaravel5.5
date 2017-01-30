@@ -14,7 +14,31 @@ class CreateCitiesTable extends Migration
     public function up()
     {
         Schema::create('cities', function (Blueprint $table) {
-            $table->increments('id');
+            $table->increments('cit_id');
+            $table->string('cit_name');
+            $table->string('cit_slug');
+            $table->string('cit_md5');
+            $table->tinyInteger('cit_parent_id');
+            $table->tinyInteger('cit_order');
+            $table->string('cit_short');
+            $table->string('cit_phone');
+            $table->string('cit_phone_reference');
+            $table->string('cit_map_longitude');
+            $table->string('cit_map_latitude');
+            $table->tinyInteger('cit_status');
+            $table->string('cit_cskh_ym');
+            $table->string('cit_cskh_phone');
+            $table->string('cit_free_transport');
+            $table->string('cit_param1');
+            $table->string('cit_param2');
+            $table->string('cit_param3');
+            $table->string('cit_param4');
+            $table->string('cit_param5');
+            $table->string('cit_param6');
+            $table->string('cit_param7');
+            $table->string('cit_param8');
+            $table->string('cit_param9');
+            $table->string('cit_param10');
             $table->timestamps();
         });
     }
