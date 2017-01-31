@@ -3,14 +3,13 @@
 /**
  * Created by PhpStorm.
  * User: hung
- * Date: 23/01/17
- * Time: 15:31
+ * Date: 01/02/17
+ * Time: 00:24
  */
 
 /*$url ="http://allrecipes.com/recipe/20045/cabbage-rolls-ii/?internalSource=popular&referringContentType=home%20page&clickId=cardslot%206";
 echo (new \SupportDom($url,array('index'=> 0, 'tag'=> 'html')))->clearAttributeAnguarljs();*/
-
-class SupportDom
+class ClearAttrHtmlDom
 {
     private $strHtml    = null;
     private $index      = 0;
@@ -94,7 +93,7 @@ class SupportDom
         $strHtml = '<html>' .
             '<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">' .
             '<body>' .
-                $strHtml .
+            $strHtml .
             '</body>' .
             '</html>';
 

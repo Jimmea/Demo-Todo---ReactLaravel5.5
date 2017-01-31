@@ -48,6 +48,9 @@ class AdminServiceProvider extends ServiceProvider
         $this->mergeConfigFrom(
             __DIR__.'/../Config/config.php', 'admin'
         );
+        $this->mergeConfigFrom(
+            __DIR__.'/../Config/asset.php', 'admin.asset'
+        );
     }
 
     /**

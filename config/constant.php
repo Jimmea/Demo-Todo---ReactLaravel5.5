@@ -22,4 +22,4 @@ define('SHOP_V1', 'shop::v1');
 define('USER_V1', 'user::v1');
 define('JOB_V1', 'job::v1');
 define('FASTFOOD_V1', 'fastfood::v1');
-define('ADMIN_V1', 'admin::v1');
+define('ADMIN_VIEW', 'admin::modules.');
