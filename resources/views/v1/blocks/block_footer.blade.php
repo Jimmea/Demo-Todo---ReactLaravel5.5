@@ -3,7 +3,7 @@
         <div class="col-25">
             <article class="grid-col grid-col--tiles">
                 <ul>
-                    <li>a href=""><img src="" alt=""></a></li>
+                    <li><a href=""><img src="" alt=""></a></li>
                     <li><a href="">Gia đình nơi hạnh phúc tinh thần lớn nhất</a></li>
                 </ul>
             </article>
