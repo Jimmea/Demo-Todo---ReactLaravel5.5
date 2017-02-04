@@ -22,4 +22,9 @@ class AdminController extends Controller
     {
         return view(ADMIN_VIEW.'dashboards.section');
     }
+
+    public function getMaster()
+    {
+        return view(ADMIN_VIEW.'dashboards.master');
+    }
 }

@@ -12,5 +12,6 @@
 |
 */
 
+require __DIR__ . '/Helpers/support_html.php';
 require __DIR__ . '/Config/asset.php';
 require __DIR__ . '/Http/routes.php';

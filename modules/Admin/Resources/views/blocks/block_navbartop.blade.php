@@ -1,7 +1,7 @@
 <nav class="navbar navbar-default navbar-static-top m-b-0">
     <div class="navbar-header">
         <a class="navbar-toggle hidden-sm hidden-md hidden-lg " href="javascript:void(0)" data-toggle="collapse" data-target=".navbar-collapse"><i class="ti-menu"></i></a>
-        <div class="top-left-part"><a class="logo" href="javascript:void(0)"><b><img src="backend/imgs/eliteadmin-logo.png" alt="home" /></b><span class="hidden-xs"><strong>elite</strong>hospital</span></a></div>
+        <div class="top-left-part"><a class="logo" href="javascript:void(0)"><b><img src="{{ asset('backend/imgs/eliteadmin-logo.png') }}" alt="home" /></b><span class="hidden-xs"><strong>elite</strong>hospital</span></a></div>
         <ul class="nav navbar-top-links navbar-left hidden-xs">
             <li><a href="javascript:void(0)" class="open-close hidden-xs waves-effect waves-light"><i class="icon-arrow-left-circle ti-menu"></i></a></li>
             <li>
@@ -23,28 +23,28 @@
                     <li>
                         <div class="message-center">
                             <a href="#">
-                                <div class="user-img"> <img src="backend/imgs/pawandeep.jpg" alt="user" class="img-circle"> <span class="profile-status online pull-right"></span> </div>
+                                <div class="user-img"> <img src="{{ asset('backend/imgs/pawandeep.jpg') }}" alt="user" class="img-circle"> <span class="profile-status online pull-right"></span> </div>
                                 <div class="mail-contnet">
                                     <h5>Pavan kumar</h5>
                                     <span class="mail-desc">Just see the my admin!</span> <span class="time">9:30 AM</span>
                                 </div>
                             </a>
                             <a href="#">
-                                <div class="user-img"> <img src="backend/imgs/sonu.jpg" alt="user" class="img-circle"> <span class="profile-status busy pull-right"></span> </div>
+                                <div class="user-img"> <img src="{{ asset('backend/imgs/sonu.jpg') }}" alt="user" class="img-circle"> <span class="profile-status busy pull-right"></span> </div>
                                 <div class="mail-contnet">
                                     <h5>Sonu Nigam</h5>
                                     <span class="mail-desc">I've sung a song! See you at</span> <span class="time">9:10 AM</span>
                                 </div>
                             </a>
                             <a href="#">
-                                <div class="user-img"> <img src="backend/imgs/arijit.jpg" alt="user" class="img-circle"> <span class="profile-status away pull-right"></span> </div>
+                                <div class="user-img"> <img src="{{ asset('backend/imgs/arijit.jpg') }}" alt="user" class="img-circle"> <span class="profile-status away pull-right"></span> </div>
                                 <div class="mail-contnet">
                                     <h5>Arijit Sinh</h5>
                                     <span class="mail-desc">I am a singer!</span> <span class="time">9:08 AM</span>
                                 </div>
                             </a>
                             <a href="#">
-                                <div class="user-img"> <img src="backend/imgs/pawandeep.jpg" alt="user" class="img-circle"> <span class="profile-status offline pull-right"></span> </div>
+                                <div class="user-img"> <img src="{{ asset('backend/imgs/pawandeep.jpg') }}" alt="user" class="img-circle"> <span class="profile-status offline pull-right"></span> </div>
                                 <div class="mail-contnet">
                                     <h5>Pavan kumar</h5>
                                     <span class="mail-desc">Just see the my admin!</span> <span class="time">9:02 AM</span>
@@ -58,7 +58,6 @@
                 </ul>
                 <!-- /.dropdown-messages -->
             </li>
-            <!-- /.dropdown -->
             <li class="dropdown">
                 <a class="dropdown-toggle waves-effect waves-light" data-toggle="dropdown" href="#">
                     <i class="icon-note"></i>
@@ -115,17 +114,15 @@
                 </ul>
                 <!-- /.dropdown-tasks -->
             </li>
-            <!-- /.dropdown -->
+            <li><a href="">Website setting</a></li>
             <li class="dropdown">
                 <a class="dropdown-toggle profile-pic" data-toggle="dropdown" href="#">
-                    <img src="backend/imgs/d1.jpg" alt="user-img" width="36" class="img-circle">
-                    <b class="hidden-xs">Hi. Bill </b>
+                    <img src="{{ asset('backend/imgs/d1.jpg') }}" alt="user-img" width="36" class="img-circle">
+                    <b class="hidden-xs">Xin chào!. Bill </b>
                 </a>
                 <ul class="dropdown-menu dropdown-user animated flipInY">
                     <li><a href="javascript:void(0)"><i class="icon-user"></i>  My Profile</a></li>
-                    <li><a href="javascript:void(0)"><i class="icon-envelope-open"></i>  Inbox</a></li>
-                    <li><a href="javascript:void(0)"><i class="icon-settings"></i>  Account Setting</a></li>
-                    <li><a href="login.html"><i class="icon-logout"></i>  Logout</a></li>
+                    <li><a href=""><i class="icon-logout"></i>  Logout</a></li>
                 </ul>
                 <!-- /.dropdown-user -->
             </li>

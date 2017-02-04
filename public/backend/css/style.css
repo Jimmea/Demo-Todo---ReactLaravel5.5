@@ -647,7 +647,7 @@ label {
 .input-sm {
   height: 30px;
   padding: 5px 10px;
-  font-size: 12px;
+  font-size: 14px;
   line-height: 1.5;
 }
 .input-lg {
@@ -13375,7 +13375,7 @@ ul.pro-amenities li span i {
     font-weight: bold;
 }
 .white-box {    
-    padding: 10px;
+    padding: 15px;
 }
 #tabs ul > li > a {
     padding: 5px 10px;

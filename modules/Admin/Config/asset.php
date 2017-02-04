@@ -6,7 +6,8 @@ return [
         'backend/css//bootstrap-datepicker.min.css',
         'backend/css/animate.css',
         'backend/css/style.css',
-        'backend/css/colors/blue.css'
+        'backend/css/colors/blue.css',
+        'backend/css/customer.css'
     ],
     'js' => [
         'backend/js/plugins/jquery.min.js',

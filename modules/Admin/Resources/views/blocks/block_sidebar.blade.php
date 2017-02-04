@@ -5,15 +5,16 @@
             <li class="sidebar-search hidden-sm hidden-md hidden-lg">
                 <!-- input-group -->
                 <div class="input-group custom-search-form">
-                    <input type="text" class="form-control" placeholder="Search..."> <span class="input-group-btn">
+                    <input type="text" class="form-control" placeholder="Search...">
+                    <span class="input-group-btn">
                                 <button class="btn btn-default" type="button"> <i class="icon-magnifier"></i> </button>
-                                </span>
+                    </span>
                 </div>
                 <!-- /input-group -->
             </li>
             <li class="user-pro">
                 <a href="javascript:void(0)" class="waves-effect">
-                    <img src="backend/imgs/d1.jpg" alt="user-img" class="img-circle">
+                    <img src="{{ asset('backend/imgs/d1.jpg') }}" alt="user-img" class="img-circle">
                     <span class="hide-menu">Dr. Steve Gection</span>
                 </a>
             </li>
