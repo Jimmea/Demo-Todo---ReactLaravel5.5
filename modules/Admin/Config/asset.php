@@ -1,7 +1,7 @@
 <?php
 return [
     'css' => [
-        'backend/bootstrap/dist/css/bootstrap.min.css',
+        'backend/bootstrap/css/bootstrap.min.css',
         'backend/css/sidebar-nav.min.css',
         'backend/css//bootstrap-datepicker.min.css',
         'backend/css/animate.css',
@@ -11,7 +11,7 @@ return [
     ],
     'js' => [
         'backend/js/plugins/jquery.min.js',
-        'backend/bootstrap/dist/js/bootstrap.min.js',
+        'backend/bootstrap/js/bootstrap.min.js',
         'backend/js/plugins/sidebar-nav.min.js',
         'backend/js/plugins/jquery.slimscroll.js',
         'backend/js/plugins/waves.js',

@@ -47,3 +47,30 @@ if (!function_exists('remove_keyword_domain'))
         return $str;
     }
 }
+
+if (! function_exists('get_query_array'))
+{
+    function get_query_array()
+    {
+        $string = get_query_string();
+        parse_str($string, $query);
+        return $query;
+    }
+}
+
+if (!function_exists('convert_array_tostring'))
+{
+    function convert_array_tostring ($params, $url_params='')
+    {
+        // Tạo đoạn url chứa tham số
+        foreach ($params as $key=>$value)
+        {
+            if ($url_params == '')
+                $url_params .= $key . '=' . urlencode($value);
+            else
+                $url_params .= '&' . $key . '=' . urlencode($value);
+        }
+
+        return $url_params;
+    }
+}

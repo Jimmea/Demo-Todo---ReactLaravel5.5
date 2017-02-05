@@ -15,21 +15,20 @@ class CreateAdminsTable extends Migration
     {
         Schema::create('admin_users', function (Blueprint $table) {
             $table->increments('adm_id');
-            $table->string('adm_loginname');
-            $table->string('adm_password');
-            $table->string('adm_name');
-            $table->string('adm_email');
-            $table->string('adm_address');
-            $table->string('adm_phone');
-            $table->string('adm_mobile');
-            $table->string('adm_access_module');
-            $table->string('adm_access_category');
-            $table->integer('adm_date');
-            $table->integer('adm_isadmin');
-            $table->integer('adm_active');
-            $table->integer('adm_delete');
-            $table->integer('adm_all_category');
-            $table->integer('adm_edit_all');
+            $table->string('adm_loginname')->nullable();
+            $table->string('adm_name')->nullable();
+            $table->string('adm_phone')->nullable();
+            $table->string('adm_password')->nullable();
+            $table->string('adm_email')->nullable();
+            $table->string('adm_picture')->nullable();
+            $table->string('adm_address')->nullable();
+            $table->string('adm_access_module')->nullable();
+            $table->string('adm_access_category')->nullable();
+            $table->integer('adm_isadmin')->nullable();
+            $table->integer('adm_active')->nullable();
+            $table->integer('adm_delete')->nullable();
+            $table->integer('adm_all_category')->nullable();
+            $table->integer('adm_edit_all')->nullable();
             $table->timestamps();
         });
 

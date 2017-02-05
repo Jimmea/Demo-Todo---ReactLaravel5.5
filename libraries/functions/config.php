@@ -30,3 +30,4 @@ require_once dirname(__FILE__) . '/support_date.php';
 require_once dirname(__FILE__) . '/support_crawl.php';
 require_once dirname(__FILE__) . '/support_sql.php';
 require_once dirname(__FILE__) . '/support_session.php';
+require_once dirname(__FILE__) . '/support_form.php';
