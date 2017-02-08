@@ -30,3 +30,29 @@ if (! function_exists('bread_crumb'))
         return $bread;
     }
 }
+
+
+if (! function_exists('note_required'))
+{
+    function note_required()
+    {
+        return '<small class="text-danger">Những ô có dấu sao (*) là bắt buộc phải nhập.</small>';
+    }
+}
+
+if (! function_exists('box_title'))
+{
+    function box_title($title, $message = true)
+    {
+        return '<h3 class="box-title">'.$title.'</h3>'.($message ? note_required() : '');
+    }
+}
+
+if (! function_exists('box_upload'))
+{
+    function box_upload()
+    {
+        return '<span class="input-group-addon getlink_local" title="My devide"><i class="icon-cloud-upload"></i></span>
+        <span class="input-group-addon getlink_media" title="My media"><i class="icon-picture"></i></span>';
+    }
+}

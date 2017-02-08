@@ -3,4 +3,32 @@
     margin-top: 0;
     padding: 5px 0;
     float: left;
+<<<<<<< HEAD
+=======
+}
+.form-group {
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+    margin-bottom: 15px !important;
+}
+.bold {
+    font-weight: bold !important;
+}
+.form-inline > label {
+    margin-right: 15px;
+}
+
+.table-bordered tbody > tr > td {
+    padding: 10px;
+}
+.mg-top-0 {
+    margin-top: 0;
+}
+.mg-bottom-0 {
+    margin-bottom: 0;
+}
+.pagination
+{
+    margin: 0 !important;
+>>>>>>> 3390a7e96e5d47ba9652b289b54ee082e230de91
 }

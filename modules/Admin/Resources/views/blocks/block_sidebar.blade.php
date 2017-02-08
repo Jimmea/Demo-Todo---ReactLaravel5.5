@@ -50,6 +50,7 @@
                     <li><a href="weather.html">Weather Icons</a></li>
                 </ul>
             </li>
+
             <li> <a href="javascript:void(0)" class="waves-effect">
                     <i class="icon-wrench "></i>
                     <span class="hide-menu">Setting config</span></a>
@@ -58,7 +59,10 @@
                     <i class="icon-people p-r-10"></i>
                     <span class="hide-menu">Manager account</span></a>
             </li>
-
+            <li> <a href="javascript:void(0)" class="waves-effect">
+                    <i class="icon-eye p-r-10"></i>
+                    <span class="hide-menu">Config display</span></a>
+            </li>
         </ul>
     </div>
 </div>

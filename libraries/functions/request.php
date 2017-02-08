@@ -30,11 +30,23 @@ if (! function_exists('get_value'))
                 if (isset($_GET[$value_name])) $value = $_GET[$value_name];
                 break;
         }
-        $valueArray = array("int" => @intval($value), "str" => trim(@strval($value)), "flo" => @floatval($value), "dbl" => @doubleval($value), "arr" => $value);
-        foreach ($valueArray as $key => $returnValue) {
-            if ($data_type == $key) {
-                if ($advance != 0) {
-                    switch ($advance) {
+        $valueArray = array
+        (
+            "int" => @intval($value),
+            "str" => trim(@strval($value)),
+            "flo" => @floatval($value),
+            "dbl" => @doubleval($value),
+            "arr" => $value
+        );
+
+        foreach ($valueArray as $key => $returnValue)
+        {
+            if ($data_type == $key)
+            {
+                if ($advance != 0)
+                {
+                    switch ($advance)
+                    {
                         case 1:
                             $returnValue = replace_mq($returnValue);
                             break;
@@ -47,7 +59,12 @@ if (! function_exists('get_value'))
                     }
                 }
                 //Do số quá lớn nên phải kiểm tra trước khi trả về giá trị
-                if (($data_type != "str") && ($data_type != "arr") && (strval($returnValue) == "INF")) return 0;
+                if (
+                    ($data_type != "str") &&
+                    ($data_type != "arr") &&
+                    (strval($returnValue) == "INF"))
+                    return 0;
+
                 return $returnValue;
                 break;
             }
@@ -56,7 +73,9 @@ if (! function_exists('get_value'))
     }
 }
 
-if (!function_exists('get_param'))
+
+
+if (! function_exists('get_param'))
 {
     function get_param($param)
     {
@@ -69,6 +88,27 @@ if (!function_exists('get_uri'))
     /**
      * Tra ve cac tham so query tren url
      *
+=======
+if (! function_exists('get_query_string'))
+{
+    /**
+     * Created by : BillJanny
+     * Date: 2:24 PM - 2/5/2017
+     * Tra ve tat ca cac tham so query tren url
+     * @param void
+     * @return string
+     */
+    function get_query_string()
+    {
+        return $_SERVER['QUERY_STRING'];
+    }
+}
+
+
+if (! function_exists('get_uri'))
+{
+    /**
+     * Tra ve duong dan cung voi cac tham so query tren url
      * @return string
      */
     function get_uri()
@@ -77,8 +117,8 @@ if (!function_exists('get_uri'))
     }
 }
 
-if (!function_exists('get_full_url')) {
 
+if (! function_exists('get_full_url')) {
     /**
      *  Tra ve toan bo duong dan url
      *
@@ -97,7 +137,8 @@ if (!function_exists('get_full_url')) {
  * @param array $append : mang truyen vao can append
  * @return str
  */
-if (!function_exists('append_param_url'))
+
+if (! function_exists('append_param_url'))
 {
     function append_param($append= array(), $page= array())
     {

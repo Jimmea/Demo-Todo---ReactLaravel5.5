@@ -8,6 +8,7 @@
     @include('admin::blocks.block_css')
     @yield('css')
     @yield('js')
+    @include('admin::blocks.block_js')
 </head>
 <body>
     <div id="wrapper">
@@ -15,6 +16,7 @@
         @include('admin::blocks.block_sidebar')
         <div id="page-wrapper">
             <div class="container-fluid" id="layout-master">
+                @include('admin::blocks.block_flash')
                 @yield('content')
             </div>
         </div>

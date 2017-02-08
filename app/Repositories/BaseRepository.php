@@ -8,18 +8,48 @@
 
 namespace App\Repositories;
 
+use Illuminate\Foundation\Validation\ValidatesRequests;
 
 abstract class BaseRepository
 {
+    use ValidatesRequests;
+    protected $total = 0;
     /**
      * Get all model
      * @return \Illuminate\Database\Eloquent\Collection
      */
-    public function getAll()
+    public function getAll($filter = false, $sort = false, $paginate = false)
     {
-        return $this->model->all();
+        if ($filter === false && $sort === false && $paginate === false)
+        {
+            return $this->model->all();
+        }
+
+        $query = $this->model->where(function($q) use ($filter)
+        {
+            if (!empty($filter))
+            {
+                foreach ($filter as $f)
+                {
+                    list($col, $ope, $val) = $f;
+                    $q->where($col, $ope, $val);
+                }
+            }
+        });
+
+        if ($sort)
+        {
+            list($col, $dir) = $sort;
+            $query->orderBy($col, $dir);
+        }
+
+        return $paginate ? $query->paginate($paginate) : $query->get();
     }
 
+    public function getTotal()
+    {
+        return $this->total;
+    }
     /**
      * Get a specify model
      * @param  int $id model ID
@@ -88,7 +118,6 @@ abstract class BaseRepository
 
     /**
      * Delete a model
-     *
      * @param int|array int $id model ID
      * @return bool
      */

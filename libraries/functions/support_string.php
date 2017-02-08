@@ -43,9 +43,10 @@ if (! function_exists('format_currency'))
     }
 }
 
+
 if (!function_exists('convert_array_tostring'))
 {
-    function convert_array_tostring_v2 ($params, $url_params='')
+    function convert_array_tostring ($params, $url_params='')
     {
         // Tạo đoạn url chứa tham số
         foreach ($params as $key=>$value)

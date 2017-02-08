@@ -22,4 +22,8 @@ class NewDetailController extends Controller
      * @param string $slug : url rewrite cua bang new
      * @return void
      */
+    public function getNewDetail($id= 0,$slug='')
+    {
+        return view(NEW_V1.'.news.index');
+    }
 }

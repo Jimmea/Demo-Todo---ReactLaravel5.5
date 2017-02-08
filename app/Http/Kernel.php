@@ -3,6 +3,9 @@
 namespace App\Http;
 
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
+use Modules\Admin\Http\Middleware\AdminAuthenticated;
+use Modules\Admin\Http\Middleware\AdminCheckPermission;
+use Modules\Admin\Http\Middleware\RedirectIfAdminAuthenticated;
 
 class Kernel extends HttpKernel
 {
@@ -50,6 +53,9 @@ class Kernel extends HttpKernel
         'auth.basic' => \Illuminate\Auth\Middleware\AuthenticateWithBasicAuth::class,
         'bindings' => \Illuminate\Routing\Middleware\SubstituteBindings::class,
         'can' => \Illuminate\Auth\Middleware\Authorize::class,
+        'checkPermission' => AdminCheckPermission::class,
+        'checkadminlogin' => AdminAuthenticated::class,
+        'guest.admin' => RedirectIfAdminAuthenticated::class,
         'guest' => \App\Http\Middleware\RedirectIfAuthenticated::class,
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
     ];

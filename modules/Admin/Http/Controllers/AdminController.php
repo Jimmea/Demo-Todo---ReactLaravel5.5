@@ -4,27 +4,47 @@ namespace Modules\Admin\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
-use Illuminate\Routing\Controller;
+use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Config;
 
 class AdminController extends Controller
 {
     /**
-     * Display a listing of the resource.
-     * @return Response
+     * Filter list
+     * @var array
      */
-    public function index()
+    protected $filter = [];
+
+    /**
+     * Created by : BillJanny
+     * Date: 11:42 PM - 2/4/2017
+     * Set mot vai thuoc tinh filter
+     * @param $field
+     * @param $ope
+     * @param $defValue
+     * @return
+     */
+    public function setFilter(Request $request, $field, $ope, $defValue = null)
     {
-        return view(ADMIN_VIEW.'dashboards.index');
+        $value = ($defValue == null) ? $request->get($field) : $defValue;
+
+        if ($value != '' || $value != null)
+        {
+            if ($ope == 'LIKE')
+            {
+                $value = '%' . trim($value) . '%';
+            }
+
+            $this->filter[] = [$field, $ope, trim($value)];
+        }
     }
 
-    public function getContentDashboard()
+    /**
+     * Get all filter
+     * @return [type] [description]
+     */
+    public function getFilter()
     {
-        return view(ADMIN_VIEW.'dashboards.section');
-    }
-
-    public function getMaster()
-    {
-        return view(ADMIN_VIEW.'dashboards.master');
+        return $this->filter;
     }
 }
