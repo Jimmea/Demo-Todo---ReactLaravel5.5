@@ -3,6 +3,8 @@
     margin-top: 0;
     padding: 5px 0;
     float: left;
+<<<<<<< HEAD
+=======
 }
 .form-group {
     margin-left: 0 !important;
@@ -28,4 +30,5 @@
 .pagination
 {
     margin: 0 !important;
+>>>>>>> 3390a7e96e5d47ba9652b289b54ee082e230de91
 }

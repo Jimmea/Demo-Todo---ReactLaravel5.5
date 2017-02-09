@@ -8,7 +8,6 @@ use Illuminate\Http\Request;
 
 class AccountController extends AdminController
 {
-
     public function __construct(EloquentAdmin $eloquentAdmin)
     {
         $this->admin = $eloquentAdmin;
@@ -59,6 +58,7 @@ class AccountController extends AdminController
         $this->admin->validateRegister($request);
         $data = $request->except('_token');
         $data['adm_active'] = 1;
+        $data['adm_password'] = bcrypt($data['adm_password']);
         $admin = $this->admin->store($data);
 
         set_flash('success', 'Create a new admin successful');
@@ -91,6 +91,10 @@ class AccountController extends AdminController
     {
         $this->admin->validateRegister($request, $adm_id);
         $data = $request->except('_token');
+        if ($data['adm_password'])
+        {
+            $data['adm_password'] = bcrypt($data['adm_password']);
+        }
         $admin = $this->admin->update($adm_id, $data);
 
         set_flash('success', 'Update a admin successful');
@@ -103,7 +107,7 @@ class AccountController extends AdminController
      * @param int $id : truong  khoa chinh cua bang
      * @return void
      */
-    public function getDeleteAccount(Request $request, $id)
+    public function getDelete(Request $request, $id)
     {
         if ($id == 1)
         {
@@ -112,16 +116,50 @@ class AccountController extends AdminController
         }
 
         $admIdArr = $request->get('adm_id');
-
-        $delete = $this->admin->delete($id);
-        $delete ? set_flash('success', 'Delete a admin successful')
-                : set_flash('error', 'Delete a admin not successful. Please refresh your browser');
+        $this->admin->delete($id);
+        set_flash('success', 'Delete a admin successful');
 
         return redirect()->back();
     }
 
-    public function getProcessQuickAccount(Request $request)
+    /**
+     * Created by : BillJanny
+     * Date: 11:10 PM - 2/8/2017
+     * Xu ly nhanh cac hanh dong
+     * @param void
+     * @return json
+     */
+    public function getProcessQuick(Request $request)
     {
+        if ($request->ajax())
+        {
+            $action     = strtolower(get_value('action','str', 'POST'));
+            switch ($action)
+            {
+                case 'deletemany':
+                    $adminId    = get_value('admin_id','arr', 'POST');
+                    foreach ($adminId as $key => $value)
+                    {
+                        // Khong cho phep xoa di phan tu admin dau tien
+                        if ($value == 1)
+                        {
+                            unset($adminId[$key]);
+                        }
+                    }
+                    $this->admin->delete($adminId);
+                    return response()->json(['status'=>1]);
+                    break;
 
+                case 'editone':
+                    $adminId    = get_value('admin_id','int', 'POST');
+                    $admin      = $this->admin->find($adminId);
+                    $active     = ($admin->adm_active == 1) ? 0 : 1;
+                    $admin->adm_active = $active;
+                    $admin->save();
+
+                    return response()->json(['status'=>1, 'msg'=> 'Update successfully']);
+                    break;
+            }
+        }
     }
 }

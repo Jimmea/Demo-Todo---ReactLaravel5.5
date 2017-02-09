@@ -13,6 +13,7 @@ if (! function_exists('get_value'))
     {
 
         $value = $default_value;
+        $method = strtoupper($method);
         switch ($method) {
             case "GET":
                 if (isset($_GET[$value_name])) $value = $_GET[$value_name];
@@ -59,7 +60,6 @@ if (! function_exists('get_value'))
                             break;
                     }
                 }
-
                 //Do số quá lớn nên phải kiểm tra trước khi trả về giá trị
                 if (
                     ($data_type != "str") &&
@@ -71,10 +71,11 @@ if (! function_exists('get_value'))
                 break;
             }
         }
-
         return (intval($value));
     }
 }
+
+
 
 if (! function_exists('get_param'))
 {
@@ -84,6 +85,12 @@ if (! function_exists('get_param'))
     }
 }
 
+if (!function_exists('get_uri'))
+{
+    /**
+     * Tra ve cac tham so query tren url
+     *
+=======
 if (! function_exists('get_query_string'))
 {
     /**
@@ -112,8 +119,8 @@ if (! function_exists('get_uri'))
     }
 }
 
-if (! function_exists('get_full_url')) {
 
+if (! function_exists('get_full_url')) {
     /**
      *  Tra ve toan bo duong dan url
      *
@@ -132,6 +139,7 @@ if (! function_exists('get_full_url')) {
  * @param array $append : mang truyen vao can append
  * @return str
  */
+
 if (! function_exists('append_param_url'))
 {
     function append_param($append= array(), $page= array())

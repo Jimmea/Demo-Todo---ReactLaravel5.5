@@ -8,7 +8,6 @@
 
 namespace App\Repositories;
 
-
 use Illuminate\Foundation\Validation\ValidatesRequests;
 
 abstract class BaseRepository
@@ -125,7 +124,8 @@ abstract class BaseRepository
     public function delete($id)
     {
         $model  = $this->getById($id);
-        $delete = is_array($id) ? $model->destroy($id) : $model->delete();
+        $delete = is_array($id) ? $this->model->destroy($id) : $model->delete();
+
         return $delete;
     }
 

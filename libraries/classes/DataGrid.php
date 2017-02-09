@@ -8,57 +8,58 @@
  */
 class DataGrid
 {
-    public $stt 			    = 0;
-    public $arrayField 		    = array();
-    public $arrayLabel 		    = array();
-    public $arrayType	 	    = array();
-    public $arrayAttribute	    = array();
-    public $field_id			=  '';
-    public $field_name		    =  '';
-    public $image_path		    = '../../resource/images/grid/';
-    public $fs_border			= "#C3DAF9";
-    public $html				= '';
-    public $scriptText		    = '';
-    public $title				= '';
-    public $arraySort		    = array();
-    public $arraySearch		    = array();
-    public $arrayAddSearch	    = array();
-    public $addHTML			    = array();
-    public $quickEdit 		    = false;
-    public $total_list		    = 0;
-    public $total_record		= 0;
-    public $page_size			= 20;
-    public $edit_ajax			= false;
-    public $showstt			    = true;
-    public $showid				= true;
-    public $arrayFieldLevel	    = array();
-    public $delete 			    = true;
-    public $fs_filepath 		= "";
+    public $stt = 0;
+    public $items;
+    public $arrayField = array();
+    public $arrayLabel = array();
+    public $arrayType = array();
+    public $arrayAttribute = array();
+    public $field_id = '';
+    public $field_name = '';
+    public $image_path = '../../resource/images/grid/';
+    public $fs_border = "#C3DAF9";
+    public $html = '';
+    public $scriptText = '';
+    public $title = '';
+    public $arraySort = array();
+    public $arraySearch = array();
+    public $arrayAddSearch = array();
+    public $addHTML = array();
+    public $quickEdit = false;
+    public $total_list = 0;
+    public $total_record = 0;
+    public $page_size = 20;
+    public $edit_ajax = false;
+    public $showstt = true;
+    public $showid = true;
+    public $arrayFieldLevel = array();
+    public $delete = true;
+    public $fs_filepath = "";
 
-    public $sort				= "asc";
-    public $sortname			= "";
-    public $url_full			= "";
-    public $url_short			= "";
-    public $url_list			= "/list?";
-    public $url_active		    = "/active?";
-    public $url_edit			= "/edit?";
-    public $url_delete		    = "/delete?";
-    public $url_quick_edit	    = "";
+    public $sort = "asc";
+    public $sortname = "";
+    public $url_full = "";
+    public $url_short = "";
+    public $url_list = "/list?";
+    public $url_active = "/active?";
+    public $url_edit = "/edit?";
+    public $url_delete = "/delete?";
+    public $url_quick_edit = "";
 
 
     public function __construct()
     {
 
     }
+
     public function setImagePath()
     {
         $this->image_path = STATIC_MEDIA;
     }
 
-    public function setLimit($limit=0)
+    public function setLimit($limit = 0)
     {
-        if ($limit >0)
-        {
+        if ($limit > 0) {
             $this->page_size;
         }
     }
@@ -92,29 +93,37 @@ class DataGrid
      */
     public function getAttribute($attrArr = array())
     {
-        $attrStr   = null;
+        $attrStr = null;
         $attrclass = '';
 
-        if ($attrArr)
-        {
-            foreach ($attrArr as $key => $value)
-            {
-                if ($key)
-                {
+        if ($attrArr) {
+            foreach ($attrArr as $key => $value) {
+                if ($key) {
                     $attrclass .= $value . ' ';
-                }else
-                {
-                    $attrStr = $key.'='.$value. ' ';
+                } else {
+                    $attrStr = $key . '=' . $value . ' ';
                 }
             }
         }
 
         return [
-            'attr'  => $attrStr,
+            'attr' => $attrStr,
             'class' => $attrclass
         ];
     }
 
+    public function makeCheckButton($value, $fieldAtive='')
+    {
+        $fieldAtive = $fieldAtive ? $fieldAtive : '';
+
+        return '<a href="javascript:void(0)"
+               data-action="updateStatus"
+               data-id="'.$value->adm_id.'"
+               data-check="'.($value->$fieldAtive ? 'checked' : '').'" 
+               class="execute_form fa fa-2x '.($value->$fieldAtive ? 'fa-check-circle' : 'fa-circle').'"></a>';
+    }
+
+//    $value->$this->field_status ?  \'fa-check-circle\' : \'fa-circle\'
     /**
      * Created by : BillJanny
      * Date: 6:16 PM - 2/5/2017
@@ -135,7 +144,6 @@ class DataGrid
         }
         return '<a href="'.route($router, $id).'" '.$attribute.' data-id="'.$id.'" class="icon-pencil button_edit btn btn-sm btn-info '.$attributeClass.'"></a>';
     }
-
 
     /**
      * Created by : BillJanny
@@ -167,6 +175,7 @@ class DataGrid
      */
     public function getTemplateFooter($data)
     {
+        $this->items = $data;
         $html = '<tfoot>
                     <tr>
                         <td colspan="10">

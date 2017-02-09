@@ -36,7 +36,7 @@ if (! function_exists('note_required'))
 {
     function note_required()
     {
-        return '<small class="text-danger">Những ô có dấu sao (*) là bắt buộc phải nhập.</small>';
+        return '<small class="text-danger">'.trans('admin::form.titleRequired').'.</small>';
     }
 }
 

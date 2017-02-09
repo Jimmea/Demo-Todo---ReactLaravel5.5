@@ -12,40 +12,33 @@
                 </div>
                 <!-- /input-group -->
             </li>
-
             <li class="user-pro">
                 <a href="javascript:void(0)" class="waves-effect">
                     <img src="{{ asset('backend/imgs/d1.jpg') }}" alt="user-img" class="img-circle">
                     <span class="hide-menu">Dr. Steve Gection</span>
                 </a>
             </li>
-
             <li> <a href="javascript:void(0)" class="waves-effect">
                     <i class="icon-grid"></i>
                     <span class="hide-menu">Menus</span></a>
             </li>
-
             <li> <a href="javascript:void(0)" class="waves-effect">
                     <i class="icon-folder"></i>
                     <span class="hide-menu">Category</span></a>
             </li>
-
             <li> <a href="javascript:void(0)" class="waves-effect">
                     <i class="icon-frame"></i>
                     <span class="hide-menu">Banners</span></a>
             </li>
-
             <li> <a href="javascript:void(0)" class="waves-effect">
                     <i class="icon-note"></i>
                     <span class="hide-menu">News</span></a>
             </li>
-
             <li> <a href="javascript:void(0)" class="waves-effect">
                     <i class="icon-handbag"></i>
                     <span class="hide-menu">Shopping <span class="arrow icon-arrow-left"></span></span></a>
 
             </li>
-
             <li> <a href="javascript:void(0)" class="waves-effect">
                     <i class="icon-picture"></i>
                     <span class="hide-menu">Media <span class="arrow icon-arrow-left"></span></span></a>
@@ -62,17 +55,14 @@
                     <i class="icon-wrench "></i>
                     <span class="hide-menu">Setting config</span></a>
             </li>
-
             <li> <a href="javascript:void(0)" class="waves-effect">
                     <i class="icon-people p-r-10"></i>
                     <span class="hide-menu">Manager account</span></a>
             </li>
-
             <li> <a href="javascript:void(0)" class="waves-effect">
                     <i class="icon-eye p-r-10"></i>
                     <span class="hide-menu">Config display</span></a>
             </li>
-
         </ul>
     </div>
 </div>

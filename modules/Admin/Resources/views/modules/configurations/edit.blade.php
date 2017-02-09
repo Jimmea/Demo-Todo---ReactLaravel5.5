@@ -210,7 +210,6 @@
                         <button type="submit" class="btn btn-info btn-sm"><i class="icon-check"></i> Save</button>
                         <button type="reset" class="btn btn-info btn-sm"><i class="icon-refresh"></i> Reset</button>
                     </div>
-
                     <div class="clearfix"></div>
                 </form>
             </div>

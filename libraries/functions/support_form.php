@@ -10,6 +10,8 @@
 
 /**
  * Created by : BillJanny
+<<<<<<< HEAD
+=======
  * Date: 9:13 PM - 2/5/2017
  * Đóng form
  * @param array $route : mang chua thong tin ten route va param route
@@ -49,6 +51,7 @@ if (! function_exists('form_close'))
 
 /**
  * Created by : BillJanny
+>>>>>>> 3390a7e96e5d47ba9652b289b54ee082e230de91
  * Date: 17:50 - 27/01/17
  * Kiem tra co loi khong xuat ra mot chuoi de cho form-group hien mau do neu co loi
  * @param string $key : key loi cua form
@@ -101,15 +104,13 @@ if (! function_exists('label-danger'))
     }
 }
 
-
-
 if (! function_exists('submit_reset'))
 {
     function button_submit_reset()
     {
         return '<div class="form-group">
-                <button type="submit" class="btn btn-info btn-sm"><i class="icon-check"></i> Save</button>
-                <button type="reset" class="btn btn-info btn-sm"><i class="icon-refresh"></i> Reset</button>
+                <button type="submit" class="btn btn-info btn-sm"><i class="icon-check"></i> '.trans('admin::form.buttonSubmit').'</button>
+                <button type="reset" class="btn btn-info btn-sm"><i class="icon-refresh"></i> '.trans('admin::form.buttonReset').'</button>
             </div>';
     }
 }
@@ -168,10 +169,11 @@ if (! function_exists('form_group'))
      * @param string $required :Thông tin có bắt buộc nhập không true|false
      * @param string $errors :Mảng lỗi truyền vào
      * @param array $dataForm : Mảng giữ liệu từ form
+     * @param array $dataDefault : Mảng giữ liệu mac dinh se co
      * @param array $attributes : Mảng thuộc tinhsc của input
      * @return
      */
-    function form_group($title,$name,$type, $required = false, $errors, $dataForm = [], $attributes= array())
+    function form_group($title,$name,$type, $required = false, $errors, $dataForm = array(),$dataDefault = array() , $attributes= array())
     {
         $html           = null;
         $has_error      = $required ? has_error($errors,$name) : '';
@@ -182,16 +184,17 @@ if (! function_exists('form_group'))
 
 
         // Bắt đầu form group
-        $html = '<div class="form-group '.$has_error.'">';
+        $input = '';
+        $html  = '<div class="form-group '.$has_error.'">';
         $html .= '<label>' . $title . ' ' . $text_danger. $previewImage. '</label>';
         switch ($type)
         {
             case 'text' :
-                $input  = '<input type="text"  class="form-control" name="'.$name.'" value="'.$value.'" />';
+                $input  .= '<input type="text"  class="form-control" name="'.$name.'" value="'.$value.'" />';
                 break;
 
             case 'email' :
-                $input  = '<input type="email" class="form-control" name="'.$name.'" value="'.$value.'" />';
+                $input  .= '<input type="email" class="form-control" name="'.$name.'" value="'.$value.'" />';
                 break;
 
             case 'select' :
@@ -201,14 +204,14 @@ if (! function_exists('form_group'))
                 break;
 
             case 'file' :
-                $input =  '<div class="input-group image-group">
+                $input .=  '<div class="input-group image-group">
                                 <input type="text" name="'.$name.'" class="form-control" value="'.$value.'" />
                                 '.box_upload().'
                            </div>';
                 break;
 
             case 'textarea' :
-                $input = '<textarea name="'.$name.'" class="form-control" cols="30" rows="5">'.$value.'</textarea>';
+                $input .= '<textarea name="'.$name.'" class="form-control" cols="30" rows="5">'.$value.'</textarea>';
                 break;
         }
 

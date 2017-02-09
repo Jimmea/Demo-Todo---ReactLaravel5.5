@@ -5,6 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Cook admin - @yield('title')</title>
+    <meta name="_token" content="{{ csrf_token() }}">
     @include('admin::blocks.block_css')
     @yield('css')
     @yield('js')
@@ -21,6 +22,7 @@
             </div>
         </div>
     </div>
+    @include('admin::blocks.block_js')
     <script src="{{ asset('backend/js/pages/library.js') }}"></script>
 </body>
 </html>

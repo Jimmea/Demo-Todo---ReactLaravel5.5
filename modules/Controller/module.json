@@ -1,0 +1,16 @@
+{
+    "name": "Controller",
+    "alias": "controller",
+    "description": "",
+    "keywords": [],
+    "active": 1,
+    "order": 0,
+    "providers": [
+        "Modules\\Controller\\Providers\\ControllerServiceProvider"
+    ],
+    "aliases": {},
+    "files": [
+        "start.php"
+    ],
+    "requires": []
+}
