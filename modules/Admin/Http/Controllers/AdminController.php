@@ -47,4 +47,19 @@ class AdminController extends Controller
     {
         return $this->filter;
     }
+
+    /**
+     * Created by : BillJanny
+     * Date: 10:50 PM - 2/10/2017
+     * Lay mang gia tri true|false
+     * @param void
+     * @return array
+     */
+    public function getArrayBoolean()
+    {
+        return [
+            0 => 'Disable',
+            1 => 'Unable'
+        ];
+    }
 }

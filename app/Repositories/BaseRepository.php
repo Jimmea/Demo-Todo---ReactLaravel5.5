@@ -12,7 +12,7 @@ use Illuminate\Foundation\Validation\ValidatesRequests;
 
 abstract class BaseRepository
 {
-    use ValidatesRequests;
+    use ValidatesRequests, RecursiveMenu;
     protected $total = 0;
     /**
      * Get all model
