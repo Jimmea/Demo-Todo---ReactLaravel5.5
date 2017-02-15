@@ -61,6 +61,21 @@ if (!function_exists('convert_array_tostring'))
     }
 }
 
+if (! function_exists('conver_array_to_string_form'))
+{
+    function conver_array_to_string_form($data)
+    {
+        if (!$data) return '';
+        $html = '';
+        foreach ($data as $key => $value)
+        {
+            $html  .=' '.$key .'='. $value;
+        }
+
+        return $html;
+    }
+}
+
 if (! function_exists('replace_mq'))
 {
     /**

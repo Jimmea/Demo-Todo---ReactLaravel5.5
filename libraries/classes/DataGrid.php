@@ -94,30 +94,35 @@ class DataGrid
     public function getAttribute($attrArr = array())
     {
         $attrStr = null;
-        $attrclass = '';
+        $attrClass = '';
 
-        if ($attrArr) {
-            foreach ($attrArr as $key => $value) {
-                if ($key) {
-                    $attrclass .= $value . ' ';
-                } else {
-                    $attrStr = $key . '=' . $value . ' ';
+        if ($attrArr)
+        {
+            foreach ($attrArr as $key => $value)
+            {
+                if (strtolower($key) == 'class')
+                {
+                    $attrClass .= $value . ' ';
+                }
+                else
+                {
+                    $attrStr .= $key . '=' . $value . ' ';
                 }
             }
         }
 
         return [
-            'attr' => $attrStr,
-            'class' => $attrclass
+            'attr'  => $attrStr,
+            'class' => $attrClass
         ];
     }
 
-    public function makeCheckButton($value, $fieldAtive='')
+    public function makeCheckButton($value, $fieldAtive='', $action='updateStatus')
     {
         $fieldAtive = $fieldAtive ? $fieldAtive : '';
 
         return '<a href="javascript:void(0)"
-               data-action="updateStatus"
+               data-action="'.$action.'"
                data-id="'.$value->adm_id.'"
                data-check="'.($value->$fieldAtive ? 'checked' : '').'" 
                class="execute_form fa fa-2x '.($value->$fieldAtive ? 'fa-check-circle' : 'fa-circle').'"></a>';
@@ -163,7 +168,8 @@ class DataGrid
             $attribute      = $this->getAttribute($attrArr)['attr'];
             $attributeClass = $this->getAttribute($attrArr)['class'];
         }
-        return '<a href="'.route($router, $id).'" '.$attribute.' data-id="'.$id.'" class="icon-trash button_delete_one btn btn-sm btn-warning '.$attributeClass.'"></a>';
+
+        return '<a href="'.route($router, $id).'" '.$attribute.' onclick="return confirm(`'.trans('admin::message.message_confirm_delete').'`)" data-id="'.$id.'" class="icon-trash button_delete_one btn btn-sm btn-warning '.$attributeClass.'"></a>';
     }
 
     /**

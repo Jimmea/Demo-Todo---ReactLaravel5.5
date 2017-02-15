@@ -62,4 +62,9 @@ class AdminController extends Controller
             1 => 'Unable'
         ];
     }
+
+    public function getAdminId()
+    {
+        return 1;
+    }
 }

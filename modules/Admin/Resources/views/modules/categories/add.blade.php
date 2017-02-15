@@ -1,5 +1,4 @@
 @extends('admin::layouts.master')
-@section('title', trans('admin::category.add.title'))
 @section('content')
     {!! bread_crumb([
             'admincpp.getListCategory'=> trans('admin::category.list.title'),
@@ -11,9 +10,10 @@
         <div class="col-md-12">
             <div class="white-box">
                 {!! box_title(trans('admin::category.add.title')) !!}
-                {!! form_begin(['admincpp.postAddCategory']) !!}
+                <?php $form = new Form($errors); ?>
+                {!! $form->beginForm(['admincpp.postAddCategory']) !!}
                     @include(ADMIN_VIEW. 'categories.form')
-                {!! form_close() !!}
+                {!! $form->closeForm() !!}
             </div>
         </div>
     </div

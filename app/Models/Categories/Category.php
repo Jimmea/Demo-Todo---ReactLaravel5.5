@@ -7,29 +7,20 @@ use Illuminate\Database\Eloquent\Model;
 class Category extends Model
 {
     protected $table        = 'categories';
-    protected $primaryKey   = 'cat_id';
-    protected $fillable     = [''];
-
+    protected $primaryKey   = 'cate_id';
+    protected $fillable     = [
+        'cate_name', 'cate_picture', 'cate_background', 'cate_seo_keyword', 'cate_seo_title', 'cate_order', 'cate_total_hit',
+        'cate_seo_description', 'cate_status', 'cate_parent_id', 'cate_has_child', 'cate_all_child', 'cate_type', 'cate_hot',
+        'cate_admin_id', 'cate_show', 'cate_view_type', 'cate_icon'
+    ];
 
     public function getConfigTypeCategory()
     {
-        return [
-            1 => 'Trang tĩnh',
-            2 => 'Tin tức',
-            3 => 'Sản phẩm',
-            4 => 'Giới thiệu',
-            5 => 'Giải pháp',
-            6 => 'Hỏi đáp'
-        ];
+        return config('setting.typeCategory');
     }
 
     public function getTypeView()
     {
-        return [
-            1 => 'Type one',
-            2 => 'Type two',
-            3 => 'Type Three',
-        ];
+        return config('setting.typeViewCategory');
     }
-
 }

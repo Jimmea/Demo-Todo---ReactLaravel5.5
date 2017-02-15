@@ -2,9 +2,10 @@
 @section('title', 'Add new account')
 @section('content')
     {!! bread_crumb([
-            ''=> 'List account',
+            ''=> 'List account'
         ])
     !!}
+
     <div class="row">
         <div class="col-md-12">
             <div id="wrap-table">
@@ -27,7 +28,7 @@
                         </form>
                     </div>
                 </div>
-                <div class="white-box">
+                <div class="white-box padd-0">
                     <form action="{{ route('admincpp.getProcessQuickAccount') }}" id="formTable">
                         <table class="table table-bordered table-stripped" id="dataTableList">
                             <thead>

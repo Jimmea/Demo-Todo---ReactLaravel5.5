@@ -3,11 +3,12 @@ return [
     'css' => [
         'backend/bootstrap/css/bootstrap.min.css',
         'backend/css/sidebar-nav.min.css',
-        'backend/css//bootstrap-datepicker.min.css',
+//        'backend/css//bootstrap-datepicker.min.css',
         'backend/css/animate.css',
         'backend/css/style.css',
         'backend/css/colors/blue.css',
-        'backend/css/customer.css'
+        'backend/css/customer.css',
+        'backend/js/plugins/xedittable/bootstrap-editable.css'
     ],
     'js' => [
         'backend/js/plugins/jquery.min.js',
@@ -18,6 +19,7 @@ return [
         'backend/js/plugins/custom.min.js',
         'backend/js/plugins/jasny-bootstrap.js',
         'backend/js/plugins/mask.js',
-        'backend/js/plugins/jQuery.style.switcher.js'
+//        'backend/js/plugins/jQuery.style.switcher.js',
+        'backend/js/plugins/xedittable/bootstrap-editable.min.js'
     ]
 ];

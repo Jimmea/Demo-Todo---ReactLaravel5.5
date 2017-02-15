@@ -57,13 +57,17 @@ Route::group([
             'as' => 'admincpp.postAddCategory',
             'uses'=> 'AdminCategoryController@postAddCategory'
         ]);
-        Route::get('/edit', [
+        Route::get('/edit/{id}', [
             'as' => 'admincpp.getEditCategory',
             'uses' => 'AdminCategoryController@getEditCategory'
         ]);
-        Route::post('/edit', [
-            'as' => 'admincpp.PostEditCategory',
+        Route::post('/edit/{id}', [
+            'as' => 'admincpp.postEditCategory',
             'uses' => 'AdminCategoryController@PostEditCategory'
+        ]);
+        Route::get('delete/{id}', [
+            'as' => 'admincpp.getDeleteCategory',
+            'uses'=> 'AdminCategoryController@getDeleteCategory'
         ]);
         Route::post('/process-quick-category', [
             'as' => 'admincpp.postProcessQuickCategory',

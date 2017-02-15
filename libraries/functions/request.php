@@ -14,7 +14,8 @@ if (! function_exists('get_value'))
 
         $value = $default_value;
         $method = strtoupper($method);
-        switch ($method) {
+        switch ($method)
+        {
             case "GET":
                 if (isset($_GET[$value_name])) $value = $_GET[$value_name];
                 break;
@@ -40,9 +41,9 @@ if (! function_exists('get_value'))
             "dbl" => @doubleval($value),
             "arr" => $value
         );
-
         foreach ($valueArray as $key => $returnValue)
         {
+
             if ($data_type == $key)
             {
                 if ($advance != 0)
@@ -71,6 +72,7 @@ if (! function_exists('get_value'))
                 break;
             }
         }
+
         return (intval($value));
     }
 }

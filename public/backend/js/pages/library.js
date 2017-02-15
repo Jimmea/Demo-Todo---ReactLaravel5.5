@@ -11,8 +11,8 @@ function calcHeightFrame(id)
     $("#"+id).height(divHeight);
 }
 
-// Chọn tab menu trong admin
 
+// Chọn tab menu trong admin
 function selectTab(id)
 {
     $(".tabs_menu_child").removeClass('tabs_menu_select active');
@@ -71,9 +71,21 @@ function getAllValueCheckedTable()
     return selected_value;
 }
 
+function hoverTrContentTable()
+{
+    $('#tableContent tr').hover(function ()
+    {
+        $(this).attr('bgcolor', '#CEEED9');
+    },function()
+    {
+        $(this).attr('bgcolor', '');
+    });
+}
+
+
 /**
  * Ham thuc hien chuc nang nhanh cua table
- *
+ * Từ hàm này trở xuống chuyên xử lý ajax
  */
 function executeFormTable()
 {
@@ -130,6 +142,51 @@ function executeFormTable()
 
                 break;
 
+            case 'updateShowHome':
+                // Lay id
+                $admin_id       = $(this).attr('data-id');
+                $check_active   = $(this).attr('data-check');
+                $check          = 'fa-check-circle';
+                $unCheck        = 'fa-circle';
+
+                if($check_active == "checked")
+                {
+                    $(this).attr('data-check', '');
+                    $(this).removeClass($check);
+                    $(this).addClass($unCheck);
+                }else
+                {
+                    $(this).attr('data-check', 'checked');
+                    $(this).addClass($check);
+                    $(this).removeClass($unCheck);
+                }
+
+                // Do something
+                if ($click_flag) { alert('Hệ thống đang xử lý ...'); return ''; }
+
+                // Send ajax
+                $click_flag = true;
+                $.ajax({
+                    type    :'POST',
+                    url     : $href,
+                    dataType: 'json',
+                    data: {
+                        id      : $admin_id,
+                        _token  : $token,
+                        action  : 'showhome'
+                    }
+                })
+                .fail(function(e)
+                {
+                    alert('Có lỗi xảy ra');
+                })
+                .always(function()
+                {
+                    $click_flag = false;
+                });
+
+                break;
+
             case 'updateStatus':
                 // Lay id
                 $admin_id       = $(this).attr('data-id');
@@ -159,9 +216,9 @@ function executeFormTable()
                     url     : $href,
                     dataType: 'json',
                     data: {
-                        admin_id    : $admin_id,
-                        _token      : $token,
-                        action      : 'editone'
+                        id      : $admin_id,
+                        _token  : $token,
+                        action  : 'editone'
                     }
                 })
                 .fail(function(e)
@@ -175,19 +232,19 @@ function executeFormTable()
 
                 break;
         }
-
         return false;
     })
 }
 
-function hoverTrContentTable()
+// Sửa nhanh thông tin
+function EditQuickXtable($url, $selector, $title)
 {
-    $('#tableContent tr').hover(function ()
-    {
-        $(this).attr('bgcolor', '#CEEED9');
-    },function()
-    {
-        $(this).attr('bgcolor', '');
+    $($selector).editable({
+        type: 'text',
+        url: BASE_URL + $url,
+        title: $title ? $title : 'Update quick',
+        placement: 'top',
+        send:'always'
     });
 }
 

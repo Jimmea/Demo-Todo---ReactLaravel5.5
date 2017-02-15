@@ -10,8 +10,6 @@
 
 /**
  * Created by : BillJanny
-<<<<<<< HEAD
-=======
  * Date: 9:13 PM - 2/5/2017
  * Đóng form
  * @param array $route : mang chua thong tin ten route va param route
@@ -51,7 +49,6 @@ if (! function_exists('form_close'))
 
 /**
  * Created by : BillJanny
->>>>>>> 3390a7e96e5d47ba9652b289b54ee082e230de91
  * Date: 17:50 - 27/01/17
  * Kiem tra co loi khong xuat ra mot chuoi de cho form-group hien mau do neu co loi
  * @param string $key : key loi cua form
@@ -76,7 +73,7 @@ if (! function_exists('get_error'))
 {
     function get_error($errors, $key)
     {
-        return isset($errors) ? '<span class="help-block">'.$errors->first($key).'</span>' : '';
+        return (isset($errors) && $errors) ? '<span class="help-block">'.$errors->first($key).'</span>' : '';
     }
 }
 
@@ -92,7 +89,7 @@ if (! function_exists('get_value_field'))
 {
     function get_value_field($field, $dataform= array())
     {
-        return old($field, isset($dataform) && $dataform ? $dataform->$field : '');
+        return old($field, (isset($dataform) && $dataform) ? $dataform->$field : '');
     }
 }
 
@@ -209,11 +206,8 @@ if (! function_exists('form_group'))
                     {
                         foreach ($dataDefault as $key => $value)
                         {
-                            $selected = ($valuePost == $key && $valuePost != '')
-                                        ? 'selected=selected'
-                                        : (($dataForm && $dataForm[$name] == $key) ? 'selected=selected' : '');
-
-                            $input .='<option ' . $selected . ' value="'.$key.'">'.$value.'</option>';
+                            $selected = ($valuePost == $key && $valuePost != '') ? 'selected=selected' : '';
+                            $input    .='<option ' . $selected . ' value="'.$key.'">'.$value.'</option>';
                         }
                     }
                 $input .= '</select>';
