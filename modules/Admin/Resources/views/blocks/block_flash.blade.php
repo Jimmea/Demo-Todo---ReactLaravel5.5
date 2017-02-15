@@ -9,7 +9,7 @@
 
 @if(has_flash('error'))
     <div class="myadmin-alert myadmin-alert-img myadmin-alert-click alert-warning myadmin-alert-bottom alertbottom2" id="myadmin-alert"
-         style="display: block;text-align: center">
+         style="display: block;text-align: center;background: #FA503A">
             <a href="javascript:void(0)"  class="closed">×</a>
             <h4>You have a new Message!</h4>
         {{ get_flash('error') }}. <a href="#" class="closed">×</a>

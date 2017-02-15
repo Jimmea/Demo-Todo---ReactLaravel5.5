@@ -44,6 +44,37 @@ Route::group([
         ]);
     });
 
+    Route::group(['prefix'=> 'category', 'middleware'=> 'checkPermission'], function () {
+        Route::get('/', [
+           'as' => 'admincpp.getListCategory',
+           'uses' => 'AdminCategoryController@getListCategory'
+        ]);
+        Route::get('/add', [
+            'as' => 'admincpp.getAddCategory',
+            'uses' => 'AdminCategoryController@getAddCategory'
+        ]);
+        Route::post('/add', [
+            'as' => 'admincpp.postAddCategory',
+            'uses'=> 'AdminCategoryController@postAddCategory'
+        ]);
+        Route::get('/edit/{id}', [
+            'as' => 'admincpp.getEditCategory',
+            'uses' => 'AdminCategoryController@getEditCategory'
+        ]);
+        Route::post('/edit/{id}', [
+            'as' => 'admincpp.postEditCategory',
+            'uses' => 'AdminCategoryController@PostEditCategory'
+        ]);
+        Route::get('delete/{id}', [
+            'as' => 'admincpp.getDeleteCategory',
+            'uses'=> 'AdminCategoryController@getDeleteCategory'
+        ]);
+        Route::post('/process-quick-category', [
+            'as' => 'admincpp.postProcessQuickCategory',
+            'uses' => 'AdminCategoryController@postProcessQuickCategory'
+        ]);
+    });
+
     // setting
     Route::group(['prefix'=> 'configuration', 'middileware'=> 'checkPermission'], function()
     {

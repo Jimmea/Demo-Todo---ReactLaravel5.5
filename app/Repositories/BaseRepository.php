@@ -12,7 +12,7 @@ use Illuminate\Foundation\Validation\ValidatesRequests;
 
 abstract class BaseRepository
 {
-    use ValidatesRequests;
+    use ValidatesRequests, RecursiveMenu;
     protected $total = 0;
     /**
      * Get all model
@@ -51,11 +51,11 @@ abstract class BaseRepository
         return $this->total;
     }
     /**
-     * Get a specify model
+     * Get a specify model bao loi neu khong tim thay
      * @param  int $id model ID
      * @return model
      */
-    public function getById($id)
+    public function findById($id)
     {
         return $this->model->findOrFail($id);
     }
@@ -97,7 +97,7 @@ abstract class BaseRepository
      * @param  array $attributes
      * @return new Model
      */
-    public function store($attributes)
+    public function storeData($attributes)
     {
         return $this->model->create($attributes);
 
@@ -109,11 +109,42 @@ abstract class BaseRepository
      * @param  array $data
      * @return Model
      */
-    public function update($id, $data)
+    public function updateById($id, $data)
     {
-        $model = $this->getById($id);
+        $model = $this->findById($id);
         $model->fill($data)->save();
         return $model;
+    }
+
+    /**
+     * Created by : BillJanny
+     * Date: 12:04 AM - 2/14/2017
+     * update Thông tin trạng thái quick
+     * @param  int $id          : trường khóa chính của bảng
+     * @param  string $fieldInt : trường só nguyên của bảng chưa 2 giá trị 0 | 1
+     * @param  int $otherValue  : một giá trị nào đó được định nghĩa sẵn  (VD : -1)
+     * @return int
+     */
+    public function updateByField($id, $fieldInt, $otherValue='')
+    {
+        $row = $this->findById($id);
+        $row->$fieldInt = ($otherValue ? $otherValue : (($row->$fieldInt == 1) ? 0 : 1));
+        $row->save();
+        return 1;
+    }
+
+    /**
+     * Created by : BillJanny
+     * Date: 7:41 PM - 2/13/2017
+     * Tìm kiếm theo điều kiện column
+     * @param array $condition : mảng điều kiện gồm cột, opr, giá trị
+     * @param array $listColumn : danh sách cột
+     * @return mixed
+     */
+    public function findBy($condition= array(), $listColumn = array('*'))
+    {
+        list($column, $operator, $value ) = $condition;
+        return $this->model->where($column, $operator, $value)->first($listColumn);
     }
 
     /**
@@ -123,10 +154,7 @@ abstract class BaseRepository
      */
     public function delete($id)
     {
-        $model  = $this->getById($id);
-        $delete = is_array($id) ? $this->model->destroy($id) : $model->delete();
-
-        return $delete;
+        return is_array($id) ? $this->model->destroy($id) : $this->findById($id)->delete();
     }
 
 

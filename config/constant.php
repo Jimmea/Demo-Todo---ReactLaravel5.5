@@ -2,7 +2,7 @@
 
 define('VIEW_BACKEND_PATH', 'backend/');
 define('VIEW_BACKEND_IMAGE_PATH', 'backend/img/');
-define('STATIC_MEDIA', 'medias/');
+
 define('VIEW_FRONTEND', 'frontend');
 define('VIEW_FRONTEND_MASTER', 'frontend.layouts.master');
 define('VIEW_FRONTEND_ACCOUNT', 'frontend.layouts.account');
@@ -21,3 +21,6 @@ define('USER_V1', 'user::v1');
 define('JOB_V1', 'job::v1');
 define('FASTFOOD_V1', 'fastfood::v1');
 define('ADMIN_VIEW', 'admin::modules.');
+
+// Media
+define('STATIC_MEDIA', 'medias');

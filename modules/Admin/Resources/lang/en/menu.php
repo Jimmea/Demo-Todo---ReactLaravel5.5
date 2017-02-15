@@ -5,7 +5,7 @@ return [
         'title' => 'List menu'
     ],
     'add' => [
-        'title' => 'Add new menu'
+        'title' => 'Add menu'
     ],
     'edit' => [
         'title' => 'Edit menu'

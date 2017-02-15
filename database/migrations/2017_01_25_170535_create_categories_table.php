@@ -15,26 +15,24 @@ class CreateCategoriesTable extends Migration
     {
         Schema::create('categories', function (Blueprint $table) {
             $table->increments('cate_id');
-            $table->string('cate_name');
-            $table->string('cate_picture');
-            $table->string('cate_background');
-            $table->string('cate_title');
-            $table->string('cate_description');
-            $table->string('cate_seo_keyword');
-            $table->string('cate_seo_title');
-            $table->string('cate_seo_description');
-            $table->tinyInteger('cate_status');
-            $table->tinyInteger('cate_lang_id');
-            $table->tinyInteger('cate_parent_id');
-            $table->tinyInteger('cate_has_child');
-            $table->tinyInteger('cate_all_child');
-            $table->string('cate_type');
-            $table->tinyInteger('cate_hot');
-            $table->tinyInteger('cate_admin_id');
-            $table->string('cat_show_mob');
-            $table->tinyInteger('cat_show');
-            $table->tinyInteger('cat_view_type');
-            $table->string('cate_icon');
+            $table->string('cate_name')->nullable();
+            $table->string('cate_picture')->nullable();
+            $table->string('cate_background')->nullable();
+            $table->string('cate_seo_keyword')->nullable();
+            $table->string('cate_seo_title')->nullable();
+            $table->string('cate_seo_description')->nullable();
+            $table->tinyInteger('cate_status')->default(1);
+            $table->tinyInteger('cate_order')->default(0);
+            $table->tinyInteger('cate_parent_id')->default(0);
+            $table->tinyInteger('cate_has_child')->nullable();
+            $table->integer('cate_total_hit')->default(0);
+            $table->string('cate_all_child')->nullable();
+            $table->string('cate_type')->nullable();
+            $table->tinyInteger('cate_hot')->nullable();
+            $table->tinyInteger('cate_admin_id')->nullable();
+            $table->tinyInteger('cate_show')->nullable();
+            $table->tinyInteger('cate_view_type')->default(1);
+            $table->string('cate_icon')->nullable();
             $table->timestamps();
         });
     }

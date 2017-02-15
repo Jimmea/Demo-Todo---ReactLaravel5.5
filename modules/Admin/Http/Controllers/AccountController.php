@@ -24,12 +24,14 @@ class AccountController extends AdminController
         $limit = $this->admin->getLimit();
         $this->setFilter($request, 'adm_loginname', 'LIKE');
         $this->setFilter($request, 'adm_email', 'LIKE');
-        $filter = $this->getFilter();
+
+
         $sort   = ['adm_id', 'DESC'];
 
         $data = [
             'admins' => $this->admin->getAll($filter, $sort, $limit)
         ];
+
 
         return view(ADMIN_VIEW.'accounts.list')->with($data);
     }
@@ -75,7 +77,7 @@ class AccountController extends AdminController
     public function getEdit($adm_id)
     {
         $data = [
-            'admin' => $this->admin->getById($adm_id)
+            'admin' => $this->admin->findById($adm_id)
         ];
         return view(ADMIN_VIEW. 'accounts.edit')->with($data);
     }
@@ -137,27 +139,24 @@ class AccountController extends AdminController
             switch ($action)
             {
                 case 'deletemany':
-                    $adminId    = get_value('admin_id','arr', 'POST');
+                    $adminId    = get_value('id','arr', 'POST');
+                    // Khong cho phep xoa di phan tu admin dau tien
                     foreach ($adminId as $key => $value)
                     {
-                        // Khong cho phep xoa di phan tu admin dau tien
-                        if ($value == 1)
-                        {
-                            unset($adminId[$key]);
-                        }
+                        if ($value == 1) unset($adminId[$key]);
                     }
                     $this->admin->delete($adminId);
                     return response()->json(['status'=>1]);
                     break;
 
                 case 'editone':
-                    $adminId    = get_value('admin_id','int', 'POST');
-                    $admin      = $this->admin->find($adminId);
+                    $adminId    = get_value('id','int', 'POST');
+                    $admin      = $this->admin->findById($adminId);
                     $active     = ($admin->adm_active == 1) ? 0 : 1;
                     $admin->adm_active = $active;
                     $admin->save();
 
-                    return response()->json(['status'=>1, 'msg'=> 'Update successfully']);
+                    return response()->json(['status'=>1, 'msg'=> trans('admin::message.message_update_success')]);
                     break;
             }
         }

@@ -36,7 +36,7 @@ if (! function_exists('note_required'))
 {
     function note_required()
     {
-        return '<small class="text-danger">'.trans('admin::form.titleRequired').'.</small>';
+        return '<small class="text-danger" style="margin-bottom: 15px;display: block">'.trans('admin::form.titleRequired').'.</small>';
     }
 }
 

@@ -3,13 +3,11 @@
     margin-top: 0;
     padding: 5px 0;
     float: left;
-<<<<<<< HEAD
-=======
 }
 .form-group {
     margin-left: 0 !important;
     margin-right: 0 !important;
-    margin-bottom: 15px !important;
+    margin-bottom: 5px !important;
 }
 .bold {
     font-weight: bold !important;
@@ -30,5 +28,22 @@
 .pagination
 {
     margin: 0 !important;
->>>>>>> 3390a7e96e5d47ba9652b289b54ee082e230de91
+}
+.control-label,
+.bold {
+    /*color: #1b5f9a;*/
+    font-weight: bold;
+}
+a.fa-check-circle.fa-2x,
+a.fa-2x {
+    font-size: 20px;
+}
+.padd-0 {
+    padding: 0 !important;
+}
+.fa-circle {
+    color: #ccc;
+}
+.fa-circle:hover {
+    color: #ccc;
 }
