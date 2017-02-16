@@ -30,7 +30,7 @@ if (! function_exists('form_begin'))
                     ? route($routeName, $routeParam)
                     : route($routeName);
 
-        return '<form class="form-horizontal" method="post" action="'.$route.'" '.($file ? 'enctype="multipart/form-data"' : '').'>';
+        return '<form class="form-horizontal" method="post" action="'.$route.'" '.($file ? 'enctype="multipart/form-data"' : '').'>'.csrf_field();
     }
 }
 
@@ -76,7 +76,7 @@ if (! function_exists('get_error'))
 {
     function get_error($errors, $key)
     {
-        return isset($errors) ? '<span class="help-block">'.$errors->first($key).'</span>' : '';
+        return (isset($errors) && $errors) ? '<span class="help-block">'.$errors->first($key).'</span>' : '';
     }
 }
 
@@ -92,7 +92,7 @@ if (! function_exists('get_value_field'))
 {
     function get_value_field($field, $dataform= array())
     {
-        return old($field, isset($dataform) && $dataform ? $dataform->$field : '');
+        return old($field, (isset($dataform) && $dataform) ? $dataform->$field : '');
     }
 }
 
@@ -100,7 +100,7 @@ if (! function_exists('label-danger'))
 {
     function label_danger()
     {
-        return '<span class="text-danger">(*)</span>';
+        return '<span class="text-danger" title="This field is required">(*)</span>';
     }
 }
 
@@ -109,9 +109,11 @@ if (! function_exists('submit_reset'))
     function button_submit_reset()
     {
         return '<div class="form-group">
-                <button type="submit" class="btn btn-info btn-sm"><i class="icon-check"></i> Save</button>
-                <button type="reset" class="btn btn-info btn-sm"><i class="icon-refresh"></i> Reset</button>
-            </div>';
+                    <div class="col-xs-offset-2">
+                        <button type="submit" class="btn btn-info btn-sm"><i class="icon-check"></i> '.trans('admin::form.buttonSubmit').'</button>
+                        <button type="reset" class="btn btn-info btn-sm"><i class="icon-refresh"></i> '.trans('admin::form.buttonReset').'</button>
+                    </div>
+                </div>';
     }
 }
 
@@ -169,53 +171,67 @@ if (! function_exists('form_group'))
      * @param string $required :Thông tin có bắt buộc nhập không true|false
      * @param string $errors :Mảng lỗi truyền vào
      * @param array $dataForm : Mảng giữ liệu từ form
+     * @param array $dataDefault : Mảng giữ liệu mac dinh se co
      * @param array $attributes : Mảng thuộc tinhsc của input
      * @return
      */
-    function form_group($title,$name,$type, $required = false, $errors, $dataForm = [], $attributes= array())
+    function form_group($title, $name, $type, $required = false, $errors,
+                        $dataForm = array(),$dataDefault = array() , $attributes= array())
     {
         $html           = null;
-        $has_error      = $required ? has_error($errors,$name) : '';
-        $text_danger    = $required ? label_danger()  : '';
-        $first_error    = get_error($errors, $name);
-        $value          = get_value_field($name, $dataForm);
+        $hasError       = $required ? has_error($errors,$name)  : '';
+        $textDanger     = $required ? label_danger()            : '';
+        $firstError     = get_error($errors, $name);
+        $valuePost      = get_value_field($name, $dataForm);
         $previewImage   = $type == 'file' ? '<span class="icon-eye hide"></span>' : '';
 
 
         // Bắt đầu form group
-        $html = '<div class="form-group '.$has_error.'">';
-        $html .= '<label>' . $title . ' ' . $text_danger. $previewImage. '</label>';
+        $input = '';
+        $html  = '<div class="form-group '.$hasError.'">';
+        $html .= '<label class="col-md-2 control-label">' . $title . ' ' . $textDanger. $previewImage. '</label>';
+        $html .= '<div class="col-md-10">';
+
         switch ($type)
         {
             case 'text' :
-                $input  = '<input type="text"  class="form-control" name="'.$name.'" value="'.$value.'" />';
+                $input  .= '<input type="text"  class="form-control" name="'.$name.'" value="'.$valuePost.'" />';
                 break;
 
             case 'email' :
-                $input  = '<input type="email" class="form-control" name="'.$name.'" value="'.$value.'" />';
+                $input  .= '<input type="email" class="form-control" name="'.$name.'" value="'.$valuePost.'" />';
                 break;
 
             case 'select' :
+                $input .= '<select id="selectbox" name="'.$name.'" class="form-control input-sm">';
+                $input .= '<option value="">__[ '. trans('admin::form.optionSelect') .' ]__</option>';
+                    if ($dataDefault)
+                    {
+                        foreach ($dataDefault as $key => $value)
+                        {
+                            $selected = ($valuePost == $key && $valuePost != '') ? 'selected=selected' : '';
+                            $input    .='<option ' . $selected . ' value="'.$key.'">'.$value.'</option>';
+                        }
+                    }
+                $input .= '</select>';
                 break;
 
             case 'radio' :
                 break;
 
             case 'file' :
-                $input =  '<div class="input-group image-group">
-                                <input type="text" name="'.$name.'" class="form-control" value="'.$value.'" />
+                $input .=  '<div class="input-group image-group">
+                                <input type="text" name="'.$name.'" class="form-control" value="'.$valuePost.'" />
                                 '.box_upload().'
                            </div>';
                 break;
 
             case 'textarea' :
-                $input = '<textarea name="'.$name.'" class="form-control" cols="30" rows="5">'.$value.'</textarea>';
+                $input .= '<textarea id="textareaControl" name="'.$name.'" class="form-control" cols="30" rows="5">'.$valuePost.'</textarea>';
                 break;
         }
 
-                $html .= $input;
-            $html .= $first_error;
-        $html .= '</div>';
+        $html .= $input.$firstError.'</div></div>';
         // Kết thúc form group
 
         return $html;

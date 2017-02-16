@@ -11,7 +11,7 @@
         {!! form_group('Full name', 'adm_name', 'text', true, $errors, $admin) !!}
         {!! form_group('Phone', 'adm_phone', 'text', true, $errors, $admin) !!}
         {!! form_group('Email', 'adm_email', 'text', true, $errors, $admin) !!}
-        {!! form_group('Password', 'adm_password', 'text', true, $errors, $admin) !!}
+        {!! form_group('Password', 'adm_password', 'text', true, $errors, array()) !!}
         {!! form_group('Hình ảnh', 'adm_picture', 'file', false, $errors, $admin) !!}
         {!! form_group('Address', 'adm_address', 'textarea', false, $errors,$admin) !!}
     </div>

@@ -39,6 +39,56 @@ if (! function_exists('set_flash'))
     }
 }
 
+
+if (! function_exists('set_flash_add_error'))
+{
+    function set_flash_add_error()
+    {
+        \Session::flash('success', trans('admin::message.message_add_error'));
+    }
+}
+
+if (! function_exists('set_flash_add_success'))
+{
+    function set_flash_add_success()
+    {
+        \Session::flash('success', trans('admin::message.message_add_success'));
+    }
+}
+
+if (! function_exists('set_flash_update_success'))
+{
+    function set_flash_update_success()
+    {
+        \Session::flash('success', trans('admin::message.message_update_success'));
+    }
+}
+
+
+if (! function_exists('set_flash_update_error'))
+{
+    function set_flash_update_error()
+    {
+        \Session::flash('error', trans('admin::message.message_update_error'));
+    }
+}
+
+if (! function_exists('set_flash_delete_error'))
+{
+    function set_flash_delete_error()
+    {
+        \Session::flash('error', trans('admin::message.message_delete_error'));
+    }
+}
+
+if (! function_exists('set_flash_delete_success'))
+{
+    function set_flash_delete_success()
+    {
+        \Session::flash('success', trans('admin::message.message_delete_success'));
+    }
+}
+
 /**
  * Created by : BillJanny
  * Date: 17:36 - 27/01/17
