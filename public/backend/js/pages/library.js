@@ -218,7 +218,7 @@ function executeFormTable()
                     data: {
                         id      : $admin_id,
                         _token  : $token,
-                        action  : 'editone'
+                        action  : 'editstatus'
                     }
                 })
                 .fail(function(e)

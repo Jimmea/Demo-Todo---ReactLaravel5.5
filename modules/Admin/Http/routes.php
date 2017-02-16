@@ -26,22 +26,23 @@ Route::group([
             'as'    => 'admincpp.postAddMenu',
             'uses'  => 'AdminMenuController@postAdd'
         ]);
-        Route::get('/edit', [
+        Route::get('/edit/{id}', [
             'as'    => 'admincpp.getEditMenu',
             'uses'  => 'AdminMenuController@getEdit'
         ]);
-        Route::post('/edit', [
+        Route::post('/edit/{id}', [
             'as'    => 'admincpp.postEditMenu',
             'uses'  => 'AdminMenuController@postEdit'
         ]);
-        Route::get('/delete', [
+        Route::get('/delete/{id}', [
             'as' => 'admincpp.getDeleteMenu',
             'uses' => 'AdminMenuController@getDelete'
         ]);
         Route::post('/process-quick-menu', [
-            'as'=> 'admincpp.postProcessQuickMenu',
-            'uses' => 'AdminMenuController@postProcessQuick'
+            'as'    => 'admincpp.postProcessQuickMenu',
+            'uses'  => 'AdminMenuController@postProcessQuickMenu'
         ]);
+
     });
 
     // CATEOGORY

@@ -211,25 +211,20 @@ class AdminCategoryController extends AdminController
             $cateId = get_value('id','int', 'POST');
 
             // Su dung edit table de sua nhanhh thong tin
-            if (!$action)
-            {
-                $action     = strtolower(get_value('name', 'str', 'POST'));
-                $orderValue = get_value('value', 'int', 'POST');
-                $cateId     = get_value('pk', 'int', 'POST');
-            }
+            if (!$action) list($action, $orderValue, $cateId) = $this->getValueXEditTable();
+
             switch ($action)
             {
                 case 'showhome' :
                     $this->category->updateByField($cateId, 'cate_show');
                     break;
 
-                case 'editone':
+                case 'editstatus':
                     $this->category->updateByField($cateId, 'cate_status');
                     break;
 
                 case 'editname':
                     $orderValue = get_value('value', 'str', 'POST');  if (!$orderValue) return 0;
-                    if (!$orderValue) return 0;
                     $this->category->updateByField($cateId, 'cate_name', $orderValue);
                     break;
 
@@ -238,7 +233,9 @@ class AdminCategoryController extends AdminController
                     $this->category->updateByField($cateId, 'cate_order', $orderValue);
                     break;
             }
-            return response()->json(['status'=>1, 'msg'=> trans('admin::message.message_update_success')]);
+
+            return $this->responseSuccess();
         }
+        return $this->responseError();
     }
 }

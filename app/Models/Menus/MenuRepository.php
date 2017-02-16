@@ -14,4 +14,8 @@ interface MenuRepository
     public function getConfigPosition();
     public function getConfigTarget();
     public function saveMenu($data);
+    public function findMenuById($id);
+    public function deleteMenuById($id);
+    public function updateMenuById($id, $data);
+    public function updateByField($id, $field, $value);
 }

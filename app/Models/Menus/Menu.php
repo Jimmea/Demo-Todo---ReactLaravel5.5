@@ -19,7 +19,7 @@ class Menu extends Model
             1  => 'Menu Top',
             2  => 'Menu footer',
             3  => 'Menu Detail',
-            4  => 'Menu Sidebar',
+            4  => 'Menu Bar',
             5  => 'Menu Left',
         ];
     }

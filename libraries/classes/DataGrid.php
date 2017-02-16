@@ -117,6 +117,16 @@ class DataGrid
         ];
     }
 
+    public function makeCheckAllRadio()
+    {
+        return '<input type="checkbox" class="check-all" id="check_all_table" data-set="#dataTableList .check-one" name="check_all">';
+    }
+
+    public function makeCheckRadio($id)
+    {
+        return '<input type="checkbox" class="check-one" name="check-one" value="' . $id . '">';
+    }
+
     public function makeCheckButton($value, $fieldAtive='', $action='updateStatus')
     {
         $fieldAtive = $fieldAtive ? $fieldAtive : '';
@@ -126,6 +136,21 @@ class DataGrid
                data-id="'.$value->adm_id.'"
                data-check="'.($value->$fieldAtive ? 'checked' : '').'" 
                class="execute_form fa fa-2x '.($value->$fieldAtive ? 'fa-check-circle' : 'fa-circle').'"></a>';
+    }
+
+    public function makeCopyButton($arrayRoute, $attrArr= [])
+    {
+        $attribute          = null;
+        $attributeClass     = '';
+        list($routerName, $id)  = $arrayRoute;
+        if ($attrArr)
+        {
+            $attribute      = $this->getAttribute($attrArr)['attr'];
+            $attributeClass = $this->getAttribute($attrArr)['class'];
+        }
+        return '<a href="'.route($routerName, $id).'"               
+                   '.$attribute.'
+                   class="fa fa-files-o button_copy btn btn-sm btn-info '.$attributeClass.'"></a>';
     }
 
 //    $value->$this->field_status ?  \'fa-check-circle\' : \'fa-circle\'
@@ -147,7 +172,9 @@ class DataGrid
             $attribute      = $this->getAttribute($attrArr)['attr'];
             $attributeClass = $this->getAttribute($attrArr)['class'];
         }
-        return '<a href="'.route($router, $id).'" '.$attribute.' data-id="'.$id.'" class="icon-pencil button_edit btn btn-sm btn-info '.$attributeClass.'"></a>';
+        return '<a href="'.route($router, $id).'" 
+                    '.$attribute.' 
+                    class="icon-pencil button_edit btn btn-sm btn-info '.$attributeClass.'"></a>';
     }
 
     /**
@@ -169,7 +196,11 @@ class DataGrid
             $attributeClass = $this->getAttribute($attrArr)['class'];
         }
 
-        return '<a href="'.route($router, $id).'" '.$attribute.' onclick="return confirm(`'.trans('admin::message.message_confirm_delete').'`)" data-id="'.$id.'" class="icon-trash button_delete_one btn btn-sm btn-warning '.$attributeClass.'"></a>';
+        return '<a href="'.route($router, $id).'" 
+                '.$attribute.' 
+                onclick="return confirm(`'.trans('admin::message.message_confirm_delete').'`)" 
+                data-id="'.$id.'" 
+                class="icon-trash button_delete_one btn btn-sm btn-warning '.$attributeClass.'"></a>';
     }
 
     /**

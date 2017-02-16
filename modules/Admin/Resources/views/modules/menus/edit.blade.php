@@ -1,7 +1,16 @@
-<?php
-/**
- * Created by PhpStorm.
- * User: HUNG
- * Date: 2/10/2017
- * Time: 12:02 AM
- */
+@extends('admin::layouts.master')
+@section('content')
+    {!! bread_crumb([
+            'admincpp.getListMenu'=> trans('admin::menu.list.title'),
+            trans('admin::menu.edit.title')
+        ])
+    !!}
+    <div class="row">
+        <div class="col-md-12">
+            <div class="white-box">
+                {!! box_title(trans('admin::menu.edit.title')) !!}
+                @include(ADMIN_VIEW. 'menus.form', ['routeName'=> 'admincpp.postEditMenu', 'id' => $menu->mnu_id])
+            </div>
+        </div>
+    </div
+@stop

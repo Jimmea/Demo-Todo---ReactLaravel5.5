@@ -22,9 +22,10 @@ class CreateMenusTable extends Migration
             $table->enum('mnu_target', ['_self', '_blank', '_parent', '_top']);
             $table->tinyInteger('mnu_type')->nullable();
             $table->tinyInteger('mnu_position')->nullable();
-            $table->tinyInteger('mnu_order')->nullable();
-            $table->tinyInteger('mnu_parent_id')->nullable();
+            $table->tinyInteger('mnu_order')->default(0);
+            $table->tinyInteger('mnu_parent_id')->default(0);
             $table->tinyInteger('mnu_has_child')->nullable();
+            $table->tinyInteger('mnu_all_child')->nullable();
             $table->tinyInteger('mnu_status')->nullable();
             $table->tinyInteger('mnu_admin_id')->nullable();
             $table->timestamps();

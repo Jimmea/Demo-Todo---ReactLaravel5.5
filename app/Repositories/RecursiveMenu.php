@@ -57,6 +57,7 @@ trait RecursiveMenu
                         unset($filter[$k]);
                         continue;
                     }
+
                     list($col, $ope, $val) = $f;
                     $q->where($col, $ope, $val);
                 }

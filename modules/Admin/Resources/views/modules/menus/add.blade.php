@@ -1,7 +1,7 @@
 @extends('admin::layouts.master')
 @section('content')
     {!! bread_crumb([
-            'adminpp.getListMenu'=> trans('admin::menu.list.title'),
+            'admincpp.getListMenu'=> trans('admin::menu.list.title'),
             trans('admin::menu.add.title')
         ])
     !!}

@@ -41,6 +41,7 @@ if (! function_exists('get_value'))
             "dbl" => @doubleval($value),
             "arr" => $value
         );
+
         foreach ($valueArray as $key => $returnValue)
         {
 

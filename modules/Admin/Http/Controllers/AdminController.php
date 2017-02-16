@@ -32,6 +32,7 @@ class AdminController extends Controller
         {
             if (strtoupper($ope) == 'LIKE')
             {
+                if ($value == 0) return '';
                 $value = '%' . trim($value) . '%';
             }
 
@@ -66,5 +67,22 @@ class AdminController extends Controller
     public function getAdminId()
     {
         return 1;
+    }
+
+    public function getValueXEditTable()
+    {
+        return [
+            strtolower(get_value('name', 'str', 'POST')), // action(desc alias action of any filed)
+            get_value('value', 'int', 'POST'), // value update
+            get_value('pk', 'int', 'POST') // primary key
+        ];
+    }
+    public function responseSuccess()
+    {
+        return response()->json(['status'=>1, 'msg'=> trans('admin::message.message_update_success')]);
+    }
+    public function responseError()
+    {
+        return response()->json(['status'=>0, 'msg'=> trans('admin::message.message_update_error')]);
     }
 }
