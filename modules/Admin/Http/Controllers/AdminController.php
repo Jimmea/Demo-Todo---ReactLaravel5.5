@@ -30,7 +30,7 @@ class AdminController extends Controller
 
         if ($value != '' || $value != null)
         {
-            if ($ope == 'LIKE')
+            if (strtoupper($ope) == 'LIKE')
             {
                 $value = '%' . trim($value) . '%';
             }

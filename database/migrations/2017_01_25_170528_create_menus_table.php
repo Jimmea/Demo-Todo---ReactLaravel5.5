@@ -16,18 +16,17 @@ class CreateMenusTable extends Migration
         Schema::create('menus', function (Blueprint $table) {
             $table->increments('mnu_id');
             $table->string('mnu_name');
-            $table->string('mnu_picture');
-            $table->string('mnu_link');
+            $table->string('mnu_picture')->nullable();
+            $table->string('mnu_icon')->nullable();
+            $table->string('mnu_link')->nullable();
             $table->enum('mnu_target', ['_self', '_blank', '_parent', '_top']);
-            $table->tinyInteger('mnu_type');
-            $table->tinyInteger('mnu_position');
-            $table->tinyInteger('mnu_order');
-            $table->tinyInteger('mnu_parent_id');
-            $table->tinyInteger('mnu_has_child');
-            $table->string('mnu_defined');
-            $table->tinyInteger('mnu_status');
-            $table->tinyInteger('mnu_admin_id');
-            $table->string('mnu_icon');
+            $table->tinyInteger('mnu_type')->nullable();
+            $table->tinyInteger('mnu_position')->nullable();
+            $table->tinyInteger('mnu_order')->nullable();
+            $table->tinyInteger('mnu_parent_id')->nullable();
+            $table->tinyInteger('mnu_has_child')->nullable();
+            $table->tinyInteger('mnu_status')->nullable();
+            $table->tinyInteger('mnu_admin_id')->nullable();
             $table->timestamps();
         });
     }

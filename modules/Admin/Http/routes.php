@@ -11,15 +11,15 @@ Route::group([
         'uses'  => 'DashboardController@getContentDashboard'
     ]);
 
-    // Menu
+    // MENU
     Route::group(['prefix'=> 'menu', 'middileware'=> 'checkPermission'], function()
     {
         Route::get('/', [
-            'as'    => 'adminpp.getListMenu',
+            'as'    => 'admincpp.getListMenu',
             'uses'  => 'AdminMenuController@getList'
         ]);
         Route::get('/add', [
-            'as'    => 'adminpp.getAddMenu',
+            'as'    => 'admincpp.getAddMenu',
             'uses'  => 'AdminMenuController@getAdd'
         ]);
         Route::post('/add', [
@@ -27,23 +27,24 @@ Route::group([
             'uses'  => 'AdminMenuController@postAdd'
         ]);
         Route::get('/edit', [
-            'as'    => 'adminpp.getEditMenu',
+            'as'    => 'admincpp.getEditMenu',
             'uses'  => 'AdminMenuController@getEdit'
         ]);
         Route::post('/edit', [
-            'as'    => 'adminpp.postEditMenu',
+            'as'    => 'admincpp.postEditMenu',
             'uses'  => 'AdminMenuController@postEdit'
         ]);
         Route::get('/delete', [
-            'as' => 'adminpp.getDeleteMenu',
+            'as' => 'admincpp.getDeleteMenu',
             'uses' => 'AdminMenuController@getDelete'
         ]);
         Route::post('/process-quick-menu', [
-            'as'=> 'adminpp.postProcessQuickMenu',
+            'as'=> 'admincpp.postProcessQuickMenu',
             'uses' => 'AdminMenuController@postProcessQuick'
         ]);
     });
 
+    // CATEOGORY
     Route::group(['prefix'=> 'category', 'middleware'=> 'checkPermission'], function () {
         Route::get('/', [
            'as' => 'admincpp.getListCategory',
@@ -75,7 +76,7 @@ Route::group([
         ]);
     });
 
-    // setting
+    // SETTING
     Route::group(['prefix'=> 'configuration', 'middileware'=> 'checkPermission'], function()
     {
         Route::get('/', [
@@ -89,7 +90,7 @@ Route::group([
         ]);
     });
 
-    // account
+    // ACCOUNT
     Route::group(['prefix'=> 'account','middileware'=> 'checkPermission'], function ()
     {
         Route::get('/', [
@@ -129,7 +130,7 @@ Route::group([
     });
 
 
-        // Master khong co tab
+    // Master khong co tab
     Route::get('/master', [
             'as'=> 'admincpp.master',
             'uses'=> 'AdminController@getMaster'

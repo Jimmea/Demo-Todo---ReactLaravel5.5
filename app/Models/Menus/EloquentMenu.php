@@ -1,17 +1,9 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: HUNG
- * Date: 2/10/2017
- * Time: 12:46 AM
- */
-
 namespace App\Models\Menus;
-
 
 use App\Repositories\BaseRepository;
 
-class EloquentMenu extends BaseRepository implements InterfaceMenu
+class EloquentMenu extends BaseRepository implements MenuRepository
 {
     public function __construct(Menu $menu)
     {
@@ -30,5 +22,28 @@ class EloquentMenu extends BaseRepository implements InterfaceMenu
         return $this->model->getPosition();
     }
 
+    public function getConfigTarget()
+    {
+        return $this->model->getTarget();
+    }
 
+    public function saveMenu($data)
+    {
+        return $this->storeData($data);
+    }
+
+    /**
+     * Get tat ca menu
+     * @param array $arrayColumn : mang column se duoc chon hien thi
+     * @param array $filter : mang filter
+     * @param array $arrayField : mang column se duoc chon hien thi
+     * @param string $search :
+     * @param string $sort :
+     * @return
+     */
+    public function getAllMenu($arrayField = array(), $filter = array(), $search = false, $sort = array())
+    {
+        // TODO: Implement getAllMenu() method.
+        return $this->getAllChild('menus', 'mnu_id', 'mnu_parent_id', 0, $filter, $arrayField, $sort, $search);
+    }
 }

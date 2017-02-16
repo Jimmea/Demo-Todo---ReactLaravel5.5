@@ -133,15 +133,17 @@ class AdminCategoryController extends AdminController
         $cateParentIdAfterUpdate        = $dataForm['cate_parent_id'];
 
         // Kiểm tra xem bản ghi có tồn tại không
-        $categoryExist = $this->category->findById($cateId);
-        $cateParentIdBeforeUpdate       = $categoryExist->cate_parent_id;
-        $cateListAllChildBeforeUpdate   = $categoryExist->cate_all_child;
+        $categorySelectOne              = $this->category->findById($cateId);
+        $cateParentIdBeforeUpdate       = $categorySelectOne->cate_parent_id;
+        $cateListAllChildBeforeUpdate   = $categorySelectOne->cate_all_child;
+        $conflictCategory               = ($cateId == $cateParentIdAfterUpdate) ? true : false;
 
         // Kiểm tra tránh conflict vói list all child
-        if ($cateListAllChildBeforeUpdate)
+        if ($cateListAllChildBeforeUpdate || $conflictCategory)
         {
             $cateListAllChildBeforeUpdate   = explode(',', $cateListAllChildBeforeUpdate);
-            if (in_array($cateParentIdAfterUpdate, $cateListAllChildBeforeUpdate))
+            if (in_array($cateParentIdAfterUpdate, $cateListAllChildBeforeUpdate)  ||
+                $conflictCategory)
             {
                 set_flash('error', "You can't choice this parent category to Update. Please choice other parent category");
                 return redirect()->back();
@@ -151,17 +153,20 @@ class AdminCategoryController extends AdminController
         // Cập nhật toàn bộ thông tin category
         $this->category->updateCategoryById($cateId, $dataForm);
 
-        // Cập nhật lại cate có cate_parent_id được chọn đã có has child
-        if ($dataForm['cate_parent_id'] > 0)
+        // Danh cho category update có parent khác với parent trước khi update.
+        if ($cateParentIdAfterUpdate != $cateParentIdBeforeUpdate)
         {
-            // Danh cho category update có parent khác với parent trước khi update. Xóa id này trong listAllChild của id cũ
-            if ($cateParentIdAfterUpdate != $cateParentIdBeforeUpdate)
+            // Cập nhật parent trước đó | Xóa cateId o listAllChild của parent id trước : haschild phai check
+            if ($cateParentIdBeforeUpdate >0)
             {
-                $this->category->updateCategoryHasChild($cateParentIdBeforeUpdate, 0, $cateId,  $dataForm['cate_type'], 'edit');
+                $this->category->updateCategoryHasChild($cateParentIdBeforeUpdate, false, $cateId, $dataForm['cate_type'], 'edit');
             }
 
-            // Dành cho category update có chọn bất kỳ category nào đó làm cha . Update lại cha các list con
-            $this->category->updateCategoryHasChild($cateParentIdAfterUpdate, 1, $cateId, $dataForm['cate_type']);
+            // Cap nhat parent hien tai co haschild
+            if ($cateParentIdAfterUpdate > 0)
+            {
+                $this->category->updateCategoryHasChild($cateParentIdAfterUpdate, 1, $cateId,  $dataForm['cate_type']);
+            }
         }
 
         set_flash_update_success();

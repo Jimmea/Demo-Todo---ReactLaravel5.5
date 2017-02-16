@@ -83,38 +83,37 @@ class EloquentCategory extends BaseRepository implements InterfaceCategory
         $category       = $this->findById($cate_parent_id);
         $cateAllChild   = $category->cate_all_child ? explode(',', $category->cate_all_child) : array();
 
-        // Cho trường hơp $action = edit
-        $action = strtolower($action);
-        if ($action == 'edit')
+        // Cho trường hơp $action = edit mới thực hiện
+        if (strtolower($action) == 'edit')
         {
             $c = null;
             foreach ($cateAllChild as $k => $v)
             {
-                // Xóa đi các cate trùng trong chuỗi
-                if ($c== $v) unset($cateAllChild[$k]);
-                $c = $v;
-                // Xóa đi cate đang update tồn tại ở list all child cate parent id trước đó
-                if ($v == $cate_id) unset($cateAllChild[$k]);
+                if ($v)
+                {
+                    // Xóa đi các cate trùng trong chuỗi
+                    if ($c== $v) unset($cateAllChild[$k]);
+                    $c = $v;
+                    // Xóa đi cate đang update tồn tại ở list all child cate parent id trước đó
+                    if ($v == $cate_id) unset($cateAllChild[$k]);
+                }
             }
 
-            // update lại danh sách cate_all_child mới trong truong.
-            $cateAllChild   = implode(',', $cateAllChild);
-            $this->updateById($cate_parent_id, ['cate_all_child'=> $cateAllChild]);
-
             // Check lại $cate_parent_id tồn tại cate child k. Nếu k tồn tại thì cate_has_child = 0 ||cate_has_child = 1
-            $categorySelect = $this->checkExistCategoryChild(array('cate_parent_id', '=', $cate_parent_id));
-            if (!$categorySelect) $this->updateById($cate_parent_id, ['cate_has_child' => 0, 'cate_all_child'=> '']);
+            $categorySelect     = $this->checkExistCategoryChild(array('cate_parent_id', '=', $cate_parent_id));
+            $CategoryhasChild   = $categorySelect ? 1 : 0;
 
+            // update cate_has_child & cate_all_child
+            $cateAllChild   = $cateAllChild ? implode(',', $cateAllChild) : '';
+            $this->updateById($cate_parent_id, ['cate_has_child'=> $CategoryhasChild, 'cate_all_child'=> $cateAllChild]);
             return false;
         }
 
         // Thêm cate_id mới vừa được tạo vào trong all list child của cate cha
         $cateAllChild[] = $cate_id;
-        if (! in_array($cate_parent_id, $cateAllChild))
-            array_unshift($cateAllChild, $cate_parent_id);
+        if (! in_array($cate_parent_id, $cateAllChild)) array_unshift($cateAllChild, $cate_parent_id);
 
-
-        // Cập nhật lại ứng với id = $cate_parent_id, có tồn tại child hay k. Nếu tồn tại thì update thêm all child.
+        // Cập nhật thông tin
         $cateAllChild   = implode(',', $cateAllChild);
         $updateCategory = $this->updateById($cate_parent_id, ['cate_has_child'=> $value, 'cate_all_child'=> $cateAllChild]);
 

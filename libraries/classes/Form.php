@@ -172,17 +172,29 @@ class Form
      * @param
      * @return
      */
-    public function groupText($title, $name, $id='',$require= false, $width='', $height='',
-                              $maxLength="", $addAttr= [], $addText='')
+    public function groupText($title, $name, $id='',$require= false, $groupAppend = array(),$width='', $height='',
+                              $maxLength="", $addAttr= [])
     {
         $value      = get_value_field($name, $this->formDb);
         $addAttr    = $this->converArrayAttribute($addAttr);
         $expandAttr = $this->createStyle($id, $width, $height);
+        if ($groupAppend)
+        {
+            list($beforeInput, $afterInput) = $groupAppend;
+        }
 
         $formGroup  = '';
-            $formGroup .= '<input type="text" name='.$name.' '.$expandAttr.' 
-            maxLength="'.$maxLength.'" '.$addAttr.' value="'.$value.'">';
-        $formGroup .= $addText;
+
+        // cho before input
+        if (isset($beforeInput) && $beforeInput)
+            $formGroup .= '<div class="input-group">';
+
+        $formGroup .= '<input type="text" name='.$name.' '.$expandAttr.' maxLength="'.$maxLength.'" '.$addAttr.' value="'.$value.'">';
+
+        // cho before input
+        if (isset($afterInput) && $afterInput)
+            $formGroup .= '<span class="input-group-addon makeSlug" title="Make link"><i class="fa fa-reply-all"></i></span></div>';
+
 
         return $this->createFormGroup($formGroup, $title, $name, $require);
     }
@@ -194,14 +206,17 @@ class Form
      * @param
      * @return
      */
-    public function groupSelect($title, $name, $id='', $require = false, $valueDefault=array(), $listField= array(), $width='', $height='', $separator='')
+    public function groupSelect($title, $name, $id='', $require = false, $valueDefault=array(), $listField= array(),$showOptionEmpty = false, $width='', $height='', $separator='')
     {
         $value      = get_value_field($name, $this->formDb);
         $expandAttr = $this->createStyle($id, $width, $height);
 
         $formGroup  ='';
                 $formGroup .= '<select name='.$name.' '.$expandAttr.'>';
-                    $formGroup .= '<option value="">-- [ Select one ] --</option>';
+                    if ($showOptionEmpty)
+                    {
+                        $formGroup .= '<option value="">-- [ Select one ] --</option>';
+                    }
                     if ($valueDefault)
                     {
                         foreach ($valueDefault as $k => $v)

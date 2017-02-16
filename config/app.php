@@ -181,6 +181,9 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
 
+
+        // model service provider
+        \App\Providers\MenuServiceProvider::class,
     ],
 
     /*

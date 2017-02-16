@@ -5,7 +5,7 @@
 {!! $form->groupText(trans('admin::category.add.cate_name'), 'cate_name', 'cate_name', true) !!}
 
 {{-- Danh muc cha--}}
-{!! $form->groupSelect(trans('admin::category.add.cate_parent_id'), 'cate_parent_id', 'cate_parent_id', false, $categories, ['cate_id', 'cate_name']) !!}
+{!! $form->groupSelect(trans('admin::category.add.cate_parent_id'), 'cate_parent_id', 'cate_parent_id', false, $categories, ['cate_id', 'cate_name'], true) !!}
 
 {!! $form->groupSelect(trans('admin::category.add.cate_show_mob'), 'cate_show_mob', 'cate_show_mob', false,  $cateShowMod) !!}
 {!! $form->groupSelect(trans('admin::category.add.cate_view_type'), 'cate_view_type', 'cate_show_mob', false, $typeView) !!}

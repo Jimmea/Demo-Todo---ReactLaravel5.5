@@ -16,7 +16,19 @@ class Menu extends Model
     public function getPosition()
     {
         return [
-            'Top', 'Footer', 'Detail', 'Sidebar', 'Left'
+            1  => 'Menu Top',
+            2  => 'Menu footer',
+            3  => 'Menu Detail',
+            4  => 'Menu Sidebar',
+            5  => 'Menu Left',
+        ];
+    }
+
+    public function getTarget()
+    {
+        return [
+            '_self' => 'Cùng cửa sổ',
+            '_blank' => 'Cửa sổ mới'
         ];
     }
 }
