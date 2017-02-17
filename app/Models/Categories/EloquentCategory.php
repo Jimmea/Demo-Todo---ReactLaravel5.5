@@ -75,7 +75,7 @@ class EloquentCategory extends BaseRepository implements InterfaceCategory
      * @param $action : hành động cho update
      * @return mixed
      */
-    public function updateCategoryHasChild($cate_parent_id, $value = 0, $cate_id, $cate_type='product', $action = 'add')
+    public function updateCategoryHasChild($cate_parent_id, $hasChild = 0, $cate_id, $cate_type='product', $action = 'add')
     {
         if (! array_key_exists(strtolower($cate_type), $this->getConfigTypeCategory())) return false;
 
@@ -101,22 +101,20 @@ class EloquentCategory extends BaseRepository implements InterfaceCategory
 
             // Check lại $cate_parent_id tồn tại cate child k. Nếu k tồn tại thì cate_has_child = 0 ||cate_has_child = 1
             $categorySelect     = $this->checkExistCategoryChild(array('cate_parent_id', '=', $cate_parent_id));
-            $CategoryhasChild   = $categorySelect ? 1 : 0;
-
-            // update cate_has_child & cate_all_child
-            $cateAllChild   = $cateAllChild ? implode(',', $cateAllChild) : '';
-            $this->updateById($cate_parent_id, ['cate_has_child'=> $CategoryhasChild, 'cate_all_child'=> $cateAllChild]);
-            return false;
+            $hasChild           = $categorySelect ? 1 : 0;
         }
 
         // Thêm cate_id mới vừa được tạo vào trong all list child của cate cha
-        $cateAllChild[] = $cate_id;
-        if (! in_array($cate_parent_id, $cateAllChild)) array_unshift($cateAllChild, $cate_parent_id);
+        if ($action == 'add')
+        {
+            $cateAllChild[] = $cate_id;
+            if (! in_array($cate_parent_id, $cateAllChild)) array_unshift($cateAllChild, $cate_parent_id);
+        }
 
         // Cập nhật thông tin
-        $cateAllChild   = implode(',', $cateAllChild);
-        $updateCategory = $this->updateById($cate_parent_id, ['cate_has_child'=> $value, 'cate_all_child'=> $cateAllChild]);
-
+        $cateAllChild   = conver_unique_array_tostring($cateAllChild);
+        $dataFill       = ['cate_has_child'=> $hasChild, 'cate_all_child'=> $cateAllChild];
+        $updateCategory =  $category->fill($dataFill)->save();
         return $updateCategory;
     }
 

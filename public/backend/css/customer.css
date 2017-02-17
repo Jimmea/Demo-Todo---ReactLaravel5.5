@@ -41,9 +41,30 @@ span.fa-2x {
 .padd-0 {
     padding: 0 !important;
 }
+.padd-10 {
+    padding: 10px !important;
+}
 .fa-circle {
     color: #ccc;
 }
 .fa-circle:hover {
     color: #ccc;
+}
+.clearleft {
+    clear: left;
+}
+.modal {
+    margin-top: 5%;
+    transition: all 0.5s ease-in-out;
+    -webkit-transform:scale(.5, .5);
+}
+.fade.in {
+    display: block;
+    -webkit-transform:scale(1, 1);
+}
+.modal .close {
+    margin-top: -2px;
+    font-size: 11px;
+    color: #9E9E9E;
+    opacity: 1;
 }

@@ -21,13 +21,14 @@ class FilterForm extends FormRequest
      */
     public function filterDataForm($data)
     {
+        $dataReturn = array();
         if ($data)
         {
             foreach ($data as $key => $value)
             {
-                if (empty($value)) unset($data[$key]);
+                $dataReturn[$key] = ($value ? $value : 0);
             }
         }
-        return $data;
+        return $dataReturn;
     }
 }

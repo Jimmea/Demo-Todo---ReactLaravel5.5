@@ -126,10 +126,8 @@
             </div>
         </div>
     </div>
-@stop
-@section('js')
-<script>
-    EditQuickXtable('/category/process-quick-category', '.editCateOrder');
-    EditQuickXtable('/category/process-quick-category', '.editCateName');
-</script>
+    <script>
+        EditQuickXtable('/category/process-quick-category', '.editCateOrder');
+        EditQuickXtable('/category/process-quick-category', '.editCateName');
+    </script>
 @stop

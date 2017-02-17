@@ -40,7 +40,6 @@ class AdminMenuController extends AdminController
             'configTarget'  => $this->menu->getConfigTarget(),
         ];
 
-
         return view(ADMIN_VIEW.'menus.index')->with($dataView);
     }
 
@@ -62,10 +61,18 @@ class AdminMenuController extends AdminController
 
     public function postAdd(MenuRequest $request)
     {
-        $dataForm = $request->except('_token');
+        $dataForm   = $request->except('_token');
         $dataForm['mnu_status'] = 1;
-        $dataForm = $request->filterDataForm($dataForm);
-        $this->menu->saveMenu($dataForm);
+        $dataForm['mnu_admin_id'] = $this->getAdminId();
+        $dataForm   = $request->filterDataForm($dataForm);
+        $menu       = $this->menu->storeMenu($dataForm);
+
+        // Them moi ban ghi co upper menu
+        if (isset($dataForm['mnu_parent_id']) && $dataForm['mnu_parent_id'] > 0)
+        {
+            $this->menu->updateMenuHasChild($dataForm['mnu_parent_id'], 1, $menu->mnu_id);
+        }
+
         set_flash_add_success();
         return redirect()->route('admincpp.getListMenu');
     }
@@ -94,14 +101,56 @@ class AdminMenuController extends AdminController
      */
     public function postEdit(MenuRequest $request, $mnu_id)
     {
+        // Kiem tra xem ban ghi co ton tai khong
+        $menuSelectOne            = $this->menu->findMenuById($mnu_id);
+        $menuParentIdBeforeUpdate = $menuSelectOne->mnu_parent_id;
+        $menuAllChildBeforeUpdate = $menuSelectOne->mnu_all_child;
+
         $dataForm = $request->except('_token');
+        $menuParentIdAfterUpdate =  $dataForm['mnu_parent_id'];
+
+        // Bao loi truong hop $mnu_id == $menuParentIdAfterUpdate
+        $conflictMenu = ($mnu_id == $menuParentIdAfterUpdate) ? true : false;
+        if ($menuAllChildBeforeUpdate || $conflictMenu)
+        {
+            $menuAllChildBeforeUpdate   = explode(',', $menuAllChildBeforeUpdate);
+            if (in_array($menuParentIdAfterUpdate, $menuAllChildBeforeUpdate) || $conflictMenu)
+            {
+                set_flash('error', "You can't choice this parent menu to Update. Please choice other parent menu");
+                return redirect()->back();
+            }
+        }
+
+        // Cap nhat toan bo thong tin menu
         $dataForm = $request->filterDataForm($dataForm);
         $this->menu->updateMenuById($mnu_id, $dataForm);
+
+        // Xu ly danh cho menu co parent menu khac voi truoc khi update
+        if ($menuParentIdBeforeUpdate != $menuParentIdAfterUpdate)
+        {
+            // Cập nhật parent trước đó | Xóa menuid o listAllChild của parent id trước : haschild phai check
+            if ($menuParentIdBeforeUpdate)
+            {
+                $this->menu->updateMenuHasChild($menuParentIdBeforeUpdate, false, $mnu_id , 'edit');
+            }
+
+            // Cap nhat parent hien tai co haschild
+            if ($menuParentIdAfterUpdate > 0)
+            {
+                $this->menu->updateMenuHasChild($menuParentIdAfterUpdate, 1, $mnu_id);
+            }
+        }
+
 
         set_flash_update_success();
         return redirect()->route('admincpp.getListMenu');
     }
 
+    /**
+     * Delete a special record by id
+     * @param int $id : truong khoa chinh cua bang
+     * @return void
+     */
     public function getDelete($id)
     {
         $this->menu->deleteMenuById($id) ? set_flash_delete_success() : set_flash_delete_error();
@@ -110,6 +159,11 @@ class AdminMenuController extends AdminController
         return redirect()->route('admincpp.getListMenu');
     }
 
+    /**
+     * Method process quick
+     * @param void
+     * @return json
+     */
     public function postProcessQuickMenu(Request $request)
     {
         if ($request->ajax())

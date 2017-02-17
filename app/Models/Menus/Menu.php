@@ -10,7 +10,7 @@ class Menu extends Model
     public $primaryKey = 'mnu_id';
     public $fillable =  [
         'mnu_name', 'mnu_picture', 'mnu_link', 'mnu_target', 'mnu_type', 'mnu_position',
-        'mnu_order', 'mnu_parent_id', 'mnu_has_child', 'mnu_defined', 'mnu_status', 'mnu_admin_id', 'mnu_icon'
+        'mnu_order', 'mnu_parent_id', 'mnu_has_child', 'mnu_all_child', 'mnu_status', 'mnu_admin_id', 'mnu_icon'
     ];
 
     public function getPosition()

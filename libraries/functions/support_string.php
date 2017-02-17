@@ -61,6 +61,16 @@ if (!function_exists('convert_array_tostring'))
     }
 }
 
+if (! function_exists('conver_unique_array_tostring'))
+{
+    function conver_unique_array_tostring($data, $separator=',')
+    {
+        $data = array_unique($data);
+
+        return implode($separator, $data);
+    }
+}
+
 if (! function_exists('conver_array_to_string_form'))
 {
     function conver_array_to_string_form($data)

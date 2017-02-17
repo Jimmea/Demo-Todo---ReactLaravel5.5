@@ -125,25 +125,25 @@ class AdminCategoryController extends AdminController
         // Validate dữ liệu đầu vào
         $this->category->validateCategory($request, $cateId);
 
-        // Báo lõi trường hợp parent_key = $cateId
+        // Kiểm tra xem bản ghi có tồn tại không
+        $categorySelectOne              = $this->category->findById($cateId);
+        $cateParentIdBeforeUpdate       = $categorySelectOne->cate_parent_id;
+        $cateListAllChildBeforeUpdate   = $categorySelectOne->cate_all_child;
+
+        // Get data form
         $dataForm  = $request->except('_token');
         $dataForm['cate_admin_id']      = $this->getAdminId();
         $dataForm['cate_view_type']     = ($dataForm['cate_view_type'] ? $dataForm['cate_view_type'] : 1);
         $dataForm['cate_parent_id']     = ($dataForm['cate_parent_id'] ? $dataForm['cate_parent_id'] : 0);
         $cateParentIdAfterUpdate        = $dataForm['cate_parent_id'];
 
-        // Kiểm tra xem bản ghi có tồn tại không
-        $categorySelectOne              = $this->category->findById($cateId);
-        $cateParentIdBeforeUpdate       = $categorySelectOne->cate_parent_id;
-        $cateListAllChildBeforeUpdate   = $categorySelectOne->cate_all_child;
+        // Báo lõi trường hợp parent_key = $cateId
         $conflictCategory               = ($cateId == $cateParentIdAfterUpdate) ? true : false;
-
         // Kiểm tra tránh conflict vói list all child
         if ($cateListAllChildBeforeUpdate || $conflictCategory)
         {
             $cateListAllChildBeforeUpdate   = explode(',', $cateListAllChildBeforeUpdate);
-            if (in_array($cateParentIdAfterUpdate, $cateListAllChildBeforeUpdate)  ||
-                $conflictCategory)
+            if (in_array($cateParentIdAfterUpdate, $cateListAllChildBeforeUpdate) || $conflictCategory)
             {
                 set_flash('error', "You can't choice this parent category to Update. Please choice other parent category");
                 return redirect()->back();

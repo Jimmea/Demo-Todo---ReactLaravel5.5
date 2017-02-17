@@ -32,8 +32,8 @@ class CreateConfigurationsTable extends Migration
             $table->string('con_google');
             $table->string('con_instagram');
             $table->string('con_pinterest');
-            $table->string('con_code_ga');
-            $table->string('con_code_chat');
+            $table->string('con_code_analytics');
+            $table->string('con_code_facebook');
             $table->string('con_code_param1');
             $table->string('con_code_param2');
             $table->string('con_code_param3');

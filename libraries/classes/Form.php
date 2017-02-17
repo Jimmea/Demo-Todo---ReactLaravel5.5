@@ -172,8 +172,8 @@ class Form
      * @param
      * @return
      */
-    public function groupText($title, $name, $id='',$require= false, $groupAppend = array(),$width='', $height='',
-                              $maxLength="", $addAttr= [])
+    public function groupText($title, $name, $id='',$require= false, $groupAppend = array(),$addAttr= array(),$width='', $height='',
+                              $maxLength="")
     {
         $value      = get_value_field($name, $this->formDb);
         $addAttr    = $this->converArrayAttribute($addAttr);

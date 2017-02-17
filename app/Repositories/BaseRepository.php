@@ -125,10 +125,10 @@ abstract class BaseRepository
      * @param  int $otherValue  : một giá trị nào đó được định nghĩa sẵn  (VD : -1)
      * @return int
      */
-    public function updateByField($id, $fieldInt, $otherValue='')
+    public function updateByField($id, $field, $otherValue='')
     {
         $row = $this->findById($id);
-        $row->$fieldInt = ($otherValue ? $otherValue : (($row->$fieldInt == 1) ? 0 : 1));
+        $row->$field = ($otherValue ? $otherValue : (($row->$field == 1) ? 0 : 1));
         $row->save();
         return 1;
     }

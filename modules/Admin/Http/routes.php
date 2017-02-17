@@ -4,6 +4,7 @@ Route::group([
     'middleware' => ['web', 'checkadminlogin'],
     'prefix'     => 'admincpp',
     'namespace'  => 'Modules\Admin\Http\Controllers'], function() {
+
     // dashboard
     Route::get('/', 'DashboardController@index');
     Route::get('/dashboard', [
@@ -42,7 +43,6 @@ Route::group([
             'as'    => 'admincpp.postProcessQuickMenu',
             'uses'  => 'AdminMenuController@postProcessQuickMenu'
         ]);
-
     });
 
     // CATEOGORY
