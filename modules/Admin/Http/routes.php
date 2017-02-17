@@ -85,7 +85,7 @@ Route::group([
             'uses'=> 'ConfigurationController@getEdit'
         ]);
 
-        Route::post('/edit', [
+        Route::post('/edit/{id}', [
             'as'=> 'admincpp.postEditConfiguration',
             'uses'=> 'ConfigurationController@postEdit'
         ]);
@@ -109,17 +109,17 @@ Route::group([
             'uses'=> 'AccountController@postAdd'
         ]);
 
-        Route::get('/edit/{id}', [
+        Route::get('/edit/{adm_id}', [
             'as'=> 'admincpp.geteditAccount',
             'uses'=> 'AccountController@getEdit'
         ]);
 
-        Route::post('/edit{id}', [
+        Route::post('/edit/{adm_id}', [
             'as'=> 'admincpp.posteditAccount',
             'uses'=> 'AccountController@postEdit'
         ]);
 
-        Route::get('/delete/{id?}', [
+        Route::get('/delete/{adm_id?}', [
             'as'=> 'admincpp.getDeleteAccount',
             'uses'=> 'AccountController@getDelete'
         ]);
@@ -129,7 +129,6 @@ Route::group([
             'uses'=> 'AccountController@getProcessQuick'
         ]);
     });
-
 
     // Master khong co tab
     Route::get('/master', [

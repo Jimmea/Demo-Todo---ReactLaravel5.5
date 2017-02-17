@@ -184,7 +184,6 @@ class Form
         }
 
         $formGroup  = '';
-
         // cho before input
         if (isset($beforeInput) && $beforeInput)
             $formGroup .= '<div class="input-group">';
@@ -195,7 +194,7 @@ class Form
         if (isset($afterInput) && $afterInput)
             $formGroup .= '<span class="input-group-addon makeSlug" title="Make link"><i class="fa fa-reply-all"></i></span></div>';
 
-
+        $this->classHtml = '';
         return $this->createFormGroup($formGroup, $title, $name, $require);
     }
 
@@ -217,6 +216,7 @@ class Form
                     {
                         $formGroup .= '<option value="">-- [ Select one ] --</option>';
                     }
+
                     if ($valueDefault)
                     {
                         foreach ($valueDefault as $k => $v)
@@ -237,6 +237,7 @@ class Form
                             }
                         }
                     }
+
                 $formGroup .= '</select>';
         $formGroup .= '';
         return $this->createFormGroup($formGroup, $title, $name, $require);

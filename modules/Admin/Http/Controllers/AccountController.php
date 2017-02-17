@@ -2,21 +2,20 @@
 
 namespace Modules\Admin\Http\Controllers;
 
-use App\Models\Admins\EloquentAdmin;
+use App\Http\Requests\AccountRequest;
+use App\Models\Admins\AdminRepository;
 use Illuminate\Http\Request;
-
 
 class AccountController extends AdminController
 {
-    public function __construct(EloquentAdmin $eloquentAdmin)
+    public function __construct(AdminRepository $adminRepository)
     {
-        $this->admin = $eloquentAdmin;
+        $this->admin = $adminRepository;
     }
 
     /**
-     * Created by : Hungokata
-     * Time : 1:55 PM / 2/4/2017
-     * @param
+     * Show danh sach account
+     * @param void
      * @return void
      */
     public function getList(Request $request)
@@ -25,52 +24,48 @@ class AccountController extends AdminController
         $this->setFilter($request, 'adm_loginname', 'LIKE');
         $this->setFilter($request, 'adm_email', 'LIKE');
 
-
+        $filter = $this->getFilter();
         $sort   = ['adm_id', 'DESC'];
 
-        $data = [
-            'admins' => $this->admin->getAll($filter, $sort, $limit)
+        $dataView = [
+            'admins' => $this->admin->getListAccount($filter, $sort, $limit)
         ];
 
-
-        return view(ADMIN_VIEW.'accounts.list')->with($data);
+        return view(ADMIN_VIEW.'accounts.list')->with($dataView);
     }
 
     /**
-     * Created by : Hungokata
-     * Time : 1:55 PM / 2/4/2017
-     * @param
+     * Show form add a account
+     * @param void
      * @return void
      */
     public function getAdd()
     {
-        $admin = null;
-        return view(ADMIN_VIEW.'accounts.add', compact('admin'));
+        $dataView = [
+            'admin' => null,
+        ];
+        return view(ADMIN_VIEW.'accounts.add')->with($dataView);
     }
 
     /**
-     * Created by : Hungokata
-     * Time : 1:55 PM / 2/4/2017
      * Thêm mới một bản ghi
      * @param void
      * @return reponse
      */
-    public function postAdd(Request $request)
+    public function postAdd(AccountRequest $request)
     {
-        $this->admin->validateRegister($request);
-        $data = $request->except('_token');
-        $data['adm_active'] = 1;
-        $data['adm_password'] = bcrypt($data['adm_password']);
-        $admin = $this->admin->store($data);
+        $dataForm = $request->except('_token');
+        $dataForm['adm_password'] = bcrypt($dataForm['adm_password']);
+        $dataForm['adm_admin_id'] = $this->getAdminId();
+        $dataForm = $request->filterDataForm($dataForm);
 
-        set_flash('success', 'Create a new admin successful');
+        $this->admin->storeData($dataForm);
+        set_flash_add_success();
         return redirect()->route('admincpp.getListAccount');
     }
 
     /**
-     * Created by : Hungokata
-     * Time : 1:55 PM / 2/4/2017
-     * Shơ form sửa thông tin một bản ghi
+     * Show form sửa thông tin một bản ghi
      * @param int $adm_id : truong khoa chinh cua bang
      * @return void
      */
@@ -79,54 +74,48 @@ class AccountController extends AdminController
         $data = [
             'admin' => $this->admin->findById($adm_id)
         ];
+
         return view(ADMIN_VIEW. 'accounts.edit')->with($data);
     }
 
     /**
-     * Created by : Hungokata
-     * Time : 1:55 PM / 2/4/2017
      * Cap nhat lai thong tin cua ban ghi
      * @param int $adm_id : truong khoa chinh cua bang
      * @return void
      */
-    public function postEdit(Request $request, $adm_id)
+    public function postEdit(AccountRequest $request, $adm_id)
     {
-        $this->admin->validateRegister($request, $adm_id);
-        $data = $request->except('_token');
-        if ($data['adm_password'])
-        {
+        $dataForm = $request->except('_token');
+        $dataForm['adm_admin_id'] = $this->getAdminId();
+        if (isset($data['adm_password']) && $data['adm_password'])
             $data['adm_password'] = bcrypt($data['adm_password']);
-        }
-        $admin = $this->admin->update($adm_id, $data);
+        $dataForm = $request->filterDataForm($dataForm);
+        $this->admin->updateById($adm_id, $dataForm);
 
-        set_flash('success', 'Update a admin successful');
+        set_flash_update_success();
         return redirect()->route('admincpp.getListAccount');
     }
 
     /**
-     * Created by : Hungokata
-     * Time : 1:40 AM / 2/5/2017
+     * Xoa di mot ban ghi
      * @param int $id : truong  khoa chinh cua bang
      * @return void
      */
-    public function getDelete(Request $request, $id)
+    public function getDelete($id)
     {
         if ($id == 1)
         {
-            set_flash('error', 'You not delete this user');
+            set_flash_delete_error();
             return redirect()->back();
         }
 
-        $admIdArr = $request->get('adm_id');
-        $this->admin->delete($id);
-        set_flash('success', 'Delete a admin successful');
+        $this->admin->deleteByid($id);
+        set_flash_delete_success();
 
         return redirect()->back();
     }
 
     /**
-     * Created by : BillJanny
-     * Date: 11:10 PM - 2/8/2017
      * Xu ly nhanh cac hanh dong
      * @param void
      * @return json
@@ -145,20 +134,17 @@ class AccountController extends AdminController
                     {
                         if ($value == 1) unset($adminId[$key]);
                     }
-                    $this->admin->delete($adminId);
-                    return response()->json(['status'=>1]);
+                    $this->admin->deleteByid($adminId);
                     break;
 
-                case 'editone':
+                case 'editstatus':
                     $adminId    = get_value('id','int', 'POST');
-                    $admin      = $this->admin->findById($adminId);
-                    $active     = ($admin->adm_active == 1) ? 0 : 1;
-                    $admin->adm_active = $active;
-                    $admin->save();
-
-                    return response()->json(['status'=>1, 'msg'=> trans('admin::message.message_update_success')]);
+                    $this->admin->updateByField($adminId, 'adm_active');
                     break;
             }
+
+            return $this->responseSuccess();
         }
+        return $this->responseError();
     }
 }

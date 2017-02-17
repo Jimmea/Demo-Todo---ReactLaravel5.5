@@ -1,17 +1,20 @@
 @extends('admin::layouts.master')
-@section('title', 'Add new account')
 @section('content')
     {!! bread_crumb([
-            ''=> 'List account'
+            'List account'
         ])
     !!}
-
     <div class="row">
         <div class="col-md-12">
-            <div id="wrap-table">
-                <div class="white-box">
-                    {!! box_title('List account', false) !!}
-                    <div class="search-box">
+            <div class="white-box padd-0">
+                <div class="white-box-header padd-10">
+                    <div class="header-title pull-left">
+                        {!! box_title('List account', false) !!}
+                    </div>
+                    <div class="header-action pull-right">
+                        <a href="{{ route('admincpp.getAddAccount') }}" class="btn btn-info btn-sm text-uppercase"><i class="icon-plus"></i> Add new</a>
+                    </div>
+                    <div class="header-search clearleft search-box">
                         <form action="" class="form-inline">
                             <input type="hidden" name="page" value="{{ get_value('page','int', 'GET', 1) }}">
                             <label for="login_name">
@@ -28,7 +31,7 @@
                         </form>
                     </div>
                 </div>
-                <div class="white-box padd-0">
+                <div class="white-box-content">
                     <form action="{{ route('admincpp.getProcessQuickAccount') }}" id="formTable">
                         <table class="table table-bordered table-stripped" id="dataTableList">
                             <thead>
@@ -40,7 +43,6 @@
                                     <td class="bold">Login name</td>
                                     <td class="bold">Full name</td>
                                     <td class="bold">Email</td>
-                                    {{--<td class="bold">Module</td>--}}
                                     <td width="7%" align="center" class="bold">Face login</td>
                                     <td width="4%" align="center" class="bold">Status</td>
                                     <td width="4%" align="center" class="bold">Edit</td>
@@ -61,7 +63,6 @@
                                     <td>{{ $value->adm_loginname }}</td>
                                     <td>{{ $value->adm_name }}</td>
                                     <td>{{ $value->adm_email }}</td>
-                                    {{--<td>...</td>--}}
                                     <td align="center"><a href="#" class="btn btn-xs btn-success">Login</a></td>
                                     <td align="center">
                                         {!! $dataGrid->makeCheckButton($value, 'adm_active') !!}

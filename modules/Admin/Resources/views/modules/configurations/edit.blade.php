@@ -8,7 +8,7 @@
         <div class="col-md-12">
             <div class="white-box">
                 {!! box_title('Edit configuration') !!}
-                <?php $form = new Form($errors); ?>
+                <?php $form = new Form($errors, $configuration); ?>
                 {!! $form->beginForm(['admincpp.postEditConfiguration', 1]) !!}
                     {!! ul_tab_begin() !!}
                         {!! li_tab(['id'=> 'general', 'title'=> 'Thông tin cơ bản (*)'], true) !!}
@@ -22,9 +22,10 @@
                             {!! $form->groupText('Tiêu đề website', 'con_site_title', 'con_site_title', true) !!}
                             {!! $form->groupFile('Favicon', 'con_favicon', 'con_favicon') !!}
                             {!! $form->groupFile('Logo', 'con_logo', 'con_logo') !!}
-                            {!! $form->groupFile('Background image', 'con_background_img', 'con_background_img') !!}
-                            {!! $form->groupText('Background color', 'con_background_color', 'con_background_color', false, array(), ['class'=>'input_color']) !!}
                             {!! $form->groupText('Địa chỉ website', 'con_address', 'con_address') !!}
+                            {!! $form->groupFile('Background image', 'con_background_img', 'con_background_img') !!}
+                            {!! $form->groupText('Background color', 'con_background_color', 'input_color', false, [], ['class'=>'colorpicker']) !!}
+
                         </div>
                         <div role="tabpanel" class="tab-pane fade" id="seo">
                             {!! $form->groupText('Meta title', 'con_meta_title', 'con_meta_title', true) !!}

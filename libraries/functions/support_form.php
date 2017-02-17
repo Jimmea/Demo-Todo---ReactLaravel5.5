@@ -18,15 +18,11 @@
  */
 if (! function_exists('form_begin'))
 {
-    function form_begin($route, $file = true)
+    function form_begin($route = array(), $file = true)
     {
-        (count($route) >1)
-                ? list($routeName, $routeParam) = $route
-                : list($routeName) = $route;
+        (count($route) >1) ? list($routeName, $routeParam) = $route : list($routeName) = $route;
 
-        $route = isset($routeParam)
-                    ? route($routeName, $routeParam)
-                    : route($routeName);
+        $route = isset($routeParam) ? route($routeName, $routeParam) : route($routeName);
 
         return '<form class="form-horizontal" method="post" action="'.$route.'" '.($file ? 'enctype="multipart/form-data"' : '').'>'.csrf_field();
     }

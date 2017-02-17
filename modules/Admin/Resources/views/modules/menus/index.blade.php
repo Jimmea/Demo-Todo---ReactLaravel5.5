@@ -19,7 +19,7 @@
                             <form action="{{ route('admincpp.getListMenu') }}" class="form-inline">
                                 <label for="">
                                     Tiêu đề
-                                    <input type="text" name="mnu_name" class="form-control input-sm" value="{{ get_value('mnu_name', 'str') }}">
+                                    <input type="text" name="mnu_name" class="form-control input-sm" value="{{ get_value('mnu_name', 'str', 'GET', '') }}">
                                 </label>
                                 <label for="">
                                     Vị trí
@@ -58,7 +58,7 @@
                                 <td width="4%" align="center" class="bold">Delete</td>
                             </tr>
                             </thead>
-                            <tbody>
+                            <tbody id="contentTable">
                             @forelse($menus as $value)
                                 <?php $stt ++; $menu_id = $value['mnu_id'];?>
                                 <tr>

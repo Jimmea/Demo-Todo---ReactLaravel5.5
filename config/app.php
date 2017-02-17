@@ -185,6 +185,8 @@ return [
 
         // model service provider
         \App\Providers\MenuServiceProvider::class,
+        \App\Providers\AccountServiceProvider::class,
+        \App\Providers\ConfigurationServiceProvider::class,
     ],
 
     /*

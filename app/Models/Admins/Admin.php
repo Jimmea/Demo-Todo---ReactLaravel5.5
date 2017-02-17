@@ -10,7 +10,7 @@ class Admin extends Model
 
     public $fillable = [
         'adm_loginname', 'adm_name', 'adm_phone', 'adm_password', 'adm_email', 'adm_picture', 'adm_address',
-        'adm_access_module', 'adm_access_category', 'adm_isadmin', 'adm_active'
+        'adm_access_module', 'adm_access_category', 'adm_isadmin', 'adm_active', 'adm_admin_id'
     ];
 
     protected $limit = 15;

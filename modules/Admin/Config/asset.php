@@ -3,7 +3,7 @@ return [
     'css' => [
         'backend/bootstrap/css/bootstrap.min.css',
         'backend/css/sidebar-nav.min.css',
-//        'backend/css//bootstrap-datepicker.min.css',
+        'backend/js/plugins/colorpicker/asColorPicker.css',
         'backend/css/animate.css',
         'backend/css/style.css',
         'backend/css/colors/blue.css',
@@ -19,7 +19,9 @@ return [
         'backend/js/plugins/custom.min.js',
         'backend/js/plugins/jasny-bootstrap.js',
         'backend/js/plugins/mask.js',
-//        'backend/js/plugins/jQuery.style.switcher.js',
+        'backend/js/plugins/colorpicker/jquery-asColor.js',
+        'backend/js/plugins/colorpicker/jquery-asGradient.js',
+        'backend/js/plugins/colorpicker/jquery-asColorPicker.min.js',
         'backend/js/plugins/xedittable/bootstrap-editable.min.js'
     ]
 ];

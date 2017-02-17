@@ -131,11 +131,13 @@ class DataGrid
     {
         $fieldAtive = $fieldAtive ? $fieldAtive : '';
 
-        return '<a href="javascript:void(0)"
-               data-action="'.$action.'"
-               data-id="'.$value->adm_id.'"
-               data-check="'.($value->$fieldAtive ? 'checked' : '').'" 
-               class="execute_form fa fa-2x '.($value->$fieldAtive ? 'fa-check-circle' : 'fa-circle').'"></a>';
+        return '<a href="javascript:void(0)">
+                <span
+                    data-action="'.$action.'"
+                    data-id="'.$value->adm_id.'"
+                    data-check="'.($value->$fieldAtive ? 'checked' : '').'"                  
+                    class="execute_form fa fa-2x '.($value->$fieldAtive ? 'fa-check-circle' : 'fa-circle').'"></span>
+                </a>';
     }
 
     public function makeCopyButton($arrayRoute, $attrArr= [])

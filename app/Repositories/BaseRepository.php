@@ -18,9 +18,9 @@ abstract class BaseRepository
      * Get all model
      * @return \Illuminate\Database\Eloquent\Collection
      */
-    public function getAll($filter = false, $sort = false, $paginate = false)
+    public function getAll($filter = false, $sort = false, $limit = false)
     {
-        if ($filter === false && $sort === false && $paginate === false)
+        if ($filter === false && $sort === false && $limit === false)
         {
             return $this->model->all();
         }
@@ -43,7 +43,7 @@ abstract class BaseRepository
             $query->orderBy($col, $dir);
         }
 
-        return $paginate ? $query->paginate($paginate) : $query->get();
+        return $limit ? $query->paginate($limit) : $query->get();
     }
 
     public function getTotal()

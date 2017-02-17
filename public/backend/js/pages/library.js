@@ -95,6 +95,34 @@ function executeFormTable()
         $action = $(this).attr('data-action');
         $href   = $('#formTable').attr('action');
         $token  = $("meta[name=_token]").attr('content');
+
+        // lay thong tin cac thuoc tinh de update
+        $id             = $(this).attr('data-id');
+        $check_active   = $(this).attr('data-check');
+        $check          = 'fa-check-circle';
+        $unCheck        = 'fa-circle';
+        $arrayUpdateChecked = [
+            'updateShowHome','updateStatus'
+        ];
+
+        if ($arrayUpdateChecked.indexOf($action))
+        {
+            if($check_active == "checked")
+            {
+                $(this).attr('data-check', '');
+                $(this).removeClass($check);
+                $(this).addClass($unCheck);
+            }else
+            {
+                $(this).attr('data-check', 'checked');
+                $(this).addClass($check);
+                $(this).removeClass($unCheck);
+            }
+        }
+
+        // Do something
+        if ($click_flag) { alert('Hệ thống đang xử lý ...'); return ''; }
+
         switch ($action)
         {
             case 'deleteAll':
@@ -105,9 +133,6 @@ function executeFormTable()
                         return false;
                     }
 
-                    // Do something
-                    if ($click_flag) { alert('Hệ thống đang xử lý ...'); return ''; }
-
                     // Send ajax
                     $click_flag = true;
                     $.ajax({
@@ -115,8 +140,8 @@ function executeFormTable()
                         url     : $href,
                         dataType: 'json',
                         data: {
-                            admin_id: $valueCheckedArr,
-                            _token  :$token,
+                            id: $valueCheckedArr,
+                            _token  : $token,
                             action  : 'deletemany'
                         },
                     })
@@ -143,27 +168,6 @@ function executeFormTable()
                 break;
 
             case 'updateShowHome':
-                // Lay id
-                $admin_id       = $(this).attr('data-id');
-                $check_active   = $(this).attr('data-check');
-                $check          = 'fa-check-circle';
-                $unCheck        = 'fa-circle';
-
-                if($check_active == "checked")
-                {
-                    $(this).attr('data-check', '');
-                    $(this).removeClass($check);
-                    $(this).addClass($unCheck);
-                }else
-                {
-                    $(this).attr('data-check', 'checked');
-                    $(this).addClass($check);
-                    $(this).removeClass($unCheck);
-                }
-
-                // Do something
-                if ($click_flag) { alert('Hệ thống đang xử lý ...'); return ''; }
-
                 // Send ajax
                 $click_flag = true;
                 $.ajax({
@@ -171,7 +175,7 @@ function executeFormTable()
                     url     : $href,
                     dataType: 'json',
                     data: {
-                        id      : $admin_id,
+                        id      : $id,
                         _token  : $token,
                         action  : 'showhome'
                     }
@@ -188,27 +192,6 @@ function executeFormTable()
                 break;
 
             case 'updateStatus':
-                // Lay id
-                $admin_id       = $(this).attr('data-id');
-                $check_active   = $(this).attr('data-check');
-                $check          = 'fa-check-circle';
-                $unCheck        = 'fa-circle';
-
-                if($check_active == "checked")
-                {
-                    $(this).attr('data-check', '');
-                    $(this).removeClass($check);
-                    $(this).addClass($unCheck);
-                }else
-                {
-                    $(this).attr('data-check', 'checked');
-                    $(this).addClass($check);
-                    $(this).removeClass($unCheck);
-                }
-
-                // Do something
-                if ($click_flag) { alert('Hệ thống đang xử lý ...'); return ''; }
-
                 // Send ajax
                 $click_flag = true;
                 $.ajax({
@@ -216,7 +199,7 @@ function executeFormTable()
                     url     : $href,
                     dataType: 'json',
                     data: {
-                        id      : $admin_id,
+                        id      : $id,
                         _token  : $token,
                         action  : 'editstatus'
                     }
@@ -247,10 +230,14 @@ function EditQuickXtable($url, $selector, $title)
         send:'always'
     });
 }
+function initColorPicker() {
+    $(".colorpicker").asColorPicker();
+}
 
 $(document).ready(function()
 {
     setCheckAllTable();
     executeFormTable();
     hoverTrContentTable();
+    initColorPicker();
 });
