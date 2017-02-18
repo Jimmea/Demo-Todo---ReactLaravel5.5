@@ -78,7 +78,7 @@ Route::group([
     });
 
     // SETTING
-    Route::group(['prefix'=> 'configuration', 'middileware'=> 'checkPermission'], function()
+    Route::group(['prefix'=> 'configuration', 'middleware'=> 'checkPermission'], function()
     {
         Route::get('/', [
             'as'=> 'admincpp.getEditConfiguration',
@@ -92,7 +92,7 @@ Route::group([
     });
 
     // ACCOUNT
-    Route::group(['prefix'=> 'account','middileware'=> 'checkPermission'], function ()
+    Route::group(['prefix'=> 'account','middleware'=> 'checkPermission'], function ()
     {
         Route::get('/', [
             'as'=> 'admincpp.getListAccount',
@@ -128,6 +128,26 @@ Route::group([
             'as'=> 'admincpp.getProcessQuickAccount',
             'uses'=> 'AccountController@getProcessQuick'
         ]);
+    });
+
+    // MODULES
+    Route::group(['prefix'=> 'configadmin', 'midleware' => 'checkPermission'], function () {
+
+        Route::get('/', [
+           'as' => 'admincpp.getListConfigAdmin',
+           'uses' => 'AdminConfigController@getListConfigAdmin'
+        ]);
+
+        Route::get('/add', [
+           'as'   => 'admincpp.addConfigAdmin',
+           'uses' => 'AdminConfigController@addConfigAdmin'
+        ]);
+
+        Route::post('/add', [
+            'as'   => 'admincpp.postConfigAdmin',
+            'uses' => 'AdminConfigController@postConfigAdmin'
+        ]);
+
     });
 
     // Master khong co tab

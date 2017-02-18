@@ -10,14 +10,15 @@
                                 <button class="btn btn-default" type="button"> <i class="icon-magnifier"></i> </button>
                     </span>
                 </div>
-                <!-- /input-group -->
             </li>
+
             <li class="user-pro">
                 <a href="javascript:void(0)" class="waves-effect">
                     <img src="{{ asset('backend/imgs/d1.jpg') }}" alt="user-img" class="img-circle">
-                    <span class="hide-menu">Dr. Steve Gection</span>
+                    <span class="hide-menu">Hello ! . Bill</span>
                 </a>
             </li>
+
             <li> <a href="javascript:void(0)" class="waves-effect">
                     <i class="icon-grid"></i>
                     <span class="hide-menu">Menus</span></a>
@@ -44,10 +45,6 @@
                     <span class="hide-menu">Media <span class="arrow icon-arrow-left"></span></span></a>
                 <ul class="nav nav-second-level collapse" aria-expanded="true">
                     <li> <a href="fontawesome.html">Font awesome</a> </li>
-                    <li> <a href="themifyicon.html">Themify Icons</a> </li>
-                    <li> <a href="simple-line.html" class="active">Simple line Icons</a> </li>
-                    <li><a href="linea-icon.html">Linea Icons</a></li>
-                    <li><a href="weather.html">Weather Icons</a></li>
                 </ul>
             </li>
 

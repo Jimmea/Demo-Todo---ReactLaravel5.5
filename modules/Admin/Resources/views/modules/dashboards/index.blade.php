@@ -1,5 +1,4 @@
 @extends('admin::layouts.master_tab')
-@section('title', 'Welcome to cook')
 @section('content')
     @include('admin::blocks.block_navbartop')
     @include('admin::blocks.block_sidebar')
