@@ -11,7 +11,7 @@ namespace App\Models\Categories;
 use App\Repositories\BaseRepository;
 use Illuminate\Http\Request;
 
-class EloquentCategory extends BaseRepository implements InterfaceCategory
+class EloquentCategory extends BaseRepository implements CategoryRepository
 {
     public function __construct(Category $category)
     {
@@ -40,28 +40,6 @@ class EloquentCategory extends BaseRepository implements InterfaceCategory
     public function getConfigTypeCategory()
     {
         return $this->model->getConfigTypeCategory();
-    }
-
-    /**
-     * Created by : BillJanny
-     * Date: 11:25 PM - 2/10/2017
-     * Validate add category
-     * @param int $cate_id truong khoa chinh cua bang
-     * @return void
-     */
-    public function validateCategory(Request $request, $cate_id =0)
-    {
-        $rules = [
-            'cate_type'         => 'required',
-            'cate_name'         => 'required|unique:categories,cate_name,'. $cate_id . ',cate_id'
-        ];
-
-        $messages = [
-             'cate_type.required'  => 'The type category field is required',
-             'cate_name.required'  => 'The name category field is required',
-        ];
-
-        $this->validate($request, $rules, $messages);
     }
 
     /**
@@ -167,6 +145,15 @@ class EloquentCategory extends BaseRepository implements InterfaceCategory
         return $this->storeData($attributes);
     }
 
+    public function findById($id)
+    {
+        return parent::findById($id);
+    }
+
+    public function updateByField($id, $field, $otherValue = '')
+    {
+        return parent::updateByField($id, $field, $otherValue);
+    }
 
     /**
      * Created by : Hungokata
@@ -178,8 +165,8 @@ class EloquentCategory extends BaseRepository implements InterfaceCategory
      * @param arrray $sort : mảng sắp xếp
      * @return array
      */
-    public function getAllCategory($arrField= array(), $filter = array(), $searchCateory = false, $sort = ['cate_order', 'ASC'])
+    public function getAllCategory($arrField= array(), $filter = array(), $search = false, $sort = ['cate_order', 'ASC'])
     {
-        return $this->getAllChild('categories', 'cate_id', 'cate_parent_id', 0, $filter, $arrField, $sort , $searchCateory);
+        return $this->getAllChild('categories', 'cate_id', 'cate_parent_id', 0, $filter, $arrField, $sort , $search);
     }
 }

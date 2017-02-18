@@ -101,11 +101,12 @@ function executeFormTable()
         $check_active   = $(this).attr('data-check');
         $check          = 'fa-check-circle';
         $unCheck        = 'fa-circle';
+
         $arrayUpdateChecked = [
             'updateShowHome','updateStatus'
         ];
 
-        if ($arrayUpdateChecked.indexOf($action))
+        if ($arrayUpdateChecked.indexOf($action) != -1)
         {
             if($check_active == "checked")
             {

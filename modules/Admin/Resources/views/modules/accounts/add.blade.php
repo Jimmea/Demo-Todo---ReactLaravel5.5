@@ -1,5 +1,4 @@
 @extends('admin::layouts.master')
-@section('title', 'Add new account')
 @section('content')
     {!! bread_crumb([
             'admincpp.getListAccount'=> 'List account',
@@ -11,9 +10,7 @@
         <div class="col-md-12">
             <div class="white-box">
                 {!! box_title('Add account') !!}
-                {!! form_begin(['admincpp.postAddAccount']) !!}
-                    @include(ADMIN_VIEW. 'accounts.form')
-                {!! form_close() !!}
+                @include(ADMIN_VIEW. 'accounts.form',['routeName'=> 'admincpp.postAddAccount', 'routeParam'=> ''])
             </div>
         </div>
     </div

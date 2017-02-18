@@ -152,6 +152,15 @@ if (! function_exists('input_hidden'))
     }
 }
 
+if (! function_exists('checkedSelect'))
+{
+    function selectedCompare($nameInput, $compare)
+    {
+        $getCateType = get_value($nameInput, 'str', 'GET', '');
+        return ($getCateType == $compare) ? 'selected=selected' : '';
+    }
+}
+
 if (! function_exists('form_group'))
 {
     /**

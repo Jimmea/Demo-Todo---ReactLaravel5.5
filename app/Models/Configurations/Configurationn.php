@@ -21,4 +21,9 @@ class Configurationn extends Model
         'con_hotline', 'con_gmail','con_facebook','con_google','con_instagram','con_pinterest','con_code_analytics',
         'con_code_facebook', 'con_code_param1', 'con_code_param2', 'con_code_param3', 'con_code_param4', 'con_code_param5'
     ];
+
+    public function getPrimaryKey()
+    {
+        return $this->primaryKey;
+    }
 }

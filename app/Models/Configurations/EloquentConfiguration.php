@@ -25,6 +25,11 @@ class EloquentConfiguration extends BaseRepository implements ConfigurationRepos
 
     public function findById($id)
     {
-        return parent::findById($id);
+        return $this->find($id);
+    }
+
+    public function updateOrCreateData($id, $data = array())
+    {
+        return parent::updateOrCreateData($id, $data);
     }
 }

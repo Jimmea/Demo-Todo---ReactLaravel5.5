@@ -13,32 +13,25 @@
                             {!! box_title(trans('admin::category.list.title'), false) !!}
                         </div>
                         <div class="header-action pull-right">
-                            <a href="{{ route('admincpp.getAddMenu') }}" class="btn btn-info btn-sm text-uppercase"><i class="icon-plus"></i> Add new</a>
+                            <a href="{{ route('admincpp.getAddCategory') }}" class="btn btn-info btn-sm text-uppercase"><i class="icon-plus"></i> Add new</a>
                         </div>
                         <div class="header-search search-box clearleft">
                             <form action="{{ route('admincpp.getListCategory') }}" class="form-inline">
-                                {{--<input type="hidden" name="action" value="search">--}}
                                 <label for="cate_type">
                                     Type Category
-                                    <?php $getCateType = get_value('cate_type', 'str') ; ?>
                                     <select name="cate_type" id="cate_type" class="form-control input-sm">
                                         <option value="">All type category</option>
                                         @foreach($typeCategory as $key => $name)
-                                            <?php $selected = ($getCateType == $key) ? 'selected=selected' : '' ;?>
-                                            <option {{ $selected }} value="{{ $key }}">{{ $name }}</option>
+                                            <option {{ selectedCompare('cate_type', $key) }} value="{{ $key }}">{{ $name }}</option>
                                         @endforeach
                                     </select>
                                 </label>
-                                {{--<label for="">ID Category--}}
-                                {{--<input type="text" name="cate_id" class="form-control" id="cate_id" value="{!! ( ($cate_id = get_value('cate_id')) ? $cate_id : '') !!}">--}}
-                                {{--</label>--}}
                                 <label for="">
                                     Order
                                     <select name="cate_sort" id="cate_sort" class="form-control input-sm">
-                                        <?php $getCateSort = get_value('cate_sort', 'str') ; ?>
                                         <option value="">--[ Select One ]--</option>
-                                        <option {{ ($getCateSort == 'asc') ? 'selected=selected' : '' }} value="asc">Ascending</option>
-                                        <option {{ ($getCateSort == 'desc') ? 'selected=selected' : '' }} value="desc">Decreasing</option>
+                                        <option {{ selectedCompare('cate_sort', 'asc') }} value="asc">Ascending</option>
+                                        <option {{ selectedCompare('cate_sort', 'desc') }} value="desc">Decreasing</option>
                                     </select>
                                 </label>
                                 <label>
@@ -102,18 +95,20 @@
                                             </a>
                                         </td>
                                         <td align="center">
-                                            <a href="javascript:void(0)"
+                                            <a href="javascript:void(0)"><span
                                                data-action="updateShowHome"
                                                data-id="{{ $value['cate_id'] }}"
                                                data-check="{{ ($value['cate_show'] == 1 ? 'checked' : '') }}"
-                                               class="execute_form fa fa-2x {{ ($value['cate_show'] == 1 ? 'fa-check-circle' : 'fa-circle') }}"></a>
+                                               class="execute_form fa fa-2x {{ ($value['cate_show'] == 1 ? 'fa-check-circle' : 'fa-circle') }}"><span></span></a>
                                         </td>
                                         <td align="center">
-                                            <a href="javascript:void(0)"
-                                               data-action="updateStatus"
-                                               data-id="{{ $value['cate_id'] }}"
-                                               data-check="{{ ($value['cate_status'] == 1 ? 'checked' : '') }}"
-                                               class="execute_form fa fa-2x {{ ($value['cate_status'] == 1 ? 'fa-check-circle' : 'fa-circle') }}"></a>
+                                            <a href="javascript:void(0)">
+                                                <span
+                                                   data-action="updateStatus"
+                                                   data-id="{{ $value['cate_id'] }}"
+                                                   data-check="{{ ($value['cate_status'] == 1 ? 'checked' : '') }}"
+                                                   class="execute_form fa fa-2x {{ ($value['cate_status'] == 1 ? 'fa-check-circle' : 'fa-circle') }}"></span>
+                                            </a>
                                         </td>
                                         <td align="center">
                                             {!! $dataGrid->makeEditButton(['admincpp.getEditCategory',$value['cate_id']]) !!}

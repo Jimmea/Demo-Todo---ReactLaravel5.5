@@ -187,6 +187,7 @@ return [
         \App\Providers\MenuServiceProvider::class,
         \App\Providers\AccountServiceProvider::class,
         \App\Providers\ConfigurationServiceProvider::class,
+        \App\Providers\CategoryServiceProvider::class,
     ],
 
     /*

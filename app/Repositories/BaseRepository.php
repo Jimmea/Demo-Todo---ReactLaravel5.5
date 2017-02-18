@@ -60,6 +60,11 @@ abstract class BaseRepository
         return $this->model->findOrFail($id);
     }
 
+    public function updateOrCreateData($id , $data = array())
+    {
+        return $this->model->updateOrCreate([$this->model->getPrimaryKey() => $id], $data);
+    }
+
     /**
      * Get item of model
      * @param  int $id Model ID

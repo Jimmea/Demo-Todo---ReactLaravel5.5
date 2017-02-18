@@ -2,18 +2,16 @@
 
 namespace Modules\Admin\Http\Controllers;
 
-use App\Models\Categories\EloquentCategory;
+use App\Http\Requests\CategoryRequest;
+use App\Models\Categories\CategoryRepository;
 use Illuminate\Http\Request;
-use Illuminate\Http\Response;
-use Illuminate\Routing\Controller;
-use Illuminate\View\View;
 
 class AdminCategoryController extends AdminController
 {
 
-    public function __construct(EloquentCategory $eloquentCategory)
+    public function __construct(CategoryRepository $categoryRepository)
     {
-        $this->category = $eloquentCategory;
+        $this->category = $categoryRepository;
     }
 
     /**
@@ -40,6 +38,7 @@ class AdminCategoryController extends AdminController
             'categories'     => $this->category->getAllCategory($arrayColumn, $filter, false, $sort),
             'typeCategory'   => $this->category->getConfigTypeCategory()
         );
+
         return view(ADMIN_VIEW.'categories.index')->with($dataView);
     }
 
@@ -65,6 +64,7 @@ class AdminCategoryController extends AdminController
     public function getDataViewDefault()
     {
         return [
+            'category'      => array(),
             'categories'    => $this->category->getAllCategory(['cate_name']),
             'cateShowMod'   => $this->getArrayBoolean(),
             'typeView'      => $this->category->getTypeView(),
@@ -78,10 +78,8 @@ class AdminCategoryController extends AdminController
      * @param
      * @return void
      */
-    public function postAddCategory(Request $request)
+    public function postAddCategory(CategoryRequest $request)
     {
-        $this->category->validateCategory($request);
-
         $dataForm = $request->except('_token');
         $dataForm['cate_admin_id']      = $this->getAdminId();
         $dataForm['cate_view_type']     = ($dataForm['cate_view_type'] ? $dataForm['cate_view_type'] : 1);
@@ -120,11 +118,8 @@ class AdminCategoryController extends AdminController
      * @param int $cateId
      * @return void
      */
-    public function PostEditCategory(Request $request, $cateId)
+    public function PostEditCategory(CategoryRequest $request, $cateId)
     {
-        // Validate dữ liệu đầu vào
-        $this->category->validateCategory($request, $cateId);
-
         // Kiểm tra xem bản ghi có tồn tại không
         $categorySelectOne              = $this->category->findById($cateId);
         $cateParentIdBeforeUpdate       = $categorySelectOne->cate_parent_id;
@@ -211,7 +206,7 @@ class AdminCategoryController extends AdminController
             $cateId = get_value('id','int', 'POST');
 
             // Su dung edit table de sua nhanhh thong tin
-            if (!$action) list($action, $orderValue, $cateId) = $this->getValueXEditTable();
+            if (!$action) list($action, $orderValue, $cateId) = $this->getValueXeditTable();
 
             switch ($action)
             {

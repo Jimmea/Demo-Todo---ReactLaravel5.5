@@ -141,7 +141,6 @@ class AdminMenuController extends AdminController
             }
         }
 
-
         set_flash_update_success();
         return redirect()->route('admincpp.getListMenu');
     }
@@ -171,7 +170,7 @@ class AdminMenuController extends AdminController
             $mnu_id = get_value('id', 'int', 'POST');
             $action = strtolower(get_value('action', 'str', 'POST'));
 
-            if (!$action) list($action, $orderValue, $mnu_id) = $this->getValueXEditTable();
+            if (!$action) list($action, $orderValue, $mnu_id) = $this->getValueXeditTable();
 
             switch ($action)
             {

@@ -13,4 +13,6 @@ interface ConfigurationRepository
 {
     public function findById($Id);
     public function updateById($id, $data);
+    public function updateOrCreateData($id, $data);
+
 }

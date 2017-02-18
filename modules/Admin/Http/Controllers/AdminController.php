@@ -68,7 +68,7 @@ class AdminController extends Controller
         return 1;
     }
 
-    public function getValueXEditTable()
+    public function getValueXeditTable()
     {
         return [
             strtolower(get_value('name', 'str', 'POST')), // action(desc alias action of any filed)
