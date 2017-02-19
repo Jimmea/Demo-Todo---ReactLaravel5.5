@@ -15,4 +15,5 @@ interface AdminRepository
     public function updateById($id, $data);
     public function deleteByid($id);
     public function updateByField($id, $field, $otherValue);
+    public function findAccessById($id);
 }

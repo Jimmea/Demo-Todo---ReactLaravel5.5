@@ -7,6 +7,7 @@ Route::group([
 
     // dashboard
     Route::get('/', 'DashboardController@index');
+
     Route::get('/dashboard', [
         'as'    => 'admincpp.getdoashboard',
         'uses'  => 'DashboardController@getContentDashboard'
@@ -139,13 +140,33 @@ Route::group([
         ]);
 
         Route::get('/add', [
-           'as'   => 'admincpp.addConfigAdmin',
-           'uses' => 'AdminConfigController@addConfigAdmin'
+           'as'   => 'admincpp.getAddConfigAdmin',
+           'uses' => 'AdminConfigController@getAddConfigAdmin'
         ]);
 
         Route::post('/add', [
-            'as'   => 'admincpp.postConfigAdmin',
-            'uses' => 'AdminConfigController@postConfigAdmin'
+            'as'   => 'admincpp.postAddConfigAdmin',
+            'uses' => 'AdminConfigController@postAddConfigAdmin'
+        ]);
+
+        Route::get('/edit/{id}',[
+           'as' => 'admincpp.getEditConfigAdmin',
+           'uses' => 'AdminConfigController@getEditConfigAdmin',
+        ]);
+
+        Route::post('/edit/{id}',[
+            'as' => 'admincpp.postEditConfigAdmin',
+            'uses' => 'AdminConfigController@postEditConfigAdmin',
+        ]);
+
+        Route::get('/delete/{id}', [
+            'as' => 'admincpp.getDeleteConfigAdmin',
+            'uses' => 'AdminConfigController@getDeleteConfigAdmin',
+        ]);
+
+        Route::post('/process-quick-module', [
+            'as' => 'admincpp.postProcessQuickModule',
+            'uses' => 'AdminConfigController@postProcessQuickModule',
         ]);
 
     });

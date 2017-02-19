@@ -114,7 +114,7 @@
                 </ul>
                 <!-- /.dropdown-tasks -->
             </li>
-            <li><a href="">Website setting</a></li>
+            <li><a href="{{ route('admincpp.getListConfigAdmin') }}">Website setting</a></li>
             <li class="dropdown">
                 <a class="dropdown-toggle profile-pic" data-toggle="dropdown" href="#">
                     <img src="{{ asset('backend/imgs/d1.jpg') }}" alt="user-img" width="36" class="img-circle">

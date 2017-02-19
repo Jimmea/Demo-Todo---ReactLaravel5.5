@@ -54,8 +54,7 @@
                                 <td width="5%" class="bold">Thứ tự</td>
                                 <td width="4%" align="center" class="bold">Status</td>
                                 <td width="4%" align="center" class="bold">Copy</td>
-                                <td width="4%" align="center" class="bold">Edit</td>
-                                <td width="4%" align="center" class="bold">Delete</td>
+                                <td width="6%" colspan="2" class="text-center">Action</td>
                             </tr>
                             </thead>
                             <tbody id="contentTable">

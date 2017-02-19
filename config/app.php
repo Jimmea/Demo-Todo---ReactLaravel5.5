@@ -188,6 +188,8 @@ return [
         \App\Providers\AccountServiceProvider::class,
         \App\Providers\ConfigurationServiceProvider::class,
         \App\Providers\CategoryServiceProvider::class,
+        \App\Providers\ModuleServiceProvider::class,
+        \App\Providers\AdminUserRightServiceProvider::class,
     ],
 
     /*

@@ -115,8 +115,8 @@ class Form
         $text_danger    = $require ? label_danger()  : '';
         $previewImage   = $type == 'file' ? '<span class="icon-eye labelPreviewImage hide"></span>' : '';
         $hasError       = $require ? has_error($this->errors, $name)  : '';
-        $classLabel     = $this->classLabel     ? $this->classLabel     : 'col-xs-2';
-        $classDivInput  = $this->classDivInput  ? $this->classDivInput  : 'col-xs-10';
+        $classLabel     = $this->classLabel     ? $this->classLabel     : 'col-md-2';
+        $classDivInput  = $this->classDivInput  ? $this->classDivInput  : 'col-md-10';
 
         $formGroup = '<div class="form-group '. $hasError .'">';
 
@@ -211,13 +211,13 @@ class Form
                                    $classInputAddon = array(), $maxLength='')
     {
         $value          = get_value_field($nameInput, $this->formDb);
-        $attributeHtml  = $this->converArrayAttribute($attributeHtml);
+        $attribute      = $this->converArrayAttribute($attributeHtml);
         $styleInput     = $this->createStyle($inputId);
         $classSpan      =  array_get($classInputAddon, 'span');
         $classIcon      =  array_get($classInputAddon, 'i');
 
         $formGroup  = '<div class="input-group">';
-            $formGroup .= '<input type="text" name='.$nameInput.' '.$styleInput.' maxLength="'.$maxLength.'" '.$attributeHtml.' value="'.$value.'">';
+            $formGroup .= '<input type="text" name='.$nameInput.' '.$styleInput.' maxLength="'.$maxLength.'" '.$attribute.' value="'.$value.'">';
             $formGroup .= '<span class="input-group-addon ' . $classSpan . ' " title="You can lick here"><i class="fa ' . $classIcon . ' "></i></span>';
         $formGroup  .= '</div>';
 
@@ -237,11 +237,11 @@ class Form
     public function groupText($labelControl, $nameInput, $inputId ='', $require = false, $attributeHtml = array(), $maxLength='')
     {
         $value          = get_value_field($nameInput, $this->formDb);
-        $attributeHtml  = $this->converArrayAttribute($attributeHtml);
+        $attribute      = $this->converArrayAttribute($attributeHtml);
         $styleInput     = $this->createStyle($inputId);
 
         $formGroup  = '<div>';
-            $formGroup .= '<input type="text" name='.$nameInput.' '.$styleInput.' maxLength="'.$maxLength.'" '.$attributeHtml.' value="'.$value.'">';
+            $formGroup .= '<input type="text" name='.$nameInput.' '.$styleInput.' maxLength="'.$maxLength.'" '.$attribute.' value="'.$value.'">';
         $formGroup .= '</div>';
 
         return $this->createFormGroup($formGroup, $labelControl, $nameInput, $require);

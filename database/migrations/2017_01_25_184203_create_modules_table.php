@@ -16,11 +16,12 @@ class CreateModulesTable extends Migration
         Schema::create('modules', function (Blueprint $table) {
             $table->increments('mod_id');
             $table->string('mod_name');
-            $table->string('mod_path');
-            $table->string('mod_listname');
-            $table->string('mod_listrouter');
-            $table->string('mod_order');
-            $table->string('mod_help');
+            $table->string('mod_path')->nullable();
+            $table->string('mod_listname')->nullable();
+            $table->string('mod_listrouter')->nullable();
+            $table->tinyInteger('mod_order')->default(0);
+            $table->string('mod_icon')->nullable();
+            $table->string('mod_help')->nullable();
             $table->timestamps();
         });
     }

@@ -1,13 +1,13 @@
 <?php
     return [
         'add' => [
-            'title' => 'Add new modules'
+            'title' => 'Add new module'
         ],
         'list' => [
             'title' => 'List modules',
         ],
         'edit' => [
-            'title' => 'Edit modules',
+            'title' => 'Edit module',
             'breadcr' => 'Website setting',
         ],
     ];

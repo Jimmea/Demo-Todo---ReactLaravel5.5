@@ -52,4 +52,13 @@ class EloquentAdmin extends BaseRepository implements AdminRepository
     {
         return parent::updateByField($id, $field, $otherValue);
     }
+
+    public function findAccessById($id)
+    {
+        return $this->model->join('admin_user_right', 'adm_id', '=', 'adu_admin_id')
+                           ->join('modules', 'mod_id', '=', 'adu_admin_module_id')
+                           ->where('adm_id', $id)
+                           ->select('admin_users.*', 'adu_add', 'adu_edit', 'adu_delete', 'mod_id')
+                           ->get();
+    }
 }

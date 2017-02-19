@@ -169,4 +169,13 @@ class EloquentCategory extends BaseRepository implements CategoryRepository
     {
         return $this->getAllChild('categories', 'cate_id', 'cate_parent_id', 0, $filter, $arrField, $sort , $search);
     }
+
+    public function getAllParentCategory()
+    {
+        return $this->model
+                    ->where('cate_parent_id',0)
+                    ->orderBy('cate_order')
+                    ->get();
+    }
+
 }

@@ -143,7 +143,7 @@ function executeFormTable()
                         data: {
                             id: $valueCheckedArr,
                             _token  : $token,
-                            action  : 'deletemany'
+                            action  : 'deleteall'
                         },
                     })
                     .done(function(response)

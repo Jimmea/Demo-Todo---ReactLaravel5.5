@@ -4,13 +4,22 @@ namespace Modules\Admin\Http\Controllers;
 
 use App\Http\Requests\AccountRequest;
 use App\Models\Admins\AdminRepository;
+use App\Models\AdminUserRights\AdminUserRightRepository;
+use App\Models\Categories\CategoryRepository;
+use App\Models\Modules\ModuleRepository;
 use Illuminate\Http\Request;
 
 class AccountController extends AdminController
 {
-    public function __construct(AdminRepository $adminRepository)
+    public function __construct(AdminRepository $adminRepository,
+                                ModuleRepository $moduleRepository,
+                                CategoryRepository $categoryRepository,
+                                AdminUserRightRepository $adminUserRightRepository)
     {
-        $this->admin = $adminRepository;
+        $this->admin            = $adminRepository;
+        $this->module           = $moduleRepository;
+        $this->category         = $categoryRepository;
+        $this->adminUserRight   = $adminUserRightRepository;
     }
 
     /**
@@ -42,8 +51,13 @@ class AccountController extends AdminController
     public function getAdd()
     {
         $dataView = [
-            'admin' => null,
+            'admin'             => null,
+            'accessModule'      => '',
+            'arrayActionAccess' => array(),
+            'modules'           => $this->module->getAllData(),
+            'categories'        => $this->category->getAllParentCategory(),
         ];
+
         return view(ADMIN_VIEW.'accounts.add')->with($dataView);
     }
 
@@ -57,9 +71,30 @@ class AccountController extends AdminController
         $dataForm = $request->except('_token');
         $dataForm['adm_password'] = bcrypt($dataForm['adm_password']);
         $dataForm['adm_admin_id'] = $this->getAdminId();
-        $dataForm = $request->filterDataForm($dataForm);
+        $dataForm       = $request->filterDataForm($dataForm);
+        $account        = $this->admin->storeData($dataForm);
 
-        $this->admin->storeData($dataForm);
+        $accountLastId  = $account->adm_id;
+        $moduleList     = $request->mod_id;
+
+        // Insert vao admin_user_right
+        if ($moduleList)
+        {
+            for ($i=0, $countModuleList = count($moduleList); $i< $countModuleList; $i++)
+            {
+                $adminUserRight = [
+                    'adu_admin_id'        => $accountLastId,
+                    'adu_admin_module_id' => $moduleList[$i],
+                    'adu_add'             => get_value('adu_add'.$moduleList[$i], 'int', 'POST'),
+                    'adu_edit'            => get_value('adu_edit'.$moduleList[$i], 'int', 'POST'),
+                    'adu_delete'          => get_value('adu_delete'.$moduleList[$i], 'int', 'POST')
+                ];
+                $this->adminUserRight->storeData($adminUserRight);
+            }
+        }
+
+        // Insert vao admin_user_category : xu ly sau
+
         set_flash_add_success();
         return redirect()->route('admincpp.getListAccount');
     }
@@ -71,11 +106,28 @@ class AccountController extends AdminController
      */
     public function getEdit($adm_id)
     {
-        $data = [
-            'admin' => $this->admin->findById($adm_id)
+        // Select quyen truy cap
+        $adminUserRight = $this->admin->findAccessById($adm_id);
+        $accessModule = '';
+        $arrayActionAccess = array();
+        foreach ($adminUserRight as $value)
+        {
+            $accessModule .= "[" . $value['mod_id'] . "]";
+            $arrayActionAccess[$value['mod_id']] = array(
+                                                $value["adu_add"],
+                                                $value["adu_edit"],
+                                                $value["adu_delete"]);
+        }
+
+        $dataView = [
+            'admin'             => $this->admin->findById($adm_id),
+            'accessModule'      => $accessModule,
+            'arrayActionAccess' => $arrayActionAccess,
+            'modules'           => $this->module->getAllData(),
+            'categories'        => $this->category->getAllParentCategory(),
         ];
 
-        return view(ADMIN_VIEW. 'accounts.edit')->with($data);
+        return view(ADMIN_VIEW. 'accounts.edit')->with($dataView);
     }
 
     /**
@@ -127,7 +179,7 @@ class AccountController extends AdminController
             $action     = strtolower(get_value('action','str', 'POST'));
             switch ($action)
             {
-                case 'deletemany':
+                case 'deleteall':
                     $adminId    = get_value('id','arr', 'POST');
                     // Khong cho phep xoa di phan tu admin dau tien
                     foreach ($adminId as $key => $value)

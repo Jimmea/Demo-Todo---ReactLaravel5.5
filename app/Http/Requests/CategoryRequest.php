@@ -24,7 +24,7 @@ class CategoryRequest extends FilterForm
     {
         return [
             'cate_type'             => 'required',
-            'cate_name'             => 'required|unique:categories,cate_name,'. $this->id . ',cate_id',
+            'cate_name'             => 'required',
             'cate_meta_title'       => 'required',
             'cate_meta_keyword'     => 'required',
             'cate_meta_description' => 'required',
@@ -34,11 +34,11 @@ class CategoryRequest extends FilterForm
     public function messages()
     {
         return [
-            'cate_type.required'        => 'The type category field is required',
-            'cate_name.required'        => 'The name category field is required',
-            'cate_meta_title'           => 'The meta title field is required',
-            'cate_meta_keyword'         => 'The meta keyword field is required',
-            'cate_meta_description'     => 'The meta description field is required',
+            'cate_type.required'                => trans('admin::form.messages.required'),
+            'cate_name.required'                => trans('admin::form.messages.required'),
+            'cate_meta_title.required'          => trans('admin::form.messages.required'),
+            'cate_meta_keyword.required'        => trans('admin::form.messages.required'),
+            'cate_meta_description.required'    => trans('admin::form.messages.required')
         ];
     }
 }

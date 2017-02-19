@@ -54,8 +54,7 @@
                                     <td width="3%" align="center" class="bold">Order</td>
                                     <td width="3%" align="center" class="bold">Show Home</td>
                                     <td width="3%" align="center" class="bold">Status</td>
-                                    <td width="3%" align="center" class="bold">Edit</td>
-                                    <td width="3%" align="center" class="bold">Delete</td>
+                                    <td width="6%" colspan="2" class="text-center">Action</td>
                                 </tr>
                                 </thead>
                                 <tbody id="contentTable">

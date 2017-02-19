@@ -41,9 +41,9 @@ class CreateAdminsTable extends Migration
         Schema::create('admin_user_right', function (Blueprint $table) {
             $table->integer('adu_admin_id');
             $table->integer('adu_admin_module_id');
-            $table->integer('adu_add');
-            $table->integer('adu_edit');
-            $table->integer('adu_delete');
+            $table->integer('adu_add')->default(0);
+            $table->integer('adu_edit')->default(0);
+            $table->integer('adu_delete')->default(0);
         });
     }
 

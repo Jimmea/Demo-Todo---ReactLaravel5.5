@@ -68,3 +68,9 @@ span.fa-2x {
     color: #9E9E9E;
     opacity: 1;
 }
+#tableModule > tbody > tr > td,
+#tableCategory > tbody > tr > td,
+#tableModule > thead > tr > th,
+#tableCategory > thead > tr > th {
+    padding: 5px 0px;
+}

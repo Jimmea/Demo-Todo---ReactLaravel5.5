@@ -45,8 +45,7 @@
                                     <td class="bold">Email</td>
                                     <td width="7%" align="center" class="bold">Face login</td>
                                     <td width="4%" align="center" class="bold">Status</td>
-                                    <td width="4%" align="center" class="bold">Edit</td>
-                                    <td width="4%" align="center" class="bold">Delete</td>
+                                    <td colspan="2" width="6%" class="text-center">Action</td>
                                 </tr>
                             </thead>
                             <tbody id="tableContent">

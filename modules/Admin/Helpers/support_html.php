@@ -31,7 +31,6 @@ if (! function_exists('bread_crumb'))
     }
 }
 
-
 if (! function_exists('note_required'))
 {
     function note_required()
@@ -45,6 +44,22 @@ if (! function_exists('box_title'))
     function box_title($title, $message = true)
     {
         return '<h3 class="box-title">'.$title.'</h3>'.($message ? note_required() : '');
+    }
+}
+
+if(!function_exists('header_title_action'))
+{
+    function header_title_action($title, $route)
+    {
+        $html = '<div class="header-title pull-left">';
+            $html .= box_title($title, false);
+        $html .= '</div>';
+
+        $html .= '<div class="header-action pull-right">';
+            $html .= '<a href="'.route($route).'" class="btn btn-info btn-sm"><i class="icon-plus"></i> ADD NEW</a>';
+        $html .= '</div>';
+
+        return $html;
     }
 }
 
