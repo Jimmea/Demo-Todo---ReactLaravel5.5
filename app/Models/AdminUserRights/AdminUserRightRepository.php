@@ -13,4 +13,5 @@ interface AdminUserRightRepository
 {
     public function storeData($attribute);
     public function deleteAdminId($id);
+    public function findAdminRightBy($condition);
 }

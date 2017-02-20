@@ -17,6 +17,19 @@ class Admin extends Authenticatable
 
     protected $limit = 15;
 
+
+    /**
+     * Tong hop cac module tai day
+     * @param string : name module
+     * @return int
+     */
+    public function getIdModule($nameModule)
+    {
+        $modules = config('configModuleID');
+
+        return $modules[$nameModule];
+    }
+
     public function getLimit()
     {
         return $this->limit;
@@ -45,22 +58,43 @@ class Admin extends Authenticatable
 
     /**
      * Check cac quyen cua he thong
-     * @param array $allRole : mang vai tro cua router
+     * @param string $permissions : mang vai tro cua router  ($allRole : ten table, action)
      * @return boolean
      */
-    public function checkRoleOfAdmin($allRole)
+    public function checkRoleOfAdmin($permissions)
     {
         // Check neu loai nay duoc luu adm_isadmin  = 1: Ok admin
         $isAdmin = \Session::get('isadmin');
+        $admId   = \Session::get('adm_id');
         if ($isAdmin === 1) return true;
 
         // Check khong ton tai role
-        if (!$allRole) return false;
+        if (!$permissions) return false;
 
-        // Lay quyen cua he thong
+        // Bat buoc phai co permission
+        if(!isset($permissions[0]) || !isset($permissions[1])) return false;
+        $nameModule  = $permissions[0];
+        $actionRight = $permissions[1];
 
+        $moduleID    = $this->getIdModule($nameModule);
+        if (!$moduleID) return false;
+        $row         =  app('App\Models\AdminUserRights\AdminUserRightRepository');
+        $row         =  $row->findAdminRightBy(['adm_id'=> $admId, 'mod_id'=> $moduleID]);
 
+        switch ($actionRight)
+        {
+            case "add":
+                if($row["adu_add"] == 0) return false;
+                break;
 
-        return false;
+            case "edit":
+                if($row["adu_edit"] == 0) return false;
+                break;
+
+            case "delete":
+                if($row["adu_delete"] == 0) return false;
+        }
+
+        return true;
     }
 }

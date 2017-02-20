@@ -1,5 +1,4 @@
 <?php
-
 // Auth frontend
 Route::group(['namespace'=>'Auth', 'as'=>'auth::', 'prefix'=>'account'], function ()
 {

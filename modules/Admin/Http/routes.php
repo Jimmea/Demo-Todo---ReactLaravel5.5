@@ -53,37 +53,37 @@ Route::group([
     Route::group(['prefix'=> 'category', 'middleware'=> 'checkPermission'], function () {
         Route::get('/', [
            'as'             => 'admincpp.getListCategory',
-           'permissions'    => ['categories|list'],
+           'permissions'    => 'categories|list',
            'uses'           => 'AdminCategoryController@getListCategory'
         ]);
         Route::get('/add', [
             'as'            => 'admincpp.getAddCategory',
-            'permissions'   => ['categories|add'],
+            'permissions'   => 'categories|add',
             'uses'          => 'AdminCategoryController@getAddCategory'
         ]);
         Route::post('/add', [
             'as'            => 'admincpp.postAddCategory',
-            'permissions'   => ['categories|add'],
+            'permissions'   => 'categories|add',
             'uses'          => 'AdminCategoryController@postAddCategory'
         ]);
         Route::get('/edit/{id}', [
             'as'            => 'admincpp.getEditCategory',
-            'permissions'   => ['categories|edit'],
+            'permissions'   => 'categories|edit',
             'uses'          => 'AdminCategoryController@getEditCategory'
         ]);
         Route::post('/edit/{id}', [
             'as'            => 'admincpp.postEditCategory',
-            'permissions'    => ['categories|edit'],
+            'permissions'    => 'categories|edit',
             'uses'          => 'AdminCategoryController@PostEditCategory'
         ]);
         Route::get('delete/{id}', [
             'as'            => 'admincpp.getDeleteCategory',
-            'permissions'   => ['categories|delete'],
+            'permissions'   => 'categories|delete',
             'uses'          => 'AdminCategoryController@getDeleteCategory'
         ]);
         Route::post('/process-quick-category', [
             'as'           => 'admincpp.postProcessQuickCategory',
-            'permissions'  => ['categories|list'],
+            'permissions'  => 'categories|list',
             'uses'         => 'AdminCategoryController@postProcessQuickCategory'
         ]);
     });

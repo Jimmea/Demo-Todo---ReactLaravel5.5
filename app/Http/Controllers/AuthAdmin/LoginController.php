@@ -66,6 +66,7 @@ class LoginController extends Controller
             'adm_active'        =>  1,
         ];
 
+//        dd(Auth::guard('admin')->attempt($credentials, $request->has('remember')));
         if (Auth::guard('admin')->attempt($credentials, $request->has('remember')))
         {
             $user = Auth::guard('admin')->user();

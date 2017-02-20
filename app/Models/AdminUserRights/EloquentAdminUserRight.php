@@ -25,4 +25,16 @@ class EloquentAdminUserRight extends BaseRepository implements AdminUserRightRep
     {
         return $this->model->where('adu_admin_id', $id)->delete();
     }
+
+    public function findAdminRightBy($condition = array())
+    {
+        // get admin_id
+        $adm_id = array_get($condition, 'adm_id');
+        // get mod_id
+        $mod_id = array_get($condition, 'mod_id');
+
+        return $this->model->where('adu_admin_id', $adm_id)
+                    ->where('adu_admin_module_id', $mod_id)
+                    ->first();
+    }
 }

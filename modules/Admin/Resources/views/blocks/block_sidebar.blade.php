@@ -14,7 +14,7 @@
                 <div class="input-group custom-search-form">
                     <input type="text" class="form-control" placeholder="Search...">
                     <span class="input-group-btn">
-                                <button class="btn btn-default" type="button"> <i class="icon-magnifier"></i> </button>
+                        <button class="btn btn-default" type="button"> <i class="icon-magnifier"></i> </button>
                     </span>
                 </div>
             </li>
@@ -28,6 +28,7 @@
 
             @if($menuAccesses)
                 @foreach($menuAccesses as $value)
+                    @if(array_key_exists($value->mod_id, $adminUserRight))
                     <li id="listItem_{{ $value->mod_id }}"> <a href="javascript:void(0)" class="waves-effect">
                         <i class="{{ $value['mod_icon'] }} p-r-10"></i>
                         <span class="hide-menu">{{ $value->mod_name }}</span><span class="arrow icon-arrow-left"></span></a>
@@ -58,6 +59,7 @@
                             </ul>
                         @endif
                     </li>
+                    @endif
                 @endforeach
             @endif
 
