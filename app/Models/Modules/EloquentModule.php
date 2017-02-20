@@ -40,4 +40,22 @@ class EloquentModule extends BaseRepository implements ModuleRepository
     {
         return $this->delete($id);
     }
+
+    public function getModuleAdminAccess()
+    {
+        $isAdmin = \Session::get('isadmin');
+        $adm_id  = \Session::get('adm_id');
+
+        $query = $this->model;
+
+        if ($isAdmin != 1)
+        {
+            $query = $query->join('admin_user_right', 'adu_admin_module_id', '=', 'mod_id')
+                           ->where('adu_admin_id', $adm_id);
+        }
+
+        return $query->orderBy('mod_order')
+                     ->orderBy('mod_name')
+                     ->get();
+    }
 }

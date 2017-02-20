@@ -9,7 +9,7 @@
         <div class="col-md-12">
             <div class="white-box">
                 {!! box_title(trans('admin::category.add.title')) !!}
-                @include(ADMIN_VIEW. 'categories.form', ['routeName'=> 'admincpp.postEditCategory', 'routeParam'=>'']);
+                @include(ADMIN_VIEW. 'categories.form', ['routeName'=> 'admincpp.postEditCategory', 'routeParam'=> $category->cate_id]);
             </div>
         </div>
     </div>

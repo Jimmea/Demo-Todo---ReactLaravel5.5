@@ -122,7 +122,7 @@
                 </a>
                 <ul class="dropdown-menu dropdown-user animated flipInY">
                     <li><a href="javascript:void(0)"><i class="icon-user"></i>  My Profile</a></li>
-                    <li><a href=""><i class="icon-logout"></i>  Logout</a></li>
+                    <li><a href="{{ route('staff.getLogoutAdmincpp') }}"><i class="icon-logout"></i>  Logout</a></li>
                 </ul>
                 <!-- /.dropdown-user -->
             </li>

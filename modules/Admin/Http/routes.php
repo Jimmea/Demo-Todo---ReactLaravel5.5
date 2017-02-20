@@ -6,11 +6,14 @@ Route::group([
     'namespace'  => 'Modules\Admin\Http\Controllers'], function() {
 
     // dashboard
-    Route::get('/', 'DashboardController@index');
+    Route::get('/', [
+        'as'    => 'admincpp.getHomeAdmin',
+        'uses'  => 'AdminDashboardController@index'
+    ]);
 
     Route::get('/dashboard', [
-        'as'    => 'admincpp.getdoashboard',
-        'uses'  => 'DashboardController@getContentDashboard'
+        'as'    => 'admincpp.getdashboard',
+        'uses'  => 'AdminDashboardController@getContentDashboard'
     ]);
 
     // MENU
@@ -49,32 +52,39 @@ Route::group([
     // CATEOGORY
     Route::group(['prefix'=> 'category', 'middleware'=> 'checkPermission'], function () {
         Route::get('/', [
-           'as' => 'admincpp.getListCategory',
-           'uses' => 'AdminCategoryController@getListCategory'
+           'as'             => 'admincpp.getListCategory',
+           'permissions'    => ['categories|list'],
+           'uses'           => 'AdminCategoryController@getListCategory'
         ]);
         Route::get('/add', [
-            'as' => 'admincpp.getAddCategory',
-            'uses' => 'AdminCategoryController@getAddCategory'
+            'as'            => 'admincpp.getAddCategory',
+            'permissions'   => ['categories|add'],
+            'uses'          => 'AdminCategoryController@getAddCategory'
         ]);
         Route::post('/add', [
-            'as' => 'admincpp.postAddCategory',
-            'uses'=> 'AdminCategoryController@postAddCategory'
+            'as'            => 'admincpp.postAddCategory',
+            'permissions'   => ['categories|add'],
+            'uses'          => 'AdminCategoryController@postAddCategory'
         ]);
         Route::get('/edit/{id}', [
-            'as' => 'admincpp.getEditCategory',
-            'uses' => 'AdminCategoryController@getEditCategory'
+            'as'            => 'admincpp.getEditCategory',
+            'permissions'   => ['categories|edit'],
+            'uses'          => 'AdminCategoryController@getEditCategory'
         ]);
         Route::post('/edit/{id}', [
-            'as' => 'admincpp.postEditCategory',
-            'uses' => 'AdminCategoryController@PostEditCategory'
+            'as'            => 'admincpp.postEditCategory',
+            'permissions'    => ['categories|edit'],
+            'uses'          => 'AdminCategoryController@PostEditCategory'
         ]);
         Route::get('delete/{id}', [
-            'as' => 'admincpp.getDeleteCategory',
-            'uses'=> 'AdminCategoryController@getDeleteCategory'
+            'as'            => 'admincpp.getDeleteCategory',
+            'permissions'   => ['categories|delete'],
+            'uses'          => 'AdminCategoryController@getDeleteCategory'
         ]);
         Route::post('/process-quick-category', [
-            'as' => 'admincpp.postProcessQuickCategory',
-            'uses' => 'AdminCategoryController@postProcessQuickCategory'
+            'as'           => 'admincpp.postProcessQuickCategory',
+            'permissions'  => ['categories|list'],
+            'uses'         => 'AdminCategoryController@postProcessQuickCategory'
         ]);
     });
 
@@ -83,12 +93,12 @@ Route::group([
     {
         Route::get('/', [
             'as'=> 'admincpp.getEditConfiguration',
-            'uses'=> 'ConfigurationController@getEdit'
+            'uses'=> 'AdminConfigurationController@getEdit'
         ]);
 
         Route::post('/edit/{id}', [
             'as'=> 'admincpp.postEditConfiguration',
-            'uses'=> 'ConfigurationController@postEdit'
+            'uses'=> 'AdminConfigurationController@postEdit'
         ]);
     });
 
@@ -97,37 +107,37 @@ Route::group([
     {
         Route::get('/', [
             'as'=> 'admincpp.getListAccount',
-            'uses'=> 'AccountController@getList'
+            'uses'=> 'AdminAccountController@getList'
         ]);
 
         Route::get('/add', [
              'as'=> 'admincpp.getAddAccount',
-             'uses'=> 'AccountController@getAdd'
+             'uses'=> 'AdminAccountController@getAdd'
         ]);
 
         Route::post('/add', [
             'as'=> 'admincpp.postAddAccount',
-            'uses'=> 'AccountController@postAdd'
+            'uses'=> 'AdminAccountController@postAdd'
         ]);
 
         Route::get('/edit/{adm_id}', [
             'as'=> 'admincpp.geteditAccount',
-            'uses'=> 'AccountController@getEdit'
+            'uses'=> 'AdminAccountController@getEdit'
         ]);
 
         Route::post('/edit/{adm_id}', [
             'as'=> 'admincpp.posteditAccount',
-            'uses'=> 'AccountController@postEdit'
+            'uses'=> 'AdminAccountController@postEdit'
         ]);
 
         Route::get('/delete/{adm_id?}', [
             'as'=> 'admincpp.getDeleteAccount',
-            'uses'=> 'AccountController@getDelete'
+            'uses'=> 'AdminAccountController@getDelete'
         ]);
 
         Route::post('process-quick-account', [
             'as'=> 'admincpp.getProcessQuickAccount',
-            'uses'=> 'AccountController@getProcessQuick'
+            'uses'=> 'AdminAccountController@getProcessQuick'
         ]);
     });
 
@@ -171,13 +181,23 @@ Route::group([
 
     });
 
+    //ACCOUNT DETAIL
+    Route::group(['prefix'=> 'profile'], function () {
+        Route::get('/', [
+
+        ]);
+    });
+
     // Master khong co tab
     Route::get('/master', [
             'as'=> 'admincpp.master',
             'uses'=> 'AdminController@getMaster'
     ]);
 
+    // Access denied
+    Route::get('/access_denied', function () {
+        return 'You have not permission access';
+    });
 });
 
-require_once 'route_auth.php';
 

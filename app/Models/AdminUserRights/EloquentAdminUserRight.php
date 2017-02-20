@@ -20,4 +20,9 @@ class EloquentAdminUserRight extends BaseRepository implements AdminUserRightRep
     {
         return parent::storeData($attributes);
     }
+
+    public function deleteAdminId($id)
+    {
+        return $this->model->where('adu_admin_id', $id)->delete();
+    }
 }

@@ -18,7 +18,7 @@
             <div class="row bg-content">
                 <div id="tabs_content" class="col-sm-12">
                     <div id="tabs_content_1" class="tabs_content_child tabs_content_select">
-                        <iframe id="idframe_1" src="{{ route('admincpp.getdoashboard') }}" frameborder="0"
+                        <iframe id="idframe_1" src="{{ route('admincpp.getdashboard') }}" frameborder="0"
                                 width="100%" onLoad="calcHeightFrame('idframe_1');">
                         </iframe>
                     </div>

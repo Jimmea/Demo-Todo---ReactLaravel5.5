@@ -61,4 +61,9 @@ class EloquentAdmin extends BaseRepository implements AdminRepository
                            ->select('admin_users.*', 'adu_add', 'adu_edit', 'adu_delete', 'mod_id')
                            ->get();
     }
+
+    public function mapAccessAction($data)
+    {
+        return $this->model->mapAccessAction($data);
+    }
 }

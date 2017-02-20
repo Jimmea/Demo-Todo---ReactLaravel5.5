@@ -2,13 +2,15 @@
 
 namespace Modules\Admin\Http\Controllers;
 
+
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Config;
+
 
 class AdminController extends Controller
 {
+
     /**
      * Filter list
      * @var array

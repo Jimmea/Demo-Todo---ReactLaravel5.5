@@ -4,12 +4,15 @@
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-        <meta name="description" content="Page Description">
-        <meta name="author" content="HUNG">
-        <title>@yield('title')</title>
         <link rel="stylesheet" href="{{ asset('backend/bootstrap/css/bootstrap.min.css') }}">
         <link rel="stylesheet" href="{{ asset('backend/css/style.css') }}">
+        <style>
+            .login-register {
+                background: url('/imgs/login.jpg') center center/cover no-repeat!important;
+                height: 100%;
+                position: fixed;
+            }
+        </style>
     </head>
     <body>
         <section id="wrapper" class="login-register">

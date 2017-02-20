@@ -5,7 +5,7 @@ namespace Modules\Admin\Http\Controllers;
 use App\Http\Requests\ConfigurationRequest;
 use App\Models\Configurations\ConfigurationRepository;
 
-class ConfigurationController extends AdminController
+class AdminConfigurationController extends AdminController
 {
     public function __construct(ConfigurationRepository $configurationRepository)
     {

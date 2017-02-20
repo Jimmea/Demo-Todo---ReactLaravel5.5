@@ -1,16 +1,18 @@
-@extends('admin::layouts.master_auth')
-@section('title', 'System login')
+@extends('auth_admins.layout_auth_admin')
 @section('content')
-    <form class="form-horizontal form-material" id="loginform" action="{{ route('staff.postLogin') }}">
+    <form class="form-horizontal form-material" id="loginform" action="{{ route('staff.postLogin') }}" method="post">
+        {{ csrf_field() }}
         <h3 class="box-title m-b-20">System login</h3>
-        <div class="form-group ">
+        <div class="form-group {{ has_error($errors, 'login_name') }}">
             <div class="col-xs-12">
-                <input class="form-control" type="text" placeholder="Username">
+                <input class="form-control" required name="login_name" type="text" placeholder="Username">
+                {!! get_error($errors, 'login_name') !!}
             </div>
         </div>
-        <div class="form-group">
+        <div class="form-group {{ has_error($errors, 'login_password') }}">
             <div class="col-xs-12">
-                <input class="form-control" type="text" placeholder="Password">
+                <input class="form-control" required name="login_password" type="text" placeholder="Password">
+                {!! get_error($errors, 'login_password') !!}
             </div>
         </div>
         <div class="form-group">

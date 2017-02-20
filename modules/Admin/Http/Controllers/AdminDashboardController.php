@@ -2,12 +2,15 @@
 
 namespace Modules\Admin\Http\Controllers;
 
-use Illuminate\Http\Request;
-use Illuminate\Http\Response;
-use Illuminate\Routing\Controller;
+use App\Models\Modules\ModuleRepository;
 
-class DashboardController extends Controller
+class AdminDashboardController extends AdminController
 {
+    public function __construct(ModuleRepository $moduleRepository)
+    {
+        $this->module = $moduleRepository;
+    }
+
     /**
      * Display a listing of the resource.
      * @return Response

@@ -21,6 +21,6 @@ define('USER_V1', 'user::v1');
 define('JOB_V1', 'job::v1');
 define('FASTFOOD_V1', 'fastfood::v1');
 define('ADMIN_VIEW', 'admin::modules.');
-
+define('PREFIX_ADMIN', 'admincpp');
 // Media
 define('STATIC_MEDIA', 'medias');

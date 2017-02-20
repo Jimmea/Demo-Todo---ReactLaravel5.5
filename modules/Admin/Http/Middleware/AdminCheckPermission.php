@@ -17,7 +17,23 @@ class AdminCheckPermission
      */
     public function handle(Request $request, Closure $next)
     {
+        // Check da dang nhap chua
+        $admminLoged = \Session::get('logged');
+        if (!$admminLoged) return redirect()->route('staff.getLogin');
+
+        // Lấy tên quyền ứng với route truy cập | Lay (table|pers)
+        $action = $request->route()->getAction();
+        $allPermision = isset($action['permissions']) ? $action['permissions'] : array();
+
+        // Khong co quyen nao thi khong co phep truy cap
+        if (!$allPermision) return redirectAccessDenied();
+
         $admin = new Admin();
+        if (!$admin->checkRoleOfAdmin($allPermision))
+        {
+            return redirectAccessDenied();
+        }
+
         return $next($request);
     }
 }

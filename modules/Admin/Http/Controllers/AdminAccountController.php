@@ -9,7 +9,7 @@ use App\Models\Categories\CategoryRepository;
 use App\Models\Modules\ModuleRepository;
 use Illuminate\Http\Request;
 
-class AccountController extends AdminController
+class AdminAccountController extends AdminController
 {
     public function __construct(AdminRepository $adminRepository,
                                 ModuleRepository $moduleRepository,
@@ -93,6 +93,7 @@ class AccountController extends AdminController
             }
         }
 
+
         // Insert vao admin_user_category : xu ly sau
 
         set_flash_add_success();
@@ -139,10 +140,29 @@ class AccountController extends AdminController
     {
         $dataForm = $request->except('_token');
         $dataForm['adm_admin_id'] = $this->getAdminId();
-        if (isset($data['adm_password']) && $data['adm_password'])
-            $data['adm_password'] = bcrypt($data['adm_password']);
+        if ($request->has('adm_password')) $dataForm['adm_password'] = bcrypt($request->adm_password);
         $dataForm = $request->filterDataForm($dataForm);
         $this->admin->updateById($adm_id, $dataForm);
+        // xoa thong tixn trong bang admin user right va insert thong tin moi
+        $this->adminUserRight->deleteAdminId($adm_id);
+
+        // Insert vao admin_user_right
+        $accountLastId  = $adm_id;
+        $moduleList     = $request->mod_id;
+        if ($moduleList)
+        {
+            for ($i=0, $countModuleList = count($moduleList); $i< $countModuleList; $i++)
+            {
+                $adminUserRight = [
+                    'adu_admin_id'        => $accountLastId,
+                    'adu_admin_module_id' => $moduleList[$i],
+                    'adu_add'             => get_value('adu_add'.$moduleList[$i], 'int', 'POST'),
+                    'adu_edit'            => get_value('adu_edit'.$moduleList[$i], 'int', 'POST'),
+                    'adu_delete'          => get_value('adu_delete'.$moduleList[$i], 'int', 'POST')
+                ];
+                $this->adminUserRight->storeData($adminUserRight);
+            }
+        }
 
         set_flash_update_success();
         return redirect()->route('admincpp.getListAccount');

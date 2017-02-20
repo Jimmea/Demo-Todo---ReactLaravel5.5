@@ -1,10 +1,12 @@
 <?php
 namespace App\Models\Admins;
 
-use Illuminate\Database\Eloquent\Model;
+use Illuminate\Notifications\Notifiable;
+use Illuminate\Foundation\Auth\User as Authenticatable;
 
-class Admin extends Model
+class Admin extends Authenticatable
 {
+    use Notifiable;
     protected $table     = 'admin_users';
     public $primaryKey   = 'adm_id';
 
@@ -20,8 +22,45 @@ class Admin extends Model
         return $this->limit;
     }
 
-//    public function adminUserRight()
-//    {
-//        return $this->hasMany('App\Models\AdminUserRights\AdminUserRight', 'adu_admin_id');
-//    }
+    public function getAuthPassword()
+    {
+        return $this->adm_password;
+    }
+
+    public function mapAccessAction($data)
+    {
+        $rtn = array();
+        if ($data)
+        {
+            foreach ($data as $key => $value)
+            {
+                $rtn[$value['mod_id']] = array(
+                                        $value["adu_add"],
+                                        $value["adu_edit"],
+                                        $value["adu_delete"]);
+            }
+        }
+        return $rtn;
+    }
+
+    /**
+     * Check cac quyen cua he thong
+     * @param array $allRole : mang vai tro cua router
+     * @return boolean
+     */
+    public function checkRoleOfAdmin($allRole)
+    {
+        // Check neu loai nay duoc luu adm_isadmin  = 1: Ok admin
+        $isAdmin = \Session::get('isadmin');
+        if ($isAdmin === 1) return true;
+
+        // Check khong ton tai role
+        if (!$allRole) return false;
+
+        // Lay quyen cua he thong
+
+
+
+        return false;
+    }
 }

@@ -12,4 +12,5 @@ namespace App\Models\AdminUserRights;
 interface AdminUserRightRepository
 {
     public function storeData($attribute);
+    public function deleteAdminId($id);
 }

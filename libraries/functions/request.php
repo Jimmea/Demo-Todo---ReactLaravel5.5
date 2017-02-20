@@ -218,3 +218,11 @@ if (! function_exists('is_url'))
 }
 
 
+if (!function_exists('redirectAccessDenied'))
+{
+    function redirectAccessDenied()
+    {
+        return redirect("/admincpp/access_denied");
+    }
+}
+

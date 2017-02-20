@@ -16,4 +16,5 @@ interface ModuleRepository
     public function updateData($id, $attribute);
     public function findById($Id);
     public function deleteModule($id);
+    public function getModuleAdminAccess();
 }
