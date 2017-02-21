@@ -34,7 +34,24 @@ class AdminCategoryController extends AdminController
         $filter     = $this->getFilter();
         $sort       = ['cate_order', $cate_sort];
 
+        $categories     = $this->category->getAllCategory($arrayColumn, $filter, false, $sort);
+        $typeCategories = $this->category->getConfigTypeCategory();
+        $dataGrid   = new \DataGrid('cate_id', 'cate_name', 'Danh sách account');
+        $dataGrid->add('cate_id', 'ID', 'string');
+        $dataGrid->add('cate_picture', 'Hình ảnh', 'picture');
+        $dataGrid->add('cate_type', 'Type category');
+        $dataGrid->add('cate_name', 'Tên category');
+        $dataGrid->add('cate_total_hit', 'Total view');
+        $dataGrid->add('cate_order', 'Order');
+        $dataGrid->add('cate_show', 'Show home');
+        $dataGrid->add('', 'Edit', 'edit');
+        $dataGrid->add('', 'Delete', 'delete', 0, 0 , "align='center'");
+        $dataGrid->setArrayFieldLevel(array('cate_name'=>"--","mnu_order"=>"--"));
+        $dataGrid->addSearch('Kiểu category', 'cate_type', 'array', $typeCategories);
+        $dataGrid->showTableMulti($categories);
+
         $dataView = array(
+            'listing'        => $dataGrid->showTableMulti($categories),
             'categories'     => $this->category->getAllCategory($arrayColumn, $filter, false, $sort),
             'typeCategory'   => $this->category->getConfigTypeCategory()
         );

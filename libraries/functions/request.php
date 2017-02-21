@@ -226,3 +226,67 @@ if (!function_exists('redirectAccessDenied'))
     }
 }
 
+
+/**
+ * getURL()
+ *
+ * @param integer $serverName
+ * @param integer $scriptName
+ * @param integer $fileName
+ * @param integer $queryString
+ * @param string $varDenied
+ * @return
+ */
+function get_url($serverName=0, $scriptName=0, $fileName=1, $queryString=1, $varDenied='')
+{
+    $url	 = '';
+    $slash = '/';
+    if($scriptName != 0)$slash	= "";
+    if($serverName != 0){
+        if(isset($_SERVER['SERVER_NAME']))
+        {
+            $url .= 'http://' . $_SERVER['SERVER_NAME'];
+            if(isset($_SERVER['SERVER_PORT'])) $url .= ":" . $_SERVER['SERVER_PORT'];
+            $url .= $slash;
+        }
+    }
+    if($scriptName != 0)
+    {
+        if(isset($_SERVER['SCRIPT_NAME']))	$url .= substr($_SERVER['SCRIPT_NAME'], 0, strrpos($_SERVER['SCRIPT_NAME'], '/') + 1);
+    }
+    if($fileName	!= 0)
+    {
+        if(isset($_SERVER['SCRIPT_NAME']))	$url .= substr($_SERVER['SCRIPT_NAME'], strrpos($_SERVER['SCRIPT_NAME'], '/') + 1);
+    }
+    if($queryString!= 0)
+    {
+        $url .= '?';
+        reset($_GET);
+        $i = 0;
+        if($varDenied != '')
+        {
+            $arrVarDenied = explode('|', $varDenied);
+            while(list($k, $v) = each($_GET))
+            {
+                if(array_search($k, $arrVarDenied) === false)
+                {
+                    $i++;
+                    if($i > 1) $url .= '&' . $k . '=' . @urlencode($v);
+                    else $url .= $k . '=' . @urlencode($v);
+                }
+            }
+        }
+        else
+            {
+            while(list($k, $v) = each($_GET))
+            {
+                $i++;
+                if($i > 1) $url .= '&' . $k . '=' . @urlencode($v);
+                else $url .= $k . '=' . @urlencode($v);
+            }
+        }
+    }
+
+    $url = str_replace('"', '&quot;', strval($url));
+    return $url;
+}

@@ -60,6 +60,14 @@ if (!function_exists('generate_sql_batch_insert'))
     }
 }
 
+if (!function_exists('translate_text'))
+{
+    function translate_text($text)
+    {
+        return $text;
+    }
+}
+
 /**
  * Created by : BillJanny
  * Date: 10:44 PM - 1/21/2017
