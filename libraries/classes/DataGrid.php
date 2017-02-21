@@ -336,10 +336,13 @@ class DataGrid
         {
             //kiểu array
             case "array":
-                $str .= '<select name="' . $field . '" id="' . $field . '" class="form-control">';
-                foreach($value as $id=>$text)
+                $str .= '<select name="' . $field . '" id="' . $field . '" class="form-control input-sm">';
+                if ($value)
                 {
-                    $str .= '<option value="' . $id . '" ' . (($default==$id) ? 'selected' : '') . '>' . $text . '</option>';
+                    foreach($value as $id=>$text)
+                    {
+                        $str .= '<option value="' . $id . '" ' . (($default==$id) ? 'selected' : '') . '>' . $text . '</option>';
+                    }
                 }
                 $str .= '</select>';
                 break;
