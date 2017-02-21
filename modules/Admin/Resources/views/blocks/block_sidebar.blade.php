@@ -1,7 +1,7 @@
 <?php
     $module         = app('App\Models\Modules\ModuleRepository');
     $admin          = app('App\Models\Admins\AdminRepository');
-    $adminUserRight = $admin->findAccessById(Session::get('adm_id'));
+    $adminUserRight = $admin->findAccessById(get_session('adm_id'));
     $adminUserRight = $admin->mapAccessAction($adminUserRight);
     $menuAccesses   = $module->getModuleAdminAccess();
 ?>
@@ -47,9 +47,9 @@
                                     <li>
                                         <a class="tab"
                                            {{--onclick="return false;"--}}
-                                           target="_blank"
-                                           id=""
-                                           ref="{{ $value->mod_name }}"
+                                           {{--target="_blank"--}}
+                                           id="{{ $arraySubRouter[$key] }}"
+                                           rel="{{ $value->mod_name }} <span class='raquo'>&raquo;</span> {{ $subvalue }}"
                                            href="{{ route($router) }}">
                                             {{ $subvalue }}
                                         </a>

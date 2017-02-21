@@ -56,6 +56,7 @@ class Admin extends Authenticatable
         return $rtn;
     }
 
+
     /**
      * Check cac quyen cua he thong
      * @param string $permissions : mang vai tro cua router  ($allRole : ten table, action)
@@ -64,8 +65,8 @@ class Admin extends Authenticatable
     public function checkRoleOfAdmin($permissions)
     {
         // Check neu loai nay duoc luu adm_isadmin  = 1: Ok admin
-        $isAdmin = \Session::get('isadmin');
-        $admId   = \Session::get('adm_id');
+        $isAdmin = get_session('isadmin');
+        $admId   = get_session('adm_id');
         if ($isAdmin === 1) return true;
 
         // Check khong ton tai role

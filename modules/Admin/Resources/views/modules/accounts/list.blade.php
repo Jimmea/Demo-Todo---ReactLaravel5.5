@@ -1,3 +1,4 @@
+@inject('adminRepository', 'App\Models\Admins\AdminRepository')
 @extends('admin::layouts.master')
 @section('content')
     {!! bread_crumb([
@@ -8,12 +9,7 @@
         <div class="col-md-12">
             <div class="white-box padd-0">
                 <div class="white-box-header padd-10">
-                    <div class="header-title pull-left">
-                        {!! box_title('List account', false) !!}
-                    </div>
-                    <div class="header-action pull-right">
-                        <a href="{{ route('admincpp.getAddAccount') }}" class="btn btn-info btn-sm text-uppercase"><i class="icon-plus"></i> Add new</a>
-                    </div>
+                    {!! header_title_action('List account', 'admincpp.getAddAccount') !!}
                     <div class="header-search clearleft search-box">
                         <form action="" class="form-inline">
                             <input type="hidden" name="page" value="{{ get_value('page','int', 'GET', 1) }}">
@@ -43,15 +39,19 @@
                                     <td class="bold">Login name</td>
                                     <td class="bold">Full name</td>
                                     <td class="bold">Email</td>
-                                    <td width="7%" align="center" class="bold">Face login</td>
+                                    <td class="bold">Modules</td>
+                                    @if(get_session('isadmin'))
+                                    <td width="10%" align="center" class="bold">Face login</td>
+                                    @endif
                                     <td width="4%" align="center" class="bold">Status</td>
-                                    <td colspan="2" width="6%" class="text-center">Action</td>
+                                    <td colspan="2" width="6%" class="text-center bold">Action</td>
                                 </tr>
                             </thead>
                             <tbody id="tableContent">
                             <?php
                                 $stt        = $admins->perPage()*($admins->currentPage()-1) + 1;
                                 $dataGrid   = new DataGrid();
+                                $access     = '';
                             ?>
                             @forelse($admins as $key => $value)
                                 <tr bgcolor="" id="tr_{{ $value->adm_id }}">
@@ -62,15 +62,32 @@
                                     <td>{{ $value->adm_loginname }}</td>
                                     <td>{{ $value->adm_name }}</td>
                                     <td>{{ $value->adm_email }}</td>
-                                    <td align="center"><a href="#" class="btn btn-xs btn-success">Login</a></td>
+                                    <td>
+                                        @if($value->adm_id == 1)
+                                            All permission website
+                                        @else
+                                            @foreach($adminRepository->findAccessById($value->adm_id) as $rowAccess)
+                                                <?php $access .= $rowAccess['mod_name'] . ", "; ?>
+                                            @endforeach
+                                            {{ rtrim($access, ', ') }}
+                                            <?php $access = ''; ?>
+                                        @endif
+                                    </td>
+                                    @if(get_session('isadmin'))
+                                    <td align="center"><a href="{{ route('admincpp.getFaceLogin', $value->adm_id) }}" class="btn btn-xs btn-success">Login</a></td>
+                                    @endif
                                     <td align="center">
+                                        @if($value->adm_id != 1)
                                         {!! $dataGrid->makeCheckButton($value, 'adm_active') !!}
+                                        @endif
                                     </td>
                                     <td align="center">
                                         {!! $dataGrid->makeEditButton(['admincpp.geteditAccount', $value->adm_id]) !!}
                                     </td>
                                     <td align="center">
+                                        @if($value->adm_id != 1)
                                         {!! $dataGrid->makeDeleteButton(['admincpp.getDeleteAccount', $value->adm_id]) !!}
+                                        @endif
                                     </td>
                                 </tr>
                             @empty

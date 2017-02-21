@@ -20,7 +20,7 @@
                                 <label for="cate_type">
                                     Type Category
                                     <select name="cate_type" id="cate_type" class="form-control input-sm">
-                                        <option value="">All type category</option>
+                                        <option value="">Type category</option>
                                         @foreach($typeCategory as $key => $name)
                                             <option {{ selectedCompare('cate_type', $key) }} value="{{ $key }}">{{ $name }}</option>
                                         @endforeach
@@ -29,7 +29,7 @@
                                 <label for="">
                                     Order
                                     <select name="cate_sort" id="cate_sort" class="form-control input-sm">
-                                        <option value="">--[ Select One ]--</option>
+                                        <option value="">-- Select One --</option>
                                         <option {{ selectedCompare('cate_sort', 'asc') }} value="asc">Ascending</option>
                                         <option {{ selectedCompare('cate_sort', 'desc') }} value="desc">Decreasing</option>
                                     </select>
@@ -57,7 +57,7 @@
                                     <td width="6%" colspan="2" class="text-center">Action</td>
                                 </tr>
                                 </thead>
-                                <tbody id="contentTable">
+                                <tbody id="tableContent">
                                 <?php $stt = 0; $dataGrid = new DataGrid(); ?>
                                 @forelse($categories as $key => $value)
                                     <?php $value = (array)$value;  $stt ++ ?>
@@ -77,7 +77,7 @@
                                                       title="Click to update quick this field"
                                                       data-name="editname"
                                                       data-pk="{{ $value['cate_id'] }}">
-                                                <b>{{ $value['cate_name'] }}</b>
+                                                        <b>{{ $value['cate_name'] }}</b>
                                             </span>
                                             </a>
                                         </td>
@@ -85,10 +85,10 @@
                                         <td align="center">
                                             <a href="javascript:void(0)">
                                             <span
-                                                    title="Click to update quick this field"
-                                                    data-name="editorder"
-                                                    data-pk="{{ $value['cate_id'] }}"
-                                                    class="editCateOrder editable editable-click">
+                                                title="Click to update quick this field"
+                                                data-name="editorder"
+                                                data-pk="{{ $value['cate_id'] }}"
+                                                class="editCateOrder editable editable-click">
                                                 <b>{{ $value['cate_order'] }}</b>
                                             </span>
                                             </a>

@@ -34,7 +34,7 @@
                                     <td colspan="2" class="text-center">Action</td>
                                 </tr>
                             </thead>
-                            <tbody id="contentTable">
+                            <tbody id="tableContent">
                                 @foreach($modules as $value)
                                 <tr id="tr_{{ $value->mod_id }}">
                                     <td align="center">{!! $dataGrid->makeCheckRadio($value->mod_id) !!}  </td>

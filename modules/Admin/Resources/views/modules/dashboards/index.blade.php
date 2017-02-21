@@ -6,7 +6,7 @@
         <div class="container-fluid">
             <div class="row bg-title">
                 <div id="tabs">
-                    <ul class="nav nav-pills">
+                    <ul id="tabs_menu" class="nav nav-pills tab_menu">
                         <li id="tabs_menu_1" class="active tabs_menu_child tabs_menu_select">
                             <a href="javascript:;" class="select_tab" onClick="selectTab('1');">
                                 Trang chủ
@@ -26,7 +26,7 @@
             </div>
         </div>
         <!-- /.container-fluid -->
-        <footer class="footer text-center"> 2016 &copy; Cook Admin design by bill </footer>
+        @include('admin::blocks.block_footer')
     </div>
 @stop
 @section('js')

@@ -1050,7 +1050,7 @@ pre {
   display: inline-block;
   line-height: 30px;
   margin-top: 15px;
-  border-radius: 40px;
+  /*border-radius: 40px;*/
   transition: 0.5s ease-out;
 }
 .app-search .form-control::-moz-placeholder {

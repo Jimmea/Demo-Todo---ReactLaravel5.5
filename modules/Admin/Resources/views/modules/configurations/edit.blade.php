@@ -51,8 +51,8 @@
                         <div role="tabpanel" class="tab-pane fade" id="supportcode">
                             {!! $form->groupTextArea('Google analytics', 'con_code_analytics', 'con_code_analytics') !!}
                             {!! $form->groupTextArea('Facebook social', 'con_code_facebook', 'con_code_facebook') !!}
-                            {!! $form->groupTextArea('Code support 1', 'con_code_param1', 'con_code_param1') !!}
-                            {!! $form->groupTextArea('Code support 1', 'con_code_param2', 'con_code_param2') !!}
+                            {{--{!! $form->groupTextArea('Code support 1', 'con_code_param1', 'con_code_param1') !!}--}}
+                            {{--{!! $form->groupTextArea('Code support 1', 'con_code_param2', 'con_code_param2') !!}--}}
                         </div>
 
                     </div>

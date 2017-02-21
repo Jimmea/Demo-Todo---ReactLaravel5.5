@@ -11,7 +11,7 @@ if (! function_exists('bread_crumb'))
     function bread_crumb($link =array())
     {
         if (!$link) return '';
-        $bread  = '<div class="row bg-title">';
+        $bread  = '<div class="row bg-title row-breadcrumbs">';
             $bread  .= '<div class="col-xs-12">';
                 $bread  .= '<ol class="breadcrumb">';
                     $bread .= '<li><a href="'.url('/admincpp').'">Admin</a></li>';

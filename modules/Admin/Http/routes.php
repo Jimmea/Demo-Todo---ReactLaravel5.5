@@ -1,5 +1,4 @@
 <?php
-
 Route::group([
     'middleware' => ['web', 'checkadminlogin'],
     'prefix'     => 'admincpp',
@@ -139,6 +138,11 @@ Route::group([
             'as'=> 'admincpp.getProcessQuickAccount',
             'uses'=> 'AdminAccountController@getProcessQuick'
         ]);
+
+        Route::get('face-login/{id}', [
+           'as' => 'admincpp.getFaceLogin',
+            'uses' => 'AdminAccountController@getFaceLogin'
+        ]);
     });
 
     // MODULES
@@ -183,8 +187,13 @@ Route::group([
 
     //ACCOUNT DETAIL
     Route::group(['prefix'=> 'profile'], function () {
-        Route::get('/', [
-
+        Route::get('/{id}', [
+            'as' => 'admincpp.getProfile',
+            'uses' => 'AdminProfileController@getProfile'
+        ]);
+        Route::post('/{id}', [
+            'as' => 'admincpp.postProfile',
+            'uses' => 'AdminProfileController@postProfile'
         ]);
     });
 

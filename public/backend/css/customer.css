@@ -1,8 +1,37 @@
+.container-fluid {
+    padding-left: 3px !important;
+}
+.bg-title {
+    margin-bottom: 3px !important;
+}
+.search-box label input,
+.search-box label select {
+    margin-left: 5px;
+}
+#side-menu li.active > a span.arrow:before {
+    content: "\e604";
+}
 #layout-master .breadcrumb
 {
     margin-top: 0;
     padding: 5px 0;
     float: left;
+}
+.tabs_content_child {
+    display: none;
+}
+.tabs_content_select {
+    display: block;
+}
+.tabs_menu_child a {
+    background-color: #eee;
+}
+.tab-icon {
+    padding-left: 5px;
+}
+.tab-close {
+    vertical-align: middle;
+    color: #fb9678;
 }
 .form-group {
     margin-left: 0 !important;
@@ -17,7 +46,10 @@
 }
 
 .table-bordered tbody > tr > td {
-    padding: 10px;
+    padding: 8px 10px;
+}
+.table > thead > tr > td {
+    padding: 10px 8px;
 }
 .mg-top-0 {
     margin-top: 0;

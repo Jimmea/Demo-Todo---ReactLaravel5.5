@@ -22,6 +22,21 @@ class AdminAccountController extends AdminController
         $this->adminUserRight   = $adminUserRightRepository;
     }
 
+    public function getFaceLogin($id)
+    {
+        $admin = $this->admin->findById($id);
+        if (!$admin)
+        {
+            set_flash('error', 'Not found database');
+            return redirect()->back();
+        }
+        set_session('isadmin', $admin->adm_isadmin);
+        set_session('adm_id', $id);
+        set_session('logged', 1);
+
+        return redirect()->route('admincpp.getHomeAdmin');
+    }
+
     /**
      * Show danh sach account
      * @param void
@@ -109,6 +124,7 @@ class AdminAccountController extends AdminController
     {
         // Select quyen truy cap
         $adminUserRight = $this->admin->findAccessById($adm_id);
+
         $accessModule = '';
         $arrayActionAccess = array();
         foreach ($adminUserRight as $value)

@@ -1,5 +1,10 @@
 /**
  * Created by hung on 31/01/17.
+ * Thu vien js cho bo admin  ho tro cac ham su dung
+ * Active multiple menu tab . vao block_sidebar bo comment
+ * {{--onclick="return false;"--}}
+ * {{--target="_blank"--}}
+ * Va bo comment o ham clickMenuSidebar()
  */
 
 var hei = $(window).height();
@@ -22,13 +27,56 @@ function selectTab(id)
     $("#tabs_content_" + id).addClass('tabs_content_select active');
 }
 
+// click tab menu
+function clickMenuSidebar() {
+    $('.tab').click(function () {
+        var obj           = $(this);
+        var frame_id      = obj.attr('id');
+        var idtab_menu    = "tabs_menu_" + frame_id;
+        var idtab_content = "tabs_content_" + frame_id;
+        var frame_reload  = "idframe_" + frame_id;
+        var source        = obj.attr('href');
+        var title         = '<span class="icon-refresh tab-icon" ' +
+                            'onclick="reload_iframe(\'' + frame_reload + '\')" ' +
+                            'title="Reload Tab"></span>&nbsp;&nbsp;' + obj.attr("rel");
+
+        $(".tabs_menu_child").removeClass('tabs_menu_select active');
+        $(".tabs_content_child").removeClass('tabs_content_select');
+
+        if($("#" + idtab_content).html() != null)
+        {
+            $("#" + idtab_menu).addClass('active tabs_menu_select');
+            $("#" + idtab_content).addClass('tabs_content_select');
+            reload_iframe(frame_reload);
+        }else
+        {
+            var closeMenu = '<span class="ui-tabs-close ui-icon ui-icon-close ui-state-hover tab-icon tab-close" data-li="'+ idtab_menu +'" ' +
+                            'onclick="closeTabMenu(\''+ frame_id + '\')" title="Close Tab"><i class="icon-close"></i></span>';
+            var htmlMenu = '<li id="' + idtab_menu + '" class="active tabs_menu_child tabs_menu_select">' +
+                '<a class="select_tab" href="javascript:;" onClick="selectTab(\'' + frame_id + '\');">' + title + closeMenu + '</a>' +
+                '</li>';
+
+            var htmlContent	= '<div id="' + idtab_content + '" ' +
+                'class="active tabs_content_child tabs_content_select">' +
+                '<iframe id="' + frame_reload + '" src="' + source + '" ' +
+                'frameborder="0" width="100%" ' + 'onLoad="calcHeightFrame(\'idframe_' + frame_id + '\');"></iframe>' +
+                '</div>';
+
+            $("#tabs_menu").append(htmlMenu);
+            $("#tabs_content").append(htmlContent);
+        }
+
+        return false;
+    });
+}
+
 // Đóng tab menu
 function closeTabMenu(id)
 {
     var idtab_menu      = 'tabs_menu_' + id;
     var idtab_content   = 'tabs_content_' + id;
 
-    if(confirm('Bạn có chắc chắn muốn đóng lại trang đang làm việc'))
+    if(confirm('You are sure close this tab'))
     {
         $('#' + idtab_menu).remove();
         $('#' + idtab_content).remove();
@@ -82,7 +130,6 @@ function hoverTrContentTable()
     });
 }
 
-
 /**
  * Ham thuc hien chuc nang nhanh cua table
  * Từ hàm này trở xuống chuyên xử lý ajax
@@ -122,7 +169,7 @@ function executeFormTable()
         }
 
         // Do something
-        if ($click_flag) { alert('Hệ thống đang xử lý ...'); return ''; }
+        if ($click_flag) { alert('The system is processing ...'); return ''; }
 
         switch ($action)
         {
@@ -130,7 +177,7 @@ function executeFormTable()
                     var $valueCheckedArr = getAllValueCheckedTable();
                     if($valueCheckedArr.length <1)
                     {
-                        alert('Vui lòng chọn một item để thực hiện. Xin cám ơn');
+                        alert('Please choice a item. Thank you.');
                         return false;
                     }
 
@@ -159,7 +206,7 @@ function executeFormTable()
                     })
                     .fail(function(e)
                     {
-                        alert('Có lỗi xảy ra');
+                        alert('The wrong is went ...');
                     })
                     .always(function()
                     {
@@ -183,7 +230,7 @@ function executeFormTable()
                 })
                 .fail(function(e)
                 {
-                    alert('Có lỗi xảy ra');
+                    alert('The wrong is went ...');
                 })
                 .always(function()
                 {
@@ -207,7 +254,7 @@ function executeFormTable()
                 })
                 .fail(function(e)
                 {
-                    alert('Có lỗi xảy ra');
+                    alert('The wrong is went ...');
                 })
                 .always(function()
                 {
@@ -241,4 +288,5 @@ $(document).ready(function()
     executeFormTable();
     hoverTrContentTable();
     initColorPicker();
+    // clickMenuSidebar();
 });

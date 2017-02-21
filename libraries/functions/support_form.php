@@ -102,7 +102,7 @@ if (! function_exists('submit_reset'))
     function button_submit_reset()
     {
         return '<div class="form-group">
-                    <div class="col-xs-offset-2">
+                    <div class="col-md-5 col-md-offset-2">
                         <button type="submit" class="btn btn-info btn-sm"><i class="icon-check"></i> '.trans('admin::form.buttonSubmit').'</button>
                         <button type="reset" class="btn btn-info btn-sm"><i class="icon-refresh"></i> '.trans('admin::form.buttonReset').'</button>
                     </div>

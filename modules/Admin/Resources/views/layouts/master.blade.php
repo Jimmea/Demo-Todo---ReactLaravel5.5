@@ -25,6 +25,7 @@
                 @yield('content')
             </div>
         </div>
+        @include('admin::blocks.block_footer')
     </div>
     @yield('js')
 </body>

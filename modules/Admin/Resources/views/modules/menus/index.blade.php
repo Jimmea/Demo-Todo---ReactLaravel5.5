@@ -50,14 +50,14 @@
                                 <td width="18%" class="bold">Tiêu đề</td>
                                 <td class="bold">Đi tới</td>
                                 <td width="10%" align="center" class="bold">Cửa sổ</td>
-                                <td width="5%" align="center" class="bold">Vị trí</td>
-                                <td width="5%" class="bold">Thứ tự</td>
+                                <td width="10%" align="center" class="bold">Vị trí</td>
+                                <td width="7%" class="bold">Thứ tự</td>
                                 <td width="4%" align="center" class="bold">Status</td>
                                 <td width="4%" align="center" class="bold">Copy</td>
-                                <td width="6%" colspan="2" class="text-center">Action</td>
+                                <td width="6%" colspan="2" class="text-center bold">Action</td>
                             </tr>
                             </thead>
-                            <tbody id="contentTable">
+                            <tbody id="tableContent">
                             @forelse($menus as $value)
                                 <?php $stt ++; $menu_id = $value['mnu_id'];?>
                                 <tr>

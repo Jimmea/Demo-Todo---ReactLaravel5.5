@@ -50,7 +50,7 @@ class Form
      * @param
      * @return
      */
-    public function beginForm($route = array(),$method ='POST',$enctype=' multipart/form-data')
+    public function beginForm(array $route = array(),$method ='POST',$enctype=' multipart/form-data')
     {
         (count($route) >1)
             ? list($routeName, $routeParam) = $route
