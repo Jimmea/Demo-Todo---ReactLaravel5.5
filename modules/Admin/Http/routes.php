@@ -18,7 +18,7 @@ Route::group([
     // MENU
     Route::group(['prefix'=> 'menu', 'middileware'=> 'checkPermission'], function()
     {
-        Route::get('/', [
+        Route::any('/', [
             'as'    => 'admincpp.getListMenu',
             'uses'  => 'AdminMenuController@getList'
         ]);
@@ -41,10 +41,6 @@ Route::group([
         Route::get('/delete/{id}', [
             'as' => 'admincpp.getDeleteMenu',
             'uses' => 'AdminMenuController@getDelete'
-        ]);
-        Route::post('/process-quick-menu', [
-            'as'    => 'admincpp.postProcessQuickMenu',
-            'uses'  => 'AdminMenuController@postProcessQuickMenu'
         ]);
     });
 

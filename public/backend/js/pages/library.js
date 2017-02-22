@@ -134,9 +134,9 @@ function hoverTrContentTable()
  * Cap nhat thong tin checked
  *
  */
+var $click_flag = false;
 function updateCheck(target)
 {
-    var $click_flag = false;
     var href        = target.getAttribute('href');
     var field       = target.getAttribute('field');
     var record_id   = target.getAttribute('record_id');
@@ -153,7 +153,7 @@ function updateCheck(target)
             field     : field,
             record_id : record_id
         },
-        dataType: 'json',
+        dataType: 'json'
     }).done(function(response)
     {
         if (response.status == 1 || response.status == 'success')
@@ -259,60 +259,60 @@ function executeFormTable()
 
                 break;
 
-            case 'updateShowHome':
-                // Send ajax
-                $click_flag = true;
-                $.ajax({
-                    type    :'POST',
-                    url     : $href,
-                    dataType: 'json',
-                    data: {
-                        id      : $id,
-                        _token  : $token,
-                        action  : 'showhome'
-                    }
-                })
-                .fail(function(e)
-                {
-                    alert('The wrong is went ...');
-                })
-                .always(function()
-                {
-                    $click_flag = false;
-                });
+            // case 'updateShowHome':
+            //     // Send ajax
+            //     $click_flag = true;
+            //     $.ajax({
+            //         type    :'POST',
+            //         url     : $href,
+            //         dataType: 'json',
+            //         data: {
+            //             id      : $id,
+            //             _token  : $token,
+            //             action  : 'showhome'
+            //         }
+            //     })
+            //     .fail(function(e)
+            //     {
+            //         alert('The wrong is went ...');
+            //     })
+            //     .always(function()
+            //     {
+            //         $click_flag = false;
+            //     });
+            //
+            //     break;
 
-                break;
-
-            case 'updateStatus':
-                // Send ajax
-                $click_flag = true;
-                $.ajax({
-                    type    :'POST',
-                    url     : $href,
-                    dataType: 'json',
-                    data: {
-                        id      : $id,
-                        _token  : $token,
-                        action  : 'editstatus'
-                    }
-                })
-                .fail(function(e)
-                {
-                    alert('The wrong is went ...');
-                })
-                .always(function()
-                {
-                    $click_flag = false;
-                });
-
-                break;
+            // case 'updateStatus':
+            //     // Send ajax
+            //     $click_flag = true;
+            //     $.ajax({
+            //         type    :'POST',
+            //         url     : $href,
+            //         dataType: 'json',
+            //         data: {
+            //             id      : $id,
+            //             _token  : $token,
+            //             action  : 'editstatus'
+            //         }
+            //     })
+            //     .fail(function(e)
+            //     {
+            //         alert('The wrong is went ...');
+            //     })
+            //     .always(function()
+            //     {
+            //         $click_flag = false;
+            //     });
+            //
+            //     break;
         }
         return false;
     })
 }
 
 // Sửa nhanh thông tin
-function EditQuickXtable($url, $selector, $title)
+function EditQuickXtable($url, $selector)
 {
     $($selector).editable({
         type: 'text',

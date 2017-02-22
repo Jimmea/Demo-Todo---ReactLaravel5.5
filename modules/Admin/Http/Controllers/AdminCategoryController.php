@@ -50,7 +50,6 @@ class AdminCategoryController extends AdminController
                         $value = get_value('value','int', 'POST'); if ($value === '') return 0;
                         $this->category->updateByField($cateId, 'cate_order', $value);
                         break;
-
                 }
 
                 return $this->responseSuccess();
@@ -69,7 +68,7 @@ class AdminCategoryController extends AdminController
         $categories     = $this->category->getAllCategory($arrayColumn, $filter, false, $sort);
         $typeCategories = $this->category->getConfigTypeCategory();
 
-        $dataGrid   = new \DataGridO('cate_id', 'cate_name', 'Danh sách account');
+        $dataGrid   = new \DataGrid('cate_id', 'cate_name', 'Danh sách category');
         $dataGrid->add('cate_id', 'ID', 'numbernotedit');
         $dataGrid->add('cate_picture', 'Hình ảnh', 'picture');
         $dataGrid->add('cate_type', 'Type category', 'array', 0, 0, 'width="150"');

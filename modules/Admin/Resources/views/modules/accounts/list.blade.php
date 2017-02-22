@@ -27,15 +27,18 @@
                         </form>
                     </div>
                 </div>
+                <?php
+                    $dataGrid   = new DataGrid();
+                    $stt        = $admins->perPage()*($admins->currentPage()-1) + 1;
+                    $access     = '';
+                ?>
                 <div class="white-box-content">
                     <form action="{{ route('admincpp.getProcessQuickAccount') }}" id="formTable">
                         <table class="table table-bordered table-stripped" id="dataTableList">
                             <thead>
                                 <tr bgcolor="#428BCA" style="color: #fff">
                                     <td width="3%" align="center" class="bold">Stt</td>
-                                    <td width="2%" align="center" class="bold">
-                                        <input type="checkbox" class="check-all" id="check_all_table" data-set="#dataTableList .check-one" name="check_all">
-                                    </td>
+                                    {!! $dataGrid->makeCheckAllRadio() !!}
                                     <td class="bold">Login name</td>
                                     <td class="bold">Full name</td>
                                     <td class="bold">Email</td>
@@ -48,53 +51,39 @@
                                 </tr>
                             </thead>
                             <tbody id="tableContent">
-                            <?php
-                                $stt        = $admins->perPage()*($admins->currentPage()-1) + 1;
-                                $dataGrid   = new DataGrid();
-                                $access     = '';
-                            ?>
-                            @forelse($admins as $key => $value)
-                                <tr bgcolor="" id="tr_{{ $value->adm_id }}">
-                                    <td align="center">{{ $stt ++ }}</td>
-                                    <td align="center">
-                                        <input type="checkbox" class="check-one" name="check-one" value="{{ $value->adm_id }}">
-                                    </td>
-                                    <td>{{ $value->adm_loginname }}</td>
-                                    <td>{{ $value->adm_name }}</td>
-                                    <td>{{ $value->adm_email }}</td>
-                                    <td>
-                                        @if($value->adm_id == 1)
-                                            All permission website
-                                        @else
-                                            @foreach($adminRepository->findAccessById($value->adm_id) as $rowAccess)
-                                                <?php $access .= $rowAccess['mod_name'] . ", "; ?>
-                                            @endforeach
-                                            {{ rtrim($access, ', ') }}
-                                            <?php $access = ''; ?>
+                                @foreach($admins as $key => $value)
+                                    <tr bgcolor="" id="tr_{{ $value->adm_id }}">
+                                        <td align="center">{{ $stt ++ }}</td>
+                                        <td align="center">
+                                            <input type="checkbox" class="check-one" name="check-one" value="{{ $value->adm_id }}">
+                                        </td>
+                                        <td>{{ $value->adm_loginname }}</td>
+                                        <td>{{ $value->adm_name }}</td>
+                                        <td>{{ $value->adm_email }}</td>
+                                        <td>
+                                            @if($value->adm_id == 1)
+                                                All permission website
+                                            @else
+                                                @foreach($adminRepository->findAccessById($value->adm_id) as $rowAccess)
+                                                    <?php $access .= $rowAccess['mod_name'] . ", "; ?>
+                                                @endforeach
+                                                {{ rtrim($access, ', ') }}
+                                                <?php $access = ''; ?>
+                                            @endif
+                                        </td>
+                                        @if(get_session('isadmin'))
+                                        <td align="center"><a href="{{ route('admincpp.getFaceLogin', $value->adm_id) }}" class="btn btn-xs btn-success">Login</a></td>
                                         @endif
-                                    </td>
-                                    @if(get_session('isadmin'))
-                                    <td align="center"><a href="{{ route('admincpp.getFaceLogin', $value->adm_id) }}" class="btn btn-xs btn-success">Login</a></td>
-                                    @endif
-                                    <td align="center">
+
                                         @if($value->adm_id != 1)
                                         {!! $dataGrid->makeCheckButton($value, 'adm_active') !!}
                                         @endif
-                                    </td>
-                                    <td align="center">
                                         {!! $dataGrid->makeEditButton(['admincpp.geteditAccount', $value->adm_id]) !!}
-                                    </td>
-                                    <td align="center">
                                         @if($value->adm_id != 1)
                                         {!! $dataGrid->makeDeleteButton(['admincpp.getDeleteAccount', $value->adm_id]) !!}
                                         @endif
-                                    </td>
-                                </tr>
-                            @empty
-                                <tr>
-                                    <td align="center" colspan="10">Not exist data</td>
-                                </tr>
-                            @endforelse
+                                    </tr>
+                                @endforeach
                             </tbody>
                             {!! $dataGrid->getTemplateFooter($admins) !!}
                         </table>

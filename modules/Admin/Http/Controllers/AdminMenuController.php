@@ -24,6 +24,34 @@ class AdminMenuController extends AdminController
      */
     public function getList(Request $request)
     {
+        // Truong hop cap nhat
+        if ($request->ajax())
+        {
+            $field  = strtolower(get_value('field','str', 'POST'));
+            $mnuId = get_value('record_id','int', 'POST');
+
+            if ($field && $mnuId)
+            {
+                switch ($field)
+                {
+                    case 'mnu_status':
+                        $this->menu->updateByField($mnuId, 'mnu_status');
+                        break;
+
+                    case 'mnu_name':
+                        $value = get_value('value', 'str', 'POST');  if (!$value) return 0;
+                        $this->menu->updateByField($mnuId, 'mnu_name', $value);
+                        break;
+
+                    case 'mnu_order':
+                        $value = get_value('value','int', 'POST'); if ($value === '') return 0;
+                        $this->menu->updateByField($mnuId, 'mnu_order', $value);
+                        break;
+                }
+                return $this->responseSuccess();
+            }
+        }
+
         $arrayField = [
             'mnu_picture', 'mnu_name','mnu_link', 'mnu_position', 'mnu_order','mnu_target', 'mnu_status'
         ];
@@ -158,44 +186,19 @@ class AdminMenuController extends AdminController
         return redirect()->route('admincpp.getListMenu');
     }
 
-    /**
-     * Method process quick
-     * @param void
-     * @return json
-     */
-    public function postProcessQuickMenu(Request $request)
-    {
-        if ($request->ajax())
-        {
-            $mnu_id = get_value('id', 'int', 'POST');
-            $action = strtolower(get_value('action', 'str', 'POST'));
-
-            if (!$action) list($action, $orderValue, $mnu_id) = $this->getValueXeditTable();
-
-            switch ($action)
-            {
-                case 'deleteall':
-                    $mnu_id = get_value('id','arr', 'POST');
-                    $this->menu->deleteMenuById($mnu_id);
-                    break;
-
-                case 'editorder':
-                    if (!$orderValue) return 0;
-                    $this->menu->updateByField($mnu_id, 'mnu_order', $orderValue);
-                    break;
-
-                case 'editstatus':
-                    $this->menu->updateByField($mnu_id, 'mnu_status');
-                    break;
-
-                case 'editname':
-                    $orderValue = get_value('value', 'str', 'POST');  if (!$orderValue) return 0;
-                    $this->menu->updateByField($mnu_id, 'mnu_name', $orderValue);
-                    break;
-            }
-
-            return $this->responseSuccess();
-        }
-        return $this->responseError();
-    }
+//    /**
+//     * Method process quick
+//     * @param void
+//     * @return json
+//     */
+//    public function postProcessQuickMenu(Request $request)
+//    {
+//        $mnu_id = get_value('id', 'int', 'POST');
+//        $action = strtolower(get_value('action', 'str', 'POST'));
+//        $mnu_id = get_value('id','arr', 'POST');
+//        $this->menu->deleteMenuById($mnu_id);
+//        break;
+//
+//        return $this->responseError();
+//    }
 }

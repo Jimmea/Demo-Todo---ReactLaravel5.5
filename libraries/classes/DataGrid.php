@@ -61,15 +61,26 @@ class DataGrid
     // @var array : thong tin action tiep
     private $actionHtml = '';
 
-    // @var string : ten router cho processquick
-    private $routerProcessQuick;
+    // @var int : Bien luu gia tri cua key
+    private $primaryKey = '';
 
-//    public function __construct($field_id, $field_name, $title)
-//    {
-//        $this->field_id 	= $field_id;
-//        $this->field_name	= $field_name;
-//        $this->title 		= $title;
-//    }
+    public function __construct($field_id='', $field_name='', $title='')
+    {
+        $this->field_id 	= $field_id;
+        $this->field_name	= $field_name;
+        $this->title 		= $title;
+    }
+
+
+    /**
+     * Set gia tri truong khoa chinh
+     * @param void
+     * @return voiid
+     */
+    public function setFieldId($id)
+    {
+        $this->primaryKey = $id;
+    }
 
     public function addHeaderActionHtml(array $html = array())
     {
@@ -106,11 +117,6 @@ class DataGrid
         $this->routerDelete = $routerDelete;
     }
 
-
-    public function setRouterProcessQuick($routerName)
-    {
-        $this->routerProcessQuick = $routerName;
-    }
 
     public function setDeleteAll($delete = false)
     {
@@ -984,11 +990,8 @@ class DataGrid
         {
 
             $str .= '<th class="h">' . $lable . $this->urlsort($this->arrayField[$key]) . ' </th>';
-
         }
-
         $str .= '</tr>';
-
         return $str;
     }
 
@@ -1103,90 +1106,57 @@ class DataGrid
 
     public function makeCheckAllRadio()
     {
-        return '<input type="checkbox" class="check-all" id="check_all_table" data-set="#dataTableList .check-one" name="check_all">';
+        return '<td width="4%" align="center" class="bold"><input type="checkbox" class="check-all" id="check_all_table" data-set="#dataTableList .check-one" name="check_all"></td>';
     }
 
-    public function makeCheckRadio($id)
+    public function makeCheckRadio()
     {
-        return '<input type="checkbox" class="check-one" name="check-one" value="' . $id . '">';
+        return '<td align="center"><input type="checkbox" class="check-one" name="check-one" value="' . $this->primaryKey . '"></td>';
     }
 
-    public function makeCheckButton($value, $fieldAtive='', $action='updateStatus')
+    public function makeEditTable(array $row= array())
     {
-        $fieldAtive = $fieldAtive ? $fieldAtive : '';
-
-        return '<a href="javascript:void(0)">
-                <span
-                    data-action="'.$action.'"
-                    data-id="'.$value->adm_id.'"
-                    data-check="'.($value->$fieldAtive ? 'checked' : '').'"                  
-                    class="execute_form fa fa-2x '.($value->$fieldAtive ? 'fa-check-circle' : 'fa-circle').'"></span>
-                </a>';
+        list($field, $value)  = $row;
+        return '<td align="center"><a href="javascript:void(0)"><span field="' .$field. '" record_id="' . $this->primaryKey . '" class="clickEdit">' . $value[$field] . '</span></a></td>';
     }
 
-    public function makeCopyButton($arrayRoute, $attrArr= [])
+    /**
+     * Make checkbox quick html
+     * @param array $router : Mảng router gồm tên router và id
+     * @param array $row  : Mảng gồm tên field và giá trị của field đó
+     * @return string
+     */
+    public function makeCheckButton($routeName,array $row= array())
     {
-        $attribute          = null;
-        $attributeClass     = '';
-        list($routerName, $id)  = $arrayRoute;
-        if ($attrArr)
-        {
-            $attribute      = $this->getAttribute($attrArr)['attr'];
-            $attributeClass = $this->getAttribute($attrArr)['class'];
-        }
-        return '<a href="'.route($routerName, $id).'"               
-                   '.$attribute.'
-                   class="fa fa-files-o button_copy btn btn-sm btn-info '.$attributeClass.'"></a>';
+        list($field, $value)  = $row;
+        return '<td align="center"><a onclick="updateCheck(this); return false" class="grid-icon" data-img="'. $this->image_path . 'check_' . ($value[$field] ? 0 : 1) . '.png" field="' . $field. '" record_id="' . $this->primaryKey .  '" href="' . route($routeName) . '"><img class="img-responsive" src="'. $this->image_path . 'check_' . $value[$field] . '.png" border="0"></a></td>';
     }
 
-//    $value->$this->field_status ?  \'fa-check-circle\' : \'fa-circle\'
     /**
      * Created by : BillJanny
      * Date: 6:16 PM - 2/5/2017
-     * Tao button edit
-     * @param array $array : mang thong tin chua ten route, id
-     * @param array $html : mang chua cac thuoc tinh html
+     * Make button edit
+     * @param array $router : Mảng router gồm tên router và id
      * @return
      */
-    public function makeEditButton($arrayRoute, $attrArr= [])
+    public function makeEditButton($routeName)
     {
-        $attribute          = null;
-        $attributeClass     = '';
-        list($router, $id)  = $arrayRoute;
-        if ($attrArr)
-        {
-            $attribute      = $this->getAttribute($attrArr)['attr'];
-            $attributeClass = $this->getAttribute($attrArr)['class'];
-        }
-        return '<a href="'.route($router, $id).'" 
-                    '.$attribute.' 
-                    class="icon-pencil button_edit btn btn-sm btn-info '.$attributeClass.'"></a>';
+        return '<td align="center"><a title="Are You want to edit this record" 
+                class="grid-icon" 
+                href="' . route($routeName, $this->primaryKey) . '">
+                <img class="img-responsive" src="'. $this->image_path .'/edit.png" border="0"></a></td>';
     }
 
     /**
      * Created by : BillJanny
      * Date: 6:16 PM - 2/5/2017
      * Tao button delete
-     * @param array $array : mang thong tin chua ten route, id
-     * @param array $html : mang chua cac thuoc tinh html
+     * @param string $routeName : Nhan router
      * @return
      */
-    public function makeDeleteButton($arrayRoute, $attrArr=[])
+    public function makeDeleteButton($routeName)
     {
-        $attribute          = null;
-        $attributeClass     = '';
-        list($router, $id)  = $arrayRoute;
-        if ($attrArr)
-        {
-            $attribute      = $this->getAttribute($attrArr)['attr'];
-            $attributeClass = $this->getAttribute($attrArr)['class'];
-        }
-
-        return '<a href="'.route($router, $id).'" 
-                '.$attribute.' 
-                onclick="return confirm(`'.trans('admin::message.message_confirm_delete').'`)" 
-                data-id="'.$id.'" 
-                class="icon-trash button_delete_one btn btn-sm btn-warning '.$attributeClass.'"></a>';
+        return '<td align="center"><a title="Are You sure want to delete this record" class="delete grid-icon" href="' .route($routeName, $this->primaryKey) . '" onclick="return confirm(`Are you sure to delete this record?`)"><img class="img-responsive" src="'. $this->image_path .'/delete.png" border="0"></a></td>';
     }
 
     /**

@@ -44,7 +44,7 @@ class DataGridO
     public $url_quick_edit = "";
 
     // $var string : Cho pheps xoa khong
-    private $deleteAll = false;
+    private $deleteAll = true;
 
     // @var array : Chua cac thong tin gia tri mac dinh duoc cho phep search
     private $arrayAddSearchDb = '';
@@ -136,18 +136,6 @@ class DataGridO
         $this->arrayType[$this->stt]        = $type;
         $this->arrayAttribute[$this->stt]   = $attributes;
         $this->stt++;
-
-//        if($type=="array")
-//        {
-//            global $$field_name;
-//            $arrayList = $$field_name;
-//            $strdata   = array();
-//            foreach($arrayList as $key=>$value)
-//            {
-//                $strdata[] = $key . ':' . "'" . str_replace("'","\'",$value) . "'";
-//            }
-//            $strdata = implode(",",$strdata);
-//        }
     }
 
     /**
@@ -213,11 +201,6 @@ class DataGridO
                 $field = $this->arrayField[$key];
                 global $$field;
                 $arrayList = $$field;
-
-//                $value = isset($arrayList[$row[$this->arrayField[$key]]]) ? $arrayList[$row[$this->arrayField[$key]]] : '';
-//                return '<td ' . $this->arrayAttribute[$key] . '  title="' . translate_text("Click sửa đổi sau đó chọn save") . '">
-//                            <span class="editable_select_' . $this->arrayField[$key] . '" style="display:inline" id="select_2" name="' . $this->arrayField[$key] . ',' . $row[$this->field_id] . ',0">' . str_replace("-","",$value)  . '</span>
-//                        </td>';
 
                 $value = isset($row[$field]) ? $row[$field] : '';
                 $value = $this->getSelectSearch($field)[$value];
