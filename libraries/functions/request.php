@@ -242,7 +242,8 @@ function get_url($serverName=0, $scriptName=0, $fileName=1, $queryString=1, $var
     $url	 = '';
     $slash = '/';
     if($scriptName != 0)$slash	= "";
-    if($serverName != 0){
+    if($serverName != 0)
+    {
         if(isset($_SERVER['SERVER_NAME']))
         {
             $url .= 'http://' . $_SERVER['SERVER_NAME'];

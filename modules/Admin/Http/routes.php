@@ -50,7 +50,7 @@ Route::group([
 
     // CATEOGORY
     Route::group(['prefix'=> 'category', 'middleware'=> 'checkPermission'], function () {
-        Route::get('/', [
+        Route::any('/', [
            'as'             => 'admincpp.getListCategory',
            'permissions'    => 'categories|list',
            'uses'           => 'AdminCategoryController@getListCategory'
@@ -79,11 +79,6 @@ Route::group([
             'as'            => 'admincpp.getDeleteCategory',
             'permissions'   => 'categories|delete',
             'uses'          => 'AdminCategoryController@getDeleteCategory'
-        ]);
-        Route::post('/process-quick-category', [
-            'as'           => 'admincpp.postProcessQuickCategory',
-            'permissions'  => 'categories|list',
-            'uses'         => 'AdminCategoryController@postProcessQuickCategory'
         ]);
     });
 

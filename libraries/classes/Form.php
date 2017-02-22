@@ -271,7 +271,7 @@ class Form
         $formGroup = '<select name='.$nameselect.' '.$styleInput.'>';
         if ($showOptionEmpty)
         {
-            $formGroup .= '<option value="">-- [ Select one ] --</option>';
+            $formGroup .= '<option value="">-- Select one --</option>';
         }
 
         if ($valueDefault)

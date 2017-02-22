@@ -131,6 +131,50 @@ function hoverTrContentTable()
 }
 
 /**
+ * Cap nhat thong tin checked
+ *
+ */
+function updateCheck(target)
+{
+    var $click_flag = false;
+    var href        = target.getAttribute('href');
+    var field       = target.getAttribute('field');
+    var record_id   = target.getAttribute('record_id');
+    var srcAfter    = target.getAttribute('data-img');
+    var srcBefore   = target.firstChild.getAttribute('src');
+
+    if ($click_flag) { alert('The system is processing ...'); return ''; }
+    $click_flag = true;
+
+    $.ajax({
+        type    :'POST',
+        url     : href,
+        data    : {
+            field     : field,
+            record_id : record_id
+        },
+        dataType: 'json',
+    }).done(function(response)
+    {
+        if (response.status == 1 || response.status == 'success')
+        {
+            target.firstChild.setAttribute('src', srcAfter);
+            target.setAttribute('data-img', srcBefore);
+        }
+    })
+    .fail(function(e)
+    {
+        alert('The wrong is went ...');
+    })
+    .always(function()
+    {
+        $click_flag = false;
+    });
+    return '';
+
+}
+
+/**
  * Ham thuc hien chuc nang nhanh cua table
  * Từ hàm này trở xuống chuyên xử lý ajax
  */
@@ -272,12 +316,22 @@ function EditQuickXtable($url, $selector, $title)
 {
     $($selector).editable({
         type: 'text',
-        url: BASE_URL + $url,
-        title: $title ? $title : 'Update quick',
+        url: $url,
         placement: 'top',
+        params: function(params)
+        {
+            var $field          = $(this).attr("field");
+            var $record_id      = $(this).attr("record_id");
+            var data = {};
+            data['field']       = $field;
+            data['record_id']   = $record_id;
+            data['value']       = params.value;
+            return data;
+        },
         send:'always'
     });
 }
+
 function initColorPicker() {
     $(".colorpicker").asColorPicker();
 }

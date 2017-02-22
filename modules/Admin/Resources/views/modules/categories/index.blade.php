@@ -5,8 +5,9 @@
          ])
      !!}
     {!! $listing !!}
+@stop
+@section('js')
     <script>
-        EditQuickXtable('/category/process-quick-category', '.editCateOrder');
-        EditQuickXtable('/category/process-quick-category', '.editCateName');
+        EditQuickXtable('{{ route('admincpp.getListCategory') }}', '.clickEdit');
     </script>
 @stop

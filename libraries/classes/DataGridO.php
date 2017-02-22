@@ -4,7 +4,7 @@
  * Ham tao danh sach cho trang listing
  *
  */
-class DataGrid
+class DataGridO
 {
     public $stt = 0;
     public $items;
@@ -26,7 +26,7 @@ class DataGrid
     public $quickEdit = false;
     public $total_list = 0;
     public $total_record = 0;
-    public $page_size = 3;
+    public $page_size = 30;
     public $edit_ajax = false;
     public $showstt = true;
     public $showid = true;
@@ -44,7 +44,7 @@ class DataGrid
     public $url_quick_edit = "";
 
     // $var string : Cho pheps xoa khong
-    private $deleteAll = true;
+    private $deleteAll = false;
 
     // @var array : Chua cac thong tin gia tri mac dinh duoc cho phep search
     private $arrayAddSearchDb = '';
@@ -64,12 +64,12 @@ class DataGrid
     // @var string : ten router cho processquick
     private $routerProcessQuick;
 
-//    public function __construct($field_id, $field_name, $title)
-//    {
-//        $this->field_id 	= $field_id;
-//        $this->field_name	= $field_name;
-//        $this->title 		= $title;
-//    }
+    public function __construct($field_id, $field_name, $title)
+    {
+        $this->field_id 	= $field_id;
+        $this->field_name	= $field_name;
+        $this->title 		= $title;
+    }
 
     public function addHeaderActionHtml(array $html = array())
     {
@@ -118,14 +118,14 @@ class DataGrid
     }
 
     /**
-    * Add các trường vào trong table hiển thị
-	* @param strin $field_name  : Tên trường trong bảng csdl
-	* @param string $lable      : Tiêu đề hiển thị trên header
-	* @param string $type       : Kiểu dữ liệu hiển thị
-	* @param int $sort          : Có sắp xếp hay không. 1: có | 0  : không
-    * @param int $search        : Có tìm kiếm hay không, 1: có | 0 : không
-    * @param void
-	*/
+     * Add các trường vào trong table hiển thị
+     * @param strin $field_name  : Tên trường trong bảng csdl
+     * @param string $lable      : Tiêu đề hiển thị trên header
+     * @param string $type       : Kiểu dữ liệu hiển thị
+     * @param int $sort          : Có sắp xếp hay không. 1: có | 0  : không
+     * @param int $search        : Có tìm kiếm hay không, 1: có | 0 : không
+     * @param void
+     */
     public function add($field_name, $lable, $type = "string", $sort=0, $search=0, $attributes = "")
     {
         if($sort == 1) $this->arraySort[$this->stt]     = $field_name;
@@ -151,10 +151,10 @@ class DataGrid
     }
 
     /**
-    * Xử lý các kiểu hiển thị trong listing
-    * @param row  : truyền array row gọi từ mysql_fetch_assoc ra
-    * @param key  : thứ tự trường add vào
-    */
+     * Xử lý các kiểu hiển thị trong listing
+     * @param row  : truyền array row gọi từ mysql_fetch_assoc ra
+     * @param key  : thứ tự trường add vào
+     */
     public function checkType($row,$key)
     {
         $level = "";
@@ -320,8 +320,8 @@ class DataGrid
 
 
     /**
-	* Format kiểu số
-	*/
+     * Format kiểu số
+     */
     public function formatNumber($number)
     {
         $number = number_format(round($number/1000)*1000,0,"",".");
@@ -329,9 +329,9 @@ class DataGrid
     }
 
     /**
-	* Hàm tạo ra nút sắp xếp
-	* field : tên trường
-	*/
+     * Hàm tạo ra nút sắp xếp
+     * field : tên trường
+     */
     public function urlsort($field)
     {
         $str 	= '';
@@ -372,9 +372,9 @@ class DataGrid
     }
 
     /**
-	* ham tao cau lanh sql sort
-	* hàm sinh ra câu lênh query sort tương ứng
-	*/
+     * ham tao cau lanh sql sort
+     * hàm sinh ra câu lênh query sort tương ứng
+     */
     public function sqlSort()
     {
         $sort 		= get_value("sort","str","GET","");
@@ -395,8 +395,8 @@ class DataGrid
     private function getSelectSearch($field='', $default='',$type='array')
     {
 //       $str   = '';
-         $value =   isset($this->arrayAddSearchDb[$field]) ? $this->arrayAddSearchDb[$field] : '';
-         return $value;
+        $value =   isset($this->arrayAddSearchDb[$field]) ? $this->arrayAddSearchDb[$field] : '';
+        return $value;
 
 //         if ($value)
 //         {
@@ -417,14 +417,14 @@ class DataGrid
     }
 
     /**
-	* Hàm thêm các trường search
-	* @param string name : tiêu đề
-	* @param string field : tên trường
-	* @param type : kiểu search
-	* @param array|int value : giá trị nếu kiểu array thì truyền vào một array
-	* @param string default: giá trị mặc định
-	* @param $count_date = 0 mặc định, nếu ko thì tính theo số ngày
-	*/
+     * Hàm thêm các trường search
+     * @param string name : tiêu đề
+     * @param string field : tên trường
+     * @param type : kiểu search
+     * @param array|int value : giá trị nếu kiểu array thì truyền vào một array
+     * @param string default: giá trị mặc định
+     * @param $count_date = 0 mặc định, nếu ko thì tính theo số ngày
+     */
     public function addSearch($name, $field, $type, $value = '', $default="", $count_date = 0)
     {
         $this->arrayAddSearchDb[$field] = $value;
@@ -558,9 +558,9 @@ class DataGrid
     }
 
     /**
-    * Ham xu ly hien thi theo dang multi
-    * @return string
-    */
+     * Ham xu ly hien thi theo dang multi
+     * @return string
+     */
     public function showTableMulti($database)
     {
         // Đếm tổng số bản ghi
@@ -575,41 +575,43 @@ class DataGrid
         // Phần thead của table
         $this->html .= '<thead>';
 //            bgcolor="#428BCA" style="color: #fff"
-            $this->html .= '<tr class="header">';
-                $this->html .= '<td width="50" align="center" class="bold">STT</td>';
-                // Column check all table
-                $this->html .= '<td width="4%" class="h check bold" align="center"><input type="checkbox" data-set="#dataTableList .check-one" class="check-all" id="check_all_table"></td>';
+        $this->html .= '<tr class="header">';
+        $this->html .= '<td width="50" align="center" class="bold">STT</td>';
+        // Column check all table
+        $this->html .= '<td width="4%" class="h check bold" align="center"><input type="checkbox" data-set="#dataTableList .check-one" class="check-all" id="check_all_table"></td>';
 
-                // Phần quick edit
-                if($this->quickEdit)
-                {
-                    $this->html .= '<td class="h bold"><img src="' . $this->image_path . 'qedit.png" border="0"></td>';
-                }
-                // phần hiển thị tiêu đề
-                foreach($this->arrayLabel as $key =>$lable)
-                {
-                    switch ($this->arrayType[$key])
-                    {
-                        case 'number':
-                            $this->html .= '<td align="center" width="4%" '. $this->arrayAttribute[$key] .' class="h bold">' . $lable . $this->urlsort($this->arrayField[$key]) . ' </td>';
-                            break;
+        // Phần quick edit
+        if($this->quickEdit)
+        {
+            $this->html .= '<td class="h bold"><img src="' . $this->image_path . 'qedit.png" border="0"></td>';
+        }
+        // phần hiển thị tiêu đề
+        foreach($this->arrayLabel as $key =>$lable)
+        {
+            switch ($this->arrayType[$key])
+            {
+                case 'number':
+                    $this->html .= '<td align="center" width="4%" '. $this->arrayAttribute[$key] .' class="h bold">' . $lable . $this->urlsort($this->arrayField[$key]) . ' </td>';
+                    break;
 
-                        case 'edit':
-                        case 'numbernotedit':
-                            $this->html .= '<td width="3%" '. $this->arrayAttribute[$key] .' class="h bold">' . $lable . $this->urlsort($this->arrayField[$key]) . ' </td>';
-                            break;
+                case 'edit':
+                case 'numbernotedit':
+                    $this->html .= '<td width="3%" '. $this->arrayAttribute[$key] .' class="h bold">' . $lable . $this->urlsort($this->arrayField[$key]) . ' </td>';
+                    break;
 
-                        case 'delete':
-                            $this->html .= '<td width="3%" '. $this->arrayAttribute[$key] .' class="h bold">' . $lable . $this->urlsort($this->arrayField[$key]) . ' </td>';
-                            break;
+                case 'delete':
+                    if ($this->deleteAll)
+                        $this->html .= '<td width="3%" '. $this->arrayAttribute[$key] .' class="h bold">' . $lable . $this->urlsort($this->arrayField[$key]) . ' </td>';
 
-                        default:
-                            $this->html .= '<td '. $this->arrayAttribute[$key] .' class="h bold">' . $lable . $this->urlsort($this->arrayField[$key]) . ' </td>';
-                            break;
-                    }
+                    break;
 
-                }
-            $this->html .= '</tr>';
+                default:
+                    $this->html .= '<td '. $this->arrayAttribute[$key] .' class="h bold">' . $lable . $this->urlsort($this->arrayField[$key]) . ' </td>';
+                    break;
+            }
+
+        }
+        $this->html .= '</tr>';
         $this->html .= '<thead>';   // Kết thúc phần thead của table
 
         // Phần tbody của table
@@ -617,37 +619,37 @@ class DataGrid
         if($page<1) $page = 1;
         $i=0;
         $this->html .= '<tbody id="tableContent">';
-            if($database)
+        if($database)
+        {
+            foreach($database as $key=>$row)
             {
-                foreach($database as $key=>$row)
+                $i++;
+                $this->html .= '<tr id="tr_' . $row[$this->field_id] . '" ' . (($i%2==0) ? 'bgcolor="#f7f7f7"' : '') . '>';
+
+                //phan so thu tu
+                $this->html .= '<td width="15" align="center"><span style="color:#142E62; font-weight:bold">' . ($i+(($page-1)*$this->page_size)) . '</span></td>';
+
+                //phan checkbok cho tung record
+                $this->html .= '<td align="center" class="check align_c"><input type="checkbox" class="check-one" id="record_' . $i . '" name="check-one" value="' . $row[$this->field_id] . '"></td>';
+
+
+                //phan quick edit
+                if($this->quickEdit)
                 {
-                    $i++;
-                    $this->html .= '<tr id="tr_' . $row[$this->field_id] . '" ' . (($i%2==0) ? 'bgcolor="#f7f7f7"' : '') . '>';
-
-                    //phan so thu tu
-                    $this->html .= '<td width="15" align="center"><span style="color:#142E62; font-weight:bold">' . ($i+(($page-1)*$this->page_size)) . '</span></td>';
-
-                    //phan checkbok cho tung record
-                    $this->html .= '<td align="center" class="check align_c"><input type="checkbox" class="check-one" id="record_' . $i . '" name="check-one" value="' . $row[$this->field_id] . '"></td>';
-
-
-                    //phan quick edit
-                    if($this->quickEdit)
-                    {
-                        $this->html .= '<td width=15 align="center"><a class="thickbox" title="' . translate_text("Do you want quick edit basic") . '" href="quickedit.php?record_id=' . $row[$this->field_id] . '&url=' . base64_encode($_SERVER['REQUEST_URI']) . '&KeepThis=true&TB_iframe=true&height=300&width=400"><img src="' . $this->image_path . 'qedit.png" border="0"></a></td>';
-                    }
-
-
-                    foreach($this->arrayField as $key => $field)
-                    {
-                        $this->html .= $this->checkType($row, $key);
-                    }
-
-                    $this->html .= '</tr>';
+                    $this->html .= '<td width=15 align="center"><a class="thickbox" title="' . translate_text("Do you want quick edit basic") . '" href="quickedit.php?record_id=' . $row[$this->field_id] . '&url=' . base64_encode($_SERVER['REQUEST_URI']) . '&KeepThis=true&TB_iframe=true&height=300&width=400"><img src="' . $this->image_path . 'qedit.png" border="0"></a></td>';
                 }
-            }
 
-            $this->html .= '</tbody>'; // Kết thúc phần tbody của table
+
+                foreach($this->arrayField as $key => $field)
+                {
+                    $this->html .= $this->checkType($row, $key);
+                }
+
+                $this->html .= '</tr>';
+            }
+        }
+
+        $this->html .= '</tbody>'; // Kết thúc phần tbody của table
         $this->html .= '</table>';
 
         // Phần footer
@@ -665,23 +667,23 @@ class DataGrid
         /**********------------------- Begin Template V3 - Do not Modify -------------------**********/
         $str .= '<div class="white-box-header padd-10">';
 
-            $str .= '<div class="header-title pull-left">';
-                $str .= '<h3 class="box-title">' . $title . '</h3>';
-            $str .= '</div>';
+        $str .= '<div class="header-title pull-left">';
+        $str .= '<h3 class="box-title">' . $title . '</h3>';
+        $str .= '</div>';
 
-            $str .= '<div class="header-action pull-right">';
-                $str .= '<a href="'.route($this->routerAdd).'" class="btn btn-info btn-sm"><i class="icon-plus"></i> ADD NEW</a>';
-                if ($actions = $this->actionHtml)
-                {
-                   foreach ($actions as $action)
-                   {
-                        $str .= '<a href="'.route($action['router']).'" class="btn btn-info btn-sm"><i class="' . $action['icon'] . '"></i> ' . $action['title'] . ' </a>';
-                   }
-                }
-            $str .= '</div>';
+        $str .= '<div class="header-action pull-right">';
+        $str .= '<a href="'.route($this->routerAdd).'" class="btn btn-info btn-sm"><i class="icon-plus"></i> ADD NEW</a>';
+        if ($actions = $this->actionHtml)
+        {
+            foreach ($actions as $action)
+            {
+                $str .= '<a href="'.route($action['router']).'" class="btn btn-info btn-sm"><i class="' . $action['icon'] . '"></i> ' . $action['title'] . ' </a>';
+            }
+        }
+        $str .= '</div>';
 
-            if($search!='')
-                $str .= '<div class="header-search clearleft search-box">' . $search . '</div>';
+        if($search!='')
+            $str .= '<div class="header-search clearleft search-box">' . $search . '</div>';
         $str .= '</div>';
 
         if($html!='')
@@ -697,19 +699,19 @@ class DataGrid
     {
         $str = '';
         /*----------...................... End WEB CONTENT here .....................----------*/
-                    $str .= '	</div>';
-                $str .= '</div>';
-            $str .= '</div>';
+        $str .= '	</div>';
+        $str .= '</div>';
+        $str .= '</div>';
         $str .= '</div>';
 
         return $str;
     }
 
     /**
-	* Hàm tạo form search
-	* @param int $type_search : 1 :Button search ở đầu, Mặc định ở cuối
-    * @param string
-	*/
+     * Hàm tạo form search
+     * @param int $type_search : 1 :Button search ở đầu, Mặc định ở cuối
+     * @param string
+     */
     public function urlsearch($type_search = 0)
     {
         $str = '';
@@ -816,8 +818,8 @@ class DataGrid
     }
 
     /**
-	* Hàm tạo câu lệnh sql search
-	*/
+     * Hàm tạo câu lệnh sql search
+     */
     public function sqlSearch()
     {
         $search		= get_value("search","int","GET",0);

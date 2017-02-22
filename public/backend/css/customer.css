@@ -4,9 +4,20 @@
 .bg-title {
     margin-bottom: 3px !important;
 }
-.search-box label input,
-.search-box label select {
+.search-box input,
+.search-box select {
     margin-left: 5px;
+}
+a.item-paginate {
+    margin-left: 3px;
+    padding: 4px 12px;
+}
+.grid-icon
+{
+    width:20px;
+    height:20px;
+    margin: 0 auto;
+    display:block
 }
 #side-menu li.active > a span.arrow:before {
     content: "\e604";

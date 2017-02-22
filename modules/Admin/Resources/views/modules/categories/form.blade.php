@@ -13,7 +13,7 @@
     {{ $form->groupSelect(trans('admin::category.add.cate_view_type'), 'cate_view_type', 'cate_show_mob', false, $typeView) }}
 
     {{-- Hinh anh--}}
-    {{ $form->groupText(trans('admin::category.add.cate_background'), 'cate_background', 'cate_background') }}
+    {{ $form->groupText(trans('admin::category.add.cate_background'), 'cate_background', 'cate_background', false,  ['input'=> 'colorpicker'])}}
     {{ $form->groupFile(trans('admin::category.add.cate_picture'), 'cate_picture', 'cate_picture') }}
     {{ $form->groupFile(trans('admin::category.add.cate_icon'), 'cate_icon', 'cate_icon') }}
 
