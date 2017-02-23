@@ -67,12 +67,14 @@ class LoginController extends Controller
         ];
 
 //        dd(Auth::guard('admin')->attempt($credentials, $request->has('remember')));
-        if (Auth::guard('admin')->attempt($credentials, $request->has('remember')))
+        if (\Auth::guard('admin')->attempt($credentials, $request->has('remember')))
         {
-            $user = Auth::guard('admin')->user();
-            \Session::put('isadmin', $user->adm_isadmin);
-            \Session::put('adm_id', $user->adm_id);
-            \Session::put('logged', 1);
+            $user = \Auth::guard('admin')->user();
+            set_session('isadmin', $user->adm_isadmin);
+            set_session('adm_id', $user->adm_id);
+            set_session('adm_name', $user->adm_name);
+            set_session('logged', 1);
+
             return redirect()->intended($this->redirectTo);
         }
 

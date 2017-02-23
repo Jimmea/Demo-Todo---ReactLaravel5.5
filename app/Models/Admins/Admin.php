@@ -27,7 +27,7 @@ class Admin extends Authenticatable
     {
         $modules = config('configModuleID');
 
-        return $modules[$nameModule];
+        return isset($modules[$nameModule]) ? $modules[$nameModule] : '';
     }
 
     public function getLimit()
@@ -76,26 +76,34 @@ class Admin extends Authenticatable
         if(!isset($permissions[0]) || !isset($permissions[1])) return false;
         $nameModule  = $permissions[0];
         $actionRight = $permissions[1];
-
         $moduleID    = $this->getIdModule($nameModule);
+
         if (!$moduleID) return false;
+
         $row         =  app('App\Models\AdminUserRights\AdminUserRightRepository');
         $row         =  $row->findAdminRightBy(['adm_id'=> $admId, 'mod_id'=> $moduleID]);
 
-        switch ($actionRight)
+        if ($row)
         {
-            case "add":
-                if($row["adu_add"] == 0) return false;
-                break;
+            switch ($actionRight)
+            {
+                case "list":
+                        return true;
+                    break;
 
-            case "edit":
-                if($row["adu_edit"] == 0) return false;
-                break;
+                case "add":
+                    if($row["adu_add"]) return true;
+                    break;
 
-            case "delete":
-                if($row["adu_delete"] == 0) return false;
+                case "edit":
+                    if($row["adu_edit"]) return true;
+                    break;
+
+                case "delete":
+                    if($row["adu_delete"]) return true;
+                    break;
+            }
         }
-
-        return true;
+        return false;
     }
 }

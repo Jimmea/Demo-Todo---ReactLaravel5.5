@@ -22,13 +22,40 @@
             <li class="user-pro">
                 <a href="javascript:void(0)" class="waves-effect">
                     <img src="{{ asset('backend/imgs/d1.jpg') }}" alt="user-img" class="img-circle">
-                    <span class="hide-menu">Hello ! . Bill</span>
+                    <span class="hide-menu">Hello . {{ get_session('adm_name') }}</span>
                 </a>
             </li>
 
             @if($menuAccesses)
                 @foreach($menuAccesses as $value)
-                    @if(array_key_exists($value->mod_id, $adminUserRight))
+                    @if(get_session('isadmin'))
+                    <li id="listItem_{{ $value->mod_id }}"> <a href="javascript:void(0)" class="waves-effect">
+                        <i class="{{ $value['mod_icon'] }} p-r-10"></i>
+                        <span class="hide-menu">{{ $value->mod_name }}</span><span class="arrow icon-arrow-left"></span></a>
+                        <?php
+                            $arraySubTitle    = explode("|",$value["mod_listname"]);
+                            $arraySubRouter   = explode("|",$value["mod_listrouter"]);
+                        ?>
+                        @if($arraySubTitle)
+                            <ul class="nav nav-second-level collapse" aria-expanded="true">
+                                @foreach($arraySubTitle as $key => $subvalue)
+                                    <?php $router	= isset($arraySubRouter[$key])
+                                                        ? 'admincpp.'.$arraySubRouter[$key]
+                                                        : '#'; ?>
+                                    <li>
+                                        <a class="tab"
+                                           id="{{ $arraySubRouter[$key] }}"
+                                           rel="{{ $value->mod_name }} <span class='raquo'>&raquo;</span> {{ $subvalue }}"
+                                           href="{{ route($router) }}">
+                                            {{ $subvalue }}
+                                        </a>
+                                    </li>
+                                @endforeach
+                            </ul>
+                        @endif
+                    </li>
+
+                    @elseif(array_key_exists($value->mod_id, $adminUserRight))
                     <li id="listItem_{{ $value->mod_id }}"> <a href="javascript:void(0)" class="waves-effect">
                         <i class="{{ $value['mod_icon'] }} p-r-10"></i>
                         <span class="hide-menu">{{ $value->mod_name }}</span><span class="arrow icon-arrow-left"></span></a>

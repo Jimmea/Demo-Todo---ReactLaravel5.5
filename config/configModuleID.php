@@ -1,6 +1,8 @@
 <?php
 return [
-    'categories' => 3,
-    'menus'      => 0,
-    'accounts'   => 0,
+    'account'       => 1,
+    'configuration' => 2,
+    'menu'          => 2,
+    'category'      => 3,
+    'module'        => 4,
 ];

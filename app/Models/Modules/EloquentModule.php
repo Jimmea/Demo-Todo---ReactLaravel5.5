@@ -43,17 +43,15 @@ class EloquentModule extends BaseRepository implements ModuleRepository
 
     public function getModuleAdminAccess()
     {
-        $isAdmin = \Session::get('isadmin');
-        $adm_id  = \Session::get('adm_id');
+        $isAdmin = get_session('isadmin');
+        $adm_id  = get_session('adm_id');
 
         $query = $this->model;
-
         if ($isAdmin != 1)
         {
             $query = $query->join('admin_user_right', 'adu_admin_module_id', '=', 'mod_id')
                            ->where('adu_admin_id', $adm_id);
         }
-
         return $query->orderBy('mod_order')
                      ->orderBy('mod_name')
                      ->get();

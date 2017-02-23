@@ -15,167 +15,6 @@ Route::group([
         'uses'  => 'AdminDashboardController@getContentDashboard'
     ]);
 
-    // MENU
-    Route::group(['prefix'=> 'menu', 'middileware'=> 'checkPermission'], function()
-    {
-        Route::any('/', [
-            'as'    => 'admincpp.getListMenu',
-            'uses'  => 'AdminMenuController@getList'
-        ]);
-        Route::get('/add', [
-            'as'    => 'admincpp.getAddMenu',
-            'uses'  => 'AdminMenuController@getAdd'
-        ]);
-        Route::post('/add', [
-            'as'    => 'admincpp.postAddMenu',
-            'uses'  => 'AdminMenuController@postAdd'
-        ]);
-        Route::get('/edit/{id}', [
-            'as'    => 'admincpp.getEditMenu',
-            'uses'  => 'AdminMenuController@getEdit'
-        ]);
-        Route::post('/edit/{id}', [
-            'as'    => 'admincpp.postEditMenu',
-            'uses'  => 'AdminMenuController@postEdit'
-        ]);
-        Route::get('/delete/{id}', [
-            'as' => 'admincpp.getDeleteMenu',
-            'uses' => 'AdminMenuController@getDelete'
-        ]);
-    });
-
-    // CATEOGORY
-    Route::group(['prefix'=> 'category', 'middleware'=> 'checkPermission'], function () {
-        Route::any('/', [
-           'as'             => 'admincpp.getListCategory',
-           'permissions'    => 'categories|list',
-           'uses'           => 'AdminCategoryController@getListCategory'
-        ]);
-        Route::get('/add', [
-            'as'            => 'admincpp.getAddCategory',
-            'permissions'   => 'categories|add',
-            'uses'          => 'AdminCategoryController@getAddCategory'
-        ]);
-        Route::post('/add', [
-            'as'            => 'admincpp.postAddCategory',
-            'permissions'   => 'categories|add',
-            'uses'          => 'AdminCategoryController@postAddCategory'
-        ]);
-        Route::get('/edit/{id}', [
-            'as'            => 'admincpp.getEditCategory',
-            'permissions'   => 'categories|edit',
-            'uses'          => 'AdminCategoryController@getEditCategory'
-        ]);
-        Route::post('/edit/{id}', [
-            'as'            => 'admincpp.postEditCategory',
-            'permissions'    => 'categories|edit',
-            'uses'          => 'AdminCategoryController@PostEditCategory'
-        ]);
-        Route::get('delete/{id}', [
-            'as'            => 'admincpp.getDeleteCategory',
-            'permissions'   => 'categories|delete',
-            'uses'          => 'AdminCategoryController@getDeleteCategory'
-        ]);
-    });
-
-    // SETTING
-    Route::group(['prefix'=> 'configuration', 'middleware'=> 'checkPermission'], function()
-    {
-        Route::get('/', [
-            'as'=> 'admincpp.getEditConfiguration',
-            'uses'=> 'AdminConfigurationController@getEdit'
-        ]);
-
-        Route::post('/edit/{id}', [
-            'as'=> 'admincpp.postEditConfiguration',
-            'uses'=> 'AdminConfigurationController@postEdit'
-        ]);
-    });
-
-    // ACCOUNT
-    Route::group(['prefix'=> 'account','middleware'=> 'checkPermission'], function ()
-    {
-        Route::get('/', [
-            'as'=> 'admincpp.getListAccount',
-            'uses'=> 'AdminAccountController@getList'
-        ]);
-
-        Route::get('/add', [
-             'as'=> 'admincpp.getAddAccount',
-             'uses'=> 'AdminAccountController@getAdd'
-        ]);
-
-        Route::post('/add', [
-            'as'=> 'admincpp.postAddAccount',
-            'uses'=> 'AdminAccountController@postAdd'
-        ]);
-
-        Route::get('/edit/{adm_id}', [
-            'as'=> 'admincpp.geteditAccount',
-            'uses'=> 'AdminAccountController@getEdit'
-        ]);
-
-        Route::post('/edit/{adm_id}', [
-            'as'=> 'admincpp.posteditAccount',
-            'uses'=> 'AdminAccountController@postEdit'
-        ]);
-
-        Route::get('/delete/{adm_id?}', [
-            'as'=> 'admincpp.getDeleteAccount',
-            'uses'=> 'AdminAccountController@getDelete'
-        ]);
-
-        Route::post('process-quick-account', [
-            'as'=> 'admincpp.getProcessQuickAccount',
-            'uses'=> 'AdminAccountController@getProcessQuick'
-        ]);
-
-        Route::get('face-login/{id}', [
-           'as' => 'admincpp.getFaceLogin',
-            'uses' => 'AdminAccountController@getFaceLogin'
-        ]);
-    });
-
-    // MODULES
-    Route::group(['prefix'=> 'configadmin', 'midleware' => 'checkPermission'], function () {
-
-        Route::get('/', [
-           'as' => 'admincpp.getListConfigAdmin',
-           'uses' => 'AdminConfigController@getListConfigAdmin'
-        ]);
-
-        Route::get('/add', [
-           'as'   => 'admincpp.getAddConfigAdmin',
-           'uses' => 'AdminConfigController@getAddConfigAdmin'
-        ]);
-
-        Route::post('/add', [
-            'as'   => 'admincpp.postAddConfigAdmin',
-            'uses' => 'AdminConfigController@postAddConfigAdmin'
-        ]);
-
-        Route::get('/edit/{id}',[
-           'as' => 'admincpp.getEditConfigAdmin',
-           'uses' => 'AdminConfigController@getEditConfigAdmin',
-        ]);
-
-        Route::post('/edit/{id}',[
-            'as' => 'admincpp.postEditConfigAdmin',
-            'uses' => 'AdminConfigController@postEditConfigAdmin',
-        ]);
-
-        Route::get('/delete/{id}', [
-            'as' => 'admincpp.getDeleteConfigAdmin',
-            'uses' => 'AdminConfigController@getDeleteConfigAdmin',
-        ]);
-
-        Route::post('/process-quick-module', [
-            'as' => 'admincpp.postProcessQuickModule',
-            'uses' => 'AdminConfigController@postProcessQuickModule',
-        ]);
-
-    });
-
     //ACCOUNT DETAIL
     Route::group(['prefix'=> 'profile'], function () {
         Route::get('/{id}', [
@@ -194,9 +33,183 @@ Route::group([
             'uses'=> 'AdminController@getMaster'
     ]);
 
+    // MODULES
+    Route::group(['prefix'=> 'module', 'middleware' => 'checkPermission'], function () {
+
+        Route::get('/', [
+            'as'          => 'admincpp.getListConfigAdmin',
+            'permissions' => 'module.list',
+            'uses'        => 'AdminConfigController@getListConfigAdmin'
+        ]);
+
+        Route::get('/add', [
+            'as'          => 'admincpp.getAddConfigAdmin',
+            'permissions' => 'module.add',
+            'uses'        => 'AdminConfigController@getAddConfigAdmin'
+        ]);
+
+        Route::post('/add', [
+            'as'          => 'admincpp.postAddConfigAdmin',
+            'permissions' => 'module.add',
+            'uses'        => 'AdminConfigController@postAddConfigAdmin'
+        ]);
+
+        Route::get('/edit/{id}',[
+            'as'          => 'admincpp.getEditConfigAdmin',
+            'permissions' => 'module.edit',
+            'uses'        => 'AdminConfigController@getEditConfigAdmin',
+        ]);
+
+        Route::post('/edit/{id}',[
+            'as'          => 'admincpp.postEditConfigAdmin',
+            'permissions' => 'module.edit',
+            'uses'        => 'AdminConfigController@postEditConfigAdmin',
+        ]);
+    });
+
+    // CATEOGORY
+    Route::group(['prefix'=> 'category', 'middleware'=> 'checkPermission'], function () {
+        Route::any('/', [
+            'as'             => 'admincpp.getListCategory',
+            'permissions'    => 'category.list',
+            'uses'           => 'AdminCategoryController@getListCategory'
+        ]);
+        Route::get('/add', [
+            'as'            => 'admincpp.getAddCategory',
+            'permissions'   => 'category.add',
+            'uses'          => 'AdminCategoryController@getAddCategory'
+        ]);
+        Route::post('/add', [
+            'as'            => 'admincpp.postAddCategory',
+            'permissions'   => 'category.add',
+            'uses'          => 'AdminCategoryController@postAddCategory'
+        ]);
+        Route::get('/edit/{id}', [
+            'as'            => 'admincpp.getEditCategory',
+            'permissions'   => 'category.edit',
+            'uses'          => 'AdminCategoryController@getEditCategory'
+        ]);
+        Route::post('/edit/{id}', [
+            'as'            => 'admincpp.postEditCategory',
+            'permissions'   => 'category.edit',
+            'uses'          => 'AdminCategoryController@PostEditCategory'
+        ]);
+    });
+
+    // MENU
+    Route::group(['prefix'=> 'menu', 'middleware'=> 'checkPermission'], function()
+    {
+        Route::any('/', [
+            'as'            => 'admincpp.getListMenu',
+            'permissions'   => 'menu.list',
+            'uses'          => 'AdminMenuController@getList'
+        ]);
+        Route::get('/add', [
+            'as'            => 'admincpp.getAddMenu',
+            'permissions'   => 'menu.add',
+            'uses'          => 'AdminMenuController@getAdd'
+        ]);
+        Route::post('/add', [
+            'as'            => 'admincpp.postAddMenu',
+            'permissions'   => 'menu.add',
+            'uses'          => 'AdminMenuController@postAdd'
+        ]);
+        Route::get('/edit/{id}', [
+            'as'            => 'admincpp.getEditMenu',
+            'permissions'   => 'menu.edit',
+            'uses'          => 'AdminMenuController@getEdit'
+        ]);
+        Route::post('/edit/{id}', [
+            'as'            => 'admincpp.postEditMenu',
+            'permissions'   => 'menu.edit',
+            'uses'          => 'AdminMenuController@postEdit'
+        ]);
+    });
+
+    // ACCOUNT
+    Route::group(['prefix'=> 'account','middleware'=> 'checkPermission'], function ()
+    {
+        Route::any('/', [
+            'as'            => 'admincpp.getListAccount',
+            'permissions'   => 'account.list',
+            'uses'          => 'AdminAccountController@getList'
+        ]);
+
+        Route::get('/add', [
+            'as'            => 'admincpp.getAddAccount',
+            'permissions'   => 'account.add',
+            'uses'          => 'AdminAccountController@getAdd'
+        ]);
+
+        Route::post('/add', [
+            'as'            => 'admincpp.postAddAccount',
+            'permissions'   => 'account.add',
+            'uses'          => 'AdminAccountController@postAdd'
+        ]);
+
+        Route::get('/edit/{adm_id}', [
+            'as'            => 'admincpp.geteditAccount',
+            'permissions'   => 'account.edit',
+            'uses'          => 'AdminAccountController@getEdit'
+        ]);
+
+        Route::post('/edit/{adm_id}', [
+            'as'            => 'admincpp.posteditAccount',
+            'permissions'   => 'account.edit',
+            'uses'          => 'AdminAccountController@postEdit'
+        ]);
+
+        Route::get('face-login/{id}', [
+            'as'            => 'admincpp.getFaceLogin',
+            'permissions'   => 'account.list',
+            'uses'          => 'AdminAccountController@getFaceLogin'
+        ]);
+    });
+
+    // SETTING
+    Route::group(['prefix'=> 'configuration', 'middleware'=> 'checkPermission'], function()
+    {
+        Route::get('/', [
+            'as'          => 'admincpp.getEditConfiguration',
+            'permissions' => 'configuration.edit',
+            'uses'        => 'AdminConfigurationController@getEdit'
+        ]);
+
+        Route::post('/edit/{id}', [
+            'as'          => 'admincpp.postEditConfiguration',
+            'permissions' => 'configuration.edit',
+            'uses'        => 'AdminConfigurationController@postEdit'
+        ]);
+    });
+
+    // BANNER
+    Route::group(['prefix'=> 'banner'], function () {
+        Route::get('/', [
+            'as' => 'admincpp.getListBanner',
+            'uses'=> 'AdminBannerController@getListBanner'
+        ]);
+        Route::get('/add', [
+            'as' => 'admincpp.getAddBanner',
+            'uses'=> 'AdminBannerController@getAddBanner'
+        ]);
+        Route::post('/add', [
+            'as' => 'admincpp.postAddBanner',
+            'uses'=> 'AdminBannerController@postAddBanner'
+        ]);
+        Route::get('/edit{id}', [
+            'as' => 'admincpp.getEditBanner',
+            'uses'=> 'AdminBannerController@getEditBanner'
+        ]);
+        Route::post('/edit/{id}', [
+            'as' => 'admincpp.postEditBanner',
+            'uses'=> 'AdminBannerController@postEditBanner'
+        ]);
+    });
+
+
     // Access denied
     Route::get('/access_denied', function () {
-        return 'You have not permission access';
+        dd(\Session::all());
     });
 });
 

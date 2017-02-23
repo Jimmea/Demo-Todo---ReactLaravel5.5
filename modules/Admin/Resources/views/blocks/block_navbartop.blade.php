@@ -58,22 +58,21 @@
                 </ul>
                 <!-- /.dropdown-messages -->
             </li>
+
+            @if(get_session('adm_id') == 1)
             <li><a href="{{ route('admincpp.getListConfigAdmin') }}">Website setting</a></li>
+            @endif
+
             <li class="dropdown">
                 <a class="dropdown-toggle profile-pic" data-toggle="dropdown" href="#">
                     <img src="{{ asset('backend/imgs/d1.jpg') }}" alt="user-img" width="36" class="img-circle">
-                    <b class="hidden-xs">Xin chào!. Bill </b>
+                    <b class="hidden-xs">Hello ! {{ get_flash('adm_name') }} </b>
                 </a>
                 <ul class="dropdown-menu dropdown-user animated flipInY">
-                    <li><a href="{{ route('admincpp.getProfile', \Session::get('adm_id')) }}"><i class="icon-user"></i>  My Profile</a></li>
+                    <li><a href="{{ route('admincpp.getProfile', get_session('adm_id')) }}"><i class="icon-user"></i>  My Profile</a></li>
                     <li><a href="{{ route('staff.getLogoutAdmincpp') }}"><i class="icon-logout"></i>  Logout</a></li>
                 </ul>
-                <!-- /.dropdown-user -->
             </li>
-            <!-- /.dropdown -->
         </ul>
     </div>
-    <!-- /.navbar-header -->
-    <!-- /.navbar-top-links -->
-    <!-- /.navbar-static-side -->
 </nav>

@@ -73,15 +73,13 @@ class AdminCategoryController extends AdminController
         $dataGrid->add('cate_picture', 'Hình ảnh', 'picture');
         $dataGrid->add('cate_type', 'Type category', 'array', 0, 0, 'width="150"');
         $dataGrid->add('cate_name', 'Tên category', 'string');
-        $dataGrid->add('cate_total_hit', 'Total view', 'numbernotedit');
+        $dataGrid->add('cate_total_hit', 'Total view', 'numbernotedit', 0, 0 , 'width="80"');
         $dataGrid->add('cate_order', 'Order', 'number');
         $dataGrid->add('cate_show', 'Home', 'checkbox');
         $dataGrid->add('cate_status', 'Status', 'checkbox');
         $dataGrid->add(false, 'Edit', 'edit');
-        $dataGrid->add(false, 'Delete', 'delete', 0, 0 , "align='center'");
         $dataGrid->setRouteAdd('admincpp.getAddCategory');
         $dataGrid->setRouteEdit('admincpp.getEditCategory');
-        $dataGrid->setRouteDelete('admincpp.getDeleteCategory');
         $dataGrid->setArrayFieldLevel(array('cate_name'=>"--"));
         $dataGrid->addSearch('Kiểu category', 'cate_type', 'array', $typeCategories);
 

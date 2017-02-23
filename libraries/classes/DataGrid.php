@@ -77,7 +77,7 @@ class DataGrid
      * @param void
      * @return voiid
      */
-    public function setFieldId($id)
+    public function setPrimaryKey($id)
     {
         $this->primaryKey = $id;
     }
@@ -434,7 +434,9 @@ class DataGrid
     public function addSearch($name, $field, $type, $value = '', $default="", $count_date = 0)
     {
         $this->arrayAddSearchDb[$field] = $value;
-        $str = '';
+        $str     = '';
+        $default = $default ? $default : get_value($field, 'str', 'GET', '');
+
         switch($type)
         {
             //kiểu array
@@ -657,7 +659,7 @@ class DataGrid
         $this->html .= '</table>';
 
         // Phần footer
-        $this->html .= '<div class="footTable">' . $this->footer() . '</div>';
+//        $this->html .= '<div class="footTable">' . $this->footer() . '</div>';
 
         // Call phần cuối trang listing
         $this->html .= $this->templateBottom();
@@ -756,8 +758,8 @@ class DataGrid
                     $arrayList = $$field;
                     $str 			.= '<label class="text">' . $this->arrayLabel[$key] . '<select class="form-control" name="' . $field . '" id="' . $field . '" ' . $this->arrayAttribute[$key] . '>';
                     $str 			.= '<option value="-1">' . $this->arrayLabel[$key] . '</option>';
-                    $selected 		= get_value($field,"str","GET",-1);
-
+                    $selected 		= get_value($field,"str","GET",'');
+                    dd($selected);
                     foreach($arrayList as $key => $value)
                     {
                         $str 		.= '<option value="' . $key . '" ' . (($selected==$key) ? 'selected' : '') . '>' . $value . '</option>';
@@ -1122,7 +1124,7 @@ class DataGrid
 
     /**
      * Make checkbox quick html
-     * @param array $router : Mảng router gồm tên router và id
+     * @param array $router : Mảng router gồm tên router
      * @param array $row  : Mảng gồm tên field và giá trị của field đó
      * @return string
      */
@@ -1172,12 +1174,17 @@ class DataGrid
         $html = '<tfoot>
                     <tr>
                         <td colspan="10">
-                            <div class="showing pull-left">
-                                <button class="btn btn-sm btn-danger execute_form" data-action="deleteAll">
-                                    <i class="icon-trash"></i> Delete all
-                                </button>
-                                Showing '.$data->firstItem().' to '.$data->lastItem().' of
+                            <div class="showing pull-left">';
+                                if ($this->deleteAll)
+                                {
+                                    $html .='<button class="btn btn-sm btn-danger execute_form" data-action="deleteAll">
+                                            <i class="icon-trash"></i> Delete all
+                                        </button>';
+                                }
+
+                                $html .='Showing '.$data->firstItem().' to '.$data->lastItem().' of
                                 '.$data->total().' | Total record : '.$data->total().' record
+                                
                             </div>
                             <div class="paginate pull-right">
                                 '.$data->appends(get_query_array())->links().'
@@ -1185,7 +1192,6 @@ class DataGrid
                         </td>
                     </tr>
                 </tfoot>';
-
         return $html;
     }
 }

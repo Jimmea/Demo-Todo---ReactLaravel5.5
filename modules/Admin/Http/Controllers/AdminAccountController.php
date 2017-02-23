@@ -30,7 +30,9 @@ class AdminAccountController extends AdminController
             set_flash('error', 'Not found database');
             return redirect()->back();
         }
+
         set_session('isadmin', $admin->adm_isadmin);
+        set_session('adm_name', $admin->adm_name);
         set_session('adm_id', $id);
         set_session('logged', 1);
 
@@ -44,6 +46,24 @@ class AdminAccountController extends AdminController
      */
     public function getList(Request $request)
     {
+        if ($request->ajax())
+        {
+            $field   = get_value('field', 'str', 'POST');
+            $adminId = get_value('record_id', 'int', 'POST');
+            if ($field)
+            {
+                switch ($field)
+                {
+                    case 'adm_active':
+                    case 'adm_isadmin':
+                        $this->admin->updateByField($adminId, $field);
+                        break;
+                }
+                return $this->responseSuccess();
+            }
+            return $this->responseError();
+        }
+
         $limit = $this->admin->getLimit();
         $this->setFilter($request, 'adm_loginname', 'LIKE');
         $this->setFilter($request, 'adm_email', 'LIKE');
@@ -51,8 +71,10 @@ class AdminAccountController extends AdminController
         $filter = $this->getFilter();
         $sort   = ['adm_id', 'DESC'];
 
+        $admins = $this->admin->getListAccount($filter, $sort, $limit);
+
         $dataView = [
-            'admins' => $this->admin->getListAccount($filter, $sort, $limit)
+            'admins' => $admins
         ];
 
         return view(ADMIN_VIEW.'accounts.list')->with($dataView);
@@ -159,12 +181,14 @@ class AdminAccountController extends AdminController
         if ($request->has('adm_password')) $dataForm['adm_password'] = bcrypt($request->adm_password);
         $dataForm = $request->filterDataForm($dataForm);
         $this->admin->updateById($adm_id, $dataForm);
+
         // xoa thong tixn trong bang admin user right va insert thong tin moi
         $this->adminUserRight->deleteAdminId($adm_id);
 
         // Insert vao admin_user_right
         $accountLastId  = $adm_id;
         $moduleList     = $request->mod_id;
+
         if ($moduleList)
         {
             for ($i=0, $countModuleList = count($moduleList); $i< $countModuleList; $i++)
@@ -203,36 +227,31 @@ class AdminAccountController extends AdminController
         return redirect()->back();
     }
 
-    /**
-     * Xu ly nhanh cac hanh dong
-     * @param void
-     * @return json
-     */
-    public function getProcessQuick(Request $request)
-    {
-        if ($request->ajax())
-        {
-            $action     = strtolower(get_value('action','str', 'POST'));
-            switch ($action)
-            {
-                case 'deleteall':
-                    $adminId    = get_value('id','arr', 'POST');
-                    // Khong cho phep xoa di phan tu admin dau tien
-                    foreach ($adminId as $key => $value)
-                    {
-                        if ($value == 1) unset($adminId[$key]);
-                    }
-                    $this->admin->deleteByid($adminId);
-                    break;
-
-                case 'editstatus':
-                    $adminId    = get_value('id','int', 'POST');
-                    $this->admin->updateByField($adminId, 'adm_active');
-                    break;
-            }
-
-            return $this->responseSuccess();
-        }
-        return $this->responseError();
-    }
+//    /**
+//     * Xu ly nhanh cac hanh dong
+//     * @param void
+//     * @return json
+//     */
+//    public function getProcessQuick(Request $request)
+//    {
+//        if ($request->ajax())
+//        {
+//            $action     = strtolower(get_value('action','str', 'POST'));
+//            switch ($action)
+//            {
+//                case 'deleteall':
+//                    $adminId    = get_value('id','arr', 'POST');
+//                    // Khong cho phep xoa di phan tu admin dau tien
+//                    foreach ($adminId as $key => $value)
+//                    {
+//                        if ($value == 1) unset($adminId[$key]);
+//                    }
+//                    $this->admin->deleteByid($adminId);
+//                    break;
+//            }
+//
+//            return $this->responseSuccess();
+//        }
+//        return $this->responseError();
+//    }
 }
