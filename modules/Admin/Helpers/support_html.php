@@ -67,7 +67,6 @@ if (! function_exists('box_upload'))
 {
     function box_upload()
     {
-        return '<span class="input-group-addon getlink_local" title="My devide"><i class="icon-cloud-upload"></i></span>
-        <span class="input-group-addon getlink_media" title="My media"><i class="icon-picture"></i></span>';
+        return '<span class="input-group-addon getlink_media" style="background:#428bca;color: #fff;cursor: pointer" title="My media"><i class="icon-picture"></i></span>';
     }
 }
