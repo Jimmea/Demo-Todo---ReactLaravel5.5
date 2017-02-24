@@ -1,5 +1,4 @@
 <?php
-
 Route::group([
     'middleware' => ['web', 'checkadminlogin'],
     'prefix'     => 'admincpp',

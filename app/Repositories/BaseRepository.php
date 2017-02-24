@@ -46,6 +46,56 @@ abstract class BaseRepository
         return $limit ? $query->paginate($limit) : $query->get();
     }
 
+    /**
+     * Scope a query to get infomation admin
+     * @param string $query :truy vấn dữ liệu
+     * @return mixed
+     */
+    public function scopeInforAdmin($query)
+    {
+        return $query->with([
+            'admins' => function($q)
+            {
+                $q->select('adm_id', 'adm_name');
+            }
+        ]);
+    }
+
+    public function scopeFilter($query, $filter)
+    {
+        if ($filter)
+        {
+            $query = $query->where(function ($q) use ($filter)
+            {
+                foreach ($filter as $f)
+                {
+                    list($col, $ope, $val) = $f;
+                    $q->where($col, $ope, $val);
+                }
+            });
+        }
+        return $query;
+    }
+
+    /**
+     * Sắp xếp query
+     * @param $query :truy vấn dữ liệu
+     * @param array $sorts : mảng sắp xếp kí tự
+     * @return mixed
+     */
+    public function scopeSort($query, $sorts = array())
+    {
+        if ($sorts)
+        {
+            foreach ($sorts as $sort)
+            {
+                list($col, $dir) = $sort;
+                $query->orderBy($col, $dir);
+            }
+        }
+        return $query;
+    }
+
     public function getTotal()
     {
         return $this->total;
@@ -60,6 +110,12 @@ abstract class BaseRepository
         return $this->model->findOrFail($id);
     }
 
+    /**
+     * Cập nhật không có thì tạo mới
+     * @param int $id : trường khóa chính của bảng
+     * @param array $data: mang dữ liệu thêm
+     * @return
+     */
     public function updateOrCreateData($id , $data = array())
     {
         return $this->model->updateOrCreate([$this->model->getPrimaryKey() => $id], $data);

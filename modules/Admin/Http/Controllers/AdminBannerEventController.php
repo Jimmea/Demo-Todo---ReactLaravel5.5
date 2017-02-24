@@ -2,12 +2,18 @@
 
 namespace Modules\Admin\Http\Controllers;
 
+use App\Models\Banners\BannerRepository;
 use Illuminate\Http\Request;
-use Illuminate\Http\Response;
-use Illuminate\Routing\Controller;
 
 class AdminBannerEventController extends AdminController
 {
+
+    public function __construct(
+            BannerRepository $bannerRepository
+        )
+    {
+
+    }
 
     public function getListBannerEvent()
     {

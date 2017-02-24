@@ -29,7 +29,6 @@ class AdminController extends Controller
     public function setFilter(Request $request, $field, $ope, $defValue = null)
     {
         $value = ($defValue == null) ? $request->get($field) : $defValue;
-
         if ($value != '' || $value != null)
         {
             if (strtoupper($ope) == 'LIKE')

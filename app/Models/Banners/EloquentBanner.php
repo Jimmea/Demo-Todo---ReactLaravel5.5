@@ -39,9 +39,19 @@ class EloquentBanner extends BaseRepository implements BannerRepository
      * @param int $limit : giới hạn trên một trang
      * @return mixed
      */
-    public function getListAll($filter = array(), $sort = array(), $limit = 30)
+    public function getListAll($filter = array(), $sorts = array(), $limit = 30)
     {
-        return $this->getAll($filter, $sort, $limit);
+        $query = $this->model->whereRaw(1);
+        // Loc thong tin
+        $this->scopeFilter($query, $filter);
+
+        // scope data get admin
+        $this->scopeInforAdmin($query);
+
+        // scope sap xep
+        $this->scopeSort($query, $sorts);
+
+        return $query->paginate($limit);
     }
 
     public function updateByField($id, $field, $otherValue = '')

@@ -33,18 +33,18 @@ class AdminBannerController extends AdminController
             return $this->responseError();
         }
 
-        // Lọc sản phẩm
+        // Lọc sản phẩm theo cac tieu chi sau
         $this->setFilter($request, 'ban_id', '=');
-        $this->setFilter($request, 'ban_tile', 'LIKE');
-        $sort = ['ban_id', 'DESC'];
+        $this->setFilter($request, 'ban_title', 'LIKE');
 
         $filter = $this->getFilter();
+        $sort = [['ban_id', 'DESC']];
+
         $dataView  = [
             'banners'        => $this->banner->getListAll($filter, $sort),
             'defaultTarget'  => $this->getTarget(),
             'defaultStatus'  => $this->getArrayBoolean(),
         ];
-
         return view(ADMIN_VIEW . 'banners.index')->with($dataView);
     }
 

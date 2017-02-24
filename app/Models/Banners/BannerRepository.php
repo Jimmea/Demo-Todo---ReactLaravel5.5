@@ -11,7 +11,7 @@ namespace App\Models\Banners;
 
 interface BannerRepository
 {
-    public function getListAll();
+    public function getListAll($filter, $sort, $limit);
     public function storeData($attribute);
     public function updateById($id, $attribute);
     public function findById($id);

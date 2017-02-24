@@ -12,7 +12,6 @@
         <div id="wrapper" class="wrapper-use-tab">
             @yield('content')
         </div>
-        @include('admin::blocks.block_js')
         <script src="{{ asset('backend/js/pages/library.js') }}"></script>
     </body>
 </html>

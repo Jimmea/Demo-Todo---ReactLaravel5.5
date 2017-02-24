@@ -13,6 +13,6 @@ class Banner extends Model
 
     public function admins()
     {
-        return $this->belongsTo('App\Models\Admin', 'ban_admin_id');
+        return $this->belongsTo('App\Models\Admins\Admin', 'ban_admin_id');
     }
 }

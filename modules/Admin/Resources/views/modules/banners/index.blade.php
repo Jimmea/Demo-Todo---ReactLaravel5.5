@@ -8,7 +8,7 @@
                     {!! header_title_action('Danh sách banner',  'admincpp.getAddBanner') !!}
                     <div class="header_search clearleft search-box">
                         <form action="" class="form-inline">
-                            <input type="hidden" name="page" value="{{ get_value('page', 'int', 'GET', 1) }}">
+                            <input type="hidden" name="page" value="{{ get_value('page', 'int', 'GET') }}">
                             <label for="">
                                 ID
                                 <input type="number" class="input-sm form-control" name="ban_id"
@@ -16,7 +16,8 @@
                             </label>
                             <label for="">
                                 Tên banner
-                                <input type="text" class="form-control inpt-sm" name="ban_name">
+                                <input type="text" class="form-control input-sm" name="ban_title"
+                                       value="{{ get_value('ban_title', 'str', 'GET', '') }}">
                             </label>
                             <label for="">
                                 <button type="submit" class="btn btn-info btn-sm"><i class="icon-magnifier"></i> Search</button>
@@ -33,10 +34,11 @@
                                 {!! $dataGrid->makeCheckAllRadio() !!}
                                 <td width="10%" align="center" class="bold">Picture</td>
                                 <td class="bold">Tiêu đề</td>
-                                <td width="5%" class="bold">Link</td>
+                                <td width="5%" align="center" class="bold">Link</td>
                                 <td class="bold">Cửa sổ</td>
                                 <td width="5%" align="center" class="bold">Vị trí</td>
                                 <td class="bold">Hoạt động</td>
+                                <td class="bold">Staff</td>
                                 <td width="4%" align="center" class="bold">Status</td>
                                 <td width="4%" align="center" class="bold">Items</td>
                                 <td colspan="2" width="6%" class="text-center bold">Action</td>
@@ -51,7 +53,7 @@
                                     {!! $dataGrid->makeCheckRadio() !!}
                                     <td class="bold" nowrap=""><img src="{{ asset($value->ban_picture) }}" alt="anh"></td>
                                     <td>{{ $value->ban_title }}</td>
-                                    <td><a href="{{ url($value->ban_link) }}"
+                                    <td align="center"><a target="_blank" href="{{ url($value->ban_link) }}"
                                                         title="{{ $value->ban_link }}"
                                                         class="{{ url($value->ban_link) }}">
                                                         <u>Xem</u></a>
@@ -62,6 +64,7 @@
                                         From : {{ date('Y-m-d', $value->ban_start_date) }} <br>
                                         To   : {{ date('Y-m-d', $value->ban_end_date) }}
                                     </td>
+                                    <td>{{ $value->admins->adm_name }}</td>
                                     {!! $dataGrid->makeCheckButton('admincpp.getListBanner', ['ban_status', $value]) !!}
                                     <td>
                                         @if($value->ban_isevent)
