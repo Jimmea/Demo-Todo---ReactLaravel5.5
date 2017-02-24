@@ -4,6 +4,13 @@
 .bg-title {
     margin-bottom: 3px !important;
 }
+input.input-sm,
+select.input-sm,
+button.btn-sm,
+a.btn-sm {
+    height: 25px;
+    padding: 3px 10px !important;
+}
 .search-box input,
 .search-box select {
     margin-left: 5px;
@@ -116,4 +123,7 @@ span.fa-2x {
 #tableModule > thead > tr > th,
 #tableCategory > thead > tr > th {
     padding: 5px 0px;
+}
+.asColorPicker-trigger span{
+    height: 25px;
 }

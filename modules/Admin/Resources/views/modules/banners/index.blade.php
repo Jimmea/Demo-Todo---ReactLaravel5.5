@@ -5,12 +5,14 @@
         <div class="col-md-12">
             <div class="white-box padd-0">
                 <div class="white-box-header padd-10">
-                    {!! header_title_action(trans('admin::listing.title'),  'admincpp.getAddBanner') !!}
+                    {!! header_title_action('Danh sách banner',  'admincpp.getAddBanner') !!}
                     <div class="header_search clearleft search-box">
                         <form action="" class="form-inline">
+                            <input type="hidden" name="page" value="{{ get_value('page', 'int', 'GET', 1) }}">
                             <label for="">
                                 ID
-                                <input type="number" class="input-sm form-control" name="ban_id">
+                                <input type="number" class="input-sm form-control" name="ban_id"
+                                       value="{{ Request::get('ban_id') }}">
                             </label>
                             <label for="">
                                 Tên banner
@@ -22,36 +24,58 @@
                         </form>
                     </div>
                 </div>
+                <?php $dataGrid = new DataGrid(); ?>
                 <div class="white-box-content">
-                    <table class="table table-bordered table-hover" id="dataTableList">
+                    <table class="table table-bordered table-stripped" id="dataTableList">
                     	<thead>
-                            <tr bgcolor="#428BCA" style="color: #fff">
-                                <td width="4%" align="center" class="bold">Stt</td>
-                                <td width="4%" align="center"><input type="checkbox"></td>
+                            <tr>
+                                <td width="4%" align="center" class="bold">ID</td>
+                                {!! $dataGrid->makeCheckAllRadio() !!}
                                 <td width="10%" align="center" class="bold">Picture</td>
                                 <td class="bold">Tiêu đề</td>
-                                <td class="bold">Link</td>
+                                <td width="5%" class="bold">Link</td>
                                 <td class="bold">Cửa sổ</td>
-                                <td class="bold">Vị trí</td>
+                                <td width="5%" align="center" class="bold">Vị trí</td>
                                 <td class="bold">Hoạt động</td>
                                 <td width="4%" align="center" class="bold">Status</td>
+                                <td width="4%" align="center" class="bold">Items</td>
                                 <td colspan="2" width="6%" class="text-center bold">Action</td>
                             </tr>
                     	</thead>
-                    	<tbody id="tableCOntent">
-                    		<tr>
-                                <td width="3%" align="center" class="bold">Stt</td>
-                                <td><input type="checkbox"></td>
-                                <td class="bold" nowrap=""><img src="anh.jpg" alt="anh"></td>
-                                <td class="bold">Email</td>
-                                <td class="bold">Modules</td>
-                                <td class="bold">Modules</td>
-                                <td class="bold">Modules</td>
-                                <td class="bold">20/11 - 22/22/3026</td>
-                                <td class="bold">Modules</td>
-                                <td class="bold">Modules</td>
-                    		</tr>
+                    	<tbody id="tableContent">
+                        @if($banners)
+                            @foreach($banners as $key => $value)
+                                <?php $dataGrid->setPrimaryKey($value->ban_id)?>
+                                <tr id="tr_{{ $value->ban_id }}">
+                                    <td width="3%" align="center" class="bold">{{ $value->ban_id }}</td>
+                                    {!! $dataGrid->makeCheckRadio() !!}
+                                    <td class="bold" nowrap=""><img src="{{ asset($value->ban_picture) }}" alt="anh"></td>
+                                    <td>{{ $value->ban_title }}</td>
+                                    <td><a href="{{ url($value->ban_link) }}"
+                                                        title="{{ $value->ban_link }}"
+                                                        class="{{ url($value->ban_link) }}">
+                                                        <u>Xem</u></a>
+                                    </td>
+                                    <td>{{ $defaultTarget[$value->ban_target] }}</td>
+                                    <td align="center" class="bold">{{ $value->ban_order }}</td>
+                                    <td>
+                                        From : {{ date('Y-m-d', $value->ban_start_date) }} <br>
+                                        To   : {{ date('Y-m-d', $value->ban_end_date) }}
+                                    </td>
+                                    {!! $dataGrid->makeCheckButton('admincpp.getListBanner', ['ban_status', $value]) !!}
+                                    <td>
+                                        @if($value->ban_isevent)
+                                            <a href="{{ route('admincpp.getAddBannerEvent', $value->ban_id) }}" class="btn btn btn-success btn-xs"><i class="icon-plus"></i> Thêm</a>
+                                        @else
+                                            ...
+                                        @endif
+                                    </td>
+                                    {!! $dataGrid->makeEditButton('admincpp.getEditBanner') !!}
+                                </tr>
+                            @endforeach
+                        @endif
                     	</tbody>
+                        {!! $dataGrid->getTemplateFooter($banners) !!}
                     </table>
                 </div>
             </div>

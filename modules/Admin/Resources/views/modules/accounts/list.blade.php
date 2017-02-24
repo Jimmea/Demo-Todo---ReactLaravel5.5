@@ -36,7 +36,7 @@
                 <div class="white-box-content">
                     <table class="table table-bordered table-stripped" id="dataTableList">
                         <thead>
-                            <tr bgcolor="#428BCA" style="color: #fff">
+                            <tr>
                                 <td width="3%" align="center" class="bold">Stt</td>
                                 <td class="bold">Login name</td>
                                 <td class="bold">Full name</td>

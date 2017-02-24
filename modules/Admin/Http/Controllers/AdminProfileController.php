@@ -15,7 +15,9 @@ class AdminProfileController extends AdminController
     public function getProfile($id)
     {
         $dataView = [
-            'profile' => $this->admin->findById($id)
+            'profile'        => $this->admin->findById($id),
+            'defaultStatus'  => $this->getArrayBoolean(),
+            'defaultTarget'  => $this->getTarget(),
         ];
 
         return view(ADMIN_VIEW . 'profiles.index')->with($dataView);

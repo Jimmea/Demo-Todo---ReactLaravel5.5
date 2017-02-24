@@ -1,13 +1,20 @@
-<?php $form = new Form($errors); ?>
+<?php $form = new Form($errors, $banner); ?>
 {{ $form->beginForm([$routeName, $routeParam]) }}
-    {{ $form->groupText('Title', 'ban_title', 'ban_title', true) }}
-    {{ $form->groupText('Link', 'ban_link', 'ban_link', true) }}
-    {{ $form->groupFile('Picture', 'ban_picture', 'ban_picture', true) }}
-    {{ $form->groupSelect('Target', 'ban_target', 'ban_target', false) }}
-    {{ $form->groupText('Type', 'ban_type', 'ban_type') }}
-    {{ $form->groupText('Position', 'ban_position', 'ban_position') }}
-    {{ $form->groupText('Thứ tự', 'ban_order', 'ban_order') }}
-    {{ $form->groupText('Trạng thái', 'ban_status', 'ban_status') }}
-    {{ $form->groupTextArea('Mô tả', 'ban_description', 'ban_description', false) }}
+    <div class="col-md-6">
+        {{ $form->groupText('Title', 'ban_title', 'ban_title', true) }}
+        {{ $form->groupText('Link', 'ban_link', 'ban_link') }}
+        {{ $form->groupSelect('Target', 'ban_target', 'ban_target', false, $defaultTarget) }}
+        {{ $form->groupText('Position', 'ban_position', 'ban_position') }}
+        {{ $form->groupText('Type', 'ban_type', 'ban_type') }}
+        {{ $form->groupText('Thứ tự', 'ban_order', 'ban_order') }}
+        {{ $form->groupSelect('Trạng thái', 'ban_status', 'ban_status', false, $defaultStatus) }}
+
+    </div>
+    <div class="col-md-6">
+        {{ $form->groupText('Date start', 'ban_start_date', 'ban_start_date', false, ['input'=> 'date_picker']) }}
+        {{ $form->groupText('Date end', 'ban_end_date', 'ban_end_date', false, ['input'=> 'date_picker']) }}
+        {{ $form->groupFile('Picture', 'ban_picture', 'ban_picture', true) }}
+        {{ $form->groupTextArea('Mô tả', 'ban_description', 'ban_description', false) }}
+    </div>
     {{ $form->groupSubmitReset() }}
 {{ $form->closeForm() }}

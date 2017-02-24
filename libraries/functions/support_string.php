@@ -110,7 +110,7 @@ if (! function_exists('replace_mq'))
  */
 if ( ! function_exists('str_remove_accent'))
 {
-    function str_remove_accent($str, $separator = ' ')
+    function str_remove_accent($str, $separator = '-')
     {
         $str = trim($str);
         $str = stripslashes($str);

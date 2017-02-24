@@ -36,7 +36,6 @@ class AdminController extends Controller
             {
                 $value = '%' . trim($value) . '%';
             }
-
             $this->filter[] = [$field, $ope, trim($value)];
         }
     }
@@ -62,6 +61,14 @@ class AdminController extends Controller
         return [
             0 => 'Disable',
             1 => 'Unable'
+        ];
+    }
+
+    public function getTarget()
+    {
+        return [
+            '_self' => 'Cùng cửa sổ',
+            '_blank' => 'Cửa sổ mới'
         ];
     }
 

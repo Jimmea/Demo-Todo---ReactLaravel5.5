@@ -5,10 +5,10 @@ return [
     'buttonSubmit'  => 'Save',
     'buttonReset'   => 'Reset',
     'add'           => [
-        'title' => 'Thêm mới bản ghi',
+        'title' => 'Thêm mới',
     ],
     'edit'           => [
-        'title' => 'Cập nhật bản ghi',
+        'title' => 'Cập nhật',
     ],
     'messages'      => [
            'required' => 'Please fill out this field',

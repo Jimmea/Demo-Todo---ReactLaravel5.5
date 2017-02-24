@@ -117,10 +117,11 @@ function today_yesterday_v2($compare_time, $type=0)
     $yesterday	= getdate(strtotime("yesterday"));
     $ct			= getdate($compare_time);
 
-    if($type == 0){
+    if($type == 0)
+    {
         // Nếu thời gian nhỏ hơn 10h thì show kiểu "10 giờ 30 phút" trước
         $intTime	= time() - $compare_time;
-        if($intTime / 3600 <= 10) return generateDuration($intTime, 3, "1 phút") . " trước";
+        if($intTime / 3600 <= 10) return generate_duration($intTime, 3, "1 phút") . " trước";
     }
 
     // Kiểm tra so với hôm nay

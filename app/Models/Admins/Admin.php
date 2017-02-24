@@ -106,4 +106,9 @@ class Admin extends Authenticatable
         }
         return false;
     }
+
+    public function banners()
+    {
+        return $this->hasMany('App\Models\Banners\Banner', 'ban_admin_id');
+    }
 }

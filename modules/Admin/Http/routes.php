@@ -1,4 +1,5 @@
 <?php
+
 Route::group([
     'middleware' => ['web', 'checkadminlogin'],
     'prefix'     => 'admincpp',
@@ -184,7 +185,7 @@ Route::group([
 
     // BANNER
     Route::group(['prefix'=> 'banner'], function () {
-        Route::get('/', [
+        Route::any('/', [
             'as' => 'admincpp.getListBanner',
             'uses'=> 'AdminBannerController@getListBanner'
         ]);
@@ -196,7 +197,7 @@ Route::group([
             'as' => 'admincpp.postAddBanner',
             'uses'=> 'AdminBannerController@postAddBanner'
         ]);
-        Route::get('/edit{id}', [
+        Route::get('/edit/{id}', [
             'as' => 'admincpp.getEditBanner',
             'uses'=> 'AdminBannerController@getEditBanner'
         ]);
@@ -204,6 +205,31 @@ Route::group([
             'as' => 'admincpp.postEditBanner',
             'uses'=> 'AdminBannerController@postEditBanner'
         ]);
+
+        Route::group(['prefix'=> 'event'], function () {
+            Route::get('/', [
+                'as' => 'admincpp.getListBannerEvent',
+                'uses' => 'AdminBannerEventController@getListBannerEvent',
+            ]);
+            Route::get('/add/{ban_id}', [
+                'as' => 'admincpp.getAddBannerEvent',
+                'uses' => 'AdminBannerEventController@getAddBannerEvent',
+            ]);
+            Route::post('/add/{ban_id}', [
+                'as' => 'admincpp.postAddBannerEvent',
+                'uses' => 'AdminBannerEventController@postAddBannerEvent',
+            ]);
+
+            Route::get('/edit/{ban_id}', [
+                'as' => 'admincpp.getEditBannerEvent',
+                'uses' => 'AdminBannerEventController@getEditBannerEvent',
+            ]);
+
+            Route::post('/edit/{ban_id}', [
+                'as' => 'admincpp.postEditBannerEvent',
+                'uses' => 'AdminBannerEventController@postEditBannerEvent',
+            ]);
+        });
     });
 
 

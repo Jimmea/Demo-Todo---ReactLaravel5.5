@@ -85,7 +85,7 @@ if (! function_exists('get_value_field'))
 {
     function get_value_field($field, $dataform= array())
     {
-        return old($field, (isset($dataform) && $dataform) ? $dataform->$field : '');
+        return old($field, (isset($dataform) && $dataform) ? ($dataform->$field ? $dataform->$field : '') : '');
     }
 }
 

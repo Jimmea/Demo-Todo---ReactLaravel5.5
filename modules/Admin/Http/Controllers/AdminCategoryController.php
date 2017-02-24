@@ -82,7 +82,6 @@ class AdminCategoryController extends AdminController
         $dataGrid->setRouteEdit('admincpp.getEditCategory');
         $dataGrid->setArrayFieldLevel(array('cate_name'=>"--"));
         $dataGrid->addSearch('Kiểu category', 'cate_type', 'array', $typeCategories);
-
         $dataView = array(
             'listing'        => $dataGrid->showTableMulti($categories),
             'categories'     => $categories,

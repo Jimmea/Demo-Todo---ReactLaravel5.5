@@ -47,7 +47,7 @@ class DataGrid
     private $deleteAll = true;
 
     // @var array : Chua cac thong tin gia tri mac dinh duoc cho phep search
-    private $arrayAddSearchDb = '';
+    private $arrayAddSearchDb = array();
 
     // @var string : ten router cho action add
     private $routerAdd = '/';
@@ -1125,7 +1125,7 @@ class DataGrid
     /**
      * Make checkbox quick html
      * @param array $router : Mảng router gồm tên router
-     * @param array $row  : Mảng gồm tên field và giá trị của field đó
+     * @param array $row  : Mảng gồm tên field và giá trị row
      * @return string
      */
     public function makeCheckButton($routeName,array $row= array())
@@ -1173,7 +1173,7 @@ class DataGrid
         $this->items = $data;
         $html = '<tfoot>
                     <tr>
-                        <td colspan="10">
+                        <td colspan="11">
                             <div class="showing pull-left">';
                                 if ($this->deleteAll)
                                 {
@@ -1182,7 +1182,7 @@ class DataGrid
                                         </button>';
                                 }
 
-                                $html .='Showing '.$data->firstItem().' to '.$data->lastItem().' of
+                                $html .=' Showing '.$data->firstItem().' to '.$data->lastItem().' of
                                 '.$data->total().' | Total record : '.$data->total().' record
                                 
                             </div>

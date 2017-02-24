@@ -190,6 +190,7 @@ return [
         \App\Providers\CategoryServiceProvider::class,
         \App\Providers\ModuleServiceProvider::class,
         \App\Providers\AdminUserRightServiceProvider::class,
+        \App\Providers\BannerServiceProvider::class,
     ],
 
     /*
