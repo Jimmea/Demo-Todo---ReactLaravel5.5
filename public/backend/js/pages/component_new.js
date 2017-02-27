@@ -66,7 +66,7 @@ var htmlGroupStep = function ($step, $value) {
                 html += '<label class="label label-warning label-action label-delete" title="Xóa bước ' + $step + '"><i class="fa fa-trash-o"></i></label>';
             html += '</div>';
             html += '<div class="form-control-content">';
-                html += '<textarea class="form-control form-control-auto" name="" id="form-control-' + $step + '" cols="30" rows="3">' + $value + '</textarea>';
+                html += '<textarea class="form-control form-control-auto" name="" placeholder="Mô tả cách làm từng bước ..." id="form-control-' + $step + '" cols="30" rows="3">' + $value + '</textarea>';
             html += '</div>';
         html += '</div>';
     return html;
@@ -168,14 +168,47 @@ var getListGroupStep = function ()
         formGroupAppend.html(html);
     }
 }
-// var sortGroupStep = function () {
-//     $("#form-list-group").sortable().disableSelection();
-// }
+
+var uploadAvatar = function () {
+    $('#new_picture').change(uploadFile);
+}
+
+var uploadFile = function (event)
+{
+    var files = event.target.files;
+    var data  = new FormData();
+    $.each(files, function(key, value)
+    {
+        data.append(key, value);
+    });
+    $.ajax({
+        url: BASE_URL + '/new/upload-file',
+        type: 'POST',
+        data: data,
+        dataType: 'json',
+        processData: false,
+        contentType: false,
+        success: function(response)
+        {
+            console.log(response);
+            if(response.code == 1)
+            {
+
+            }
+        },
+        error: function(jqXHR, textStatus, errorThrown)
+        {
+            console.log('ERRORS: ' + textStatus);
+        }
+    });
+}
+
 
 $(document).ready(function () {
     buttonAddStep();
     getListGroupStep();
     addGroupStep();
     removeGroupStep();
+    uploadAvatar();
 });
 

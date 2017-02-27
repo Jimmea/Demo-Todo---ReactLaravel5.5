@@ -9,6 +9,6 @@
         <label class="label label-warning label-action label-delete" title="Xóa bước {{ $step }}"><i class="fa fa-trash-o"></i></label>
     </div>
     <div class="form-control-content">
-        <textarea class="form-control form-control-auto" name="" id="form-control-{{ $step }}" cols="30" rows="3"></textarea>
+        <textarea class="form-control form-control-auto" name="" placeholder="Mô tả cách làm từng bước ..." id="form-control-{{ $step }}" cols="30" rows="3"></textarea>
     </div>
 </div>

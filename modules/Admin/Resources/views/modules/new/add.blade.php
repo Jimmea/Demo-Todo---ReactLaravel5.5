@@ -20,8 +20,8 @@
                 <div class="col-md-6 col-md-offset-3">
                     <div class="jumbotron" style="padding:10px">
                     	<div class="container text-center">
-                            <h1 title="Vui lòng up hình minh họa"><label style="cursor: pointer" for="avatar"><img src="{{ asset('backend/imgs/avatar_cook.png') }}" width="130"></label></h1>
-                            <input type="file" class="hide" id="avatar" name="new_picture">
+                            <h1 title="Vui lòng up hình minh họa"><label style="cursor: pointer" for="new_picture"><img src="{{ asset('backend/imgs/avatar_cook.png') }}" width="130"></label></h1>
+                            <input type="file" class="hide" accept="image/*" id="new_picture" name="new_picture">
                     		<p class="text-uppercase">hình minh họa</p>
                     	</div>
                     </div>

@@ -57,6 +57,21 @@ class AdminNewController extends AdminController
         
     }
 
+    /**
+     * Upload file avatar
+     * @param void
+     * @return json
+     */
+    public function postUploadFile(Request $request)
+    {
+        dd($request->all());
+    }
+
+    /**
+     * Add thêm một group step
+     * @param void
+     * @return json
+     */
     public function postAddStep(Request $request)
     {
         $step = get_value('step', 'int', 'POST');
