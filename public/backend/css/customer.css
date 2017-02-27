@@ -4,6 +4,50 @@
 .bg-title {
     margin-bottom: 3px !important;
 }
+.form-group-step {
+    padding: 3px;
+    border: 1px solid #eee;
+    overflow: hidden;
+}
+.form-group-step:focus,
+.form-group-step:hover {
+    background-color: #eee;
+}
+.form-group-step:hover > .form-group-step .label-upload{
+    display: block;
+}
+label.label-step {
+    line-height: 15px;
+    font-size: 14px;
+    float: left;
+    font-weight: 700 !important;
+    text-align: center !important;
+    border-radius: 0;
+    background-color: #FF9800;
+}
+.form-control-content textarea:focus,
+.form-control-content textarea{
+    border: 0;
+}
+label.label-action {
+    cursor: pointer;
+    float: right;
+    border-radius: 0;
+    margin-right: 5px;
+    padding: 5px 10px;
+    font-size: 13px;
+    background: #fff;
+    color: #ccc;
+}
+.label-upload {
+    background: #28b473;
+    display: none;
+    border-radius: 0;
+    padding: 6.5px 10px;
+    float: left;
+    transition: 0.25s all;
+    margin-left: 2px;
+}
 input.input-sm,
 select.input-sm,
 button.btn-sm,

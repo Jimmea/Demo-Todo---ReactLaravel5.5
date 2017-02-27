@@ -108,4 +108,6 @@ class AdminBannerController extends AdminController
         set_flash_update_success();
         return redirect()->route('admincpp.getListBanner');
     }
+
+
 }

@@ -29,7 +29,7 @@ class CreateCategoriesTable extends Migration
             $table->string('cate_all_child')->nullable();
             $table->string('cate_type')->nullable();
             $table->tinyInteger('cate_hot')->nullable();
-            $table->tinyInteger('cate_admin_id')->nullable();
+            $table->tinyInteger('cate_admin_id')->nullable()->index();
             $table->tinyInteger('cate_show')->nullable();
             $table->tinyInteger('cate_view_type')->default(1);
             $table->string('cate_icon')->nullable();

@@ -27,7 +27,7 @@ class CreateMenusTable extends Migration
             $table->tinyInteger('mnu_has_child')->nullable();
             $table->string('mnu_all_child')->nullable();
             $table->tinyInteger('mnu_status')->nullable();
-            $table->tinyInteger('mnu_admin_id')->nullable();
+            $table->tinyInteger('mnu_admin_id')->nullable()->index();
             $table->timestamps();
         });
     }

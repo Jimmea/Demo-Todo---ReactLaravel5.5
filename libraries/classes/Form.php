@@ -188,7 +188,6 @@ class Form
                     break;
             }
         }
-
         $this->classDivInput = $inputDivClass;
         $this->classLabel    = $labelClass;
         $this->classInput    = $inputClass;
@@ -257,11 +256,12 @@ class Form
      * @param  array $valueDefault :Mảng option mặc định được truyền vào
      * @param  array $activeDefault : Mảng active thông thường bao gồm id, name
      * @param  boolean $showOptionEmpty : show placeholder true | false
+     * @param  string $addHtml : html
      * @param  string $separator : kí tự ---
      * @param string html
      */
     public function groupSelect($labelControl, $nameselect, $inputId ='', $require = false,  $valueDefault=array(),
-                                $activeDefault= array(), $showOptionEmpty = false, $separator='')
+                                $activeDefault= array(), $showOptionEmpty = false, $addHtml = '', $separator='')
     {
         $value      = get_value_field($nameselect, $this->formDb);
         $styleInput = $this->createStyle($inputId);
@@ -296,7 +296,7 @@ class Form
         }
 
         $formGroup .= '</select>';
-        $formGroup .= '';
+        $formGroup .= $addHtml;
         return $this->createFormGroup($formGroup, $labelControl, $nameselect, $require);
     }
 

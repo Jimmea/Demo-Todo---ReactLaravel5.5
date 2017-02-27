@@ -166,7 +166,7 @@ Route::group([
         ]);
     });
 
-    // SETTING
+    // SETTING x
     Route::group(['prefix'=> 'configuration', 'middleware'=> 'checkPermission'], function()
     {
         Route::get('/', [
@@ -182,7 +182,7 @@ Route::group([
         ]);
     });
 
-    // BANNER
+    // BANNER dang lam
     Route::group(['prefix'=> 'banner'], function () {
         Route::any('/', [
             'as' => 'admincpp.getListBanner',
@@ -229,6 +229,35 @@ Route::group([
                 'uses' => 'AdminBannerEventController@postEditBannerEvent',
             ]);
         });
+    });
+
+    Route::group(['prefix'=> 'new'], function () {
+        Route::get('/', [
+            'as' => 'admincpp.getListNew',
+            'uses'=> 'AdminNewController@getListNew'
+        ]);
+
+        Route::get('/add', [
+            'as' => 'admincpp.getAddNew',
+            'uses'=> 'AdminNewController@getAddNew'
+        ]);
+        Route::post('/add', [
+            'as' => 'admincpp.postAddNew',
+            'uses'=> 'AdminNewController@postAddNew'
+        ]);
+
+        Route::get('/edit/{id}', [
+            'as'=> 'admincpp.getEditNew',
+            'uses'=> 'AdminNewController@getEditNew'
+        ]);
+        Route::post('/edit/{id}', [
+            'as'=> 'admincpp.postEditNew',
+            'uses'=> 'AdminNewController@postEditNew'
+        ]);
+        Route::post('/step', [
+           'as' => 'admincpp.postAddStep',
+            'uses' => 'AdminNewController@postAddStep'
+        ]);
     });
 
 

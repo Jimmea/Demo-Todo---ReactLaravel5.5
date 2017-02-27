@@ -1,8 +1,8 @@
 <?php $form = new Form($errors, $banner); ?>
 {{ $form->beginForm([$routeName, $routeParam]) }}
     <div class="col-md-6">
-        {{ $form->groupText('Title', 'ban_title', 'ban_title', true) }}
-        {{ $form->groupText('Link', 'ban_link', 'ban_link') }}
+        {{ $form->groupText('Tiêu đề', 'ban_title', 'ban_title', true) }}
+        {{ $form->groupText('Đường dẫn', 'ban_link', 'ban_link') }}
         {{ $form->groupSelect('Target', 'ban_target', 'ban_target', false, $defaultTarget) }}
         {{ $form->groupText('Position', 'ban_position', 'ban_position') }}
         {{ $form->groupText('Type', 'ban_type', 'ban_type') }}

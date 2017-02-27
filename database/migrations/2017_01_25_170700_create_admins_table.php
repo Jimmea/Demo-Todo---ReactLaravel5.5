@@ -29,7 +29,7 @@ class CreateAdminsTable extends Migration
             $table->integer('adm_delete')->nullable();
             $table->integer('adm_all_category')->nullable();
             $table->integer('adm_edit_all')->nullable();
-            $table->integer('adm_admin_id');
+            $table->integer('adm_admin_id')->index();
             $table->rememberToken();
             $table->timestamps();
         });
