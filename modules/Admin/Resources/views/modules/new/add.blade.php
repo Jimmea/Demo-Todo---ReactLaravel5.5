@@ -1,11 +1,4 @@
 @extends('admin::layouts.master')
-@section('css')
-<style>
-    .ui-sortable-helper {
-        background: red;
-    }
-</style>
-@stop
 @section('content')
     {!! bread_crumb([
         'admincpp.getListNew' => trans('admin::listing.title'),
@@ -17,12 +10,26 @@
                 {!! box_title(trans('admin::form.add.title')) !!}
                 @php $form = new Form($errors) @endphp
                 {{ $form->beginForm(['admincpp.postAddNew']) }}
+                <input type="hidden" name="new_picture" id="new_picture" value="">
                 <div class="col-md-6 col-md-offset-3">
                     <div class="jumbotron" style="padding:10px">
-                    	<div class="container text-center">
-                            <h1 title="Vui lòng up hình minh họa"><label style="cursor: pointer" for="new_picture"><img src="{{ asset('backend/imgs/avatar_cook.png') }}" width="130"></label></h1>
-                            <input type="file" class="hide" accept="image/*" id="new_picture" name="new_picture">
-                    		<p class="text-uppercase">hình minh họa</p>
+                    	<div class="container-image text-center">
+                            <div style="width: 100%;height: 230px; overflow:hidden;position: relative" class="recipe_show_image img hide">
+                                <img src="" alt="" id="recipe_show_image">
+                                <div class="image__button editor__tool">
+                                    <label class="image_upload" title="Sửa ảnh" for="new_picture_face"><i class="fa fa-camera"></i></label>
+                                    <label class="button_delete" title="Xóa ảnh"><i class="fa fa-trash-o"></i></label>
+                                </div>
+                            </div>
+                            <div class="recipe_image_default">
+                                <h1 title="Vui lòng up hình minh họa">
+                                    <label style="cursor: pointer" for="new_picture_face">
+                                        <img src="{{ asset('backend/imgs/avatar_cook.png') }}" id="img_new_picture" width="130">
+                                    </label>
+                                </h1>
+                                <p class="text-uppercase">hình minh họa</p>
+                                <input type="file" class="hide" accept="image/*" id="new_picture_face" name="new_picture_face">
+                            </div>
                     	</div>
                     </div>
                 </div>
@@ -73,7 +80,5 @@
     </div>
 @stop
 @section('js')
-    {{--<script src="{{ asset('backend/js/plugins/sortable/jquery-sortable.js') }}"></script>--}}
     <script src="{{ asset('backend/js/pages/component_new.js') }}"></script>
-    {{--<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>--}}
 @stop

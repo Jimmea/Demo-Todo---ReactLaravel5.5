@@ -84,12 +84,12 @@ class AdminController extends Controller
             get_value('pk', 'int', 'POST') // primary key
         ];
     }
-    public function responseSuccess()
+    public function responseSuccess($message='')
     {
-        return response()->json(['status'=>1, 'msg'=> trans('admin::message.message_update_success')]);
+        return response()->json(['status'=>1, 'msg'=> $message ? $message : trans('admin::message.message_update_success')]);
     }
-    public function responseError()
+    public function responseError($message='')
     {
-        return response()->json(['status'=>0, 'msg'=> trans('admin::message.message_update_error')]);
+        return response()->json(['status'=>0, 'msg'=> $message ? $message : trans('admin::message.message_update_error')]);
     }
 }

@@ -2,9 +2,12 @@
 
 namespace Modules\Admin\Http\Controllers;
 
+use App\Exceptions\FileNotFoundException;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
-use Illuminate\Routing\Controller;
+use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Input;
+use PhpParser\Node\Stmt\Throw_;
 
 class AdminNewController extends AdminController
 {
@@ -64,7 +67,28 @@ class AdminNewController extends AdminController
      */
     public function postUploadFile(Request $request)
     {
-        dd($request->all());
+        if ($request->ajax())
+        {
+            $action     = $request->has('action') ? $request->get('action') : '';
+            $upload     = new \UploadAjax();
+
+            // Delete anh
+            if($action == 'delete')
+            {
+                $path   = $request->get('src');
+                $upload->deleteFile(public_path(), $path);
+                return $this->responseSuccess('Delete successfully');
+            }
+
+            $src        = $request->has('src') ? $request->get('src') : '';
+            $file       = isset($_FILES[0]) ?  $_FILES[0] : array();
+            $path       = $upload->uploadFile($file, 'recipes');
+
+            if ($src) $upload->deleteFile(public_path(), $src);
+
+            return (!$path) ? $this->responseError($upload->showWarningError()) : $this->responseSuccess($path);
+        }
+        return $this->responseError();
     }
 
     /**

@@ -6,6 +6,7 @@ var clicked          = false;
 var step             = 2;
 var formGroupAppend  = $('#form-list-group');
 var groupstep        = JSON.parse(sessionStorage.getItem('groupsteps') || "[]");
+var newPicture       = sessionStorage.getItem('new_picture');
 
 var buttonAddStep = function ()
 {
@@ -58,7 +59,8 @@ var buttonAddStep = function ()
     });
 }
 
-var htmlGroupStep = function ($step, $value) {
+var htmlGroupStep = function ($step, $value)
+{
     var html  = '<div class="form-group form-group-step" data-id="' + $step + '" id="step-' + $step + '">';
             html += '<div class="control-label-header">';
             html += '<label class="label label-warning label-step label-step-' + $step + '">' + $step + '</label>';
@@ -104,7 +106,8 @@ var getGroupStepBefore = function ()
 }
 
 // Xoa di mot groupStep
-var removeGroupStep = function () {
+var removeGroupStep = function ()
+{
     $(document).on('click', '.label-delete', function () {
         if (confirm('Bạn có chắc chắn muốn xóa'))
         {
@@ -147,16 +150,26 @@ var resetGroupStep = function ()
 }
 
 // Luu thong tin mot groupStep
-var storeGroupStep = function () {
+var storeGroupStep = function ()
+{
     sessionStorage.setItem('groupsteps', JSON.stringify(groupstep));
 }
 
 // Khi load trinh duyet lai thi show thong tin da save
-var getListGroupStep = function ()
+var loadDataForm = function ()
 {
     // Chua co thi add default tam mot group
     if (groupstep.length === 0) getGroupStepBefore();
 
+
+    // Show ra hinh anh cho file avatar
+    if (newPicture)
+    {
+        $('.recipe_image_default').hide();
+        $('.recipe_show_image').show().removeClass('hide');
+        $('#recipe_show_image').attr('src', newPicture);
+        $('#new_picture').val(newPicture);
+    }
     // co roi thi in ra thui
     if (groupstep)
     {
@@ -169,46 +182,81 @@ var getListGroupStep = function ()
     }
 }
 
-var uploadAvatar = function () {
-    $('#new_picture').change(uploadFile);
-}
-
 var uploadFile = function (event)
 {
-    var files = event.target.files;
-    var data  = new FormData();
+    var files   = event.target.files;
+    var path    = $('#recipe_show_image').attr('src');
+    var data    = new FormData();
     $.each(files, function(key, value)
     {
         data.append(key, value);
     });
-    $.ajax({
-        url: BASE_URL + '/new/upload-file',
-        type: 'POST',
-        data: data,
-        dataType: 'json',
-        processData: false,
-        contentType: false,
-        success: function(response)
-        {
-            console.log(response);
-            if(response.code == 1)
-            {
+    data.append('src', path);
+    if (files.length >0)
+    {
+        $.ajax({
+           url: BASE_URL + '/new/upload-file',
+           type: 'POST',
+           data: data,
+           dataType: 'json',
+           processData: false,
+           contentType: false,
+           success: function(response)
+           {
+               if(response.status == 1)
+               {
+                   $('.recipe_image_default').hide();
+                   $('.recipe_show_image').show().removeClass('hide');
+                   $('#recipe_show_image').attr('src', response.msg);
+                   $('#new_picture').val(response.msg);
+                   sessionStorage.setItem('new_picture', response.msg);
 
-            }
-        },
-        error: function(jqXHR, textStatus, errorThrown)
-        {
-            console.log('ERRORS: ' + textStatus);
-        }
-    });
+               }
+           },
+           error: function(jqXHR, textStatus, errorThrown)
+           {
+               console.log('ERRORS: ' + textStatus);
+           }
+        });
+    }
 }
 
+var deleteImageAvatar = function ()
+{
+    $('.button_delete').click(function () {
+        var path = $('#recipe_show_image').attr('src');
+        $.ajax({
+            url: BASE_URL + '/new/upload-file',
+            type: 'POST',
+            data: {
+                src     : path,
+                action  : 'delete'
+            },
+            dataType: 'json',
+            success: function(response)
+            {
+                if(response.status == 1)
+                {
+                    $('.recipe_image_default').show();
+                    $('.recipe_show_image').hide();
+                    $('#new_picture').val('');
+                    sessionStorage.removeItem('new_picture');
+                }
+            },
+            error: function(jqXHR, textStatus, errorThrown)
+            {
+                console.log('ERRORS: ' + textStatus);
+            }
+        });
+    })
+}
 
 $(document).ready(function () {
     buttonAddStep();
-    getListGroupStep();
+    loadDataForm();
     addGroupStep();
     removeGroupStep();
-    uploadAvatar();
+    deleteImageAvatar();
+    $('#new_picture_face').change(uploadFile);
 });
 
