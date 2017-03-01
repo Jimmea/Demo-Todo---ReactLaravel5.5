@@ -1,262 +1,408 @@
 /**
  * Created by hung on 26/02/17.
  */
-'use strict';
-var clicked          = false;
-var step             = 2;
-var formGroupAppend  = $('#form-list-group');
-var groupstep        = JSON.parse(sessionStorage.getItem('groupsteps') || "[]");
-var newPicture       = sessionStorage.getItem('new_picture');
+var formSessionStorage = function () {
+    'use strict';
 
-var buttonAddStep = function ()
-{
-    $('.button_add_step').click(function (e)
+    var stepDefault          = 2;
+    var clicked              = false;
+    var imgPlaceholder       = '/assets/img_pre.jpg';
+    var formListGroup        = $('#form-list-group');
+    var dataRecipe           = JSON.parse(sessionStorage.getItem('dataRecipe'));
+    var urlAddStep           = BASE_URL + '/new/add-step';
+    var urlUploadAvatar      = BASE_URL + '/new/upload-file';
+    var urlUploadAvatarStep  = BASE_URL + '/new/upload-file-step';
+
+    // Đếm độ dài đối tượng
+    var countObjectLength = function (data)
     {
-        e.preventDefault();
-        if(clicked)
-        {
-            alert('The system is processing... Please wait');
-            return '';
-        }
-        // Check group ton tai thi step nhay vao day
-        step  = ($('.form-group-step').length > 0) ? $('.form-group-step').length + 1 : step;
+        return Object.keys(data).length;
+    }
 
-        clicked = true;
-        $.ajax({
-            url : BASE_URL + '/new/step',
-            type : 'POST',
-            dataType : 'json',
-            data : { step : step }
-        }).success(function (response)
+    var stepHtmlDefault = function ($id, $value, $src)
+    {
+        var html  = '<div class="form-group form-group-step" data-id="' + $id + '" id="step-' + $id + '">';
+                html += '<div class="control-label-header">';
+                    html += '<label class="label label-warning label-step label-step-' + $id + '">' + $id + '</label>';
+                    html += '<label class="label label-upload" for="new_step_picure' + $id + '" title="click tải hình ảnh minh họa"><i class="fa fa-camera"></i></label>';
+                    if($id != 1) html += '<label class="label label-warning label-action label-delete" title="Xóa bước ' + $id + '"><i class="fa fa-trash-o"></i></label>';
+                    html += '</div>';
+                html += '<div class="form-control-content">';
+                    html += '<div class="media_img_prev">';
+                        html += '<div class="step_img img">';
+                            html += '<img src="' + ($src ? $src : imgPlaceholder)  +'" id="step_img_placeholder' + $id + '" class="' + ($src ? $src : 'hidden')  +' img-responsive step_img_placeholder"/>';
+                            html += '<input type="file" name="new_step_picture[]" accept="image/*" class="hidden new_step_picure" id="new_step_picure' + $id + '"/>';
+                            html += '<div class="image__button editor_tool_step">';
+                                html += '<label class="image_upload" title="Sửa ảnh" for="new_step_picure' + $id + '"><i class="fa fa-camera"></i></label>';
+                                html += '<label class="button_delete" title="Xóa ảnh"><i class="fa fa-trash-o"></i></label>';
+                            html += '</div>';
+                        html += '</div>';
+                    html += '</div>';
+                    html += '<div class="media_body_prose">';
+                    html += '<textarea class="form-control form-control-auto" name="" placeholder="Mô tả cách làm từng bước ..." id="form-control-' + $id + '" cols="30" rows="3">' + $value + '</textarea>';
+                    html += '</div>';
+                html += '</div>';
+             html += '</div>';
+        return html;
+    }
+
+    // Khoi tao gia tri dau cho sesionStorage
+    var getFirstStepMethod = function ()
+    {
+        dataRecipe =
         {
-            if (response.code && response.message == 'success')
+            avatar      : '',
+            ingredient  : '',
+            time_pre    : '',
+            time_cook   : '',
+            youtobe_cod : '',
+            people      : '',
+            methods     : {}
+        };
+        dataRecipe.methods[1] =
+        {
+            id : 1,
+            value : '',
+            image : ''
+        };
+        storeDataRecipe();
+    }
+
+    // Add thêm một bước vào trong công th
+    var addStepMethod = function ()
+    {
+        $('.button_add_step').click(function (e)
+        {
+            e.preventDefault();
+            if(clicked) { alert('The system is processing... Please wait'); return '';}
+
+            // Check group ton tai thi step nhay vao day
+            stepDefault  = ($('.form-group-step').length > 0) ? $('.form-group-step').length + 1 : stepDefault;
+            clicked      = true;
+
+            $.ajax({
+                url : urlAddStep,
+                type : 'POST',
+                dataType : 'json',
+                data : { step : stepDefault }
+            }).success(function (response)
             {
-                formGroupAppend.append(response.groupstep);
-                if (typeof(Storage) !== "undefined")
+                if (response.code && response.message == 'success')
                 {
-                    // Có thể sử dụng localStorage/sessionStorage.
-                    groupstep[response.s] =
+                    // Append to list form group method and save into sessionStorage
+                    formListGroup.append(response.groupstep);
+                    if (typeof(Storage) !== "undefined")
                     {
-                        id    : response.s,
-                        value : '',
-                    };
-                    storeGroupStep();
+                        dataRecipe.methods[response.s] =
+                        {
+                            id      : response.s,
+                            value   : '',
+                            image   : ''
+                        };
+                        storeDataRecipe();
+                    }
+                    else
+                    {
+                        // Trình duyệt không hỗ trợ Local storage.
+                        alert('Rất tiếc, trình duyệt của bạn không hỗ trợ local storage...');
+                    }
                 }
-                else
-                {
-                    // Trình duyệt không hỗ trợ Local storage.
-                    alert('Rất tiếc, trình duyệt của bạn không hỗ trợ local storage...');
-                }
-            }
-        }).error(function (e)
-        {
-            alert("Something went wrong . We couldn't add. Please try reload your browser");
-        }).always(function ()
-        {
-            step ++;
-            clicked = false;
-        });
-    });
-}
-
-var htmlGroupStep = function ($step, $value)
-{
-    var html  = '<div class="form-group form-group-step" data-id="' + $step + '" id="step-' + $step + '">';
-            html += '<div class="control-label-header">';
-            html += '<label class="label label-warning label-step label-step-' + $step + '">' + $step + '</label>';
-            if($step != 1)
-                html += '<label class="label label-warning label-action label-delete" title="Xóa bước ' + $step + '"><i class="fa fa-trash-o"></i></label>';
-            html += '</div>';
-            html += '<div class="form-control-content">';
-                html += '<textarea class="form-control form-control-auto" name="" placeholder="Mô tả cách làm từng bước ..." id="form-control-' + $step + '" cols="30" rows="3">' + $value + '</textarea>';
-            html += '</div>';
-        html += '</div>';
-    return html;
-}
-
-// Add mot group Step cho su kien input add
-var addGroupStep = function ()
-{
-    $(document).on('input', '.form-control-auto', function ()
-    {
-        var value       = $(this).val();
-        var stepId      = $(this).closest('.form-group-step').attr('data-id');
-        // var stepHtml    = htmlGroupStep(stepId, value);
-        // Kiem tra su ton tai cua group nay co trong sesionStorage
-        if (groupstep && stepId)
-        {
-            $.each(groupstep, function (k, v)
+            }).error(function (e)
             {
-                // Cap nhat lai store do tai day
-                if (stepId == k)
+                alert("Something went wrong . We couldn't add. Please try reload your browser");
+            }).always(function ()
+            {
+                stepDefault ++;
+                clicked = false;
+            });
+        });
+    }
+
+    // Tư dong save thong tin khi nhap input textarea
+    var autoSaveEventInputFormControl = function ()
+    {
+        $(document).on('input', '.form-control-auto', function ()
+        {
+            var value       = $(this).val();
+            var stepId      = $(this).closest('.form-group-step').attr('data-id');
+            var src         = $('#step_img_placeholder' + stepId).attr('src');
+
+            if (src == imgPlaceholder) src = '';
+            // Kiem tra su ton tai cua group nay co trong sesionStorage
+            if (dataRecipe && stepId)
+            {
+                dataRecipe.methods[stepId]['value'] = value;
+                storeDataRecipe();
+            }
+        });
+    }
+
+    // Upload hinh anh avatar cua recipe
+    var uploadAvatarRecipe = function ()
+    {
+        $('#new_picture_face').change(function (e)
+        {
+            var files   = e.target.files;
+            var path    = $('#recipe_show_image').attr('src');
+            var data    = new FormData();
+            if (clicked)
+            {
+                alert('Hệ thống đang xử lý. Vui lòng đợi ...');
+                return ;
+            }
+
+            clicked = true;
+            $.each(files, function(key, value) { data.append(key, value); });
+            data.append('src', path);
+            if (files.length >0)
+            {
+                $.ajax({
+                    url: urlUploadAvatar,
+                    type: 'POST',
+                    data: data,
+                    dataType: 'json',
+                    processData: false,
+                    contentType: false
+                })
+                .success(function(response)
                 {
-                    groupstep[k] = {id : stepId, value : value};
-                    storeGroupStep();
+                    if(response.status == 1)
+                    {
+                        $('.recipe_image_default').hide();
+                        $('.recipe_show_image').removeClass('hidden');
+                        $('#avatar_show_image').attr('src', response.msg);
+                        $('#new_picture').val(response.msg);
+                        dataRecipe.avatar = response.msg;
+                        storeDataRecipe();
+                    }
+                    else
+                    {
+                        alert(response.msg);
+                    }
+                }).error(function (e)
+                {
+                    alert("Có lỗi xảy ra. Vui lòng load lại trang ...");
+                }).always(function ()
+                {
+                    clicked = false;
+                });
+            }
+        });
+    }
+
+    // Xóa hình ảnh avatar của recipe
+    var deleteAvatarRecipe = function ()
+    {
+        $('.button_delete').click(function () {
+            var path = $('#avatar_show_image').attr('src');
+            $.ajax({
+                url: BASE_URL + '/new/upload-file',
+                type: 'POST',
+                data: {
+                    src     : path,
+                    action  : 'delete'
+                },
+                dataType: 'json',
+                success: function(response)
+                {
+                    if(response.status == 1)
+                    {
+                        $('.recipe_image_default').show();
+                        $('.recipe_show_image').addClass('hidden');
+                        $('#new_picture').val('');
+                        dataRecipe.avatar = '';
+                        storeDataRecipe();
+                    }
+                },
+                error: function(jqXHR, textStatus, errorThrown)
+                {
+                    console.log('ERRORS: ' + textStatus);
                 }
             });
-            return ;
-        }
-    });
-}
+        })
+    }
 
-var getGroupStepBefore = function ()
-{
-    groupstep[1] = { id      : 1, value   : ''};
-    storeGroupStep();
-}
-
-// Xoa di mot groupStep
-var removeGroupStep = function ()
-{
-    $(document).on('click', '.label-delete', function () {
-        if (confirm('Bạn có chắc chắn muốn xóa'))
-        {
-            var formGroupStep   = $(this).closest('.form-group-step');
-            var formGroupId     = formGroupStep.attr('data-id');
-            // Xoa o sessionStorage va Browser
-            for(var i =1; i< groupstep.length; i++)
-            {
-                if(groupstep[i].id == formGroupId)
-                {
-                    groupstep.splice(i, 1);
-                    formGroupStep.remove();
-                }
-            }
-            resetGroupStep();
-        }
-    });
-}
-
-// Reset lai thông tin tất cả
-var resetGroupStep = function ()
-{
-    var resetGroupstep = [];
-    var html = '';
-    $.each(groupstep, function (index, item)
+    // Upload avatar step method
+    var uploadAvatarStepMethod = function ()
     {
-        if(item)
+        $(document).on('change', '.new_step_picure', function (e)
         {
-            resetGroupstep[index] =
+            var files           = e.target.files;
+            var stepId          = $(this).closest('.form-group-step').attr('data-id');
+            var stepImage       = $('#step_img_placeholder'+stepId);
+            var stepImagePath   = stepImage.attr('src');
+            var data            = new FormData();
+            $.each(files, function(key, value) { data.append(key, value);});
+            data.append('src', stepImagePath);
+
+            if(files.length >0)
             {
-                id      : index,
-                value   : item.value
+                $.ajax({
+                    url: urlUploadAvatarStep,
+                    type: 'POST',
+                    data: data,
+                    dataType: 'json',
+                    processData: false,
+                    contentType: false,
+                    success: function(response)
+                    {
+                        if(response.status == 1)
+                        {
+                            stepImage.removeClass('hidden');
+                            stepImage.attr('src', response.msg);
+                            dataRecipe.methods[stepId]['image'] = response.msg;
+                            storeDataRecipe();
+                        }
+                        else
+                        {
+                            alert(response.msg);
+                        }
+                    },
+                    error: function(jqXHR, textStatus, errorThrown)
+                    {
+                        console.log('ERRORS: ' + textStatus);
+                    }
+                });
+            }
+        })
+    }
+
+    // Delete avatar cua a step in method
+    var deleteAvatarStepMethod = function ()
+    {
+        $(document).on('click', '.button_delete', function ()
+        {
+            var stepId          = $(this).closest('.form-group-step').attr('data-id');
+            var stepImage       = $('#step_img_placeholder'+stepId);
+            var stepImagePath   = stepImage.attr('src');
+
+            $.ajax({
+                url: urlUploadAvatarStep,
+                type: 'POST',
+                data: {
+                    src     : stepImagePath,
+                    action  : 'delete'
+                },
+                dataType: 'json',
+                success: function(response)
+                {
+                    if(response.status == 1)
+                    {
+                        stepImage.attr('src', '/assets/img_pre.jpg');
+                        stepImage.addClass('hidden');
+                        dataRecipe.methods[stepId]['image'] = '';
+                        storeDataRecipe();
+                    }
+                },
+                error: function(jqXHR, textStatus, errorThrown)
+                {
+                    console.log('ERRORS: ' + textStatus);
+                }
+            });
+        })
+    }
+
+    // Delete a step method
+    var deleteStepMethod = function ()
+    {
+        $(document).on('click', '.label-delete', function ()
+        {
+            if (confirm('Bạn có chắc chắn muốn xóa'))
+            {
+                var formGroupStep       = $(this).closest('.form-group-step');
+                var formGroupId         = formGroupStep.attr('data-id');
+                var listGroupStep       = dataRecipe.methods;
+                var lengthListGroupStep = countObjectLength(listGroupStep);
+
+                // Xoa o sessionStorage va Browser
+                for(var i =1; i <= lengthListGroupStep; i++)
+                {
+                    if(listGroupStep[i].id== formGroupId)
+                    {
+                        delete listGroupStep[i];
+                        formGroupStep.remove();
+                    }
+                }
+                // Reset lai thong tin
+                resetFormListGroupMethod(listGroupStep);
+            }
+        });
+    }
+
+    // Reset toan bo thong tin cua recipe;
+    var resetFormListGroupMethod = function (listGroupStep)
+    {
+        var items = {};
+        var stt   = 1;
+        var html  =  '';
+        $.each(listGroupStep, function (index, item)
+        {
+            items[stt] =
+            {
+                id   : stt,
+                value:item.value,
+                image: item.image
             };
-            html += htmlGroupStep(index, item.value);
-        }
-    });
-    groupstep = resetGroupstep;
-    storeGroupStep();
-    formGroupAppend.html(html);
-}
+            html += stepHtmlDefault(stt, item.value, item.image);
+            stt ++;
+        });
 
-// Luu thong tin mot groupStep
-var storeGroupStep = function ()
-{
-    sessionStorage.setItem('groupsteps', JSON.stringify(groupstep));
-}
-
-// Khi load trinh duyet lai thi show thong tin da save
-var loadDataForm = function ()
-{
-    // Chua co thi add default tam mot group
-    if (groupstep.length === 0) getGroupStepBefore();
-
-
-    // Show ra hinh anh cho file avatar
-    if (newPicture)
-    {
-        $('.recipe_image_default').hide();
-        $('.recipe_show_image').show().removeClass('hide');
-        $('#recipe_show_image').attr('src', newPicture);
-        $('#new_picture').val(newPicture);
+        dataRecipe.methods = items;
+        storeDataRecipe();
+        formListGroup.html(html);
     }
-    // co roi thi in ra thui
-    if (groupstep)
+
+    // Luu lai thong tin toan bo cua form cong thuc
+    var storeDataRecipe = function ()
     {
-        var html     = '';
-        $.each(groupstep, function (i, item)
+        sessionStorage.setItem('dataRecipe', JSON.stringify(dataRecipe));
+    }
+
+    // Init browser
+    var autoloadFormRecipe = function ()
+    {
+        if (!dataRecipe) getFirstStepMethod();
+        var listMethods  = dataRecipe.methods;
+        var avatarRecipe = dataRecipe.avatar;
+
+        // Show ra hinh anh cho file avatar
+        if (avatarRecipe)
         {
-            if (item) html += htmlGroupStep(item.id, item.value);
-        });
-        formGroupAppend.html(html);
-    }
-}
-
-var uploadFile = function (event)
-{
-    var files   = event.target.files;
-    var path    = $('#recipe_show_image').attr('src');
-    var data    = new FormData();
-    $.each(files, function(key, value)
-    {
-        data.append(key, value);
-    });
-    data.append('src', path);
-    if (files.length >0)
-    {
-        $.ajax({
-           url: BASE_URL + '/new/upload-file',
-           type: 'POST',
-           data: data,
-           dataType: 'json',
-           processData: false,
-           contentType: false,
-           success: function(response)
-           {
-               if(response.status == 1)
-               {
-                   $('.recipe_image_default').hide();
-                   $('.recipe_show_image').show().removeClass('hide');
-                   $('#recipe_show_image').attr('src', response.msg);
-                   $('#new_picture').val(response.msg);
-                   sessionStorage.setItem('new_picture', response.msg);
-
-               }
-           },
-           error: function(jqXHR, textStatus, errorThrown)
-           {
-               console.log('ERRORS: ' + textStatus);
-           }
-        });
-    }
-}
-
-var deleteImageAvatar = function ()
-{
-    $('.button_delete').click(function () {
-        var path = $('#recipe_show_image').attr('src');
-        $.ajax({
-            url: BASE_URL + '/new/upload-file',
-            type: 'POST',
-            data: {
-                src     : path,
-                action  : 'delete'
-            },
-            dataType: 'json',
-            success: function(response)
+            $('.recipe_image_default').addClass('hidden');
+            $('.recipe_show_image').removeClass('hidden');
+            $('#avatar_show_image').attr('src', avatarRecipe);
+            $('#new_picture').val(avatarRecipe);
+        }
+        // Show list buoc thuc hien ra
+        if (listMethods)
+        {
+            var html     = '';
+            $.each(listMethods, function (i, item)
             {
-                if(response.status == 1)
+                if (item && i)
                 {
-                    $('.recipe_image_default').show();
-                    $('.recipe_show_image').hide();
-                    $('#new_picture').val('');
-                    sessionStorage.removeItem('new_picture');
+                    if (item) html += stepHtmlDefault(item.id, item.value, item.image);
                 }
-            },
-            error: function(jqXHR, textStatus, errorThrown)
-            {
-                console.log('ERRORS: ' + textStatus);
-            }
-        });
-    })
-}
+            });
+            formListGroup.html(html);
+        }
+    }
 
+    return {
+        init : function () {
+            autoloadFormRecipe();
+            addStepMethod();
+            autoSaveEventInputFormControl();
+            uploadAvatarRecipe();
+            deleteAvatarRecipe();
+            deleteStepMethod();
+            uploadAvatarStepMethod();
+            deleteAvatarStepMethod();
+        }
+    }
+}();
 $(document).ready(function () {
-    buttonAddStep();
-    loadDataForm();
-    addGroupStep();
-    removeGroupStep();
-    deleteImageAvatar();
-    $('#new_picture_face').change(uploadFile);
+    formSessionStorage.init();
 });
+
 

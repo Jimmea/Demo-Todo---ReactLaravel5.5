@@ -14,8 +14,8 @@
                 <div class="col-md-6 col-md-offset-3">
                     <div class="jumbotron" style="padding:10px">
                     	<div class="container-image text-center">
-                            <div style="width: 100%;height: 230px; overflow:hidden;position: relative" class="recipe_show_image img hide">
-                                <img src="" alt="" id="recipe_show_image">
+                            <div style="width: 100%;height: 230px; overflow:hidden;position: relative" class="recipe_show_image img hidden">
+                                <img src="" alt="" id="avatar_show_image">
                                 <div class="image__button editor__tool">
                                     <label class="image_upload" title="Sửa ảnh" for="new_picture_face"><i class="fa fa-camera"></i></label>
                                     <label class="button_delete" title="Xóa ảnh"><i class="fa fa-trash-o"></i></label>

@@ -2,12 +2,8 @@
 
 namespace Modules\Admin\Http\Controllers;
 
-use App\Exceptions\FileNotFoundException;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
-use Illuminate\Support\Facades\File;
-use Illuminate\Support\Facades\Input;
-use PhpParser\Node\Stmt\Throw_;
 
 class AdminNewController extends AdminController
 {
@@ -65,25 +61,51 @@ class AdminNewController extends AdminController
      * @param void
      * @return json
      */
-    public function postUploadFile(Request $request)
+    public function postUploadAndDeleteFile(Request $request)
     {
         if ($request->ajax())
         {
-            $action     = $request->has('action') ? $request->get('action') : '';
+            $action     = $request->get('action');
+            $src        = $request->get('src');
             $upload     = new \UploadAjax();
 
             // Delete anh
             if($action == 'delete')
             {
-                $path   = $request->get('src');
-                $upload->deleteFile(public_path(), $path);
+                if ($src) $upload->deleteFile(public_path(), $src);
                 return $this->responseSuccess('Delete successfully');
             }
 
-            $src        = $request->has('src') ? $request->get('src') : '';
+            // Add file moi
             $file       = isset($_FILES[0]) ?  $_FILES[0] : array();
             $path       = $upload->uploadFile($file, 'recipes');
+            if ($src) $upload->deleteFile(public_path(), $src);
 
+            return (!$path) ? $this->responseError($upload->showWarningError()) : $this->responseSuccess($path);
+        }
+        return $this->responseError();
+    }
+
+    /**
+     * @param
+     * @return void
+     */
+    public function postUploadAndDeleteFileStep(Request $request)
+    {
+        if ($request->ajax())
+        {
+            $action     = $request->get('action');
+            $src        = $request->get('src');
+            $upload     = new \UploadAjax();
+            // Delete anh
+            if($action == 'delete')
+            {
+                if ($src) $upload->deleteFile(public_path(), $src);
+                return $this->responseSuccess('Delete successfully');
+            }
+            // Add file moi
+            $file       = isset($_FILES[0]) ?  $_FILES[0] : array();
+            $path       = $upload->uploadFile($file, 'recipes');
             if ($src) $upload->deleteFile(public_path(), $src);
 
             return (!$path) ? $this->responseError($upload->showWarningError()) : $this->responseSuccess($path);

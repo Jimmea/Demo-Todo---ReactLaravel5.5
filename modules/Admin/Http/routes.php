@@ -254,13 +254,17 @@ Route::group([
             'as'=> 'admincpp.postEditNew',
             'uses'=> 'AdminNewController@postEditNew'
         ]);
-        Route::post('/step', [
+        Route::post('/add-step', [
            'as' => 'admincpp.postAddStep',
             'uses' => 'AdminNewController@postAddStep'
         ]);
         Route::post('/upload-file', [
             'as' => 'admincpp.postUploadFile',
-            'uses' => 'AdminNewController@postUploadFile'
+            'uses' => 'AdminNewController@postUploadAndDeleteFile'
+        ]);
+        Route::post('/upload-file-step', [
+            'as' => 'admincpp.postUploadFileStep',
+            'uses' => 'AdminNewController@postUploadAndDeleteFileStep'
         ]);
     });
 

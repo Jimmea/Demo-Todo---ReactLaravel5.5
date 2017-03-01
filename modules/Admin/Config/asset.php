@@ -8,7 +8,8 @@ return [
         'backend/css/style.css',
         'backend/css/colors/blue.css',
         'backend/css/customer.css',
-        'backend/js/plugins/xedittable/bootstrap-editable.css'
+        'backend/js/plugins/xedittable/bootstrap-editable.css',
+        'backend/less/master.css',
     ],
     'js' => [
         'backend/js/plugins/jquery.min.js',

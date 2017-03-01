@@ -10,13 +10,17 @@
     object-fit: cover;
     object-position: center center;
 }
-.image__button.editor__tool
+.image__button
 {
     position: absolute;
     right: 15px;
     bottom: 5px;
+    text-align: center;
     padding: 5px;
     background: rgba(0,0,0,0.5);
+}
+.editor_tool_step {
+    display: none;
 }
 .button_delete,
 .image_upload
@@ -37,8 +41,9 @@
 .form-group-step:hover {
     background-color: #eee;
 }
-.form-group-step:hover > .form-group-step .label-upload{
+.form-group-step:hover label.label-upload {
     display: block;
+    cursor: pointer;
 }
 label.label-step {
     line-height: 15px;
