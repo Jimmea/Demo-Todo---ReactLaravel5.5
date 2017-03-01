@@ -113,6 +113,21 @@ class AdminNewController extends AdminController
         return $this->responseError();
     }
 
+    public function getDeleteFile(Request $request)
+    {
+        if ($request->ajax())
+        {
+            $src = get_value('src', 'str', 'POST');
+            if ($src)
+            {
+                $upload     = new \UploadAjax();
+                if ($src) $upload->deleteFile(public_path(), $src);
+                return $this->responseSuccess();
+            }
+        }
+        return $this->responseError();
+    }
+
     /**
      * Add thêm một group step
      * @param void

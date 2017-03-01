@@ -266,6 +266,10 @@ Route::group([
             'as' => 'admincpp.postUploadFileStep',
             'uses' => 'AdminNewController@postUploadAndDeleteFileStep'
         ]);
+        Route::post('/delete-file', [
+            'as' => 'admincpp.getDeleteFile',
+            'uses' => 'AdminNewController@getDeleteFile'
+        ]);
     });
 
 

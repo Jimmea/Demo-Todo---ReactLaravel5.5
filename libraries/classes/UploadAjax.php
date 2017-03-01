@@ -47,7 +47,7 @@ class UploadAjax
         return $media;
     }
 
-    public function uploadFile($upload_name, $upload_path = '', $extension_list = array(), $limit_size=500, $inserLogo = 1)
+    public function uploadFile($upload_name, $upload_path = '', $extension_list = array(), $limit_size=500, $inserLogo = 0)
     {
         $upload_path = $this->checkOrCreateDir($upload_path);
         if (!$upload_name)

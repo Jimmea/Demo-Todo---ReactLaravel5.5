@@ -10,6 +10,7 @@ var formSessionStorage = function () {
     var formListGroup        = $('#form-list-group');
     var dataRecipe           = JSON.parse(sessionStorage.getItem('dataRecipe'));
     var urlAddStep           = BASE_URL + '/new/add-step';
+    var urlDeleteFile        = BASE_URL + '/new/delete-file';
     var urlUploadAvatar      = BASE_URL + '/new/upload-file';
     var urlUploadAvatarStep  = BASE_URL + '/new/upload-file-step';
 
@@ -34,7 +35,7 @@ var formSessionStorage = function () {
                             html += '<input type="file" name="new_step_picture[]" accept="image/*" class="hidden new_step_picure" id="new_step_picure' + $id + '"/>';
                             html += '<div class="image__button editor_tool_step">';
                                 html += '<label class="image_upload" title="Sửa ảnh" for="new_step_picure' + $id + '"><i class="fa fa-camera"></i></label>';
-                                html += '<label class="button_delete" title="Xóa ảnh"><i class="fa fa-trash-o"></i></label>';
+                                html += '<label class="button_delete_step" title="Xóa ảnh"><i class="fa fa-trash-o"></i></label>';
                             html += '</div>';
                         html += '</div>';
                     html += '</div>';
@@ -143,7 +144,7 @@ var formSessionStorage = function () {
         $('#new_picture_face').change(function (e)
         {
             var files   = e.target.files;
-            var path    = $('#recipe_show_image').attr('src');
+            var path    = $('#avatar_show_image').attr('src');
             var data    = new FormData();
             if (clicked)
             {
@@ -207,7 +208,7 @@ var formSessionStorage = function () {
                 {
                     if(response.status == 1)
                     {
-                        $('.recipe_image_default').show();
+                        $('.recipe_image_default').show().removeClass('hidden');
                         $('.recipe_show_image').addClass('hidden');
                         $('#new_picture').val('');
                         dataRecipe.avatar = '';
@@ -231,9 +232,17 @@ var formSessionStorage = function () {
             var stepId          = $(this).closest('.form-group-step').attr('data-id');
             var stepImage       = $('#step_img_placeholder'+stepId);
             var stepImagePath   = stepImage.attr('src');
+
+            if (clicked)
+            {
+                alert('Hệ thống đang xử lý. Vui lòng đợi ...');
+                return ;
+            }
+
+            clicked = true;
             var data            = new FormData();
-            $.each(files, function(key, value) { data.append(key, value);});
-            data.append('src', stepImagePath);
+            $.each(files, function(key, value) { data.append(key, value) });
+            if (stepImagePath != imgPlaceholder) { data.append('src', stepImagePath)}
 
             if(files.length >0)
             {
@@ -262,6 +271,9 @@ var formSessionStorage = function () {
                     {
                         console.log('ERRORS: ' + textStatus);
                     }
+                }).always(function ()
+                {
+                    clicked = false;
                 });
             }
         })
@@ -270,7 +282,7 @@ var formSessionStorage = function () {
     // Delete avatar cua a step in method
     var deleteAvatarStepMethod = function ()
     {
-        $(document).on('click', '.button_delete', function ()
+        $(document).on('click', '.button_delete_step', function ()
         {
             var stepId          = $(this).closest('.form-group-step').attr('data-id');
             var stepImage       = $('#step_img_placeholder'+stepId);
@@ -288,7 +300,7 @@ var formSessionStorage = function () {
                 {
                     if(response.status == 1)
                     {
-                        stepImage.attr('src', '/assets/img_pre.jpg');
+                        stepImage.attr('src', imgPlaceholder);
                         stepImage.addClass('hidden');
                         dataRecipe.methods[stepId]['image'] = '';
                         storeDataRecipe();
@@ -317,8 +329,27 @@ var formSessionStorage = function () {
                 // Xoa o sessionStorage va Browser
                 for(var i =1; i <= lengthListGroupStep; i++)
                 {
-                    if(listGroupStep[i].id== formGroupId)
+                    if(listGroupStep[i].id == formGroupId)
                     {
+                        if (listGroupStep[i].image != imgPlaceholder)
+                        {
+                            $.ajax({
+                                url: urlDeleteFile,
+                                type: 'POST',
+                                data: {
+                                    src  : listGroupStep[i].image
+                                },
+                                dataType: 'json',
+                                success: function(response)
+                                {
+                                    console.log(response);
+                                },
+                                error: function(jqXHR, textStatus, errorThrown)
+                                {
+                                    console.log('ERRORS: ' + textStatus);
+                                }
+                            });
+                        }
                         delete listGroupStep[i];
                         formGroupStep.remove();
                     }

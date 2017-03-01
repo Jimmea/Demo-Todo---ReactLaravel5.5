@@ -23,7 +23,8 @@
     display: none;
 }
 .button_delete,
-.image_upload
+.image_upload ,
+.button_delete_step
 {
     cursor: pointer;
     width: 40px;
