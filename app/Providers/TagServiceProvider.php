@@ -7,20 +7,22 @@ use Illuminate\Support\ServiceProvider;
 class TagServiceProvider extends ServiceProvider
 {
     /**
-     * Indicates if loading of the provider is deferred.
+     * Bootstrap the application services.
      *
-     * @var bool
+     * @return void
      */
-    protected $defer = false;
+    public function boot()
+    {
+        //
+    }
 
     /**
-     * Register the service provider.
+     * Register the application services.
      *
      * @return void
      */
     public function register()
     {
-        $this->app->singleton('App\Modes\Tags\TagRepository', 'App\Modes\Tags\EloquentTag');
+        $this->app->singleton('App\Models\Tags\TagRepository', 'App\Models\Tags\EloquentTag');
     }
-
 }

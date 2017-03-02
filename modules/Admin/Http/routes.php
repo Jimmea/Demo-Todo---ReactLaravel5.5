@@ -263,28 +263,28 @@ Route::group([
 
     // Tag
     Route::group(['prefix'=> 'tag'], function () {
-//        Route::get('/', [
-//            'as' => 'admincpp.getListTag',
-//            'uses' => 'AdminTagController@getListTag',
-//        ]);
+        Route::get('/', [
+            'as' => 'admincpp.getListTag',
+            'uses' => 'AdminTagController@getListTag',
+        ]);
         Route::get('/add', [
             'as' => 'admincpp.getAddTag',
             'uses' => 'AdminTagController@getAddTag',
         ]);
-//        Route::post('/add', [
-//            'as' => 'admincpp.postAddTag',
-//            'uses' => 'AdminTagController@postAddTag',
-//        ]);
-//
-//        Route::get('/edit/{tag_id}', [
-//            'as' => 'admincpp.getEditTag',
-//            'uses' => 'AdminTagController@getEditTag',
-//        ]);
-//
-//        Route::post('/edit/{ban_id}', [
-//            'as' => 'admincpp.postEditTag',
-//            'uses' => 'AdminTagController@postEditTag',
-//        ]);
+        Route::post('/add', [
+            'as' => 'admincpp.postAddTag',
+            'uses' => 'AdminTagController@postAddTag',
+        ]);
+
+        Route::get('/edit/{tag_id}', [
+            'as' => 'admincpp.getEditTag',
+            'uses' => 'AdminTagController@getEditTag',
+        ]);
+
+        Route::post('/edit/{ban_id}', [
+            'as' => 'admincpp.postEditTag',
+            'uses' => 'AdminTagController@postEditTag',
+        ]);
     });
 
     // File

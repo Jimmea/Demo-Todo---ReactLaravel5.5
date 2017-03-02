@@ -2,14 +2,14 @@
 
 namespace Modules\Admin\Http\Controllers;
 
-use App\Models\Tags\TagRepository;
 
+use App\Models\Tags\TagRepository;
 
 class AdminTagController extends AdminController
 {
    public function __construct(TagRepository $tagRepository)
    {
-
+        $this->tag = $tagRepository;
    }
 
    public function getListTag()
