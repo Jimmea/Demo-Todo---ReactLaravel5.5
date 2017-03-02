@@ -2,13 +2,15 @@
 
 namespace Modules\Admin\Http\Controllers;
 
+use App\Models\Categories\CategoryRepository;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 
 class AdminNewController extends AdminController
 {
-    public function __construct()
+    public function __construct(CategoryRepository $categoryRepository)
     {
+        $this->category = $categoryRepository;
     }
 
     /**
@@ -26,16 +28,44 @@ class AdminNewController extends AdminController
      */
     public function getAddNew()
     {
-        return view(ADMIN_VIEW . 'new.add');
+        $dataView = [
+            'categories'    => $this->category->getAllCategory(['cate_name']),
+            'configStatus'  => $this->getArrayBoolean()
+        ];
+        return view(ADMIN_VIEW . 'new.add')->with($dataView);
     }
 
     /**
      * @param
      * @return void
      */
-    public function postAddNew()
+    public function postAddNew(Request $request)
     {
-        
+        $newPicture         = get_value('new_picture', 'str', 'POST');
+        $newCateId          = get_value('new_cate_id', 'int', 'POST');
+        $newTitle           = get_value('new_title', 'str', 'POST');
+        $newDescription     = get_value('new_description', 'str', 'POST');
+        $newIngredient      = get_value('new_ingredient', 'str', 'POST');
+        $newVideo           = get_value('new_video', 'str', 'POST');
+        $newStatus          = get_value('new_status', 'arr', 'POST');
+        $newStepTitle       = get_value('new_step_title', 'arr', 'POST');
+        $newStepPicture     = get_value('new__step_picure', 'arr', 'POST');
+        $methods            = array();
+        if ($newStepTitle)
+        {
+            foreach ($newStepTitle as $key => $value)
+            {
+                if ($value)
+                {
+                    $methods[] = ['title' => $value, 'picture' => $newStepPicture[$key]];
+                }
+            }
+        }
+
+        $dataForm = [
+
+        ];
+
     }
 
     /**
@@ -54,78 +84,6 @@ class AdminNewController extends AdminController
     public function postEditNew()
     {
         
-    }
-
-    /**
-     * Upload file avatar
-     * @param void
-     * @return json
-     */
-    public function postUploadAndDeleteFile(Request $request)
-    {
-        if ($request->ajax())
-        {
-            $action     = $request->get('action');
-            $src        = $request->get('src');
-            $upload     = new \UploadAjax();
-
-            // Delete anh
-            if($action == 'delete')
-            {
-                if ($src) $upload->deleteFile(public_path(), $src);
-                return $this->responseSuccess('Delete successfully');
-            }
-
-            // Add file moi
-            $file       = isset($_FILES[0]) ?  $_FILES[0] : array();
-            $path       = $upload->uploadFile($file, 'recipes');
-            if ($src) $upload->deleteFile(public_path(), $src);
-
-            return (!$path) ? $this->responseError($upload->showWarningError()) : $this->responseSuccess($path);
-        }
-        return $this->responseError();
-    }
-
-    /**
-     * @param
-     * @return void
-     */
-    public function postUploadAndDeleteFileStep(Request $request)
-    {
-        if ($request->ajax())
-        {
-            $action     = $request->get('action');
-            $src        = $request->get('src');
-            $upload     = new \UploadAjax();
-            // Delete anh
-            if($action == 'delete')
-            {
-                if ($src) $upload->deleteFile(public_path(), $src);
-                return $this->responseSuccess('Delete successfully');
-            }
-            // Add file moi
-            $file       = isset($_FILES[0]) ?  $_FILES[0] : array();
-            $path       = $upload->uploadFile($file, 'recipes');
-            if ($src) $upload->deleteFile(public_path(), $src);
-
-            return (!$path) ? $this->responseError($upload->showWarningError()) : $this->responseSuccess($path);
-        }
-        return $this->responseError();
-    }
-
-    public function getDeleteFile(Request $request)
-    {
-        if ($request->ajax())
-        {
-            $src = get_value('src', 'str', 'POST');
-            if ($src)
-            {
-                $upload     = new \UploadAjax();
-                if ($src) $upload->deleteFile(public_path(), $src);
-                return $this->responseSuccess();
-            }
-        }
-        return $this->responseError();
     }
 
     /**

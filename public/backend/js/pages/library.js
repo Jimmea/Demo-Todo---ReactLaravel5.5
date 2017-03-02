@@ -311,6 +311,24 @@ function executeFormTable()
     })
 }
 
+// Scrolltop
+var scrollTop = function () {
+    $(window).scroll(function () {
+        var height = $(window).scrollTop();
+        if (height > 200)
+        {
+            $('.scroll-top').removeClass('hidden');
+        }else
+        {
+            $('.scroll-top').addClass('hidden');
+        }
+    });
+    $('.button-scroll-top').click(function () {
+        $("html, body").animate({ scrollTop: 0 }, "slow");
+        return false;
+    });
+}
+
 // Sửa nhanh thông tin
 function EditQuickXtable($url, $selector)
 {
@@ -342,5 +360,6 @@ $(document).ready(function()
     executeFormTable();
     hoverTrContentTable();
     initColorPicker();
+    scrollTop();
     // clickMenuSidebar();
 });

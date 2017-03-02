@@ -125,7 +125,7 @@ class Form
                         '</label>';
 
             // Truong hop cho form hien thi kieu inline
-            $formGroup .= ($this->formType == 1) ? '<div class="' . $classDivInput . '">' : '';
+            $formGroup .= ($this->formType == 1) ? '<div class="'. $classDivInput . '">' : '';
 
             $formGroup .= $inputControl;
             $formGroup .= get_error($this->errors, $name);

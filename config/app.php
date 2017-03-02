@@ -191,6 +191,8 @@ return [
         \App\Providers\ModuleServiceProvider::class,
         \App\Providers\AdminUserRightServiceProvider::class,
         \App\Providers\BannerServiceProvider::class,
+        \App\Providers\FileServiceProvider::class,
+        \App\Providers\TagServiceProvider::class,
     ],
 
     /*

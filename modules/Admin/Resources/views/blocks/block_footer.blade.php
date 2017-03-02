@@ -8,3 +8,6 @@
         <a href="" class="pull-right">Website : Familycook.com</a>
     </div>
 </footer>
+<div class="scroll-top hidden">
+    <a href="javascrip:void(0)" class="button-scroll-top"><i class="icon-arrow-up"></i></a>
+</div>

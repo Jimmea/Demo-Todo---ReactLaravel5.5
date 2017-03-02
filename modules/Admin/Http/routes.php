@@ -231,6 +231,7 @@ Route::group([
         });
     });
 
+    // New
     Route::group(['prefix'=> 'new'], function () {
         Route::get('/', [
             'as' => 'admincpp.getListNew',
@@ -258,20 +259,45 @@ Route::group([
            'as' => 'admincpp.postAddStep',
             'uses' => 'AdminNewController@postAddStep'
         ]);
-        Route::post('/upload-file', [
-            'as' => 'admincpp.postUploadFile',
-            'uses' => 'AdminNewController@postUploadAndDeleteFile'
-        ]);
-        Route::post('/upload-file-step', [
-            'as' => 'admincpp.postUploadFileStep',
-            'uses' => 'AdminNewController@postUploadAndDeleteFileStep'
-        ]);
-        Route::post('/delete-file', [
-            'as' => 'admincpp.getDeleteFile',
-            'uses' => 'AdminNewController@getDeleteFile'
-        ]);
     });
 
+    // Tag
+    Route::group(['prefix'=> 'tag'], function () {
+//        Route::get('/', [
+//            'as' => 'admincpp.getListTag',
+//            'uses' => 'AdminTagController@getListTag',
+//        ]);
+        Route::get('/add', [
+            'as' => 'admincpp.getAddTag',
+            'uses' => 'AdminTagController@getAddTag',
+        ]);
+//        Route::post('/add', [
+//            'as' => 'admincpp.postAddTag',
+//            'uses' => 'AdminTagController@postAddTag',
+//        ]);
+//
+//        Route::get('/edit/{tag_id}', [
+//            'as' => 'admincpp.getEditTag',
+//            'uses' => 'AdminTagController@getEditTag',
+//        ]);
+//
+//        Route::post('/edit/{ban_id}', [
+//            'as' => 'admincpp.postEditTag',
+//            'uses' => 'AdminTagController@postEditTag',
+//        ]);
+    });
+
+    // File
+    Route::group(['prefix'=> 'files', 'namespace' => 'Files'], function () {
+       Route::post('/upload', [
+           'as'     => 'uploadFileAjax',
+           'uses'   => 'FileController@uploadFileAjax'
+       ]);
+       Route::post('/delete', [
+           'as'     => 'deleteFile',
+           'uses'   => 'FileController@deleteFile'
+       ]);
+    });
 
     // Access denied
     Route::get('/access_denied', function () {

@@ -2,6 +2,7 @@
     $step = isset($step) ? $step : 1 ;
 ?>
 <div class="form-group form-group-step" data-id="{{ $step }}" id="step-{{ $step }}">
+    <input type="hidden" name="new__step_picure[]" value="" class="hidden new__step_picure">
     <div class="control-label-header">
         <label class="label label-warning label-step label-step-{{ $step }}">{{ $step }}</label>
         <label class="label label-upload" for="new_step_picure{{ $step }}" title="click tải hình ảnh minh họa"><i class="fa fa-camera"></i></label>
@@ -19,7 +20,7 @@
             </div>
         </div>
         <div class="media_body_prose">
-            <textarea class="form-control form-control-auto" name="" placeholder="Mô tả cách làm từng bước ..." id="form-control-{{ $step }}" cols="30" rows="3"></textarea>
+            <textarea class="form-control form-control-auto" name="new_step_title[]" placeholder="Mô tả cách làm từng bước ..." id="form-control-{{ $step }}" cols="30" rows="3"></textarea>
         </div>
     </div>
 </div>
