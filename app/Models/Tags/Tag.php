@@ -13,4 +13,9 @@ class Tag extends Model
     {
         return $this->belongsTo('App\Models\Admins\Admin', 'tag_admin_id');
     }
+
+    public function tintucs()
+    {
+        return $this->belongsToMany('App\Models\Tintucs\Tintuc', 'tag_news', 'tagn_tag_id', 'tagn_new_id');
+    }
 }

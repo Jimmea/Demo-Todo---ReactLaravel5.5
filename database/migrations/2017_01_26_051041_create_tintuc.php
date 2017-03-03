@@ -56,12 +56,12 @@ class CreateTintuc extends Migration
                 $table->text('nec_content')->nullable();
                 $table->string('nec_seo_title')->nullable();
                 $table->string('nec_seo_keyword')->nullable();
+                $table->text('nec_seo_description')->nullable();
+                $table->string('nec_seo_metah1')->nullable();
                 $table->text('nec_collection_recipes')->nullable(); // bo suu tap cong thuc
                 $table->text('nec_collection_address')->nullable(); // bo suu tap dia diem an uong
                 $table->text('nec_ingredients')->nullable();
                 $table->text('nec_directions')->nullable();
-                $table->text('nec_seo_description')->nullable();
-                $table->string('nec_seo_metah1')->nullable();
             });
         }
 

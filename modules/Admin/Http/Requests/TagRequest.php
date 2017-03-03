@@ -2,9 +2,9 @@
 
 namespace Modules\Admin\Http\Requests;
 
-use Illuminate\Foundation\Http\FormRequest;
+use App\Http\Requests\FilterForm;
 
-class TagRequest extends FormRequest
+class TagRequest extends FilterForm
 {
     /**
      * Get the validation rules that apply to the request.
@@ -14,7 +14,15 @@ class TagRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'tag_name' => 'required|unique:tags,tag_name,'.$this->tag_id.',tag_id',
+        ];
+    }
+
+    public function messages()
+    {
+        return [
+            'tag_name.required' => trans('admin::form.messages.required'),
+            'tag_name.unique'   => trans('admin::form.messages.unique')
         ];
     }
 

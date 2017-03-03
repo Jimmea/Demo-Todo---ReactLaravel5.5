@@ -1,7 +1,16 @@
-<?php
-/**
- * Created by PhpStorm.
- * User: IT_PTSP
- * Date: 3/2/2017
- * Time: 4:12 PM
- */
+@extends('admin::layouts.master')
+@section('content')
+{!! bread_crumb([
+        'admincpp.getListTag'=> 'List tag',
+        trans('admin:form.edit.title')
+    ])
+!!}
+<div class="row">
+    <div class="col-md-12">
+        <div class="white-box">
+            {!! box_title(trans('admin::form.edit.title')) !!}
+            @include(ADMIN_VIEW. 'tags.form',['routeName'=> 'admincpp.postEditTag', 'routeParam'=> $tag->tag_id])
+        </div>
+    </div>
+</div
+@stop

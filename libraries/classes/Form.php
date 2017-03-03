@@ -128,7 +128,7 @@ class Form
             $formGroup .= ($this->formType == 1) ? '<div class="'. $classDivInput . '">' : '';
 
             $formGroup .= $inputControl;
-            $formGroup .= get_error($this->errors, $name);
+            $formGroup .= $require ? get_error($this->errors, $name) : '';
 
             // Truong hop cho form hien thi kieu inline
             $formGroup .= ($this->formType == 1) ? '</div>' : '';
@@ -339,7 +339,7 @@ class Form
         $attributeHtml  = $this->converArrayAttribute($attributeHtml);
         $styleInput     = $this->createStyle($inputId);
 
-        $formGroup  = '<textarea name="'.$nameInput.'" '. $attributeHtml .' '. $styleInput .' cols="30" rows="5">' . $value . '</textarea>';
+        $formGroup  = '<textarea name="'.$nameInput.'" '. $attributeHtml .' '. $styleInput .' cols="30" rows="3">' . $value . '</textarea>';
 
         return $this->createFormGroup($formGroup, $title, $nameInput, $require);
     }

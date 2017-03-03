@@ -1,4 +1,24 @@
 <?php
+
+function getArrangeDate($startTime, $endTime)
+{
+    $startTime      = date_create($startTime);
+    $endTime        = date_create($endTime);
+    $diff           = date_diff($startTime,$endTime);
+
+    return [
+        'month' => $diff->m,
+        'week'  => (int)(($diff->d)/7),
+        'day'   => (($diff->d)%7),
+        'hour'  => $diff->h,
+    ];
+}
+
+function dateCurrency($date)
+{
+    return date('Y-m-d', strtotime($date));
+}
+
 function convert_datetime($strDate = "", $strTime = "")
 {
     //Break string and create array date time

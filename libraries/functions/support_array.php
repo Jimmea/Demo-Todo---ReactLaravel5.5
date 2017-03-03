@@ -8,6 +8,16 @@
  *
  */
 
+
+if (! function_exists('break_string_toarray'))
+{
+    function break_string_toarray($string)
+    {
+        $string = str_replace(array("\r\n", "\r", "\n", "\t"), '|||', $string);
+        return explode('|||', $string);
+    }
+}
+
 if (!function_exists('echo_array'))
 {
     /**

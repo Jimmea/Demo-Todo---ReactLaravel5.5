@@ -3,14 +3,23 @@
 namespace Modules\Admin\Http\Controllers;
 
 use App\Models\Categories\CategoryRepository;
+use App\Models\Tintucs\TintucRepository;
 use Illuminate\Http\Request;
-use Illuminate\Http\Response;
+use Modules\Admin\Http\Requests\TintucRequest;
 
 class AdminNewController extends AdminController
 {
-    public function __construct(CategoryRepository $categoryRepository)
+    protected $newType = [
+        'crawl'         => 1,
+        'user_write'    => 2,
+        'albumn'        => 3,
+        'friend'        => 4,
+    ];
+
+    public function __construct(CategoryRepository $categoryRepository, TintucRepository $tintucRepository)
     {
         $this->category = $categoryRepository;
+        $this->tintuc   = $tintucRepository;
     }
 
     /**
@@ -19,7 +28,7 @@ class AdminNewController extends AdminController
      */
     public function getListNew()
     {
-        
+
     }
 
     /**
@@ -39,17 +48,11 @@ class AdminNewController extends AdminController
      * @param
      * @return void
      */
-    public function postAddNew(Request $request)
+    public function postAddNew(TintucRequest $request)
     {
-        $newPicture         = get_value('new_picture', 'str', 'POST');
-        $newCateId          = get_value('new_cate_id', 'int', 'POST');
-        $newTitle           = get_value('new_title', 'str', 'POST');
-        $newDescription     = get_value('new_description', 'str', 'POST');
-        $newIngredient      = get_value('new_ingredient', 'str', 'POST');
-        $newVideo           = get_value('new_video', 'str', 'POST');
-        $newStatus          = get_value('new_status', 'arr', 'POST');
         $newStepTitle       = get_value('new_step_title', 'arr', 'POST');
         $newStepPicture     = get_value('new__step_picure', 'arr', 'POST');
+
         $methods            = array();
         if ($newStepTitle)
         {
@@ -62,10 +65,55 @@ class AdminNewController extends AdminController
             }
         }
 
+        $newTitle           = get_value('new_title', 'str', 'POST');
+        $newDescription     = get_value('new_description', 'str', 'POST');
         $dataForm = [
-
+            'new_title'            => $newTitle,
+            'new_slug'             => str_remove_accent($newTitle),
+            'new_more_slug'        => str_remove_accent($newTitle),
+            'new_title_md5'        => md5($newTitle),
+            'new_domain_id'        => 1,
+            'new_link_from_domain' => 'NULL',
+            'new_picture'          => get_value('new_picture', 'arr', 'POST'),
+            'new_cate_id'          => get_value('new_cate_id', 'int', 'POST'),
+            'new_description'      => $newDescription,
+            'new_top'              => 0,
+            'new_hot'              => 0,
+            'new_status'           => get_value('new_status', 'int', 'POST'),
+            'new_order'            => 0,
+            'new_type'             => $this->newType['user_write'],
+            'new_admin_id'         => $this->getAdminId(),
         ];
 
+        $dataForm   = $request->filterDataForm($dataForm);
+        $newAdd     = $this->tintuc->storeData($dataForm);
+
+        if ($newAdd)
+        {
+            $lastNewId       = $newAdd->new_id;
+            $ingredients     = break_string_toarray(get_value('new_ingredient', 'str', 'POST'));
+            // Add thong tin content
+            $dataFormContent = [
+                'nec_id'               => $lastNewId,
+                'nec_seo_metah1'       => $newTitle,
+                'nec_content'          => '',
+                'nec_video'            => get_value('new_video', 'str', 'POST'),
+                'nec_seo_title'        => get_value('new_meta_title', 'str', 'POST'),
+                'nec_seo_keyword'      => get_value('new_meta_keyword', 'str', 'POST'),
+                'nec_seo_description'  => get_value('new_meta_description', 'str', 'POST'),
+                'nec_ingredients'      => json_encode($ingredients),
+                'nec_directions'       => json_encode($methods),
+            ];
+
+            $tableContent  = get_table_of_content_new($lastNewId);
+            $this->tintuc->storeNewContentByTable($tableContent, $dataFormContent);
+
+            // Add thong tin the tag
+            $this->tintuc->attachTag($newAdd, [1, 2, 3]);
+        }
+
+        set_flash_add_success();
+        return redirect()->route('admincpp.getListNew');
     }
 
     /**

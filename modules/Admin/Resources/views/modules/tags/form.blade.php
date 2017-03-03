@@ -1,7 +1,6 @@
-<?php
-/**
- * Created by PhpStorm.
- * User: IT_PTSP
- * Date: 3/2/2017
- * Time: 4:12 PM
- */
+@php $form = new Form($errors, $tag) @endphp
+{{ $form->beginForm([$routeName, $routeParam]) }}
+{{ $form->groupText('Tag name', 'tag_name', 'tag_name', true, ['div' => 'col-md-5']) }}
+<input type="hidden" name="tag_active" value="1">
+{{ $form->groupSubmitReset() }}
+{{ $form->closeForm() }}

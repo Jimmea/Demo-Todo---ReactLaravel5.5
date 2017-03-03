@@ -23,3 +23,22 @@
 .media_body_prose textarea {
   height: 110px;
 }
+#ui-id-1,
+.ui-autocomplete {
+  padding: 0;
+  max-height: 300px;
+  overflow-y: scroll;
+  list-style: none;
+  width: 300px;
+  background: #edf1f5;
+  border: 1px solid #edf1f5;
+}
+#ui-id-1 .ui-menu-item,
+.ui-autocomplete .ui-menu-item {
+  padding: 5px;
+}
+#ui-id-1 .ui-menu-item:hover,
+.ui-autocomplete .ui-menu-item:hover {
+  cursor: pointer;
+  background-color: #C8E195;
+}

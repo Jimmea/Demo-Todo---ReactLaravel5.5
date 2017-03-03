@@ -11,5 +11,13 @@ namespace App\Models\Tags;
 
 interface TagRepository
 {
-
+    public function getAll($filter = false, $sort = false, $limit = false);
+    public function findById($id);
+    public function storeData($attributes);
+    public function updateById($id, $data);
+    public function updateByField($id, $field, $otherValue);
+    public function deleteById($id);
+    public function searchTag($tag);
+    public function searchMd5Tag($tag);
+    public function searchLikeTag($tag);
 }

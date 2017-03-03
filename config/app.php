@@ -183,15 +183,10 @@ return [
         App\Providers\RouteServiceProvider::class,
 
         // model service provider
-        \App\Providers\MenuServiceProvider::class,
-        \App\Providers\AccountServiceProvider::class,
         \App\Providers\ConfigurationServiceProvider::class,
-        \App\Providers\CategoryServiceProvider::class,
         \App\Providers\ModuleServiceProvider::class,
-        \App\Providers\AdminUserRightServiceProvider::class,
-        \App\Providers\BannerServiceProvider::class,
         \App\Providers\FileServiceProvider::class,
-        \App\Providers\TagServiceProvider::class,
+        \App\Providers\BackendServiceProvider::class,
     ],
 
     /*

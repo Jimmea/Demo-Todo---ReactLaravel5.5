@@ -58,8 +58,8 @@ class AdminController extends Controller
     public function getArrayBoolean()
     {
         return [
-            0 => 'Disable',
-            1 => 'Unable'
+            0 => 'Cho phép ẩn',
+            1 => 'Cho phép hiển thị'
         ];
     }
 

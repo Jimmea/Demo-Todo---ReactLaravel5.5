@@ -1,4 +1,5 @@
 <?php
+//dd(bcrypt('123456'));
 Route::group([
     'middleware' => ['web', 'checkadminlogin'],
     'prefix'     => 'admincpp',
@@ -263,7 +264,7 @@ Route::group([
 
     // Tag
     Route::group(['prefix'=> 'tag'], function () {
-        Route::get('/', [
+        Route::any('/', [
             'as' => 'admincpp.getListTag',
             'uses' => 'AdminTagController@getListTag',
         ]);
@@ -281,9 +282,14 @@ Route::group([
             'uses' => 'AdminTagController@getEditTag',
         ]);
 
-        Route::post('/edit/{ban_id}', [
+        Route::post('/edit/{tag_id}', [
             'as' => 'admincpp.postEditTag',
             'uses' => 'AdminTagController@postEditTag',
+        ]);
+
+        Route::any('/delete/{id?}', [
+            'as'    => 'admincpp.getDeleteTag',
+            'uses' => 'AdminTagController@getDeleteTag'
         ]);
     });
 

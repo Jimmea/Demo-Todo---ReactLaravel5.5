@@ -350,8 +350,15 @@ function EditQuickXtable($url, $selector)
     });
 }
 
-function initColorPicker() {
+function initIntergratePlugin() {
     $(".colorpicker").asColorPicker();
+    // $('#dataTableList').DataTable({
+    //     'order'    : [[0, 'desc']],
+    //     bFilter    : false,
+    //     bInfo      : false,
+    //     paging     : false,
+    //     searching  : false
+    // });
 }
 
 $(document).ready(function()
@@ -359,7 +366,7 @@ $(document).ready(function()
     setCheckAllTable();
     executeFormTable();
     hoverTrContentTable();
-    initColorPicker();
+    initIntergratePlugin();
     scrollTop();
     // clickMenuSidebar();
 });

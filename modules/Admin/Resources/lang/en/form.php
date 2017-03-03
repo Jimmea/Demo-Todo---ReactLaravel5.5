@@ -11,6 +11,7 @@ return [
         'title' => 'Cập nhật',
     ],
     'messages'      => [
-           'required' => 'Please fill out this field',
+           'required'   => "Please fill out this field",
+           'unique'     => "It's already... Please type a other word",
     ],
 ];

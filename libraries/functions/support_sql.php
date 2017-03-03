@@ -80,6 +80,6 @@ if (!function_exists('get_table_of_content_new'))
 {
     function get_table_of_content_new($newId, $recordsNewsContent=50000)
     {
-        return 'news_content_' . (int)ceil($newId/$recordsNewsContent);
+        return 'new_content_' . (int)ceil($newId/$recordsNewsContent);
     }
 }

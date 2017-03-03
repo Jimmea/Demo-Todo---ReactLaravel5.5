@@ -69,7 +69,8 @@ if (! function_exists('get_error'))
 {
     function get_error($errors, $key)
     {
-        return (isset($errors) && $errors) ? '<span class="help-block">'.$errors->first($key).'</span>' : '';
+        $helpBlock  = (isset($errors) && $errors) ? '<span class="help-block">'.$errors->first($key).'</span>' : '';
+        return $helpBlock;
     }
 }
 
