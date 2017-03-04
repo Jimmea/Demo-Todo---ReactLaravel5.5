@@ -59,7 +59,7 @@ if(!function_exists('header_title_action'))
             $html .= '<a href="'.route($route).'" class="btn btn-info btn-sm"><i class="icon-plus"></i> ADD NEW</a>';
         $html .= '</div>';
 
-        return $html;
+        return new \Illuminate\Support\HtmlString($html);
     }
 }
 

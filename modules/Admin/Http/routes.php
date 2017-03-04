@@ -234,7 +234,7 @@ Route::group([
 
     // New
     Route::group(['prefix'=> 'new'], function () {
-        Route::get('/', [
+        Route::any('/', [
             'as' => 'admincpp.getListNew',
             'uses'=> 'AdminNewController@getListNew'
         ]);
@@ -257,8 +257,12 @@ Route::group([
             'uses'=> 'AdminNewController@postEditNew'
         ]);
         Route::post('/add-step', [
-           'as' => 'admincpp.postAddStep',
+            'as' => 'admincpp.postAddStep',
             'uses' => 'AdminNewController@postAddStep'
+        ]);
+        Route::get('/delete/{id}', [
+            'as' => 'admincpp.getDeleteNew',
+            'uses' => 'AdminNewController@getDeleteNew'
         ]);
     });
 

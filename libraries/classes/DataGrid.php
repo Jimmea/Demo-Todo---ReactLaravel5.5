@@ -1131,7 +1131,9 @@ class DataGrid
     public function makeCheckButton($routeName,array $row= array())
     {
         list($field, $value)  = $row;
-        return '<td align="center"><a onclick="updateCheck(this); return false" class="grid-icon" data-img="'. $this->image_path . 'check_' . ($value[$field] ? 0 : 1) . '.png" field="' . $field. '" record_id="' . $this->primaryKey .  '" href="' . route($routeName) . '"><img class="img-responsive" src="'. $this->image_path . 'check_' . $value[$field] . '.png" border="0"></a></td>';
+        $html = '<td align="center"><a onclick="updateCheck(this); return false" class="grid-icon" data-img="'. $this->image_path . 'check_' . ($value[$field] ? 0 : 1) . '.png" field="' . $field. '" record_id="' . $this->primaryKey .  '" href="' . route($routeName) . '"><img class="img-responsive" src="'. $this->image_path . 'check_' . $value[$field] . '.png" border="0"></a></td>';
+
+        return $this->htmlString($html);
     }
 
     /**
@@ -1143,10 +1145,11 @@ class DataGrid
      */
     public function makeEditButton($routeName)
     {
-        return '<td align="center"><a title="Are You want to edit this record" 
+        $html= '<td align="center"><a title="Are You want to edit this record" 
                 class="grid-icon" 
                 href="' . route($routeName, $this->primaryKey) . '">
                 <img class="img-responsive" src="'. $this->image_path .'/edit.png" border="0"></a></td>';
+        return $this->htmlString($html);
     }
 
     /**
@@ -1158,7 +1161,8 @@ class DataGrid
      */
     public function makeDeleteButton($routeName)
     {
-        return '<td align="center"><a title="Are You sure want to delete this record" class="delete grid-icon" href="' .route($routeName, $this->primaryKey) . '" onclick="return confirm(`Are you sure to delete this record?`)"><img class="img-responsive" src="'. $this->image_path .'/delete.png" border="0"></a></td>';
+        $html = '<td align="center"><a title="Are You sure want to delete this record" class="delete grid-icon" href="' .route($routeName, $this->primaryKey) . '" onclick="return confirm(`Are you sure to delete this record?`)"><img class="img-responsive" src="'. $this->image_path .'/delete.png" border="0"></a></td>';
+        return $this->htmlString($html);
     }
 
     /**
@@ -1192,6 +1196,77 @@ class DataGrid
                         </td>
                     </tr>
                 </tfoot>';
-        return $html;
+
+        return $this->htmlString($html);
+    }
+
+    public function htmlString($str)
+    {
+        return new \Illuminate\Support\HtmlString($str);
+    }
+
+    public function beginFormSearch($routeName='')
+    {
+        $action = $routeName ? route($routeName) : '';
+        $html = '<div class="header-search clearleft search-box">
+                    <form action="'.$action.'" class="form-inline">';
+
+        return $this->htmlString($html);
+    }
+
+    public function labelSearch($labelName, $fieldName, $typeData='text', $valueDefault='', $valueActive= array(),$class='')
+    {
+        $html = '';
+        switch ($typeData)
+        {
+            case 'string':
+            case 'text' :
+                $value = get_value($fieldName, "str", "GET", '');
+                $html = '<label class="text">' . $labelName . '<input type="text" class="form-control '. $class.' input-sm" name="' . $fieldName . '" id="' . $fieldName . '" placeholder="' . $labelName . '" value="' . $value . '"></label>';
+                return $this->htmlString($html);
+                break;
+
+            case 'number' :
+                $value = Request::get($fieldName);
+                $html = '<label class="text">' . $labelName . '<input type="text" class="form-control '. $class.' input-sm" name="' . $fieldName . '" id="' . $fieldName . '" placeholder="' . $labelName . '" value="' . $value . '"></label>';
+                return $this->htmlString($html);
+                break;
+
+
+            case "date":
+                $value = get_value($fieldName, "str", "GET", "dd/mm/yyyy");
+                $html = '<label class="text">' . $labelName . '&nbsp;<input type="text"  class="form-control '. $class.' input-sm date" ' . $labelName . ' name="' . $fieldName . '" id="' . $fieldName . '"  onKeyPress="displayDatePicker(\'' . $fieldName . '\', this);" onClick="displayDatePicker(\'' . $fieldName . '\', this);" onfocus="if(this.value==\'' . translate_text("Enter") . ' ' .$fieldName . '\') this.value=\'\'" onblur="if(this.value==\'\') this.value=\'' . translate_text("Enter") . ' ' . $fieldName . '\'" value="' . $value . '"></label>';
+                return $this->htmlString($html);
+                break;
+
+            case "array":
+                $html 			.= '<label class="text">' . $labelName . '<select class="form-control '. $class.' input-sm" name="' . $fieldName . '" id="' . $fieldName . '">';
+                $html 			.= '<option value="">- ' .  $labelName . ' -</option>';
+                $selected 		 = get_value($fieldName, "int", "GET");
+                $separator       = '';
+                list($id, $name) = $valueActive ? $valueActive : array(NULL, NULL);
+                foreach($valueDefault as $key => $value)
+                {
+                    if (isset($value['level']))
+                    {
+                        $html .= '<option value="' . $value->$id . '" ' . (($selected==$value->$id) ? 'selected' : '') . '>';
+                            for($i=0; $i < $value["level"];$i++) $separator .="---";
+                            $html .= $separator . ucfirst($value->$name);
+                         $html .='</option>';
+                    }else
+                    {
+                        $html .= '<option value="' . $key . '" ' . (($selected==$key) ? 'selected' : '') . '>' . ucfirst($value) . '</option>';
+                    }
+                }
+                $html .= '</select></label>';
+                return $this->htmlString($html);
+                break;
+        }
+    }
+
+    public function closeForm()
+    {
+        $html = '<label for=""><button class="btn btn-info btn-sm"><i class="icon-magnifier"></i> Search</button></label></form></div>';
+        return $this->htmlString($html);
     }
 }

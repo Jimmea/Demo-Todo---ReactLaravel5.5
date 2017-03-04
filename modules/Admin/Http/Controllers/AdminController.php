@@ -6,10 +6,18 @@ namespace Modules\Admin\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\View;
 
 
 class AdminController extends Controller
 {
+
+    public function __construct()
+    {
+        $category = app('App\Models\Categories\CategoryRepository');
+        View::share('categories', $category->getAllCategory(['cate_name']));
+        View::share('configStatus', $this->getArrayBoolean());
+    }
 
     /**
      * Filter list

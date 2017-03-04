@@ -212,7 +212,8 @@ if (!function_exists('get_separator_url'))
  */
 if (! function_exists('is_url'))
 {
-    function is_url($url) {
+    function is_url($url)
+    {
         return filter_var($url, FILTER_VALIDATE_URL);
     }
 }

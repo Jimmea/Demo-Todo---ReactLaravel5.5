@@ -18,8 +18,15 @@ class Tintuc extends Model
         return $this->belongsTo('App\Models\Admins\Admin', 'new_admin_id');
     }
 
+    public function categories()
+    {
+        return $this->belongsTo('App\Models\Categories\Category', 'new_cate_id');
+    }
+
     public function tags()
     {
         return $this->belongsToMany('App\Models\Tags\Tag', 'tag_news', 'tagn_new_id', 'tagn_tag_id');
     }
+
+
 }

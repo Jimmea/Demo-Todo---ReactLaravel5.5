@@ -9,26 +9,68 @@ use Modules\Admin\Http\Requests\TintucRequest;
 
 class AdminNewController extends AdminController
 {
-    protected $newType = [
+    private $newType = [
         'crawl'         => 1,
         'user_write'    => 2,
         'albumn'        => 3,
         'friend'        => 4,
     ];
 
-    public function __construct(CategoryRepository $categoryRepository, TintucRepository $tintucRepository)
+    public function __construct(TintucRepository $tintucRepository)
     {
-        $this->category = $categoryRepository;
+        parent::__construct();
         $this->tintuc   = $tintucRepository;
     }
 
+    private function getNewType()
+    {
+        $newType = array();
+        foreach ($this->newType as $name => $stt)
+        {
+            $newType[$stt] = $name;
+        }
+        return $newType;
+    }
+
     /**
+     * Show dannh sach
      * @param
      * @return void
      */
-    public function getListNew()
+    public function getListNew(Request $request)
     {
+        if ($request->ajax())
+        {
+            $field      = get_value('field', 'str', 'POST');
+            $recordId   = get_value('record_id', 'int', 'POST');
+            if ($field && $recordId)
+            {
+                switch ($field)
+                {
+                    case 'new_status':
+                         $this->tintuc->updateByField($recordId, 'new_status');
+                        break;
+                }
+                return $this->responseSuccess();
+            }
+            return $this->responseError();
+        }
 
+        $this->setFilter($request, 'new_id', '=');
+        $this->setFilter($request, 'new_title', 'LIKE');
+        $this->setFilter($request, 'new_cate_id', '=');
+        $this->setFilter($request, 'new_type', '=');
+        $this->setFilter($request, 'new_admin_id', '=');
+
+        $filter     = $this->getFilter();
+        $sort       = ['new_id', 'DESC'];
+        $news       = $this->tintuc->getListNewPaginate($filter, $sort, 30);
+
+        $dataView   = [
+            'news'       => $news,
+            'newTypes'   => $this->getNewType()
+        ];
+        return view(ADMIN_VIEW . 'news.list')->with($dataView);
     }
 
     /**
@@ -37,11 +79,7 @@ class AdminNewController extends AdminController
      */
     public function getAddNew()
     {
-        $dataView = [
-            'categories'    => $this->category->getAllCategory(['cate_name']),
-            'configStatus'  => $this->getArrayBoolean()
-        ];
-        return view(ADMIN_VIEW . 'new.add')->with($dataView);
+        return view(ADMIN_VIEW . 'news.add');
     }
 
     /**
@@ -70,7 +108,6 @@ class AdminNewController extends AdminController
         $dataForm = [
             'new_title'            => $newTitle,
             'new_slug'             => str_remove_accent($newTitle),
-            'new_more_slug'        => str_remove_accent($newTitle),
             'new_title_md5'        => md5($newTitle),
             'new_domain_id'        => 1,
             'new_link_from_domain' => 'NULL',
@@ -113,16 +150,21 @@ class AdminNewController extends AdminController
         }
 
         set_flash_add_success();
+        echo '<script type="text/javascript">sessionStorage.removeItem("dataRecipe");</script>';
         return redirect()->route('admincpp.getListNew');
     }
 
     /**
-     * @param
+     * Hien thi form sua thong tin
+     * @param int $id : truong khoa chinh cua bang new
      * @return void
      */
-    public function getEditNew()
+    public function getEditNew($id)
     {
-        
+        $dataView = [
+            'new' => $this->tintuc->findById($id)
+        ];
+        return view(ADMIN_VIEW . 'news.edit')->with($dataView);
     }
 
     /**
@@ -132,6 +174,11 @@ class AdminNewController extends AdminController
     public function postEditNew()
     {
         
+    }
+
+    public function getDeleteNew($id)
+    {
+
     }
 
     /**
@@ -148,7 +195,7 @@ class AdminNewController extends AdminController
                 'code'      => 1,
                 'message'   => 'success',
                 's'         => $step,
-                'groupstep' => view(ADMIN_VIEW . 'new/groupstep', compact('step'))->render()
+                'groupstep' => view(ADMIN_VIEW . 'news.groupstep', compact('step'))->render()
             ]);
         }
         return $this->responseError();

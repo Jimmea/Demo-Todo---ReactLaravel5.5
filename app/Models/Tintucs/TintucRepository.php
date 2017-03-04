@@ -11,10 +11,11 @@ namespace App\Models\Tintucs;
 
 interface TintucRepository
 {
-    public function getListNew();
+    public function getListNewPaginate($filter, $sort, $limit);
     public function storeData($attributes);
     public function updateById($id, $attributes);
-    public function findById($id);
+    public function updateByField($id, $field, $otherValue);
+    public function findByNewId($id);
     public function delete($id);
     public function attachTag($instance, $tag_id = array());
     public function syncTag($instance, $tag_id = array());

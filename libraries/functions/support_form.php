@@ -70,6 +70,7 @@ if (! function_exists('get_error'))
     function get_error($errors, $key)
     {
         $helpBlock  = (isset($errors) && $errors) ? '<span class="help-block">'.$errors->first($key).'</span>' : '';
+
         return $helpBlock;
     }
 }

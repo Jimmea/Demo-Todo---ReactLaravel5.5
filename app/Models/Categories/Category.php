@@ -2,6 +2,7 @@
 
 namespace App\Models\Categories;
 
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 
 class Category extends Model
@@ -22,5 +23,20 @@ class Category extends Model
     public function getTypeView()
     {
         return config('setting.typeViewCategory');
+    }
+
+    public function makeCollectionCategory($categories)
+    {
+        $collection = new Collection();
+        if ($categories)
+        {
+            foreach ($categories as $item)
+            {
+                $category = new self();
+                $category->forceFill($item);
+                $collection->push($category);
+            }
+        }
+        return $collection;
     }
 }

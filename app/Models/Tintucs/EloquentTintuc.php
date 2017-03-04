@@ -18,9 +18,34 @@ class EloquentTintuc extends BaseRepository implements TintucRepository
         $this->model = $tintuc;
     }
 
-    public function getListNew()
+    public function getListNewPaginate($filter, $sort, $limit=30)
     {
+        $query = $this->model->whereRaw(1);
+        // Ton tai filter
+        if ($filter)
+        {
+            $query = $this->scopeFilter($query, $filter);
+        }
 
+        // Get admin
+        $query = $this->scopeInforAdmin($query);
+
+        // get category
+        $query = $query->with([
+            'categories' => function($q)
+            {
+                $q->select('cate_id', 'cate_name');
+            }
+        ]);
+
+        // Ton tai $sorts
+        if ($sort)
+        {
+            list($key_part1, $key_part2) = $sort;
+            $query = $query->orderBy($key_part1, $key_part2);
+        }
+
+        return $query->paginate($limit);
     }
 
     public function storeData($attributes)
@@ -33,7 +58,12 @@ class EloquentTintuc extends BaseRepository implements TintucRepository
 
     }
 
-    public function findById($id)
+    public function updateByField($id, $field, $otherValue = '')
+    {
+        return parent::updateByField($id, $field, $otherValue);
+    }
+
+    public function findByNewId($id)
     {
 
     }

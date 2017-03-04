@@ -167,7 +167,9 @@ class EloquentCategory extends BaseRepository implements CategoryRepository
      */
     public function getAllCategory($arrField= array(), $filter = array(), $search = false, $sort = ['cate_order', 'ASC'])
     {
-        return $this->getAllChild('categories', 'cate_id', 'cate_parent_id', 0, $filter, $arrField, $sort , $search);
+        $categories = $this->getAllChild('categories', 'cate_id', 'cate_parent_id', 0, $filter, $arrField, $sort , $search);
+        $categories = $this->model->makeCollectionCategory($categories);
+        return $categories;
     }
 
     public function getAllParentCategory()
