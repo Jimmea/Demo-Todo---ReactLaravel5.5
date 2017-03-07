@@ -56,6 +56,29 @@ class EloquentTag extends BaseRepository implements TagRepository
         return $this->model->where('tag_name', 'LIKE', '%' . $tag. '%')->select('tag_id', 'tag_name')->get();
     }
 
+
+    public function getListTagIdByListName($listName='')
+    {
+        if ($listName)
+        {
+            $nameArray = explode(',', $listName);
+            if ($nameArray)
+            {
+                $listTagMd5 = [];
+                foreach ($nameArray as $value)
+                {
+                    $listTagMd5[] = md5($value);
+                }
+                $result = $this->model->whereIn('tag_md5', $listTagMd5)->pluck('tag_id');
+                if ($result)
+                {
+                    return $result->toArray();
+                }
+            }
+        }
+        return '';
+    }
+
     public function searchTag($tag)
     {
         $json         = array();

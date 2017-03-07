@@ -19,7 +19,7 @@
 
     {{-- Meta seo--}}
     {{ $form->groupText(trans('admin::category.add.cate_meta_title'), 'cate_meta_title', 'cate_meta_title', true) }}
-    {{ $form->groupText(trans('admin::category.add.cate_meta_keyword'), 'cate_meta_keyword', 'cate_meta_keyword', true) }}
+    {{ $form->groupTextArea(trans('admin::category.add.cate_meta_keyword'), 'cate_meta_keyword', 'cate_meta_keyword', true) }}
     {{ $form->groupTextArea(trans('admin::category.add.cate_meta_description'), 'cate_meta_description', 'cate_meta_description', true) }}
 
     {{-- submit --}}

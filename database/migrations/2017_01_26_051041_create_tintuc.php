@@ -30,6 +30,9 @@ class CreateTintuc extends Migration
             $table->integer('new_order')->nullable();
             $table->tinyInteger('new_type')->default(1); // crawl 0; // ng dung dang bai 1 // bosuutap 3
             $table->integer('new_admin_id')->index();
+            $table->integer('new_pre_time')->default(0);
+            $table->integer('new_cook_time')->default(0);
+            $table->integer('new_people_time')->default(0);
             $table->string('new_param1')->nullable();
             $table->string('new_param2')->nullable();
             $table->string('new_param3')->nullable();
@@ -45,6 +48,7 @@ class CreateTintuc extends Migration
             $table->string('new_param13')->nullable();
             $table->string('new_param14')->nullable();
             $table->string('new_param15')->nullable();
+            $table->integer('new_deleted_at')->default(0);
             $table->timestamps();
         });
 

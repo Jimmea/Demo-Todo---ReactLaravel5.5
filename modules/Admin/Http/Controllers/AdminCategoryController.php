@@ -67,12 +67,13 @@ class AdminCategoryController extends AdminController
 
         $categories     = $this->category->getAllCategory($arrayColumn, $filter, false, $sort);
         $typeCategories = $this->category->getConfigTypeCategory();
-
         $dataGrid   = new \DataGrid('cate_id', 'cate_name', 'Danh sách category');
+        $dataGrid->hideStt();
+        $dataGrid->hideCheckAll();
         $dataGrid->add('cate_id', 'ID', 'numbernotedit');
-        $dataGrid->add('cate_picture', 'Hình ảnh', 'picture');
-        $dataGrid->add('cate_type', 'Type category', 'array', 0, 0, 'width="150"');
+        $dataGrid->add('cate_picture', 'Avatar', 'picture');
         $dataGrid->add('cate_name', 'Tên category', 'string');
+        $dataGrid->add('cate_type', 'Kiểu category', 'array', 0, 0, 'width="150"');
         $dataGrid->add('cate_total_hit', 'Total view', 'numbernotedit', 0, 0 , 'width="80"');
         $dataGrid->add('cate_order', 'Order', 'number');
         $dataGrid->add('cate_show', 'Home', 'checkbox');

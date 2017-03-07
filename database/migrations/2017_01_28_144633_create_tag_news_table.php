@@ -14,9 +14,8 @@ class CreateTagNewsTable extends Migration
     public function up()
     {
         Schema::create('tag_news', function (Blueprint $table) {
-            $table->increments('tagn_id');
-            $table->integer('tagn_tag_id');
-            $table->integer('tagn_new_id');
+            $table->integer('tagn_tag_id')->index();
+            $table->integer('tagn_new_id')->index();
         });
     }
 

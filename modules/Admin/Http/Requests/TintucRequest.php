@@ -17,9 +17,9 @@ class TintucRequest extends FilterForm
             'new_cate_id'          => 'required',
             'new_title'            => 'required',
             'new_ingredient'       => 'required',
-            'new_meta_title'       => 'required',
-            'new_meta_keyword'     => 'required',
-            'new_meta_description' => 'required',
+            'nec_seo_title'        => 'required',
+            'nec_seo_keyword'      => 'required',
+            'nec_seo_description'  => 'required',
             'new_description'      => 'required',
         ];
     }
@@ -31,9 +31,9 @@ class TintucRequest extends FilterForm
                 'new_cate_id.required'          => trans('admin::form.messages.required'),
                 'new_title.required'            => trans('admin::form.messages.required'),
                 'new_ingredient.required'       => trans('admin::form.messages.required'),
-                'new_meta_title.required'       => trans('admin::form.messages.required'),
-                'new_meta_keyword.required'     => trans('admin::form.messages.required'),
-                'new_meta_description.required' => trans('admin::form.messages.required'),
+                'nec_seo_title.required'        => trans('admin::form.messages.required'),
+                'nec_seo_keyword.required'      => trans('admin::form.messages.required'),
+                'nec_seo_description.required'  => trans('admin::form.messages.required'),
                 'new_description.required'      => trans('admin::form.messages.required'),
          ];
     }

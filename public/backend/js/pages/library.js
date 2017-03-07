@@ -351,6 +351,14 @@ function EditQuickXtable($url, $selector)
 }
 
 function initIntergratePlugin() {
+
+    $('#select2').selectpicker({
+        noneSelectedText : '',
+        liveSearch : true,
+        maxOptions : 4,
+        multipleSeparator : ' | '
+    });
+
     $(".colorpicker").asColorPicker();
     // $('#dataTableList').DataTable({
     //     'order'    : [[0, 'desc']],

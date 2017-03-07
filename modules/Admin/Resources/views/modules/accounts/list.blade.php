@@ -5,34 +5,23 @@
             'List account'
         ])
     !!}
+
+    @php
+        $dataGrid   = new DataGrid();
+        $dataGrid->setDeleteAll(false);
+        $stt        = $admins->perPage()*($admins->currentPage()-1) + 1;
+        $access     = '';
+    @endphp
     <div class="row">
         <div class="col-md-12">
             <div class="white-box padd-0">
                 <div class="white-box-header padd-10">
-                    {!! header_title_action('List account', 'admincpp.getAddAccount') !!}
-                    <div class="header-search clearleft search-box">
-                        <form action="" class="form-inline">
-                            <input type="hidden" name="page" value="{{ get_value('page','int', 'GET', 1) }}">
-                            <label for="login_name">
-                                Login name
-                                <input type="text" class="form-control" name="adm_loginname" value="{{ get_value('adm_loginname', 'str', 'GET', '') }}">
-                            </label>
-                            <label for="email">
-                                Email
-                                <input type="text" class="form-control" name="adm_email" value="{{ get_value('adm_email', 'str', 'GET', '') }}">
-                            </label>
-                            <label>
-                                <button type="submit" class="btn btn-info btn-sm"><i class="icon-magnifier"></i> Search</button>
-                            </label>
-                        </form>
-                    </div>
+                    {{ header_title_action('List account', 'admincpp.getAddAccount') }}
+                    {{ $dataGrid->beginFormSearch('admincpp.getListAccount') }}
+                    {{ $dataGrid->labelSearch('Tên đăng nhập', 'adm_loginname') }}
+                    {{ $dataGrid->labelSearch('Địa chỉ email', 'adm_email') }}
+                    {{ $dataGrid->closeForm() }}
                 </div>
-                <?php
-                    $dataGrid   = new DataGrid();
-                    $dataGrid->setDeleteAll(false);
-                    $stt        = $admins->perPage()*($admins->currentPage()-1) + 1;
-                    $access     = '';
-                ?>
                 <div class="white-box-content">
                     <table class="table table-bordered table-stripped" id="dataTableList">
                         <thead>
@@ -41,9 +30,9 @@
                                 <td class="bold">Login name</td>
                                 <td class="bold">Full name</td>
                                 <td class="bold">Email</td>
-                                <td class="bold">Modules</td>
+                                <td class="bold">Right Modules</td>
                                 @if(get_session('isadmin'))
-                                <td class="bold" align="center">Root</td>
+                                <td class="bold" align="center">Right website</td>
                                 @endif
                                 @if(get_session('isadmin'))
                                 <td width="10%" align="center" class="bold">Face login</td>

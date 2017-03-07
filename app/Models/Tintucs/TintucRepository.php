@@ -20,4 +20,5 @@ interface TintucRepository
     public function attachTag($instance, $tag_id = array());
     public function syncTag($instance, $tag_id = array());
     public function storeNewContentByTable($table, $attribute);
+    public function updateNewContentById($table, $id, $attribute);
 }

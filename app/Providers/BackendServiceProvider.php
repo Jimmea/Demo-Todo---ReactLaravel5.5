@@ -31,6 +31,7 @@ class BackendServiceProvider extends ServiceProvider
             'Categories'      => 'Category',
             'Menus'           => 'Menu',
             'Tags'            => 'Tag',
+            'Events'          => 'Event',
         ];
 
         $concrete   = 'Eloquent';

@@ -29,6 +29,7 @@ class DataGrid
     public $page_size = 3;
     public $edit_ajax = false;
     public $showstt = true;
+    public $showCheckALl = true;
     public $showid = true;
     public $arrayFieldLevel = array();
     public $fs_filepath = "";
@@ -71,6 +72,16 @@ class DataGrid
         $this->title 		= $title;
     }
 
+
+    public function hideStt()
+    {
+        $this->showstt = false;
+    }
+
+    public function hideCheckAll()
+    {
+        $this->showCheckALl = false;
+    }
 
     /**
      * Set gia tri truong khoa chinh
@@ -121,6 +132,11 @@ class DataGrid
     public function setDeleteAll($delete = false)
     {
         $this->deleteAll = $delete;
+    }
+
+    public function getPageStt($items)
+    {
+        return $items->perPage()*($items->currentPage() - 1) + 1;
     }
 
     /**
@@ -206,7 +222,7 @@ class DataGrid
                 if($row[$this->arrayField[$key]]!='')
                 {
                     global $fs_filepath;
-                    return '<td width="90" align="center" style="padding:1px;" ><a target="_blank" title="<img src=\'' . $fs_filepath . $row[$this->arrayField[$key]] . '\' border=\'0\'>" href="#"><img src="' . $fs_filepath . $row[$this->arrayField[$key]] . '" class="img-responsive" style="max-width: 80px;" border="0"></a></td>';
+                    return '<td width="90" align="center" style="padding:1px;" ><a target="_blank" title="<img src=\'' . $fs_filepath . $row[$this->arrayField[$key]] . '\' border=\'0\'>" href="#"><img src="' . $fs_filepath . $row[$this->arrayField[$key]] . '" class="img-responsive" style="max-width: 40px;" border="0"></a></td>';
                 }
                 else
                 {
@@ -219,7 +235,6 @@ class DataGrid
                 $field = $this->arrayField[$key];
                 global $$field;
                 $arrayList = $$field;
-
 //                $value = isset($arrayList[$row[$this->arrayField[$key]]]) ? $arrayList[$row[$this->arrayField[$key]]] : '';
 //                return '<td ' . $this->arrayAttribute[$key] . '  title="' . translate_text("Click sửa đổi sau đó chọn save") . '">
 //                            <span class="editable_select_' . $this->arrayField[$key] . '" style="display:inline" id="select_2" name="' . $this->arrayField[$key] . ',' . $row[$this->field_id] . ',0">' . str_replace("-","",$value)  . '</span>
@@ -280,7 +295,7 @@ class DataGrid
 
             //kiểu hiển thị text có sửa đổi
             case "string":
-                return '<td ' . $this->arrayAttribute[$key] . ' title="' . translate_text("Click vào để sửa đổi sau đó enter để lưu lại") . '">' . $level . '<span class="clickEdit" style="display:inline" field="'. $this->arrayField[$key] . '" record_id="' . $row[$this->field_id] . '">' .  $row[$this->arrayField[$key]] . '</span></td>';
+                return '<td ' . $this->arrayAttribute[$key] . ' title="' . translate_text("Click vào để sửa đổi sau đó enter để lưu lại") . '">' . $level . '<span class="clickEdit" style="display:inline" field="'. $this->arrayField[$key] . '" record_id="' . $row[$this->field_id] . '">' . ' ' .  $row[$this->arrayField[$key]] . '</span></td>';
                 break;
 
             //kiểu hiện thị text không sửa đổi
@@ -290,12 +305,12 @@ class DataGrid
 
             //kiểu hiển thị số có sửa đổi
             case "number":
-                return '<td style="text-align:center; font-weight:bold;" ' . $this->arrayAttribute[$key] . ' title="' . translate_text("Click vào để sửa đổi sau đó enter để lưu lại") . '" nowrap="nowrap">' . $level . '<span class="clickEdit" field="'. $this->arrayField[$key] . '" record_id="' . $row[$this->field_id] . '">' . number_format($row[$this->arrayField[$key]], 0, ",", ".") . '</span></td>';
+                return '<td style="text-align:center" ' . $this->arrayAttribute[$key] . ' title="' . translate_text("Click vào để sửa đổi sau đó enter để lưu lại") . '" nowrap="nowrap">' . $level . '<span class="clickEdit" field="'. $this->arrayField[$key] . '" record_id="' . $row[$this->field_id] . '">' . number_format($row[$this->arrayField[$key]], 0, ",", ".") . '</span></td>';
                 break;
 
             //kiểu hiển thị số ko sửa đổi
             case "numbernotedit":
-                return '<td style="text-align:center; font-weight:bold;" ' . $this->arrayAttribute[$key] . ' title="' . translate_text("Click vào để sửa đổi sau đó enter để lưu lại") . '" nowrap="nowrap">' . $level . '<span class="clickEditNo" field="'. $this->arrayField[$key] . '" record_id="' . $row[$this->field_id] . '">' . number_format($row[$this->arrayField[$key]], 0, ",", ".") . '</span></td>';
+                return '<td style="text-align:center" ' . $this->arrayAttribute[$key] . ' title="' . translate_text("Click vào để sửa đổi sau đó enter để lưu lại") . '" nowrap="nowrap">' . $level . '<span class="clickEditNo" field="'. $this->arrayField[$key] . '" record_id="' . $row[$this->field_id] . '">' . number_format($row[$this->arrayField[$key]], 0, ",", ".") . '</span></td>';
                 break;
 
             //kiểu hiển thị số ko sửa đổi
@@ -579,13 +594,14 @@ class DataGrid
 
         // Khởi tạo table
         $this->html .= '<div class="white-box-content">';
-        $this->html .= '<table id="dataTableList" cellpadding="0" cellspacing="0"  width="100%" class="table table-bordered table-striped">';
+        $this->html .= '<table id="dataTableList" cellpadding="0" cellspacing="0"  width="100%" class="table table-condensed">';
         // Phần thead của table
         $this->html .= '<thead>';
-//            bgcolor="#428BCA" style="color: #fff"
+
             $this->html .= '<tr class="header">';
-                $this->html .= '<td width="50" align="center" class="bold">STT</td>';
-                // Column check all table
+                if ($this->showstt) $this->html .= '<td width="50" align="center" class="bold">STT</td>';
+
+                if ($this->showCheckALl)
                 $this->html .= '<td width="4%" class="h check bold" align="center"><input type="checkbox" data-set="#dataTableList .check-one" class="check-all" id="check_all_table"></td>';
 
                 // Phần quick edit
@@ -630,12 +646,15 @@ class DataGrid
                 foreach($database as $key=>$row)
                 {
                     $i++;
-                    $this->html .= '<tr id="tr_' . $row[$this->field_id] . '" ' . (($i%2==0) ? 'bgcolor="#f7f7f7"' : '') . '>';
+                    $this->html .= '<tr id="tr_' . $row[$this->field_id] . '">';
 
                     //phan so thu tu
-                    $this->html .= '<td width="15" align="center"><span style="color:#142E62; font-weight:bold">' . ($i+(($page-1)*$this->page_size)) . '</span></td>';
+
+                    if ($this->showstt)
+                    $this->html .= '<td width="15" align="center"><span style="color:#142E62">' . ($i+(($page-1)*$this->page_size)) . '</span></td>';
 
                     //phan checkbok cho tung record
+                    if ($this->showstt)
                     $this->html .= '<td align="center" class="check align_c"><input type="checkbox" class="check-one" id="record_' . $i . '" name="check-one" value="' . $row[$this->field_id] . '"></td>';
 
 
@@ -1235,7 +1254,7 @@ class DataGrid
 
             case "date":
                 $value = get_value($fieldName, "str", "GET", "dd/mm/yyyy");
-                $html = '<label class="text">' . $labelName . '&nbsp;<input type="text"  class="form-control '. $class.' input-sm date" ' . $labelName . ' name="' . $fieldName . '" id="' . $fieldName . '"  onKeyPress="displayDatePicker(\'' . $fieldName . '\', this);" onClick="displayDatePicker(\'' . $fieldName . '\', this);" onfocus="if(this.value==\'' . translate_text("Enter") . ' ' .$fieldName . '\') this.value=\'\'" onblur="if(this.value==\'\') this.value=\'' . translate_text("Enter") . ' ' . $fieldName . '\'" value="' . $value . '"></label>';
+                $html = '<label class="text">' . $labelName . '&nbsp;<input type="date"  class="form-control '. $class.' input-sm date" ' . $labelName . ' name="' . $fieldName . '" id="' . $fieldName . '"  onKeyPress="displayDatePicker(\'' . $fieldName . '\', this);" onClick="displayDatePicker(\'' . $fieldName . '\', this);" onfocus="if(this.value==\'' . translate_text("Enter") . ' ' .$fieldName . '\') this.value=\'\'" onblur="if(this.value==\'\') this.value=\'' . translate_text("Enter") . ' ' . $fieldName . '\'" value="' . $value . '"></label>';
                 return $this->htmlString($html);
                 break;
 
@@ -1249,10 +1268,11 @@ class DataGrid
                 {
                     if (isset($value['level']))
                     {
-                        $html .= '<option value="' . $value->$id . '" ' . (($selected==$value->$id) ? 'selected' : '') . '>';
+                        $html .= '<option value="' . $value[$id] . '" ' . (($selected==$value[$id]) ? 'selected' : '') . '>';
                             for($i=0; $i < $value["level"];$i++) $separator .="---";
-                            $html .= $separator . ucfirst($value->$name);
+                            $html .= $separator . ucfirst($value[$name]);
                          $html .='</option>';
+                        $separator = '';
                     }else
                     {
                         $html .= '<option value="' . $key . '" ' . (($selected==$key) ? 'selected' : '') . '>' . ucfirst($value) . '</option>';

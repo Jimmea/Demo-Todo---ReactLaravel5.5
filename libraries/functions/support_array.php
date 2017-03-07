@@ -18,6 +18,22 @@ if (! function_exists('break_string_toarray'))
     }
 }
 
+if (! function_exists('break_array_tostring'))
+{
+    function break_array_tostring($array)
+    {
+        if ($array)
+        {
+            $string = implode('|||', $array);
+            $string = str_replace('|||',"\r\n", $string);
+            return $string;
+        };
+        return '';
+    }
+}
+
+
+
 if (!function_exists('echo_array'))
 {
     /**

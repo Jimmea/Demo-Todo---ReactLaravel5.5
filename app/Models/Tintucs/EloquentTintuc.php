@@ -55,7 +55,7 @@ class EloquentTintuc extends BaseRepository implements TintucRepository
 
     public function updateById($id, $attributes)
     {
-
+        return parent::updateById($id, $attributes);
     }
 
     public function updateByField($id, $field, $otherValue = '')
@@ -65,6 +65,19 @@ class EloquentTintuc extends BaseRepository implements TintucRepository
 
     public function findByNewId($id)
     {
+        $tableContent   = get_table_of_content_new($id);
+        $query          = $this->model
+                            ->with([
+                                'tags' => function ($q)
+                                {
+                                    $q->select('tag_id', 'tag_name');
+                                }
+                            ])
+                            ->leftJoin($tableContent, 'new_id', '=', 'nec_id')
+                            ->where('new_id', $id)
+                            ->first();
+
+        return $query;
 
     }
 
@@ -104,5 +117,10 @@ class EloquentTintuc extends BaseRepository implements TintucRepository
     public function storeNewContentByTable($table, $attribute = array())
     {
         return DB::table($table)->insert($attribute);
+    }
+
+    public function updateNewContentById($table, $id, $attribute)
+    {
+        return DB::table($table)->where('nec_id', $id)->update($attribute);
     }
 }

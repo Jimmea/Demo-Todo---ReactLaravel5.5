@@ -20,4 +20,5 @@ interface TagRepository
     public function searchTag($tag);
     public function searchMd5Tag($tag);
     public function searchLikeTag($tag);
+    public function getListTagIdByListName($listName);
 }

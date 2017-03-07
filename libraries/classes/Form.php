@@ -142,18 +142,6 @@ class Form
 
     /**
      * Created by : BillJanny
-     * Date: 09:00 - 11/02/17
-     * Create textNote
-     * @param
-     * @return
-     */
-    public function textNote($title="")
-    {
-        return text_note($title);
-    }
-
-    /**
-     * Created by : BillJanny
      * Date: 1:51 AM - 2/12/2017
      * Chuyen doi mot mang attribute html
      * @param array $arrayAttribute :chứa các giá trị của thuộc tính html
@@ -271,7 +259,7 @@ class Form
         $formGroup = '<select name='.$nameselect.' '.$styleInput.'>';
         if ($showOptionEmpty)
         {
-            $formGroup .= '<option value="">-- Select one --</option>';
+            $formGroup .= '<option value="">- Select one -</option>';
         }
 
         if ($valueDefault)
@@ -326,10 +314,10 @@ class Form
 
     /**
      * Show form group file
-     * @param string $title : mang tieu de cho form groupp file
-     * @param string $nameInput : ten field trong csdl cua input
-     * @param string $inputId : selector id
-     * @param boolean $require : mang tieu de cho form groupp file
+     * @param string $title        : mang tieu de cho form groupp file
+     * @param string $nameInput    : ten field trong csdl cua input
+     * @param string $inputId      : selector id
+     * @param boolean $require     : mang tieu de cho form groupp file
      * @param array $attributeHtml : giá trị thuộc tính html (Support : classdivinput, classinput, classlabel ...)
      * @return
      */
@@ -342,6 +330,57 @@ class Form
         $formGroup  = '<textarea name="'.$nameInput.'" '. $attributeHtml .' '. $styleInput .' cols="30" rows="3">' . $value . '</textarea>';
 
         return $this->createFormGroup($formGroup, $title, $nameInput, $require);
+    }
+
+    /**
+     * Method create group select Multiple
+     * @param  string $labelControl     : Tieu de label
+     * @param  string $nameInput        : ten field trong csdl cua input
+     * @param  string $inputId          : selector id
+     * @param  boolean $require         : false không bắt buộc nhập | true bắt buôc nhập
+     * @param  array $valueDefault      :Mảng option mặc định được truyền vào
+     * @param  array $activeDefault     : Mảng active thông thường bao gồm id, name cua bang can thao tac
+     * @param  string $separator        : kí tự ---
+     * @param string html
+     */
+    public function groupSelectMul($labelControl, $nameselect, $inputId ='', $require = false,  $valueDefault=array(),
+                                     $activeDefault= array(), $separator='')
+    {
+        $value      = get_value_field($nameselect, $this->formDb);
+        $styleInput = $this->createStyle($inputId);
+        $fieldId    = $activeDefault ? $activeDefault[0] : '';
+        $fieldName  = $activeDefault ? $activeDefault[1] : '';
+        $formGroup  = '<select multiple name='.$nameselect.' '.$styleInput.'>';
+        $selected   = '';
+
+        if ($valueDefault)
+        {
+            foreach ($valueDefault as $k => $v)
+            {
+                if (is_array($v))
+                {
+                    if (isset($v['level'])) for($i=0; $i < $v["level"];$i++) $separator .="---";
+                    if ($value)
+                    {
+                        foreach ($value as $val)
+                        {
+                            if ($val == $v[$fieldId]) $selected = "selected=selected";
+                        }
+                    }
+                    $formGroup .= '<option '. $selected .' value="'.$v[$fieldId].'">' . $separator . ' ' . $v[$fieldName] . '</option>';
+                    $separator  = '';
+                    $selected   = '';
+                }
+//                else
+//                {
+//                    $selected   = ($value == $k) ? 'selected=selected' : '';
+//                    $formGroup .= '<option '. $selected .' value="'.$k.'">'. $v .'</option>';
+//                }
+            }
+        }
+
+        $formGroup .= '</select>';
+        return $this->createFormGroup($formGroup, $labelControl, $nameselect, $require);
     }
 
     /**
@@ -368,20 +407,6 @@ class Form
 
     }
 
-    /**
-     * Created by : BillJanny
-     * Date: 09:02 - 11/02/17
-     * Tao dau vao input hidden
-     * @param
-     * @return
-     */
-    public function inputHidden($name, $id, $value, $attributeHtml = array())
-    {
-        $attributeHtml  = $this->converArrayAttribute($attributeHtml);
-
-        $control = '<input type="hidden" id="' . $id . '" name="' . $name . '" value="' . replace_mq($value) . '" ' . $attributeHtml . '/>';
-        return $control;
-    }
 
     /**
      * Created by : BillJanny

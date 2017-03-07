@@ -29,7 +29,7 @@
             @if($menuAccesses)
                 @foreach($menuAccesses as $value)
                     @if(get_session('isadmin'))
-                    <li id="listItem_{{ $value->mod_id }}"> <a href="javascript:void(0)" class="waves-effect">
+                    <li id="listItem_{{ $value->mod_id }}"> <a href="#" class="waves-effect">
                         <i class="{{ $value['mod_icon'] }} p-r-10"></i>
                         <span class="hide-menu">{{ $value->mod_name }}</span><span class="arrow icon-arrow-left"></span></a>
                         <?php
@@ -37,7 +37,7 @@
                             $arraySubRouter   = explode("|",$value["mod_listrouter"]);
                         ?>
                         @if($arraySubTitle)
-                            <ul class="nav nav-second-level collapse" aria-expanded="true">
+                            <ul class="nav nav-second-level collapse">
                                 @foreach($arraySubTitle as $key => $subvalue)
                                     <?php $router	= isset($arraySubRouter[$key])
                                                         ? 'admincpp.'.$arraySubRouter[$key]

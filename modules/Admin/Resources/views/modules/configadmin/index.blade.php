@@ -3,33 +3,26 @@
     {!! bread_crumb([
         'List Module'
     ]) !!}
+    @php $dataGrid = new DataGrid(); $stt = 1 @endphp
     <div class="row">
         <div class="col-md-12">
             <div class="white-box padd-0">
                 <div class="white-box-header padd-10">
                     {!! header_title_action('Danh sách modules', 'admincpp.getAddConfigAdmin') !!}
-                    <div class="header-search clearleft search-box">
-                        <form action="{{ $_SERVER['REDIRECT_URL'] }}" class="form-inline">
-                            <input type="hidden" name="page" value="{{ get_value('page', 'int', 'GET', 1) }}">
-                            <label>
-                                Tên module <input type="text" class="form-control" name="mod_name" value="{{ get_value('mod_name', 'str', 'GET', '') }}">
-                            </label>
-                            <label>
-                                <button type="submit" class="btn btn-info btn-sm"><i class="icon-magnifier"></i> Search</button>
-                            </label>
-                        </form>
-                    </div>
+                    {{ $dataGrid->beginFormSearch('admincpp.getListConfigAdmin') }}
+                    {{ $dataGrid->labelSearch('Tên module', 'mod_name') }}
+                    {{ $dataGrid->closeForm() }}
                 </div>
                 <div class="white-box-content">
-                    <?php $dataGrid = new DataGrid(); $stt = 1; ?>
-                        <table class="table table-bordered table-stripped" id="dataTableList">
+                        <table class="table table-stripped" id="dataTableList">
                             <thead>
-                                <tr bgcolor="#428BCA" style="color: #fff">
+                                <tr>
                                     <td align="center" width="3%">TT</td>
                                     <td align="center" width="3%">ID</td>
                                     <td>Tên module</td>
                                     <td>Tiêu đề</td>
                                     <td>Tên router</td>
+                                    <td>Sắp xếp</td>
                                     <td class="text-center">Action</td>
                                 </tr>
                             </thead>
@@ -42,6 +35,7 @@
                                     <td>{{ $value->mod_name }}</td>
                                     <td>{{ $value->mod_listname }}</td>
                                     <td>{{ $value->mod_listrouter }}</td>
+                                    <td>{{ $value->mod_order }}</td>
                                     {!! $dataGrid->makeEditButton('admincpp.getEditConfigAdmin') !!}
                                 </tr>
                                 @endforeach

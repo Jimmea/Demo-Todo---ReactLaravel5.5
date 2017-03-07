@@ -22,7 +22,7 @@
                     {{ $dataGrid->closeForm() }}
                 </div>
                 <div class="white-box-content">
-                    <table class="table table-bordered table-stripped" id="dataTableList">
+                    <table class="table table-stripped" id="dataTableList">
                         <thead>
                             <tr>
                                 <td class="bold" align="center">Stt</td>
@@ -44,8 +44,8 @@
                                 <td><img src="{{ $value->new_picture }}"  class="img-responsive img9070" alt=""></td>
                                 <td>
                                     <div>Tiêu đề    : <a title="{{ $value->new_status ? 'Xem ngay' : 'Bài viết đăng ở chế độ ẩn' }}" href="/{{ $value->new_slug }}">{{ ucfirst($value->new_title) }}</a></div>
-                                    <div>Pre time   : {{ $value->new_param1 or '0' }} minutes</div>
-                                    <div>Cook time  : {{ $value->new_param2 or '0' }} minutes</div>
+                                    <div>Pre time   : {{ $value->new_pre_time or '0' }} minutes</div>
+                                    <div>Cook time  : {{ $value->new_cook_time or '0' }} minutes</div>
                                     <div>Admin      : {{ $value->admins->adm_name }}</div>
                                     <div>User       : {{ $value->admins->adm_name }}</div>
                                 </td>

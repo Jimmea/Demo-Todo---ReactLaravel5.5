@@ -95,8 +95,8 @@ a.item-paginate {
 }
 .grid-icon
 {
-    width:20px;
-    height:20px;
+    width:17px;
+    height:17px;
     margin: 0 auto;
     display:block
 }
@@ -155,8 +155,8 @@ a.item-paginate {
 }
 .control-label,
 .bold {
-    /*color: #1b5f9a;*/
-    font-weight: bold;
+    color: #54667a;
+    /*font-weight: bold;*/
 }
 span.fa-check-circle.fa-2x,
 span.fa-2x {
@@ -217,7 +217,7 @@ span.fa-2x {
     color: #fff;
 }
 .text-title {
-    color: #428bca;
+    color: #54667a;
     font-weight: bold;
     font-size: 18px;
 }

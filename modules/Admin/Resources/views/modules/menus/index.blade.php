@@ -4,40 +4,21 @@
             'admincpp.getListMenu'=> trans('admin::menu.list.title')
         ])
     !!}
+    @php $dataGrid = new DataGrid(); $stt = 0 @endphp
     <div class="row">
         <div class="col-md-12">
             <div class="white-box padd-0">
                 <div class="white-box-header padd-10">
-                    {!! header_title_action(trans('admin::menu.list.title'), 'admincpp.getAddMenu') !!}
-                    <div class="header-search clearleft search-box">
-                        <form action="{{ route('admincpp.getListMenu') }}" class="form-inline">
-                            <label for="">
-                                Tiêu đề
-                                <input type="text" name="mnu_name" class="form-control input-sm"
-                                       value="{{ get_value('mnu_name', 'str', 'GET', '') }}">
-                            </label>
-                            <label for="">
-                                Vị trí
-                                <?php $getMenuPosition = get_value('mnu_position', 'int'); ?>
-                                <select name="mnu_position" id="mnu_position" class="form-control input-sm">
-                                    <option value="">Tìm vị trí</option>
-                                    @foreach($configPosition as $key => $value)
-                                        <?php $selected = ($getMenuPosition == $key) ? 'selected=selected' : '';?>
-                                        <option {{ $selected }} value="{{ $key }}">{{ $value }}</option>
-                                    @endforeach
-                                </select>
-                            </label>
-                            <label>
-                                <button type="submit" class="btn btn-info btn-sm"><i class="icon-magnifier"></i> Search</button>
-                            </label>
-                        </form>
-                    </div>
+                    {{ header_title_action(trans('admin::menu.list.title'), 'admincpp.getAddMenu') }}
+                    {{ $dataGrid->beginFormSearch('admincpp.getListMenu') }}
+                    {{ $dataGrid->labelSearch('Tiêu đề','mnu_name', 'text') }}
+                    {{ $dataGrid->labelSearch('Tìm vị trí','mnu_position', 'array', $configPosition) }}
+                    {{ $dataGrid->closeForm() }}
                 </div>
-                <?php $dataGrid = new DataGrid(); $stt = 0; ?>
                 <div class="white-box-content ">
                     <table class="table table-bordered table-stripped" id="dataTableList">
                         <thead>
-                        <tr bgcolor="#428BCA" style="color: #fff">
+                        <tr>
                             <td width="3%" align="center" class="bold">Stt</td>
                             {!! $dataGrid->makeCheckAllRadio() !!}
                             <td width="18%" class="bold">Tiêu đề</td>
@@ -51,14 +32,12 @@
                         </thead>
                         <tbody id="tableContent">
                         @foreach($menus as $value)
-                            <?php $dataGrid->setPrimaryKey($value['mnu_id']);?>
+                            @php $dataGrid->setPrimaryKey($value['mnu_id']); @endphp
                             <tr id="tr_{{ $value['mnu_id'] }}">
                                 <td align="center">{{ $stt++ }}</td>
                                 {!! $dataGrid->makeCheckRadio() !!}
                                 <td><a href="javascript:void(0)">
-                                        <?php if (isset($value['level'])) {
-                                            for ($j = 0; $j < $value["level"]; $j++) echo "--";
-                                        } ?>
+                                        <?php if (isset($value['level'])) for ($j = 0; $j < $value["level"]; $j++) echo "--"; ?>
                                         <span field="mnu_name" record_id="{{ $value['mnu_id'] }}"
                                               class="clickEdit">{{ $value['mnu_name'] }}</span></a>
                                 </td>

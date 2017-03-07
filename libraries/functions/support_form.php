@@ -46,30 +46,34 @@ if (! function_exists('form_close'))
 /**
  * Created by : BillJanny
  * Date: 17:50 - 27/01/17
- * Kiem tra co loi khong xuat ra mot chuoi de cho form-group hien mau do neu co loi
- * @param string $key : key loi cua form
+ * Tao mot chuoi has-error neu co loi
+ * @param array $errors  : Mang loi
+ * @param  string $field : truong field_name
  * @return string
  */
 if (! function_exists('has_error'))
 {
-    function has_error($errors, $key)
+    function has_error($errors, $field)
     {
-        return isset($errors) && $errors->has($key) ? 'has-error' : '';
+        $field = str_replace(array('[', ']'), '', $field);
+        return isset($errors) && $errors->has($field) ? 'has-error' : '';
     }
 }
 
 /**
  * Created by : BillJanny
  * Date: 18:17 - 27/01/17
- * Lay thong tin loi duoc thiet lap
- * @param string $key key cua loi
+ * Xuat thong tin loi neu co
+ * @param array $errors  : Mang loi
+ * @param  string $field : truong field_name
  * @return string
  */
 if (! function_exists('get_error'))
 {
-    function get_error($errors, $key)
+    function get_error($errors, $field)
     {
-        $helpBlock  = (isset($errors) && $errors) ? '<span class="help-block">'.$errors->first($key).'</span>' : '';
+        $field = str_replace(array('[', ']'), '', $field);
+        $helpBlock  = (isset($errors) && $errors) ? '<span class="help-block">'.$errors->first($field).'</span>' : '';
 
         return $helpBlock;
     }
@@ -87,7 +91,10 @@ if (! function_exists('get_value_field'))
 {
     function get_value_field($field, $dataform= array())
     {
-        return old($field, (isset($dataform) && $dataform) ? ($dataform->$field ? $dataform->$field : '') : '');
+        $field = str_replace(array('[', ']'), '', $field);
+        $value = old($field, (isset($dataform) && $dataform) ? ($dataform->$field ? $dataform->$field : '') : '');
+
+        return $value;
     }
 }
 

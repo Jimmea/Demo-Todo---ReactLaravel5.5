@@ -10,7 +10,7 @@ class Tintuc extends Model
     protected $primaryKey = 'new_id';
     protected $fillable = ['new_title', 'new_slug', 'new_more_slug', 'new_title_md5', 'new_domain_id',
         'new_link_from_domain', 'new_picture', 'new_cate_id', 'new_description', 'new_top', 'new_hot', 'new_status',
-        'new_order', 'new_type', 'new_admin_id'
+        'new_order', 'new_type', 'new_admin_id', 'new_pre_time','new_cook_time', 'new_people'
     ];
 
     public function admins()

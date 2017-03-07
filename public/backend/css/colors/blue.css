@@ -47,13 +47,14 @@ body {
 }
 /*Top Header Part*/
 .top-left-part {
-  background: rgba(0, 0, 0, 0.04);
+  background: #428bca;
 }
 .logo i {
   color: #ffffff;
 }
 .navbar-header {
-  background: #428BCA;
+  background: #428bca;
+  border-bottom: 3px solid #eee;
 }
 .navbar-top-links > li > a {
   color: #ffffff;

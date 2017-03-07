@@ -183,7 +183,7 @@ Route::group([
         ]);
     });
 
-    // BANNER dang lam
+    // BANNER
     Route::group(['prefix'=> 'banner'], function () {
         Route::any('/', [
             'as' => 'admincpp.getListBanner',
@@ -205,31 +205,6 @@ Route::group([
             'as' => 'admincpp.postEditBanner',
             'uses'=> 'AdminBannerController@postEditBanner'
         ]);
-
-        Route::group(['prefix'=> 'event'], function () {
-            Route::get('/', [
-                'as' => 'admincpp.getListBannerEvent',
-                'uses' => 'AdminBannerEventController@getListBannerEvent',
-            ]);
-            Route::get('/add/{ban_id}', [
-                'as' => 'admincpp.getAddBannerEvent',
-                'uses' => 'AdminBannerEventController@getAddBannerEvent',
-            ]);
-            Route::post('/add/{ban_id}', [
-                'as' => 'admincpp.postAddBannerEvent',
-                'uses' => 'AdminBannerEventController@postAddBannerEvent',
-            ]);
-
-            Route::get('/edit/{ban_id}', [
-                'as' => 'admincpp.getEditBannerEvent',
-                'uses' => 'AdminBannerEventController@getEditBannerEvent',
-            ]);
-
-            Route::post('/edit/{ban_id}', [
-                'as' => 'admincpp.postEditBannerEvent',
-                'uses' => 'AdminBannerEventController@postEditBannerEvent',
-            ]);
-        });
     });
 
     // New
@@ -264,6 +239,30 @@ Route::group([
             'as' => 'admincpp.getDeleteNew',
             'uses' => 'AdminNewController@getDeleteNew'
         ]);
+    });
+
+    // Event
+    Route::group(['prefix'=> 'event'], function () {
+        Route::any('/',[
+            'as' => 'admincpp.getListEvent',
+            'uses' => 'AdminEventController@getListEvent'
+        ]);
+        Route::get('/add',[
+            'as' => 'admincpp.getAddEvent',
+            'uses' => 'AdminEventController@getAddEvent'
+        ]);
+        Route::post('/add',[
+            'as' => 'admincpp.postAddEvent',
+            'uses' => 'AdminEventController@postAddEvent'
+        ]);
+        Route::get('/edit/{id}',[
+            'as' => 'admincpp.getEditEvent',
+            'uses' => 'AdminEventController@getEditEvent'
+        ]);
+        Route::post('/edit/{id}',[
+            'as' => 'admincpp.getPostEvent',
+            'uses' => 'AdminEventController@getPostEvent'
+        ]); 
     });
 
     // Tag
@@ -310,7 +309,8 @@ Route::group([
     });
 
     // Access denied
-    Route::get('/access_denied', function () {
+    Route::get('/access_denied', function ()
+    {
         dd(\Session::all());
     });
 });

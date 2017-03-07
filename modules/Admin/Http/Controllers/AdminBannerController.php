@@ -8,7 +8,7 @@ use Modules\Admin\Http\Requests\BannerRequest;
 
 class AdminBannerController extends AdminController
 {
-    private $banner;
+
     public function __construct(BannerRepository $bannerRepository)
     {
         $this->banner = $bannerRepository;
@@ -73,6 +73,7 @@ class AdminBannerController extends AdminController
             $banner->ban_link     = $link;
             $banner->save();
         }
+        
         set_flash_add_success();
         return redirect()->route('admincpp.getListBanner');
     }
@@ -108,6 +109,4 @@ class AdminBannerController extends AdminController
         set_flash_update_success();
         return redirect()->route('admincpp.getListBanner');
     }
-
-
 }
