@@ -22,14 +22,15 @@
                         <thead>
                             <tr>
                                 <td width="4%" align="center">Stt</td>
+                                {{ $dataGrid->makeCheckAllRadio() }}
                                 <td width="4%" align="center">ID</td>
                                 <td width="4%" align="center">Ảnh </td>
                                 <td align="center">Tên event</td>
-                                <td align="center">Mô tả ngắn</td>
+                                <td align="center">Từ khóa</td>
                                 <td width="20%" align="center">Danh mục event</td>
+                                <td width="8%" align="center">Thêm Tin</td>
                                 <td width="5%" align="center">Admin</td>
-                                <td width="8%">Sản phẩm</td>
-                                <td width="5%" align="center">Action</td>
+                                <td colspan="2" width="5%" align="center">Action</td>
                             </tr>
                         </thead>
                         <tbody id="tableContent">
@@ -37,19 +38,32 @@
                                 @php $dataGrid->setPrimaryKey($item->evn_id) @endphp
                                 <tr>
                                     <td align="center">{{ $stt ++ }}</td>
+                                    {{ $dataGrid->makeCheckRadio() }}
                                     <td align="center">{{ $item->evn_id }}</td>
                                     <td align="center">
-                                        <img src="/media/news/new.jpg" style="width: 60px">
+                                        <img src="{{ $item->evn_picture }}" style="width: 60px">
                                     </td>
                                     <td>{{ $item->evn_name }}</td>
-                                    <td align="center">Mô tả ngắn</td>
-                                    <td>Phát triển sản phẩm, danh mục, category</td>
-                                    <td>hungoata</td>
-                                    <td align="center"><a href="javascript:void(0)" class="btn btn-info btn-xs" title="Thêm sản phẩm"><i class="icon-plus"></i> Add</a></td>
+                                    <td align="center">{{ $item->evn_meta_keyword }}</td>
+                                    <td>
+                                        @if($cates = $item->category)
+                                            @foreach($cates as $value)
+                                                <a href="javascript:void(0)">[{{ $value->cate_name }}]</a>
+                                            @endforeach
+                                        @endif
+                                    </td>
+                                    <td align="center">
+                                        <a href="{{ route('admincpp.getListNewEvent', $item->evn_id) }}" class="grid-icon" title="Thêm tin vào event">
+                                            <img class="img-responsive" src="../../backend/imgs/icons/add.png" border="0">
+                                        </a>
+                                    </td>
+                                    <td align="center">{{ $item->admin_name }}</td>
                                     {{ $dataGrid->makeEditButton('admincpp.getEditEvent') }}
+                                    {{ $dataGrid->makeDeleteButton('admincpp.getDeleteEvent') }}
                                 </tr>
                                 @endforeach
                         </tbody>
+                        {{ $dataGrid->getTemplateFooter($events) }}
                     </table>
                 </div>
             </div>

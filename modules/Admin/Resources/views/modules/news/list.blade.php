@@ -14,25 +14,25 @@
                 <div class="white-box-header padd-10">
                     {{ header_title_action('Danh sách bài viết', 'admincpp.getAddNew') }}
                     {{ $dataGrid->beginFormSearch() }}
-                        {{ $dataGrid->labelSearch('Bài viết id', 'new_id', 'number') }}
-                        {{ $dataGrid->labelSearch('Tên Tiêu đề', 'new_title', 'text') }}
-                        {{ $dataGrid->labelSearch('Danh mục ', 'new_cate_id', 'array', $categories, ['cate_id', 'cate_name']) }}
-                        {{ $dataGrid->labelSearch('Kiểu bài', 'new_type', 'array', $newTypes) }}
-                        {{ $dataGrid->labelSearch('Admin id','new_admin_id','number') }}
+                        {{ $dataGrid->labelSearch('Bài viết id', 'new_id', NUMBER) }}
+                        {{ $dataGrid->labelSearch('Tên Tiêu đề', 'new_title', TEXT) }}
+                        {{ $dataGrid->labelSearch('Danh mục ', 'new_cate_id', ARR, $categories, ['cate_id', 'cate_name']) }}
+                        {{ $dataGrid->labelSearch('Kiểu bài', 'new_type', ARR, $newTypes) }}
+                        {{ $dataGrid->labelSearch('Admin id','new_admin_id',NUMBER) }}
                     {{ $dataGrid->closeForm() }}
                 </div>
                 <div class="white-box-content">
                     <table class="table table-stripped" id="dataTableList">
                         <thead>
                             <tr>
-                                <td class="bold" align="center">Stt</td>
-                                <td class="bold" align="center">ID</td>
-                                <td class="bold" align="center">Picture</td>
+                                <td class="bold" width="4%" align="center">Stt</td>
+                                <td class="bold" width="4%" align="center">ID</td>
+                                <td class="bold" width="8%" align="center">Picture</td>
                                 <td class="bold" align="center">Thông tin cơ bản</td>
                                 <td class="bold" align="center">Danh mục</td>
                                 <td class="bold" width="7%" align="center">Kiểu bài</td>
-                                <td class="bold" align="center">Status</td>
-                                <td class="bold" align="center" colspan="2">Action</td>
+                                <td class="bold" width="4%" align="center">Status</td>
+                                <td class="bold" width="8%" align="center" colspan="2">Action</td>
                             </tr>
                         </thead>
                         <tbody id="tableContent">

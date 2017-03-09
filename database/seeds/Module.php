@@ -55,25 +55,32 @@ class Module extends Seeder
                 'mod_order'     => 6,
             ],
             [
+                'mod_name'      => 'Quản lý suggest từ khóa',
+                'mod_listname'  => 'Thêm mới|Danh sách',
+                'mod_listrouter'=> 'getAddSuggestKeyword|getListSuggestKeyword',
+                'mod_icon'      => 'icon-key',
+                'mod_order'     => 7,
+            ],
+            [
                 'mod_name'      => 'Cấu hình admin',
                 'mod_listname'  => 'Thêm mới|Danh sách',
                 'mod_listrouter'=> 'getAddConfigAdmin|getListConfigAdmin',
                 'mod_icon'      => 'icon-settings',
-                'mod_order'     => 7,
+                'mod_order'     => 8,
             ],
             [
                 'mod_name'      => 'Cấu hình website',
                 'mod_listname'  => 'setting',
                 'mod_listrouter'=> 'getEditConfiguration',
                 'mod_icon'      => 'icon-equalizer',
-                'mod_order'     => 8,
+                'mod_order'     => 9,
             ],
             [
                 'mod_name'      => 'Phân quyền quản trị',
                 'mod_listname'  => 'Thêm mới|Danh sách',
                 'mod_listrouter'=> 'getAddAccount|getListAccount',
                 'mod_icon'      => 'icon-people',
-                'mod_order'     => 9,
+                'mod_order'     => 10,
             ]
         ];
 

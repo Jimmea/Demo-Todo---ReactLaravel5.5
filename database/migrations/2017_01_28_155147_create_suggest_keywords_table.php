@@ -17,6 +17,8 @@ class CreateSuggestKeywordsTable extends Migration
             $table->increments('suk_id');
             $table->string('suk_name');
             $table->string('suk_link');
+            $table->string('suk_icon');
+            $table->string('suk_color');
             $table->tinyInteger('suk_position');
             $table->tinyInteger('suk_order');
             $table->tinyInteger('suk_status');

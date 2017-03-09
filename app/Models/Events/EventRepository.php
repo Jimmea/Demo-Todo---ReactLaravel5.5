@@ -12,9 +12,10 @@ namespace App\Models\Events;
 interface EventRepository
 {
     public function getListEventPaginate($filter, $sort, $limit=30);
+    public function findEventById($id);
     public function storeData($attribute);
     public function updateById($id, $attribute);
     public function updateByField($id, $field, $other);
-    public function attachEventCate($instance, $categoryId);
-    public function syncEventCate($instance, $categoryId);
+    public function attachEventNewCategory($instance, $categoryId);
+    public function syncEventNewCategory($instance, $categoryId);
 }

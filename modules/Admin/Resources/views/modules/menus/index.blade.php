@@ -4,7 +4,9 @@
             'admincpp.getListMenu'=> trans('admin::menu.list.title')
         ])
     !!}
-    @php $dataGrid = new DataGrid(); $stt = 0 @endphp
+    @php
+        $dataGrid = new DataGrid(); $stt = 1
+    @endphp
     <div class="row">
         <div class="col-md-12">
             <div class="white-box padd-0">
@@ -20,7 +22,6 @@
                         <thead>
                         <tr>
                             <td width="3%" align="center" class="bold">Stt</td>
-                            {!! $dataGrid->makeCheckAllRadio() !!}
                             <td width="18%" class="bold">Tiêu đề</td>
                             <td class="bold">Đi tới</td>
                             <td width="10%" align="center" class="bold">Cửa sổ</td>
@@ -35,7 +36,6 @@
                             @php $dataGrid->setPrimaryKey($value['mnu_id']); @endphp
                             <tr id="tr_{{ $value['mnu_id'] }}">
                                 <td align="center">{{ $stt++ }}</td>
-                                {!! $dataGrid->makeCheckRadio() !!}
                                 <td><a href="javascript:void(0)">
                                         <?php if (isset($value['level'])) for ($j = 0; $j < $value["level"]; $j++) echo "--"; ?>
                                         <span field="mnu_name" record_id="{{ $value['mnu_id'] }}"

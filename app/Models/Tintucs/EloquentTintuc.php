@@ -18,13 +18,30 @@ class EloquentTintuc extends BaseRepository implements TintucRepository
         $this->model = $tintuc;
     }
 
-    public function getListNewPaginate($filter, $sort, $limit=30)
+    /**
+     * Tim kiem tin tuc
+     * @param array $filter : mang gia tri loc theo LIKE, =
+     * @param $sort: mang gia tri sap xep
+     * @param $limit : gioi han tren 1 trang
+     * @param $filterAdvanced : dieu kien loc nang cao
+     * @return
+     */
+    public function getListNewPaginate($filter, $sort, $limit=30, $filterAdvanced= array())
     {
         $query = $this->model->whereRaw(1);
         // Ton tai filter
         if ($filter)
         {
             $query = $this->scopeFilter($query, $filter);
+        }
+
+        // Ton tai eventCategory // Ton tai even_id
+        $eventCategory  = array_get($filterAdvanced, 'evc_category_id');
+        $eventId        = array_get($filterAdvanced, 'evc_event_id');
+        if($eventId && $eventCategory)
+        {
+            $query = $query->join('event_new_category_users', 'encu_new_id', '=', 'new_id')
+                            ->where('encu_category_id', $eventCategory);
         }
 
         // Get admin

@@ -11,7 +11,7 @@ namespace App\Models\Tintucs;
 
 interface TintucRepository
 {
-    public function getListNewPaginate($filter, $sort, $limit);
+    public function getListNewPaginate($filter, $sort, $limit, $filterAdvanced= array());
     public function storeData($attributes);
     public function updateById($id, $attributes);
     public function updateByField($id, $field, $otherValue);

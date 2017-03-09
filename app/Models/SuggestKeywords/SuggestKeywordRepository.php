@@ -11,5 +11,7 @@ namespace App\Models\SuggestKeywords;
 
 interface SuggestKeywordRepository
 {
-
+    public function getListKeywordPaginate($filter, $sort, $limit);
+    public function storeData($attributes);
+    public function updateById($id, $attributes);
 }

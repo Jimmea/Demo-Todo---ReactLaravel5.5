@@ -260,9 +260,55 @@ Route::group([
             'uses' => 'AdminEventController@getEditEvent'
         ]);
         Route::post('/edit/{id}',[
-            'as' => 'admincpp.getPostEvent',
-            'uses' => 'AdminEventController@getPostEvent'
-        ]); 
+            'as' => 'admincpp.postEditEvent',
+            'uses' => 'AdminEventController@postEditEvent'
+        ]);
+
+        Route::get('/delete/{id}', [
+            'as' => 'admincpp.getDeleteEvent',
+            'uses' => 'AdminEventController@getDeleteEvent'
+        ]);
+
+        Route::group(['prefix'=>'{evn_id}/new'], function () {
+          Route::get('/', [
+              'as'   => 'admincpp.getListNewEvent',
+              'uses' => 'AdminEventNewController@getListNewEvent'
+          ]);
+          Route::post('/add', [
+              'as'   => 'admincpp.postAddNewEvent',
+              'uses' => 'AdminEventNewController@postAddNewEvent'
+          ]);
+        });
+    });
+
+    // Suggest keyword
+    Route::group(['prefix'=>'suggestkeyword'], function () {
+        Route::any('/', [
+            'as' => 'admincpp.getListSuggestKeyword',
+            'uses'=> 'AdminSuggestKeywordController@getListSuggestKeyword'
+        ]);
+
+        Route::get('/add', [
+            'as' => 'admincpp.getAddSuggestKeyword',
+            'uses'=> 'AdminSuggestKeywordController@getAddSuggestKeyword'
+        ]);
+        Route::post('/add', [
+            'as' => 'admincpp.postAddSuggestKeyword',
+            'uses'=> 'AdminSuggestKeywordController@postAddSuggestKeyword'
+        ]);
+
+        Route::get('/edit/{id}', [
+            'as'=> 'admincpp.getEditSuggestKeyword',
+            'uses'=> 'AdminSuggestKeywordController@getEditSuggestKeyword'
+        ]);
+        Route::post('/edit/{id}', [
+            'as'=> 'admincpp.postEditSuggestKeyword',
+            'uses'=> 'AdminSuggestKeywordController@postEditSuggestKeyword'
+        ]);
+        Route::get('/delete/{id}', [
+            'as' => 'admincpp.getDeleteSuggestKeyword',
+            'uses' => 'AdminSuggestKeywordController@getDeleteSuggestKeyword'
+        ]);
     });
 
     // Tag

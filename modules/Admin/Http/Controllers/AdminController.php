@@ -79,6 +79,29 @@ class AdminController extends Controller
         ];
     }
 
+    public function getTypeNew()
+    {
+        $newType = [
+            'crawl'         => 1,
+            'user_write'    => 2,
+            'albumn'        => 3,
+            'friend'        => 4,
+        ];
+
+        return $newType;
+    }
+
+    public function getNewType()
+    {
+        $newType = array();
+        foreach ($this->getTypeNew() as $name => $stt)
+        {
+            $newType[$stt] = $name;
+        }
+        return $newType;
+    }
+
+
     public function getAdminId()
     {
         return 1;

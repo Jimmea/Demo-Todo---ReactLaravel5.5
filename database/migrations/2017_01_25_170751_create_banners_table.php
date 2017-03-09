@@ -23,8 +23,8 @@ class CreateBannersTable extends Migration
             $table->tinyInteger('ban_type')->default(0);
             $table->tinyInteger('ban_order')->default(0);
             $table->tinyInteger('ban_status')->default(0);
-            $table->tinyInteger('ban_start_date')->default(0);
-            $table->tinyInteger('ban_end_date')->default(0);
+            $table->date('ban_start_date')->nullable();
+            $table->date('ban_end_date')->nullable();
             $table->string('ban_description')->nullale();
             $table->tinyInteger('ban_isevent')->default(0);
             $table->integer('ban_admin_id')->default(1)->index();

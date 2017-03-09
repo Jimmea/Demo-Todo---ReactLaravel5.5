@@ -1,3 +1,9 @@
+a.btn {
+  color: #fff;
+}
+td .btn {
+  margin-bottom: 3px;
+}
 .input-group-addon {
   height: 18px;
   padding: 0px 10px;

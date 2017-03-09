@@ -60,20 +60,7 @@
         <section id="information">
             <h4 class="text-title">Thông tin cơ bản </h4>
             <hr>
-            <div class="form-group {{ has_error($errors, 'new_cate_id') }}">
-                <label class="control-label">Danh mục {!! label_danger() !!} </label>
-                @php $separator = ""; $newCateid = get_value_field('new_cate_id', $new) @endphp
-                <select name="new_cate_id" id="new_cate_id" class="form-control input-sm">
-                    <option value="">-- Chọn danh mục --</option>
-                    @foreach($categories as $item)
-                        <option {{ $newCateid == $item['cate_id'] ? 'selected' : '' }} value="{{ $item['cate_id'] }}">
-                            <?php if (isset($v['level'])) for($i=0; $i < $v["level"];$i++) $separator .="---"; ?>
-                            {{ $separator . $item['cate_name'] }}
-                        </option>
-                    @endforeach
-                </select>
-                {!! get_error($errors, 'new_cate_id') !!}
-            </div>
+            {{ $form->groupSelect('Danh mục', 'new_cate_id', 'new_cate_id', true, $categories, ['cate_id', 'cate_name'], true, ['label'=> '', 'div'=> '']) }}
             {{ $form->groupText('Tên món ăn', 'new_title', 'new_title', true, ['label'=> '', 'div' => '']) }}
             {{ $form->groupTextArea('Giới thiệu món ăn', 'new_description', 'new_description', true, ['label'=> '', 'div' => '']) }}
         </section>

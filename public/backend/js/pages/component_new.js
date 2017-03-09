@@ -52,15 +52,15 @@ var formSessionStorage = function () {
     {
         dataRecipe =
         {
-            avatar      : '',
-            ingredient  : '',
-            title       : '',
-            description : '',
-            time_pre    : '',
-            time_cook   : '',
-            youtobe_cod : '',
-            people      : '',
-            methods     : {}
+            avatar          : '',
+            new_ingredient  : '',
+            title           : '',
+            description     : '',
+            time_pre        : '',
+            time_cook       : '',
+            youtobe_cod     : '',
+            people          : '',
+            methods         : {}
         };
         dataRecipe.methods[1] =
         {
@@ -445,8 +445,8 @@ var formSessionStorage = function () {
 
             $('#new_ingredient').keyup(function ()
             {
-                var value = preg_split("/(\r\n|\n|\r)/", $(this).val());
-                dataRecipe.ingredient = value;
+                var value = $(this).val();
+                dataRecipe.new_ingredient = value;
                 storeDataRecipe();
             });
 
@@ -467,7 +467,7 @@ var formSessionStorage = function () {
             var listMethods  = dataRecipe.methods;
             var avatarRecipe = dataRecipe.avatar;
             var description  = dataRecipe.description;
-            var ingredient   = dataRecipe.ingredient;
+            var ingredient   = dataRecipe.new_ingredient;
             var title        = dataRecipe.title;
 
             if (description) $('#new_description').val(description);

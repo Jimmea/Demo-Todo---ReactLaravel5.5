@@ -9,28 +9,11 @@ use Modules\Admin\Http\Requests\TintucRequest;
 
 class AdminNewController extends AdminController
 {
-    private $newType = [
-        'crawl'         => 1,
-        'user_write'    => 2,
-        'albumn'        => 3,
-        'friend'        => 4,
-    ];
-
     public function __construct(TintucRepository $tintucRepository, TagRepository $tagRepository)
     {
         parent::__construct();
         $this->tag      = $tagRepository;
         $this->tintuc   = $tintucRepository;
-    }
-
-    private function getNewType()
-    {
-        $newType = array();
-        foreach ($this->newType as $name => $stt)
-        {
-            $newType[$stt] = $name;
-        }
-        return $newType;
     }
 
     /**
@@ -120,13 +103,12 @@ class AdminNewController extends AdminController
             'new_hot'              => 0,
             'new_status'           => get_value('new_status', 'int', 'POST'),
             'new_order'            => 0,
-            'new_type'             => $this->newType['user_write'],
+            'new_type'             => ($this->getTypeNew())['user_write'],
             'new_admin_id'         => $this->getAdminId(),
             'new_pre_time'         => get_value('new_cate_id', 'int', 'POST'),
             'new_cook_time'        => get_value('new_cook_time', 'int', 'POST'),
             'new_people'           => get_value('new_people', 'int', 'POST'),
         ];
-        dd($dataForm);
         $dataForm   = $request->filterDataForm($dataForm);
         $newAdd     = $this->tintuc->storeData($dataForm);
 
@@ -236,7 +218,6 @@ class AdminNewController extends AdminController
             'new_hot'              => 0,
             'new_status'           => get_value('new_status', 'int', 'POST'),
             'new_order'            => 0,
-            'new_type'             => $this->newType['user_write'],
             'new_admin_id'         => $this->getAdminId(),
             'new_pre_time'         => get_value('new_pre_time', 'int', 'POST'),
             'new_cook_time'        => get_value('new_cook_time', 'int', 'POST'),

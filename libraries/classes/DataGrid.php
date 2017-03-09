@@ -1127,12 +1127,14 @@ class DataGrid
 
     public function makeCheckAllRadio()
     {
-        return '<td width="4%" align="center" class="bold"><input type="checkbox" class="check-all" id="check_all_table" data-set="#dataTableList .check-one" name="check_all"></td>';
+        $string ='<td width="4%" align="center" class="bold"><input type="checkbox" class="check-all" id="check_all_table" data-set="#dataTableList .check-one" name="check_all"></td>';
+        return $this->htmlString($string);
     }
 
     public function makeCheckRadio()
     {
-        return '<td align="center"><input type="checkbox" class="check-one" name="check-one" value="' . $this->primaryKey . '"></td>';
+        $string = '<td align="center"><input type="checkbox" class="check-one" name="check-one" value="' . $this->primaryKey . '"></td>';
+        return $this->htmlString($string);
     }
 
     public function makeEditTable(array $row= array())
@@ -1167,7 +1169,7 @@ class DataGrid
         $html= '<td align="center"><a title="Are You want to edit this record" 
                 class="grid-icon" 
                 href="' . route($routeName, $this->primaryKey) . '">
-                <img class="img-responsive" src="'. $this->image_path .'/edit.png" border="0"></a></td>';
+                <img class="img-responsive" src="'. $this->image_path .'edit.png" border="0"></a></td>';
         return $this->htmlString($html);
     }
 
@@ -1241,25 +1243,25 @@ class DataGrid
             case 'string':
             case 'text' :
                 $value = get_value($fieldName, "str", "GET", '');
-                $html = '<label class="text">' . $labelName . '<input type="text" class="form-control '. $class.' input-sm" name="' . $fieldName . '" id="' . $fieldName . '" placeholder="' . $labelName . '" value="' . $value . '"></label>';
+                $html = '<input type="text" class="form-control '. $class.' input-sm" name="' . $fieldName . '" id="' . $fieldName . '" placeholder="' . $labelName . '" value="' . $value . '">';
                 return $this->htmlString($html);
                 break;
 
             case 'number' :
                 $value = Request::get($fieldName);
-                $html = '<label class="text">' . $labelName . '<input type="text" class="form-control '. $class.' input-sm" name="' . $fieldName . '" id="' . $fieldName . '" placeholder="' . $labelName . '" value="' . $value . '"></label>';
+                $html = '<input type="text" class="form-control '. $class.' input-sm" name="' . $fieldName . '" id="' . $fieldName . '" placeholder="' . $labelName . '" value="' . $value . '">';
                 return $this->htmlString($html);
                 break;
 
 
             case "date":
                 $value = get_value($fieldName, "str", "GET", "dd/mm/yyyy");
-                $html = '<label class="text">' . $labelName . '&nbsp;<input type="date"  class="form-control '. $class.' input-sm date" ' . $labelName . ' name="' . $fieldName . '" id="' . $fieldName . '"  onKeyPress="displayDatePicker(\'' . $fieldName . '\', this);" onClick="displayDatePicker(\'' . $fieldName . '\', this);" onfocus="if(this.value==\'' . translate_text("Enter") . ' ' .$fieldName . '\') this.value=\'\'" onblur="if(this.value==\'\') this.value=\'' . translate_text("Enter") . ' ' . $fieldName . '\'" value="' . $value . '"></label>';
+                $html = '&nbsp;<input type="date"  class="form-control '. $class.' input-sm date" ' . $labelName . ' name="' . $fieldName . '" id="' . $fieldName . '"  onKeyPress="displayDatePicker(\'' . $fieldName . '\', this);" onClick="displayDatePicker(\'' . $fieldName . '\', this);" onfocus="if(this.value==\'' . translate_text("Enter") . ' ' .$fieldName . '\') this.value=\'\'" onblur="if(this.value==\'\') this.value=\'' . translate_text("Enter") . ' ' . $fieldName . '\'" value="' . $value . '">';
                 return $this->htmlString($html);
                 break;
 
             case "array":
-                $html 			.= '<label class="text">' . $labelName . '<select class="form-control '. $class.' input-sm" name="' . $fieldName . '" id="' . $fieldName . '">';
+                $html 			.= '<select class="form-control '. $class.' input-sm" name="' . $fieldName . '" id="' . $fieldName . '">';
                 $html 			.= '<option value="">- ' .  $labelName . ' -</option>';
                 $selected 		 = get_value($fieldName, "int", "GET");
                 $separator       = '';
@@ -1278,7 +1280,7 @@ class DataGrid
                         $html .= '<option value="' . $key . '" ' . (($selected==$key) ? 'selected' : '') . '>' . ucfirst($value) . '</option>';
                     }
                 }
-                $html .= '</select></label>';
+                $html .= '</select>';
                 return $this->htmlString($html);
                 break;
         }
@@ -1286,7 +1288,8 @@ class DataGrid
 
     public function closeForm()
     {
-        $html = '<label for=""><button class="btn btn-info btn-sm"><i class="icon-magnifier"></i> Search</button></label></form></div>';
+        $html   = '<div style="margin-top:4px;margin-left:-2px" class="col-md-12"><button class="btn btn-info btn-sm"><i class="icon-magnifier"></i> Search</button></div>';
+        $html  .= '</form></div><div class="clearfix"></div>';
         return $this->htmlString($html);
     }
 }

@@ -11,8 +11,8 @@
     <div class="col-md-6">
         {{ $form->groupText('Thứ tự', 'ban_order', 'ban_order') }}
         {{ $form->groupSelect('Trạng thái', 'ban_status', 'ban_status', false, $defaultStatus) }}
-        {{ $form->groupText('Date start', 'ban_start_date', 'ban_start_date', false, ['input'=> 'date_picker']) }}
-        {{ $form->groupText('Date end', 'ban_end_date', 'ban_end_date', false, ['input'=> 'date_picker']) }}
+        {{ $form->groupDate('Date start', 'ban_start_date', 'ban_start_date', false, ['input'=> 'date_picker']) }}
+        {{ $form->groupDate('Date end', 'ban_end_date', 'ban_end_date', false, ['input'=> 'date_picker']) }}
         {{ $form->groupTextArea('Mô tả', 'ban_description', 'ban_description', false) }}
     </div>
     {{ $form->groupSubmitReset() }}

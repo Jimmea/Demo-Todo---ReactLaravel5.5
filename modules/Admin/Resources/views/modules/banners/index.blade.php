@@ -47,8 +47,8 @@
                                     <td align="center" class="bold">{{ $value->ban_order }}</td>
                                     <td align="center">{{ $defaultTarget[$value->ban_target] }}</td>
                                     <td align="center">
-                                        {{ date('Y-m-d', $value->ban_start_date) }} <br>
-                                        {{ date('Y-m-d', $value->ban_end_date) }}
+                                        {{ $value->ban_start_date }} <br>
+                                        {{ $value->ban_end_date }}
                                     </td>
                                     <td>{{ $value->admins->adm_name }}</td>
                                     {!! $dataGrid->makeCheckButton('admincpp.getListBanner', ['ban_status', $value]) !!}

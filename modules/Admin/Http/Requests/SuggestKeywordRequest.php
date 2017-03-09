@@ -4,7 +4,7 @@ namespace Modules\Admin\Http\Requests;
 
 use App\Http\Requests\FilterForm;
 
-class EventRequest extends FilterForm
+class SuggestKeywordRequest extends FilterForm
 {
     /**
      * Get the validation rules that apply to the request.
@@ -13,20 +13,17 @@ class EventRequest extends FilterForm
      */
     public function rules()
     {
-        $rules =  [
-            'evn_name'              => 'required',
-            'enc_category_id'       => 'required',
+        return [
+            'suk_name' => 'required',
+            'suk_link'=> 'required',
         ];
-
-        return $rules;
     }
-
 
     public function messages()
     {
         return [
-            'evn_name.required'      => trans('admin::form.messages.required'),
-            'enc_category_id.*'      => trans('admin::form.messages.required'),
+            'suk_name.required' => trans('admin::form.messages.required'),
+            'suk_link.required' => trans('admin::form.messages.required'),
         ];
     }
 

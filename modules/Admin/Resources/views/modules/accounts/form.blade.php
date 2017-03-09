@@ -1,5 +1,5 @@
-<?php $form = new Form($errors, $admin); ?>
-{!! $form->beginForm([$routeName,$routeParam]) !!}
+@php $form = new Form($errors, $admin) @endphp
+{{ $form->beginForm([$routeName,$routeParam]) }}
     {!! ul_tab_begin() !!}
         {!! li_tab(['id'=> 'general', 'title'=> 'Thông tin cơ bản (*)'], true) !!}
         {!! li_tab(['id'=> 'permission', 'title'=> 'Quyền Module (*)']) !!}

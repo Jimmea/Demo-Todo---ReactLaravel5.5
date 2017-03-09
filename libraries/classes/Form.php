@@ -36,7 +36,7 @@ class Form
     // @var class of label form group
     private $classLabel;
 
-    public function __construct($errors='', $formDb='')
+    public function __construct($errors, $formDb='')
     {
         $this->errors  = $errors;
         $this->formDb  = $formDb;
@@ -234,6 +234,25 @@ class Form
         return $this->createFormGroup($formGroup, $labelControl, $nameInput, $require);
     }
 
+    /**
+     * Method create group text
+     * @param  string $labelControl : Tieu de label
+     * @param  string $nameInput : ten field trong csdl cua input
+     * @param  string $inputId : selector id
+     * @param  boolean $require : false không bắt buộc nhập | true bắt buôc nhập
+     * @param  array $attributeHtml : giá trị thuộc tính html (Support : classdivinput, classinput, classlabel ...)
+     * @param string html
+     */
+    public function groupDate($labelControl, $nameInput, $inputId ='', $require = false, $attributeHtml = array())
+    {
+        $value          = get_value_field($nameInput, $this->formDb);
+        $attribute      = $this->converArrayAttribute($attributeHtml);
+        $styleInput     = $this->createStyle($inputId);
+
+        $formGroup = '<input type="date" name='.$nameInput.' '.$styleInput.' '.$attribute.' value="'.$value.'">';
+
+        return $this->createFormGroup($formGroup, $labelControl, $nameInput, $require);
+    }
 
     /**
      * Method create group select
@@ -243,23 +262,24 @@ class Form
      * @param  boolean $require : false không bắt buộc nhập | true bắt buôc nhập
      * @param  array $valueDefault :Mảng option mặc định được truyền vào
      * @param  array $activeDefault : Mảng active thông thường bao gồm id, name
-     * @param  boolean $showOptionEmpty : show placeholder true | false
-     * @param  string $addHtml : html
+     * @param  boolean $showPlaceholder : show placeholder true | false
+     * @param  string $attributeHtml : Mang thuoc tinh html
      * @param  string $separator : kí tự ---
      * @param string html
      */
     public function groupSelect($labelControl, $nameselect, $inputId ='', $require = false,  $valueDefault=array(),
-                                $activeDefault= array(), $showOptionEmpty = false, $addHtml = '', $separator='')
+                                $activeDefault= array(), $showPlaceholder = false, $attributeHtml = '', $separator='')
     {
         $value      = get_value_field($nameselect, $this->formDb);
+        $attribute  = $this->converArrayAttribute($attributeHtml);
         $styleInput = $this->createStyle($inputId);
         $fieldId    = $activeDefault ? $activeDefault[0] : '';
         $fieldName  = $activeDefault ? $activeDefault[1] : '';
 
-        $formGroup = '<select name='.$nameselect.' '.$styleInput.'>';
-        if ($showOptionEmpty)
+        $formGroup = '<select '. $attribute .' name='.$nameselect.' '.$styleInput.'>';
+        if ($showPlaceholder)
         {
-            $formGroup .= '<option value="">- Select one -</option>';
+            $formGroup .= '<option value="">- Chọn '. strtolower($labelControl) . ' -</option>';
         }
 
         if ($valueDefault)
@@ -284,7 +304,6 @@ class Form
         }
 
         $formGroup .= '</select>';
-        $formGroup .= $addHtml;
         return $this->createFormGroup($formGroup, $labelControl, $nameselect, $require);
     }
 

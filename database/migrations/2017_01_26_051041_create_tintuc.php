@@ -32,7 +32,7 @@ class CreateTintuc extends Migration
             $table->integer('new_admin_id')->index();
             $table->integer('new_pre_time')->default(0);
             $table->integer('new_cook_time')->default(0);
-            $table->integer('new_people_time')->default(0);
+            $table->integer('new_people')->default(0);
             $table->string('new_param1')->nullable();
             $table->string('new_param2')->nullable();
             $table->string('new_param3')->nullable();
