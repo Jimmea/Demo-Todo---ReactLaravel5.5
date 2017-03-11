@@ -14,7 +14,7 @@ class DataGrid
     public $arrayAttribute = array();
     public $field_id = '';
     public $field_name = '';
-    public $image_path = '../../backend/imgs/icons/';
+    public $image_path = '/backend/imgs/icons/';
     public $fs_border = "#C3DAF9";
     public $html = '';
     public $scriptText = '';
@@ -1141,16 +1141,24 @@ class DataGrid
 
     /**
      * Make checkbox quick html
-     * @param array $router : Mảng router gồm tên router
+     * @param string $route : chuoi router gồm tên router va cac tham so cach nhau |
      * @param array $row  : Mảng gồm tên field và giá trị row
      * @return string
      */
-    public function makeCheckButton($routeName,array $row= array())
+    public function makeCheckButton($route,array $row= array())
     {
         list($field, $value)  = $row;
-        $html = '<td align="center"><a onclick="updateCheck(this); return false" class="grid-icon" data-img="'. $this->image_path . 'check_' . ($value[$field] ? 0 : 1) . '.png" field="' . $field. '" record_id="' . $this->primaryKey .  '" href="' . route($routeName) . '"><img class="img-responsive" src="'. $this->image_path . 'check_' . $value[$field] . '.png" border="0"></a></td>';
+        $route        = explode('|',$route);
+        $routeParam   = isset($route[1]) ? $route[1] : '';
+        $href         = $routeParam ? route($route[0], [$routeParam]) : route($route[0]);
+        $html = '<td align="center"><a onclick="updateCheck(this); return false" class="grid-icon" data-img="'. $this->image_path . 'check_' . ($value[$field] ? 0 : 1) . '.png" field="' . $field. '" record_id="' . $this->primaryKey .  '" href="' . $href . '"><img class="img-responsive" src="'. $this->image_path . 'check_' . $value[$field] . '.png" border="0"></a></td>';
 
         return  $html;
+    }
+
+    public function createUrlFromRoute($route)
+    {
+        return generate_url_from_route($route, (array)$this->primaryKey);
     }
 
     /**
@@ -1160,11 +1168,11 @@ class DataGrid
      * @param array $router : Mảng router gồm tên router và id
      * @return
      */
-    public function makeEditButton($routeName)
+    public function makeEditButton($route)
     {
         $html= '<td align="center"><a title="Click sửa bản ghi" 
                 class="grid-icon" 
-                href="' . route($routeName, $this->primaryKey) . '">
+                href="' . $this->createUrlFromRoute($route) . '">
                 <img class="img-responsive" src="'. $this->image_path .'edit.png" border="0"></a></td>';
         return $html;
     }
@@ -1176,9 +1184,15 @@ class DataGrid
      * @param string $routeName : Nhan router
      * @return
      */
-    public function makeDeleteButton($routeName)
+    public function makeDeleteButton($route)
     {
-        $html = '<td align="center"><a title="Are You sure want to delete this record" class="delete grid-icon" href="' .route($routeName, $this->primaryKey) . '" onclick="return confirm(`Are you sure to delete this record?`)"><img class="img-responsive" src="'. $this->image_path .'/delete.png" border="0"></a></td>';
+        $html = '<td align="center">
+                    <a title="Are You sure want to delete this record" 
+                    class="delete grid-icon" 
+                    href="' .$this->createUrlFromRoute($route) . '" 
+                    onclick="return confirm(`Are you sure to delete this record?`)">
+                    <img class="img-responsive" src="'. $this->image_path .'delete.png" border="0"></a>
+                    </td>';
         return $html;
     }
 

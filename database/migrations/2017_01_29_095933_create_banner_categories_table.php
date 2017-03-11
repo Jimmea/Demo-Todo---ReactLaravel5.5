@@ -13,20 +13,21 @@ class CreateBannerCategoriesTable extends Migration
      */
     public function up()
     {
-        Schema::create('banner_categories', function (Blueprint $table) {
-            $table->increments('bac_id');
-            $table->integer('bac_category_id')->unsigned()->index();
-            $table->string('bac_picture');
-            $table->string('bac_link');
-            $table->string('bac_title');
-            $table->string('bac_description');
-            $table->enum('bac_target', ['_self','_blank', '_parent', '_top']);
-            $table->tinyInteger('bac_type');
-            $table->tinyInteger('bac_position');
-            $table->tinyInteger('bac_start_date');
-            $table->tinyInteger('bac_end_date');
-            $table->tinyInteger('bac_order');
-            $table->tinyInteger('bac_status');
+        Schema::create('category_banners', function (Blueprint $table) {
+            $table->increments('cab_id');
+            $table->integer('cab_category_id')->unsigned()->index();
+            $table->string('cab_picture');
+            $table->string('cab_link');
+            $table->string('cab_title');
+            $table->string('cab_description')->nullable();
+            $table->enum('cab_target', ['_self','_blank', '_parent', '_top']);
+            $table->tinyInteger('cab_type')->nullable();
+            $table->tinyInteger('cab_position')->nullable();
+            $table->date('cab_start_date')->nullable();
+            $table->date('cab_end_date')->nullable();
+            $table->tinyInteger('cab_order')->nullable();
+            $table->tinyInteger('cab_status')->default(0);
+            $table->integer('cab_admin_id')->index();
             $table->timestamps();
         });
     }
@@ -37,6 +38,6 @@ class CreateBannerCategoriesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('banner_categories');
+        Schema::dropIfExists('category_banners');
     }
 }

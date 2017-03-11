@@ -9,7 +9,7 @@
         <div class="col-md-12">
             <div class="white-box">
                 {{ box_title('Thêm mới banner danh mục') }}
-                @include('admin::modules.categorie_banners.form', [
+                @include('admin::modules.categories_banner.form', [
                         'routeName'=> 'admincpp.postAddCategoryBanner',
                         'routeParam'=> [$category->cate_id]
                     ])

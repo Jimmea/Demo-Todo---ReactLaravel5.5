@@ -15,22 +15,9 @@ if (! function_exists('bread_crumb'))
             $bread  .= '<div class="col-xs-12">';
                 $bread  .= '<ol class="breadcrumb">';
                     $bread .= '<li><a href="'.url('/admincpp').'">Admin</a></li>';
-                    foreach ($link as $key => $value)
+                    foreach ($link as $route => $value)
                     {
-                        if ($value)
-                        {
-                            $route      = explode('|', $key);
-                            $routeName  = isset($route[0]) ? $route[0] : '';
-                            $routeParam = isset($route[1]) ? $route[1] : '';
-                            if ($routeName && $routeParam)
-                            {
-                                $href   = (string)$key ? route($routeName, [$routeParam]) : 'javascript:void(0)';
-                            }else
-                            {
-                                $href   = (string)$key ? route($routeName) : 'javascript:void(0)';
-                            }
-                            $bread .= '<li><a href="'.$href.'">'.$value.'</a></li>';
-                        }
+                        if ($value) $bread .= '<li><a href="'.generate_url_from_route($route).'">'.$value.'</a></li>';
                     }
                 $bread .= '</ol>';
             $bread .='</div>';
@@ -59,14 +46,21 @@ if (! function_exists('box_title'))
 
 if(!function_exists('header_title_action'))
 {
-    function header_title_action($title, $route)
+    function header_title_action($title, $route="", $titleAdd="ADD NEW")
     {
         $html = '<div class="header-title pull-left">';
             $html .= box_title($title, false);
         $html .= '</div>';
-
         $html .= '<div class="header-action pull-right">';
-            $html .= '<a href="'.route($route).'" class="btn btn-info btn-sm"><i class="icon-plus"></i> ADD NEW</a>';
+            if(is_string($route))
+            {
+                $html .= '<a href="'.route($route).'" class="btn btn-info btn-sm"><i class="icon-plus"></i> ' . $titleAdd . '</a>';
+            }else
+            {
+                $routeName  = isset($route[0]) ? $route[0] : '';
+                $routeParam = isset($route[1]) ? $route[1] : '';
+                $html .= '<a href="'.route($routeName, $routeParam).'" class="btn btn-info btn-sm"><i class="icon-plus"></i> ' . $titleAdd . '</a>';
+            }
         $html .= '</div>';
 
         return new \Illuminate\Support\HtmlString($html);

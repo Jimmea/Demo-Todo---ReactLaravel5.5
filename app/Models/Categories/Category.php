@@ -21,6 +21,11 @@ class Category extends Model
         return config('setting.typeViewCategory');
     }
 
+    public function categoryBanner()
+    {
+        return $this->hasMany('App\Models\CategoryBanners\CategoryBanner', 'cab_category_id');
+    }
+
     public function makeCollectionCategory($categories)
     {
         $collection = new Collection();

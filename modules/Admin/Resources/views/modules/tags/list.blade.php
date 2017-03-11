@@ -24,8 +24,8 @@
                         <tr>
                             <td width="5%" align="center" class="bold">Stt</td>
                             <td class="bold">Tên</td>
-                            <td width="15%" class="bold">Date create</td>
-                            <td width="15%" class="bold">Date update</td>
+                            <td width="15%" class="bold">Ngày tạo</td>
+                            <td width="15%" class="bold">Ngày cập nhật</td>
                             <td width="6%" align="center" class="bold">Admin</td>
                             <td width="4%" align="center" class="bold">Status</td>
                             <td width="6%" colspan="2" class="text-center bold">Action</td>

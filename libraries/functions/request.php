@@ -6,6 +6,38 @@
  * Time: 15:33
  */
 
+/**
+ | Tao ra mot redirect url :
+ *@param string $route : chuoi tham so gom ten route truoc
+    Sau la mot chuoi tham so route cach nhau boi cac ki tu sau ("-","+","_","\"","\\","/",";",":","*")
+ * @param array $routeParamMore : mang tham so them tiep
+ * @return
+ */
+if (! function_exists('generate_url_from_route'))
+{
+    function generate_url_from_route($route, $routeParamMore= array())
+    {
+        if (empty($route)) return 'javascript:void(0)';
+        $route      = explode('|', $route);
+        $routeName  = isset($route[0]) ? $route[0] : '';
+        $routeParam = isset($route[1]) ? $route[1] : '';
+        // Ton tai ten route va tham so
+        if ($routeName && $routeParam)
+        {
+            $routeParam = multi_explode($routeParam);
+            if ($routeParamMore && $routeParam)
+            {
+                $routeParam = array_merge($routeParam, $routeParamMore);
+            }
+            $redirect       = route($routeName, $routeParam);
+        }
+        else
+        {
+            $redirect   = $routeParamMore ? route($routeName, $routeParamMore) : route($routeName);
+        }
+        return $redirect;
+    }
+}
 
 if (! function_exists('get_value'))
 {
@@ -78,8 +110,6 @@ if (! function_exists('get_value'))
     }
 }
 
-
-
 if (! function_exists('get_param'))
 {
     function get_param($param)
@@ -87,28 +117,6 @@ if (! function_exists('get_param'))
         return Request::has($param) ? Request::get($param) : '';
     }
 }
-
-if (!function_exists('get_uri'))
-{
-    /**
-     * Tra ve cac tham so query tren url
-     *
-=======
-if (! function_exists('get_query_string'))
-{
-    /**
-     * Created by : BillJanny
-     * Date: 2:24 PM - 2/5/2017
-     * Tra ve tat ca cac tham so query tren url
-     * @param void
-     * @return string
-     */
-    function get_query_string()
-    {
-        return $_SERVER['QUERY_STRING'];
-    }
-}
-
 
 if (! function_exists('get_uri'))
 {
@@ -122,8 +130,8 @@ if (! function_exists('get_uri'))
     }
 }
 
-
-if (! function_exists('get_full_url')) {
+if (! function_exists('get_full_url'))
+{
     /**
      *  Tra ve toan bo duong dan url
      *
@@ -218,7 +226,6 @@ if (! function_exists('is_url'))
     }
 }
 
-
 if (!function_exists('redirectAccessDenied'))
 {
     function redirectAccessDenied()
@@ -226,7 +233,6 @@ if (!function_exists('redirectAccessDenied'))
         return redirect("/admincpp/access_denied");
     }
 }
-
 
 /**
  * getURL()
@@ -292,3 +298,5 @@ function get_url($serverName=0, $scriptName=0, $fileName=1, $queryString=1, $var
     $url = str_replace('"', '&quot;', strval($url));
     return $url;
 }
+
+

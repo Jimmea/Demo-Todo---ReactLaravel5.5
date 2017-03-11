@@ -249,7 +249,7 @@ class Form
         $attribute      = $this->converArrayAttribute($attributeHtml);
         $styleInput     = $this->createStyle($inputId);
 
-        $formGroup = '<input type="date" name='.$nameInput.' '.$styleInput.' '.$attribute.' value="'.$value.'">';
+        $formGroup = '<input type="date" name='.$nameInput.' '.$styleInput.' '.$attribute.' value="'.($value ? $value : date("Y-m-d")).'">';
 
         return $this->createFormGroup($formGroup, $labelControl, $nameInput, $require);
     }

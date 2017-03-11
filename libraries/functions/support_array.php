@@ -18,6 +18,20 @@ if (! function_exists('break_string_toarray'))
     }
 }
 
+if (! function_exists('multi_explode'))
+{
+    function multi_explode ($string='')
+    {
+        $delimiter = array(" ","-","+","_","\"","\\","/",";",":","*");
+        $replace = str_replace($delimiter, $delimiter[0], $string);
+        $explode = explode($delimiter[0], $replace);
+
+        return $explode;
+    }
+}
+
+
+
 if (! function_exists('break_array_tostring'))
 {
     function break_array_tostring($array)
@@ -78,7 +92,7 @@ if (! function_exists('get_query_array'))
 {
     function get_query_array()
     {
-        $string = get_query_string();
+        $string = $_SERVER['QUERY_STRING'];
         parse_str($string, $query);
         return $query;
     }

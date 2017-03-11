@@ -98,17 +98,29 @@ Route::group([
 
         // Banner category
         Route::group(['prefix'=> '/{ban_id}/banner'], function () {
-           Route::get('/', [
+            Route::any('/', [
                'as' => 'admincpp.getListCategoryBanner',
                'uses' => 'AdminCategoryBannerController@getListCategoryBanner'
-           ]);
-           Route::get('/add', [
+            ]);
+            Route::get('/add', [
                'as' => 'admincpp.getAddCategoryBanner',
                'uses' => 'AdminCategoryBannerController@getAddCategoryBanner'
-           ]);
+            ]);
             Route::post('/add', [
                 'as' => 'admincpp.postAddCategoryBanner',
                 'uses' => 'AdminCategoryBannerController@postAddCategoryBanner'
+            ]);
+            Route::get('/edit/{cab_id}', [
+                'as' => 'admincpp.getEditCategoryBanner',
+                'uses' => 'AdminCategoryBannerController@getEditCategoryBanner'
+            ]);
+            Route::post('/edit/{cab_id}', [
+                'as' => 'admincpp.postEditCategoryBanner',
+                'uses' => 'AdminCategoryBannerController@postEditCategoryBanner'
+            ]);
+            Route::get('/delete/{cab_id}', [
+                'as' => 'admincpp.getDeleteCategoryBanner',
+                'uses' => 'AdminCategoryBannerController@getDeleteCategoryBanner'
             ]);
         });
     });
