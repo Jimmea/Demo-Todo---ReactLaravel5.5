@@ -2,6 +2,7 @@
 
 namespace Modules\Admin\Http\Controllers;
 
+use App\Models\Categories\CategoryRepository;
 use App\Models\EventNewCategoryUsers\EventNewCategoryUserRepository;
 use App\Models\Events\EventRepository;
 use App\Models\Tintucs\TintucRepository;
@@ -9,6 +10,8 @@ use Illuminate\Http\Request;
 
 class AdminEventNewController extends AdminController
 {
+    const Event = 'event';
+
     public function __construct(
             TintucRepository $tintucRepository ,
             EventRepository $eventRepository,
@@ -66,7 +69,6 @@ class AdminEventNewController extends AdminController
             'event'             => $event,
             'eventCategories'   => $eventCategories
         ];
-
         return view(ADMIN_VIEW .'event_news.list')->with($dataView);
     }
 

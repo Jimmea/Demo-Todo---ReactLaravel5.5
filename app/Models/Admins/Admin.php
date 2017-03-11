@@ -17,6 +17,10 @@ class Admin extends Authenticatable
 
     protected $limit = 15;
 
+    public function admins()
+    {
+        return $this->belongsTo('App\Models\Admins\Admin', 'adm_admin_id');
+    }
 
     /**
      * Tong hop cac module tai day

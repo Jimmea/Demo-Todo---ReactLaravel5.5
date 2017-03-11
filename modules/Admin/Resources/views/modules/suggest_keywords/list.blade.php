@@ -27,9 +27,9 @@
                             <td>Đường dẫn</td>
                             <td width="3%" align="center">Icon</td>
                             <td width="13%" align="center">Vị trí</td>
-                            <td width="3%" align="center">Sắp xếp</td>
+                            <td width="6%" align="center">Sắp xếp</td>
                             <td width="10%" align="center">Cửa sổ</td>
-                            <td width="5%" align="center">Trạng thái</td>
+                            <td width="7%" align="center">Trạng thái</td>
                             <td width="5%" align="center">Admin</td>
                             <td colspan="2" width="5%" align="center">Action</td>
                         </tr>
@@ -43,8 +43,8 @@
                                 <td>{{ $item->suk_name }}</td>
                                 <td><a href="/{{ $item->suk_link }}" target="_blank" title="Xem"><u>{{ $item->suk_link }}</u></a></td>
                                 <td align="center">{{ $item->suk_icon }}</td>
-                                <td>{{ $configPosition[$item->suk_position] }}</td>
-                                <td>{{ $item->suk_order }}</td>
+                                <td align="center">{{ $configPosition[$item->suk_position] }}</td>
+                                <td align="center">{{ $item->suk_order }}</td>
                                 <td align="center">{{ $configTarget[$item->suk_target] }}</td>
                                 {{ $dataGrid->makeCheckButton('admincpp.getListSuggestKeyword', ['suk_status', $item]) }}
                                 <td align="center">{{ $item->admins->adm_name }}</td>

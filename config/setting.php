@@ -13,7 +13,8 @@ return [
         'product'   => 'Sản phẩm',
         'gioithieu' => 'Giới thiệu',
         'giaiphap'  => 'Giải pháp',
-        'tuvan'     => 'Hỏi đáp'
+        'tuvan'     => 'Hỏi đáp',
+        'event'     => 'Events'
     ],
     'typeViewCategory' => [
         1 => 'Type one',

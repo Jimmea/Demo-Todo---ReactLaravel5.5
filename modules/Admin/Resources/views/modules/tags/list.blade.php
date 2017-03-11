@@ -26,6 +26,7 @@
                             <td class="bold">Tên</td>
                             <td width="15%" class="bold">Date create</td>
                             <td width="15%" class="bold">Date update</td>
+                            <td width="6%" align="center" class="bold">Admin</td>
                             <td width="4%" align="center" class="bold">Status</td>
                             <td width="6%" colspan="2" class="text-center bold">Action</td>
                         </tr>
@@ -41,6 +42,7 @@
                                 <td>{{ $item->tag_name }}</td>
                                 <td>{{ $item->created_at }}</td>
                                 <td>{{ $item->updated_at }}</td>
+                                <td align="center">{{ $item->admins->adm_name }}</td>
                                 {!! $dataGrid->makeCheckButton('admincpp.getListTag', ['tag_active', $item]) !!}
                                 {!! $dataGrid->makeEditButton('admincpp.getEditTag') !!}
                                 {!! $dataGrid->makeDeleteButton('admincpp.getDeleteTag') !!}

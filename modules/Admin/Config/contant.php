@@ -9,3 +9,4 @@
 define('NUMBER', 'number');
 define('TEXT', 'text');
 define('ARR', 'array');
+define('ARRKEY', 'arrayKeyStr');

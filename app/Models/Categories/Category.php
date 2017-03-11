@@ -15,10 +15,6 @@ class Category extends Model
         'cate_admin_id', 'cate_show', 'cate_view_type', 'cate_icon'
     ];
 
-    public function getConfigTypeCategory()
-    {
-        return config('setting.typeCategory');
-    }
 
     public function getTypeView()
     {

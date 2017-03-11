@@ -26,11 +26,12 @@
                     <table class="table table-bordered table-stripped" id="dataTableList">
                         <thead>
                             <tr>
-                                <td width="3%" align="center" class="bold">Stt</td>
+                                <td width="4%" align="center" class="bold">Stt</td>
                                 <td class="bold">Login name</td>
                                 <td class="bold">Full name</td>
                                 <td class="bold">Email</td>
                                 <td class="bold">Right Modules</td>
+                                <td width="8%" align="center">Người tạo</td>
                                 @if(get_session('isadmin'))
                                 <td class="bold" align="center">Right website</td>
                                 @endif
@@ -60,6 +61,7 @@
                                             <?php $access = ''; ?>
                                         @endif
                                     </td>
+                                    <td align="center">{{ $value->admins->adm_name }}</td>
 
                                     @if(get_session('isadmin'))
                                     {!! $dataGrid->makeCheckButton('admincpp.getListAccount', ['adm_isadmin', $value]) !!}
@@ -67,12 +69,14 @@
 
                                     @if(get_session('isadmin') && $value->adm_id != 1)
                                     <td align="center"><a target="_blank" href="{{ route('admincpp.getFaceLogin', $value->adm_id) }}" class="btn btn-xs btn-success">Login</a></td>
+                                    @else
+                                        <td align="center">...</td>
                                     @endif
 
                                     @if($value->adm_id != 1)
-                                    {!! $dataGrid->makeCheckButton('admincpp.getListAccount', ['adm_active', $value]) !!}
+                                        {!! $dataGrid->makeCheckButton('admincpp.getListAccount', ['adm_active', $value]) !!}
                                     @else
-                                        <td></td>
+                                        <td align="center">...</td>
                                     @endif
 
                                     @if(get_session('adm_id') == 1)

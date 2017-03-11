@@ -69,7 +69,7 @@ Route::group([
     });
 
     // CATEOGORY
-    Route::group(['prefix'=> 'category', 'middleware'=> 'checkPermission'], function () {
+    Route::group(['prefix'=> 'category'], function () {
         Route::any('/', [
             'as'             => 'admincpp.getListCategory',
             'permissions'    => 'category.list',
@@ -95,6 +95,22 @@ Route::group([
             'permissions'   => 'category.edit',
             'uses'          => 'AdminCategoryController@PostEditCategory'
         ]);
+
+        // Banner category
+        Route::group(['prefix'=> '/{ban_id}/banner'], function () {
+           Route::get('/', [
+               'as' => 'admincpp.getListCategoryBanner',
+               'uses' => 'AdminCategoryBannerController@getListCategoryBanner'
+           ]);
+           Route::get('/add', [
+               'as' => 'admincpp.getAddCategoryBanner',
+               'uses' => 'AdminCategoryBannerController@getAddCategoryBanner'
+           ]);
+            Route::post('/add', [
+                'as' => 'admincpp.postAddCategoryBanner',
+                'uses' => 'AdminCategoryBannerController@postAddCategoryBanner'
+            ]);
+        });
     });
 
     // MENU
@@ -308,6 +324,37 @@ Route::group([
         Route::get('/delete/{id}', [
             'as' => 'admincpp.getDeleteSuggestKeyword',
             'uses' => 'AdminSuggestKeywordController@getDeleteSuggestKeyword'
+        ]);
+    });
+
+    Route::group(['prefix'=>'suggestsearch'], function () {
+        Route::any('/', [
+            'as'    => 'admincpp.getListSuggestSearch',
+            'uses'  => 'AdminSuggestSearchController@getListSuggestSearch'
+        ]);
+        Route::get('/add', [
+            'as'    => 'admincpp.getAddSuggestSearch',
+            'uses'  => 'AdminSuggestSearchController@getAddSuggestSearch'
+        ]);
+
+        Route::post('/add', [
+            'as'    => 'admincpp.postAddSuggestSearch',
+            'uses'  => 'AdminSuggestSearchController@postAddSuggestSearch'
+        ]);
+
+        Route::get('/edit/{id}', [
+            'as'    => 'admincpp.getEditSuggestSearch',
+            'uses'  => 'AdminSuggestSearchController@getEditSuggestSearch'
+        ]);
+
+        Route::post('/edit/{id}', [
+            'as'    => 'admincpp.postEditSuggestSearch',
+            'uses'  => 'AdminSuggestSearchController@postEditSuggestSearch'
+        ]);
+
+        Route::get('/delete/{id}', [
+            'as'    => 'admincpp.getDeleteSuggestSearch',
+            'uses'  => 'AdminSuggestSearchController@getDeleteSuggestSearch'
         ]);
     });
 

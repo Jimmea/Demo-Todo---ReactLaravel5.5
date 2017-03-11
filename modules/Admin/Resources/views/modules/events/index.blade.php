@@ -28,9 +28,8 @@
                                 <td align="center">Tên event</td>
                                 <td align="center">Từ khóa</td>
                                 <td width="20%" align="center">Danh mục event</td>
-                                <td width="8%" align="center">Thêm Tin</td>
                                 <td width="5%" align="center">Admin</td>
-                                <td colspan="2" width="5%" align="center">Action</td>
+                                <td colspan="4" width="5%" align="center">Action</td>
                             </tr>
                         </thead>
                         <tbody id="tableContent">
@@ -45,19 +44,22 @@
                                     </td>
                                     <td>{{ $item->evn_name }}</td>
                                     <td align="center">{{ $item->evn_meta_keyword }}</td>
-                                    <td>
+                                    <td align="center">
                                         @if($cates = $item->category)
                                             @foreach($cates as $value)
                                                 <a href="javascript:void(0)">[{{ $value->cate_name }}]</a>
                                             @endforeach
                                         @endif
                                     </td>
+                                    <td align="center">{{ $item->admins->adm_name }}</td>
+                                    <td>
+                                        <a title="Copy link event" class="grid-icon" href=""><img src="/backend/imgs/icons/copy.png" class="img-responsive"></a>
+                                    </td>
                                     <td align="center">
                                         <a href="{{ route('admincpp.getListNewEvent', $item->evn_id) }}" class="grid-icon" title="Thêm tin vào event">
                                             <img class="img-responsive" src="../../backend/imgs/icons/add.png" border="0">
                                         </a>
                                     </td>
-                                    <td align="center">{{ $item->admin_name }}</td>
                                     {{ $dataGrid->makeEditButton('admincpp.getEditEvent') }}
                                     {{ $dataGrid->makeDeleteButton('admincpp.getDeleteEvent') }}
                                 </tr>

@@ -17,12 +17,13 @@
                         <table class="table table-stripped" id="dataTableList">
                             <thead>
                                 <tr>
-                                    <td align="center" width="3%">TT</td>
-                                    <td align="center" width="3%">ID</td>
+                                    <td align="center" width="4%">TT</td>
+                                    <td align="center" width="4%">ID</td>
                                     <td>Tên module</td>
                                     <td>Tiêu đề</td>
                                     <td>Tên router</td>
-                                    <td>Sắp xếp</td>
+                                    <td align="center" width="5%">Icon</td>
+                                    <td align="center" width="5%">Sắp xếp</td>
                                     <td class="text-center">Action</td>
                                 </tr>
                             </thead>
@@ -30,12 +31,13 @@
                                 @foreach($modules as $value)
                                 <?php $dataGrid->setPrimaryKey($value->mod_id) ?>
                                 <tr id="tr_{{ $value->mod_id }}">
-                                    <td>{{ $stt++ }}</td>
+                                    <td align="center">{{ $stt++ }}</td>
                                     <td align="center">{{ $value->mod_id }}</td>
                                     <td>{{ $value->mod_name }}</td>
                                     <td>{{ $value->mod_listname }}</td>
                                     <td>{{ $value->mod_listrouter }}</td>
-                                    <td>{{ $value->mod_order }}</td>
+                                    <td align="center"><i class="{{ $value->mod_icon }}"></i></td>
+                                    <td align="center">{{ $value->mod_order }}</td>
                                     {!! $dataGrid->makeEditButton('admincpp.getEditConfigAdmin') !!}
                                 </tr>
                                 @endforeach

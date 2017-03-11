@@ -459,6 +459,7 @@ class DataGrid
                 $str .= '<select name="' . $field . '" id="' . $field . '" class="form-control input-sm">';
                 if ($value)
                 {
+                    $str .= '<option value=""> ' . $name . ' </option>';
                     foreach($value as $id=>$text)
                     {
                         $str .= '<option value="' . $id . '" ' . (($default==$id) ? 'selected' : '') . '>' . $text . '</option>';
@@ -739,7 +740,6 @@ class DataGrid
 	*/
     public function urlsearch($type_search = 0)
     {
-        $str = '';
         $str = '<form action="' . $_SERVER['REDIRECT_URL'] . '" methor="get" name="form_search" class="form-inline" onsubmit="check_form_submit(this); return false">';
         $str .= '<input type="hidden" name="search" id="search" value="1" />';
 //        $str .= '<table cellpadding="0" cellspacing="0" border="0"><tr>';
@@ -752,54 +752,50 @@ class DataGrid
 
         foreach($this->arraySearch as $key=>$field)
         {
-            switch($this->arrayType[$key])
-            {
-
-                case "string":
-                case "text":
-                    $value = get_value($field,"str","GET", '');
-                    $str .= '<label class="text bold">' . $this->arrayLabel[$key] . '<input type="text" class="form-control input-sm" ' . $this->arrayAttribute[$key] . ' name="' . $field . '" id="' . $field . '" onfocus="if(this.value==\'' . $this->arrayLabel[$key] . '\') this.value=\'\'" onblur="if(this.value==\'\') this.value=\'' . $this->arrayLabel[$key] . '\'" placeholder="' . $this->arrayLabel[$key] . '" value="' . $value . '"></label>';
-                    break;
-
-                case "numbernotedit":
-                    $value = get_value($field,"str","GET",$this->arrayLabel[$key]);
-                    $str .= '<label class="text">' . $this->arrayLabel[$key] . '<input type="text" class="form-control input-sm" ' . $this->arrayAttribute[$key] . ' name="' . $field . '" id="' . $field . '" onfocus="if(this.value==\'' . $this->arrayLabel[$key] . '\') this.value=\'\'" onblur="if(this.value==\'\') this.value=\'' . $this->arrayLabel[$key] . '\'" value="' . $value . '"></label>';
-                    break;
-
-                case "date":
-                    $value = get_value($field,"str","GET","dd/mm/yyyy");
-                    $str .= '<label class="text">' . $this->arrayLabel[$key] . '&nbsp;<input type="text"  class="form-control input-sm date" ' . $this->arrayAttribute[$key] . ' name="' . $field . '" id="' . $field . '"  onKeyPress="displayDatePicker(\'' . $field . '\', this);" onClick="displayDatePicker(\'' . $field . '\', this);" onfocus="if(this.value==\'' . translate_text("Enter") . ' ' . $this->arrayLabel[$key] . '\') this.value=\'\'" onblur="if(this.value==\'\') this.value=\'' . translate_text("Enter") . ' ' . $this->arrayLabel[$key] . '\'" value="' . $value . '"></label>';
-                    break;
-
-                case "array":
-                    $field = $this->arrayField[$key];
-                    global $$field;
-                    $arrayList = $$field;
-                    $str 			.= '<label class="text">' . $this->arrayLabel[$key] . '<select class="form-control" name="' . $field . '" id="' . $field . '" ' . $this->arrayAttribute[$key] . '>';
-                    $str 			.= '<option value="-1">' . $this->arrayLabel[$key] . '</option>';
-                    $selected 		= get_value($field,"str","GET",'');
-                    dd($selected);
-                    foreach($arrayList as $key => $value)
-                    {
-                        $str 		.= '<option value="' . $key . '" ' . (($selected==$key) ? 'selected' : '') . '>' . $value . '</option>';
-                    }
-                    $str .= '</select></label>';
-                    break;
-
-            }
+//            switch($this->arrayType[$key])
+//            {
+//
+//                case "string":
+//                case "text":
+//                    $value = get_value($field,"str","GET", '');
+//                    $str .= '<label class="text bold">' . $this->arrayLabel[$key] . '<input type="text" class="form-control input-sm" ' . $this->arrayAttribute[$key] . ' name="' . $field . '" id="' . $field . '" onfocus="if(this.value==\'' . $this->arrayLabel[$key] . '\') this.value=\'\'" onblur="if(this.value==\'\') this.value=\'' . $this->arrayLabel[$key] . '\'" placeholder="' . $this->arrayLabel[$key] . '" value="' . $value . '"></label>';
+//                    break;
+//
+//                case "numbernotedit":
+//                    $value = get_value($field,"str","GET",$this->arrayLabel[$key]);
+//                    $str .= '<label class="text">' . $this->arrayLabel[$key] . '<input type="text" class="form-control input-sm" ' . $this->arrayAttribute[$key] . ' name="' . $field . '" id="' . $field . '" onfocus="if(this.value==\'' . $this->arrayLabel[$key] . '\') this.value=\'\'" onblur="if(this.value==\'\') this.value=\'' . $this->arrayLabel[$key] . '\'" value="' . $value . '"></label>';
+//                    break;
+//
+//                case "date":
+//                    $value = get_value($field,"str","GET","dd/mm/yyyy");
+//                    $str .= '<label class="text">' . $this->arrayLabel[$key] . '&nbsp;<input type="text"  class="form-control input-sm date" ' . $this->arrayAttribute[$key] . ' name="' . $field . '" id="' . $field . '"  onKeyPress="displayDatePicker(\'' . $field . '\', this);" onClick="displayDatePicker(\'' . $field . '\', this);" onfocus="if(this.value==\'' . translate_text("Enter") . ' ' . $this->arrayLabel[$key] . '\') this.value=\'\'" onblur="if(this.value==\'\') this.value=\'' . translate_text("Enter") . ' ' . $this->arrayLabel[$key] . '\'" value="' . $value . '"></label>';
+//                    break;
+//
+//                case "array":
+//                    $field = $this->arrayField[$key];
+////                    global $$field;
+////                    $arrayList = $$field;
+////                    $str 			.= '<label class="text">' . $this->arrayLabel[$key] . '<select class="form-control" name="' . $field . '" id="' . $field . '" ' . $this->arrayAttribute[$key] . '>';
+////                    $str 			.= '<option value="-1">' . $this->arrayLabel[$key] . '</option>';
+////                    $selected 		= get_value($field,"str","GET",'');
+////                    dd($selected);
+////                    foreach($arrayList as $key => $value)
+////                    {
+////                        $str 		.= '<option value="' . $key . '" ' . (($selected==$key) ? 'selected' : '') . '>' . $value . '</option>';
+////                    }
+////                    $str .= '</select></label>';
+//                    break;
+//
+//            }
         }
 
         foreach($this->arrayAddSearch as $key => $value)
         {
             if($value[2] != "")
             {
-                $str .= "<label><b>";
-                $str .= $value[2].'</b>';
-
+//                $str .= $value[2].'</b>';
             }
-
             $str .= $value[0];
-            $str .= "</label>";
         }
 
         // Show nút search ở cuối
@@ -1128,19 +1124,19 @@ class DataGrid
     public function makeCheckAllRadio()
     {
         $string ='<td width="4%" align="center" class="bold"><input type="checkbox" class="check-all" id="check_all_table" data-set="#dataTableList .check-one" name="check_all"></td>';
-        return $this->htmlString($string);
+        return $string;
     }
 
     public function makeCheckRadio()
     {
         $string = '<td align="center"><input type="checkbox" class="check-one" name="check-one" value="' . $this->primaryKey . '"></td>';
-        return $this->htmlString($string);
+        return $string;
     }
 
-    public function makeEditTable(array $row= array())
+    public function makeEditColumn(array $row= array(), $attributeHtml="")
     {
         list($field, $value)  = $row;
-        return '<td align="center"><a href="javascript:void(0)"><span field="' .$field. '" record_id="' . $this->primaryKey . '" class="clickEdit">' . $value[$field] . '</span></a></td>';
+        return '<td '. $attributeHtml .'><a href="javascript:void(0)"><span field="' .$field. '" record_id="' . $this->primaryKey . '" class="clickEdit">' . $value[$field] . '</span></a></td>';
     }
 
     /**
@@ -1154,7 +1150,7 @@ class DataGrid
         list($field, $value)  = $row;
         $html = '<td align="center"><a onclick="updateCheck(this); return false" class="grid-icon" data-img="'. $this->image_path . 'check_' . ($value[$field] ? 0 : 1) . '.png" field="' . $field. '" record_id="' . $this->primaryKey .  '" href="' . route($routeName) . '"><img class="img-responsive" src="'. $this->image_path . 'check_' . $value[$field] . '.png" border="0"></a></td>';
 
-        return $this->htmlString($html);
+        return  $html;
     }
 
     /**
@@ -1166,11 +1162,11 @@ class DataGrid
      */
     public function makeEditButton($routeName)
     {
-        $html= '<td align="center"><a title="Are You want to edit this record" 
+        $html= '<td align="center"><a title="Click sửa bản ghi" 
                 class="grid-icon" 
                 href="' . route($routeName, $this->primaryKey) . '">
                 <img class="img-responsive" src="'. $this->image_path .'edit.png" border="0"></a></td>';
-        return $this->htmlString($html);
+        return $html;
     }
 
     /**
@@ -1183,7 +1179,7 @@ class DataGrid
     public function makeDeleteButton($routeName)
     {
         $html = '<td align="center"><a title="Are You sure want to delete this record" class="delete grid-icon" href="' .route($routeName, $this->primaryKey) . '" onclick="return confirm(`Are you sure to delete this record?`)"><img class="img-responsive" src="'. $this->image_path .'/delete.png" border="0"></a></td>';
-        return $this->htmlString($html);
+        return $html;
     }
 
     /**
@@ -1260,6 +1256,19 @@ class DataGrid
                 return $this->htmlString($html);
                 break;
 
+            case "arrayKeyStr":
+                $html 			.= '<select class="form-control '. $class.' input-sm" name="' . $fieldName . '" id="' . $fieldName . '">';
+                $html 			.= '<option value="">- ' .  $labelName . ' -</option>';
+                $selected 		 = get_value($fieldName, "str", "GET");
+
+                foreach($valueDefault as $key => $value)
+                {
+                    $html .= '<option value="' . $key . '" ' . (($selected==$key) ? 'selected' : '') . '>' . ucfirst($value) . '</option>';
+                }
+                $html .= '</select>';
+                return $this->htmlString($html);
+                break;
+
             case "array":
                 $html 			.= '<select class="form-control '. $class.' input-sm" name="' . $fieldName . '" id="' . $fieldName . '">';
                 $html 			.= '<option value="">- ' .  $labelName . ' -</option>';
@@ -1268,10 +1277,10 @@ class DataGrid
                 list($id, $name) = $valueActive ? $valueActive : array(NULL, NULL);
                 foreach($valueDefault as $key => $value)
                 {
-                    if (isset($value['level']))
+                    if (is_array($value))
                     {
                         $html .= '<option value="' . $value[$id] . '" ' . (($selected==$value[$id]) ? 'selected' : '') . '>';
-                            for($i=0; $i < $value["level"];$i++) $separator .="---";
+                            if (isset($value['level'])) for($i=0; $i < $value["level"];$i++) $separator .="---";
                             $html .= $separator . ucfirst($value[$name]);
                          $html .='</option>';
                         $separator = '';

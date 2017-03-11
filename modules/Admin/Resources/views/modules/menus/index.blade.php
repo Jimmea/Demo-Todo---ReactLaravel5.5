@@ -18,14 +18,15 @@
                     {{ $dataGrid->closeForm() }}
                 </div>
                 <div class="white-box-content ">
-                    <table class="table table-bordered table-stripped" id="dataTableList">
+                    <table class="table table-stripped" id="dataTableList">
                         <thead>
                         <tr>
-                            <td width="3%" align="center" class="bold">Stt</td>
+                            <td width="5%" align="center" class="bold">Stt</td>
+                            <td width="5%" align="center" class="bold">Id</td>
                             <td width="18%" class="bold">Tiêu đề</td>
                             <td class="bold">Đi tới</td>
+                            <td width="8%" align="center" class="bold">Vị trí hiển thị</td>
                             <td width="10%" align="center" class="bold">Cửa sổ</td>
-                            <td width="8%" align="center" class="bold">Vị trí</td>
                             <td width="6%" class="bold">Thứ tự</td>
                             <td width="4%" align="center" class="bold">Status</td>
                             <td width="6%" colspan="2" class="text-center bold">Action</td>
@@ -36,15 +37,16 @@
                             @php $dataGrid->setPrimaryKey($value['mnu_id']); @endphp
                             <tr id="tr_{{ $value['mnu_id'] }}">
                                 <td align="center">{{ $stt++ }}</td>
+                                <td align="center">{{ $value['mnu_id'] }}</td>
                                 <td><a href="javascript:void(0)">
                                         <?php if (isset($value['level'])) for ($j = 0; $j < $value["level"]; $j++) echo "--"; ?>
                                         <span field="mnu_name" record_id="{{ $value['mnu_id'] }}"
                                               class="clickEdit">{{ $value['mnu_name'] }}</span></a>
                                 </td>
                                 <td><a href="{{ url($value['mnu_link']) }}" target="_blank">{{ $value['mnu_link'] }}</a></td>
-                                <td align="center">{{ $configTarget[$value['mnu_target']] }}</td>
                                 <td align="center">{{ $configPosition[$value['mnu_position']] }}</td>
-                                {!! $dataGrid->makeEditTable(['mnu_order', $value]) !!}
+                                <td align="center">{{ $configTarget[$value['mnu_target']] }}</td>
+                                {!! $dataGrid->makeEditColumn(['mnu_order', $value], "align=center") !!}
                                 {!! $dataGrid->makeCheckButton('admincpp.getListMenu', ['mnu_status', $value]) !!}
                                 {!! $dataGrid->makeEditButton('admincpp.getEditMenu') !!}
                             </tr>

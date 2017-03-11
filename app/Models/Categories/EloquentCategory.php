@@ -39,7 +39,15 @@ class EloquentCategory extends BaseRepository implements CategoryRepository
      */
     public function getConfigTypeCategory()
     {
-        return $this->model->getConfigTypeCategory();
+        return [
+            'static'    => 'Trang tĩnh',
+            'news'      => 'Tin tức',
+            'product'   => 'Sản phẩm',
+            'gioithieu' => 'Giới thiệu',
+            'giaiphap'  => 'Giải pháp',
+            'tuvan'     => 'Hỏi đáp',
+            'event'     => 'Events'
+        ];
     }
 
     /**
@@ -155,6 +163,12 @@ class EloquentCategory extends BaseRepository implements CategoryRepository
         return parent::updateByField($id, $field, $otherValue);
     }
 
+    public function makeCollectTionCategory($categories)
+    {
+        $categories = $this->model->makeCollectionCategory($categories);
+        return $categories;
+    }
+
     /**
      * Created by : Hungokata
      * Time : 11:15 PM / 2/10/2017
@@ -168,16 +182,30 @@ class EloquentCategory extends BaseRepository implements CategoryRepository
     public function getAllCategory($arrField= array(), $filter = array(), $search = false, $sort = ['cate_order', 'ASC'])
     {
         $categories = $this->getAllChild('categories', 'cate_id', 'cate_parent_id', 0, $filter, $arrField, $sort , $search);
-//        $categories = $this->model->makeCollectionCategory($categories);
         return $categories;
     }
 
     public function getAllParentCategory()
     {
-        return $this->model
+        $query =  $this->model
                     ->where('cate_parent_id',0)
                     ->orderBy('cate_order')
                     ->get();
+
+        return $query;
     }
 
+    /**
+     * Get ton bo thong tin category theo type
+     * @param string $type : kieu danh muc category
+     * @return mixed
+     */
+    public function getCategoryByType($type)
+    {
+        $query = $this->model->where('cate_type', $type)
+                             ->where('cate_status', 1)
+                             ->get()
+                             ->toArray();
+        return $query;
+    }
 }

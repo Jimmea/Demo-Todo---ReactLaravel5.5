@@ -34,16 +34,14 @@ class AdminCategoryController extends AdminController
                 switch ($field)
                 {
                     case 'cate_show' :
-                        $this->category->updateByField($cateId, 'cate_show');
-                        break;
-
-                    case 'cate_status':
-                        $this->category->updateByField($cateId, 'cate_status');
+                    case 'cate_status' :
+                        $this->category->updateByField($cateId, $field);
                         break;
 
                     case 'cate_name':
+                    case 'cate_meta_keyword':
                         $value = get_value('value', 'str', 'POST');  if (!$value) return 0;
-                        $this->category->updateByField($cateId, 'cate_name', $value);
+                        $this->category->updateByField($cateId, $field, $value);
                         break;
 
                     case 'cate_order':
@@ -51,14 +49,13 @@ class AdminCategoryController extends AdminController
                         $this->category->updateByField($cateId, 'cate_order', $value);
                         break;
                 }
-
                 return $this->responseSuccess();
             }
         }
 
         // Show danh sach
-        $arrayColumn = ["cate_picture", "cate_icon", "cate_name", "cate_status","cate_order", "cate_show", "cate_type",
-            'cate_total_hit'];
+        $arrayColumn = ["cate_picture", "cate_icon", "cate_name", "cate_status","cate_order",
+            "cate_show", "cate_type", "cate_meta_keyword", 'cate_total_hit'];
 
         $this->setFilter($request, 'cate_type', '=');
         $cate_sort  = get_value('cate_sort', 'str');
@@ -66,25 +63,9 @@ class AdminCategoryController extends AdminController
         $sort       = ['cate_order', $cate_sort];
 
         $categories     = $this->category->getAllCategory($arrayColumn, $filter, false, $sort);
+        $categories     = $this->category->makeCollectTionCategory($categories);
         $typeCategories = $this->category->getConfigTypeCategory();
-        $dataGrid   = new \DataGrid('cate_id', 'cate_name', 'Danh sách category');
-        $dataGrid->hideStt();
-        $dataGrid->hideCheckAll();
-        $dataGrid->add('cate_id', 'ID', 'numbernotedit');
-        $dataGrid->add('cate_picture', 'Avatar', 'picture');
-        $dataGrid->add('cate_name', 'Tên category', 'string');
-        $dataGrid->add('cate_type', 'Kiểu category', 'array', 0, 0, 'width="150"');
-        $dataGrid->add('cate_total_hit', 'Total view', 'numbernotedit', 0, 0 , 'width="80"');
-        $dataGrid->add('cate_order', 'Order', 'number');
-        $dataGrid->add('cate_show', 'Home', 'checkbox');
-        $dataGrid->add('cate_status', 'Status', 'checkbox');
-        $dataGrid->add(false, 'Edit', 'edit');
-        $dataGrid->setRouteAdd('admincpp.getAddCategory');
-        $dataGrid->setRouteEdit('admincpp.getEditCategory');
-        $dataGrid->setArrayFieldLevel(array('cate_name'=>"--"));
-        $dataGrid->addSearch('Kiểu category', 'cate_type', 'array', $typeCategories);
         $dataView = array(
-            'listing'        => $dataGrid->showTableMulti($categories),
             'categories'     => $categories,
             'typeCategory'   => $typeCategories
         );

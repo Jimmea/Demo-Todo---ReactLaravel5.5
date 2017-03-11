@@ -18,7 +18,7 @@ class EloquentTag extends BaseRepository implements TagRepository
 
     public function getAll($filter = false, $sort = false, $limit = false)
     {
-        return parent::getAll($filter, $sort, $limit);
+        return parent::getAllAdmin($filter, $sort, $limit);
     }
 
     public function storeData($attributes)

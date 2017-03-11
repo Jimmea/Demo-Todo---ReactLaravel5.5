@@ -34,6 +34,7 @@ class BackendServiceProvider extends ServiceProvider
             'Events'                => 'Event',
             'EventNewCategoryUsers' => 'EventNewCategoryUser',
             'SuggestKeywords'       => 'SuggestKeyword',
+            'SuggestSearchs'        => 'SuggestSearch',
         ];
 
         $concrete   = 'Eloquent';

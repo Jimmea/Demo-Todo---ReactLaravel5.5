@@ -14,6 +14,42 @@ abstract class BaseRepository
 {
     use ValidatesRequests, RecursiveMenu;
     protected $total = 0;
+
+    public function getAllAdmin($filter = false, $sort = false, $limit = false)
+    {
+        if ($filter === false && $sort === false && $limit === false)
+        {
+            return $this->model->all();
+        }
+
+        $query = $this->model->where(function($q) use ($filter)
+        {
+            if (!empty($filter))
+            {
+                foreach ($filter as $f)
+                {
+                    list($col, $ope, $val) = $f;
+                    $q->where($col, $ope, $val);
+                }
+            }
+        });
+
+        $query->with([
+            'admins' => function($q)
+            {
+                $q->select('adm_id', 'adm_name');
+            }
+        ]);
+
+        if ($sort)
+        {
+            list($col, $dir) = $sort;
+            $query->orderBy($col, $dir);
+        }
+
+        return $limit ? $query->paginate($limit) : $query->get();
+    }
+
     /**
      * Get all model
      * @return \Illuminate\Database\Eloquent\Collection

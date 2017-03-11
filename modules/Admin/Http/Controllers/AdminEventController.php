@@ -2,6 +2,7 @@
 
 namespace Modules\Admin\Http\Controllers;
 
+use App\Models\Categories\CategoryRepository;
 use App\Models\EventNewCategoryUsers\EventNewCategoryUserRepository;
 use App\Models\Events\EventRepository;
 use Illuminate\Http\Request;
@@ -9,11 +10,15 @@ use Modules\Admin\Http\Requests\EventRequest;
 
 class AdminEventController extends AdminController
 {
-    public function __construct(EventRepository $eventRepository, EventNewCategoryUserRepository $eventNewCategoryUserRepository)
+    const Event = 'event';
+
+    public function __construct(EventRepository $eventRepository,
+                                EventNewCategoryUserRepository $eventNewCategoryUserRepository,
+                                CategoryRepository $categoryRepository)
     {
-        parent::__construct();
         $this->event = $eventRepository;
         $this->eventNewCategoryUser = $eventNewCategoryUserRepository;
+        $this->category = $categoryRepository;
     }
 
     public function getListEvent(Request $request)
@@ -33,7 +38,8 @@ class AdminEventController extends AdminController
     public function getAddEvent()
     {
         $dataView = [
-            'event' => ''
+            'categories'  => $this->category->getCategoryByType(self::Event),
+            'event'     => '',
         ];
         return view(ADMIN_VIEW . 'events.add')->with($dataView);
     }
@@ -43,6 +49,7 @@ class AdminEventController extends AdminController
         $dataForm = $request->except(['enc_category_id', '_token']);
         $dataForm = $request->filterDataForm($dataForm);
         $dataForm['evn_admin_id'] = $this->getAdminId();
+        $dataForm['evn_slug']     = str_remove_accent($dataForm['evn_name']);
         $eventAdd = $this->event->storeData($dataForm);
 
         if ($request->get('enc_category_id'))
@@ -59,7 +66,8 @@ class AdminEventController extends AdminController
         $categories  = $event->category->pluck('cate_id')->toArray();
         $event['enc_category_id'] = $categories;
         $dataView = [
-            'event' => $event
+            'categories'    => $this->category->getCategoryByType(self::Event),
+            'event'         => $event
         ];
         return view(ADMIN_VIEW . 'events.edit')->with($dataView);
     }
@@ -71,6 +79,7 @@ class AdminEventController extends AdminController
 
         $dataForm    = $request->except(['enc_category_id', '_token']);
         $dataForm    = $request->filterDataForm($dataForm);
+        $dataForm['evn_slug'] = str_remove_accent($dataForm['evn_name']);
         $eventEdit   = $this->event->updateById($id, $dataForm);
         if ($categoriesUpdate = $request->get('enc_category_id'))
         {

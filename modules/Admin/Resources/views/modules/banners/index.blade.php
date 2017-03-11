@@ -24,7 +24,7 @@
                                 <td width="5%" align="center" class="bold">Vị trí</td>
                                 <td width="10%" align="center" class="bold">Cửa sổ</td>
                                 <td width="10%" align="center" class="bold">Hoạt động</td>
-                                <td width="4%" align="center" class="bold">Staff</td>
+                                <td width="6%" align="center" class="bold">Tác giả</td>
                                 <td width="4%" align="center" class="bold">Status</td>
                                 <td colspan="2" width="6%" class="text-center bold">Action</td>
                             </tr>

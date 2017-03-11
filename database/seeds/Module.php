@@ -41,7 +41,7 @@ class Module extends Seeder
                 'mod_order'     => 4,
             ],
             [
-                'mod_name'      => 'Banner',
+                'mod_name'      => 'Banner homepage',
                 'mod_listname'  => 'Thêm mới|Danh sách',
                 'mod_listrouter'=> 'getAddBanner|getListBanner',
                 'mod_icon'      => 'icon-film',
@@ -62,25 +62,32 @@ class Module extends Seeder
                 'mod_order'     => 7,
             ],
             [
+                'mod_name'      => 'Quản lý suggest search',
+                'mod_listname'  => 'Thêm mới|Danh sách',
+                'mod_listrouter'=> 'getAddSuggestSearch|getListSuggestSearch',
+                'mod_icon'      => 'icon-key',
+                'mod_order'     => 8,
+            ],
+            [
                 'mod_name'      => 'Cấu hình admin',
                 'mod_listname'  => 'Thêm mới|Danh sách',
                 'mod_listrouter'=> 'getAddConfigAdmin|getListConfigAdmin',
                 'mod_icon'      => 'icon-settings',
-                'mod_order'     => 8,
+                'mod_order'     => 9,
             ],
             [
                 'mod_name'      => 'Cấu hình website',
                 'mod_listname'  => 'setting',
                 'mod_listrouter'=> 'getEditConfiguration',
                 'mod_icon'      => 'icon-equalizer',
-                'mod_order'     => 9,
+                'mod_order'     => 10,
             ],
             [
                 'mod_name'      => 'Phân quyền quản trị',
                 'mod_listname'  => 'Thêm mới|Danh sách',
                 'mod_listrouter'=> 'getAddAccount|getListAccount',
                 'mod_icon'      => 'icon-people',
-                'mod_order'     => 10,
+                'mod_order'     => 11,
             ]
         ];
 

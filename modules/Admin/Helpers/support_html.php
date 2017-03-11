@@ -19,7 +19,16 @@ if (! function_exists('bread_crumb'))
                     {
                         if ($value)
                         {
-                            $href   = (string)$key ? route($key) : 'javascript:void(0)';
+                            $route      = explode('|', $key);
+                            $routeName  = isset($route[0]) ? $route[0] : '';
+                            $routeParam = isset($route[1]) ? $route[1] : '';
+                            if ($routeName && $routeParam)
+                            {
+                                $href   = (string)$key ? route($routeName, [$routeParam]) : 'javascript:void(0)';
+                            }else
+                            {
+                                $href   = (string)$key ? route($routeName) : 'javascript:void(0)';
+                            }
                             $bread .= '<li><a href="'.$href.'">'.$value.'</a></li>';
                         }
                     }
@@ -43,7 +52,8 @@ if (! function_exists('box_title'))
 {
     function box_title($title, $message = true)
     {
-        return '<h3 class="box-title">'.$title.'</h3>'.($message ? note_required() : '');
+        $str = '<h3 class="box-title">'.$title.'</h3>'.($message ? note_required() : '');
+        return new \Illuminate\Support\HtmlString($str);
     }
 }
 

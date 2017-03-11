@@ -30,6 +30,7 @@
                                 <td class="bold" width="8%" align="center">Picture</td>
                                 <td class="bold" align="center">Thông tin cơ bản</td>
                                 <td class="bold" align="center">Danh mục</td>
+                                <td class="bold" width="14%" align="center">User | Admin</td>
                                 <td class="bold" width="7%" align="center">Kiểu bài</td>
                                 <td class="bold" width="4%" align="center">Status</td>
                                 <td class="bold" width="8%" align="center" colspan="2">Action</td>
@@ -46,10 +47,11 @@
                                     <div>Tiêu đề    : <a title="{{ $value->new_status ? 'Xem ngay' : 'Bài viết đăng ở chế độ ẩn' }}" href="/{{ $value->new_slug }}">{{ ucfirst($value->new_title) }}</a></div>
                                     <div>Pre time   : {{ $value->new_pre_time or '0' }} minutes</div>
                                     <div>Cook time  : {{ $value->new_cook_time or '0' }} minutes</div>
-                                    <div>Admin      : {{ $value->admins->adm_name }}</div>
-                                    <div>User       : {{ $value->admins->adm_name }}</div>
                                 </td>
                                 <td align="center">{{ $value->categories->cate_name }}</td>
+                                <td align="center">
+                                    {{ $value->admins->adm_name }} | {{ $value->admins->adm_name }}
+                                </td>
                                 <td align="center">{{ $newTypes[$value->new_type] }}</td>
                                 {{ $dataGrid->makeCheckButton('admincpp.getListNew', ['new_status', $value]) }}
                                 {{ $dataGrid->makeEditButton('admincpp.getEditNew') }}
