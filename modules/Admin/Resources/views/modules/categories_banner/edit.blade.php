@@ -2,6 +2,7 @@
 @section('content')
     {!! bread_crumb([
         "admincpp.getListCategory"  => 'Danh sách danh mục',
+        "admincpp.getListCategoryBanner|$category->cate_id" => 'Danh sách danh mục banner',
         "admincpp.getEditCategoryBanner|$category->cate_id*$categoryBanner->cab_id" => 'Cập nhật'
     ]) !!}
     <div class="row">

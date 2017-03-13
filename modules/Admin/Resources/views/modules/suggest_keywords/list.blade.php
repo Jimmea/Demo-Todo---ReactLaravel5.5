@@ -46,10 +46,10 @@
                                 <td align="center">{{ $configPosition[$item->suk_position] }}</td>
                                 <td align="center">{{ $item->suk_order }}</td>
                                 <td align="center">{{ $configTarget[$item->suk_target] }}</td>
-                                {{ $dataGrid->makeCheckButton('admincpp.getListSuggestKeyword', ['suk_status', $item]) }}
+                                {!! $dataGrid->makeCheckButton('admincpp.getListSuggestKeyword', ['suk_status', $item]) !!}
                                 <td align="center">{{ $item->admins->adm_name }}</td>
-                                {{ $dataGrid->makeEditButton('admincpp.getEditSuggestKeyword') }}
-                                {{ $dataGrid->makeDeleteButton('admincpp.getDeleteSuggestKeyword') }}
+                                {!! $dataGrid->makeEditButton('admincpp.getEditSuggestKeyword') !!} }
+                                {!! $dataGrid->makeDeleteButton('admincpp.getDeleteSuggestKeyword') !!}
                             </tr>
                         @endforeach
                         </tbody>

@@ -6,7 +6,7 @@
     $menuAccesses   = $module->getModuleAdminAccess();
 ?>
 <!-- Left navbar-header -->
-<div class="navbar-default sidebar" role="navigation">
+<div class="navbar-default sidebar" role="navigation" style="padding-top: 0">
     <div class="sidebar-nav navbar-collapse slimscrollsidebar">
         <ul class="nav" id="side-menu">
             <li class="sidebar-search hidden-sm hidden-md hidden-lg">
@@ -20,9 +20,9 @@
             </li>
 
             <li class="user-pro">
-                <a href="javascript:void(0)" class="waves-effect">
+                <a href="javascript:void(0)" class="waves-effect" style="background:#03a9f3;color:#fff">
                     <img src="{{ asset('backend/imgs/d1.jpg') }}" alt="user-img" class="img-circle">
-                    <span class="hide-menu">Hello . {{ get_session('adm_name') }}</span>
+                    <span class="hide-menu">Xin chào . {{ get_session('adm_name') }}</span>
                 </a>
             </li>
 

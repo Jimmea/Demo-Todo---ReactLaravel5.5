@@ -363,13 +363,14 @@ class Form
      * @param string html
      */
     public function groupSelectMul($labelControl, $nameselect, $inputId ='', $require = false,  $valueDefault=array(),
-                                     $activeDefault= array(), $separator='')
+                                     $activeDefault= array(), $attributeHtml='', $separator='')
     {
         $value      = get_value_field($nameselect, $this->formDb);
+        $attribute  = $this->converArrayAttribute($attributeHtml);
         $styleInput = $this->createStyle($inputId);
         $fieldId    = $activeDefault ? $activeDefault[0] : '';
         $fieldName  = $activeDefault ? $activeDefault[1] : '';
-        $formGroup  = '<select multiple name='.$nameselect.' '.$styleInput.'>';
+        $formGroup  = '<select '. $attribute .' multiple name='.$nameselect.' '.$styleInput.'>';
         $selected   = '';
 
         if ($valueDefault)
@@ -390,11 +391,11 @@ class Form
                     $separator  = '';
                     $selected   = '';
                 }
-//                else
-//                {
-//                    $selected   = ($value == $k) ? 'selected=selected' : '';
-//                    $formGroup .= '<option '. $selected .' value="'.$k.'">'. $v .'</option>';
-//                }
+                else
+                {
+                    $selected   = ($value == $k) ? 'selected=selected' : '';
+                    $formGroup .= '<option '. $selected .' value="'.$k.'">'. $v .'</option>';
+                }
             }
         }
 

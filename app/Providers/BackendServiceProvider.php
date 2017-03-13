@@ -24,18 +24,19 @@ class BackendServiceProvider extends ServiceProvider
     public function register()
     {
         $models = [
-            'Tintucs'               => 'Tintuc',
-            'Admins'                => 'Admin',
-            'AdminUserRights'       => 'AdminUserRight',
-            'Banners'               => 'Banner',
-            'Categories'            => 'Category',
-            'Menus'                 => 'Menu',
-            'Tags'                  => 'Tag',
-            'Events'                => 'Event',
-            'EventNewCategoryUsers' => 'EventNewCategoryUser',
-            'SuggestKeywords'       => 'SuggestKeyword',
-            'SuggestSearchs'        => 'SuggestSearch',
-            'CategoryBanners'       => 'CategoryBanner',
+            'Tintucs'                  => 'Tintuc',
+            'Admins'                   => 'Admin',
+            'AdminUserRights'          => 'AdminUserRight',
+            'Banners'                  => 'Banner',
+            'Categories'               => 'Category',
+            'Menus'                    => 'Menu',
+            'Tags'                     => 'Tag',
+            'Events'                   => 'Event',
+            'EventNewCategoryUsers'    => 'EventNewCategoryUser',
+            'SuggestKeywords'          => 'SuggestKeyword',
+            'SuggestSearchs'           => 'SuggestSearch',
+            'CategoryBanners'          => 'CategoryBanner',
+            'CategoryTabActions'       => 'CategoryTabAction',
         ];
 
         $concrete   = 'Eloquent';

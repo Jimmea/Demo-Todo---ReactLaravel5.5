@@ -22,7 +22,7 @@
                         <thead>
                             <tr>
                                 <td width="4%" align="center">Stt</td>
-                                {{ $dataGrid->makeCheckAllRadio() }}
+                                {!! $dataGrid->makeCheckAllRadio() !!}
                                 <td width="4%" align="center">ID</td>
                                 <td width="4%" align="center">Ảnh </td>
                                 <td align="center">Tên event</td>
@@ -37,7 +37,7 @@
                                 @php $dataGrid->setPrimaryKey($item->evn_id) @endphp
                                 <tr>
                                     <td align="center">{{ $stt ++ }}</td>
-                                    {{ $dataGrid->makeCheckRadio() }}
+                                    {!! $dataGrid->makeCheckRadio() !!}
                                     <td align="center">{{ $item->evn_id }}</td>
                                     <td align="center">
                                         <img src="{{ $item->evn_picture }}" style="width: 60px">
@@ -60,8 +60,8 @@
                                             <img class="img-responsive" src="../../backend/imgs/icons/add.png" border="0">
                                         </a>
                                     </td>
-                                    {{ $dataGrid->makeEditButton('admincpp.getEditEvent') }}
-                                    {{ $dataGrid->makeDeleteButton('admincpp.getDeleteEvent') }}
+                                    {!! $dataGrid->makeEditButton('admincpp.getEditEvent') !!}
+                                    {!! $dataGrid->makeDeleteButton('admincpp.getDeleteEvent') !!}
                                 </tr>
                                 @endforeach
                         </tbody>

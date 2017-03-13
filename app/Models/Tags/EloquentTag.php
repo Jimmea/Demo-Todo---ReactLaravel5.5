@@ -18,7 +18,28 @@ class EloquentTag extends BaseRepository implements TagRepository
 
     public function getAll($filter = false, $sort = false, $limit = false)
     {
-        return parent::getAllAdmin($filter, $sort, $limit);
+        $query = $this->model->whereRaw(1);
+        // Lấy category, admin
+        $query->with([
+            'admins' => function($q)
+            {
+                $q->select('adm_id', 'adm_name');
+            },
+            'category' => function($q)
+            {
+                $q->select('cate_id', 'cate_name');
+            }
+        ]);
+
+        // filter
+        if ($filter)
+            $query = $this->scopeFilter($query, $filter);
+
+        // sort
+        if ($sort)
+            $query = $this->scopeSort($query, [$sort]);
+
+        return $limit ? $query->paginate($limit) :  $query->get();
     }
 
     public function storeData($attributes)

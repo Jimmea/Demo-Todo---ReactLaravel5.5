@@ -92,7 +92,7 @@ if (! function_exists('get_value_field'))
     function get_value_field($field, $dataform= array())
     {
         $field = str_replace(array('[', ']'), '', $field);
-        $value = old($field, (isset($dataform) && $dataform) ? ($dataform->$field ? $dataform->$field : '') : '');
+        $value = old($field, (isset($dataform) && $dataform) ? ($dataform[$field] ? $dataform[$field] : '') : '');
 
         return $value;
     }

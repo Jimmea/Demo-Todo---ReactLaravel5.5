@@ -42,10 +42,10 @@
                                 <td><a href="/{{ $item->sus_link }}" target="_blank" title="Xem"><u>{{ $item->sus_link }}</u></a></td>
                                 <td align="center">{{ $configActionSearch[$item->sus_action] }}</td>
                                 <td align="center">{{ $item->sus_order }}</td>
-                                {{ $dataGrid->makeCheckButton('admincpp.getListSuggestSearch', ['sus_status', $item]) }}
+                                {!! $dataGrid->makeCheckButton('admincpp.getListSuggestSearch', ['sus_status', $item]) !!}
                                 <td align="center">{{ $item->admins->adm_name }}</td>
-                                {{ $dataGrid->makeEditButton('admincpp.getEditSuggestSearch') }}
-                                {{ $dataGrid->makeDeleteButton('admincpp.getDeleteSuggestSearch') }}
+                                {!! $dataGrid->makeEditButton('admincpp.getEditSuggestSearch') !!}
+                                {!! $dataGrid->makeDeleteButton('admincpp.getDeleteSuggestSearch') !!}
                             </tr>
                         @endforeach
                         </tbody>

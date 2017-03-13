@@ -355,7 +355,7 @@ function initIntergratePlugin() {
     $('#select2').selectpicker({
         noneSelectedText : '',
         liveSearch : true,
-        maxOptions : 4,
+        maxOptions : 8,
         multipleSeparator : ' | '
     });
 

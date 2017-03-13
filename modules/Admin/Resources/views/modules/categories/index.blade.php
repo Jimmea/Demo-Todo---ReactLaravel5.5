@@ -14,6 +14,7 @@
                 {{ header_title_action('Danh sách category', 'admincpp.getAddCategory') }}
                 {{ $dataGrid->beginFormSearch() }}
                 {{ $dataGrid->labelSearch('Kiểu category', 'cate_type', ARRKEY , $typeCategory) }}
+                {{ $dataGrid->labelSearch('Category Parent', 'cate_parent_id', ARR , $categoryParents, ['cate_id', 'cate_name']) }}
                 {{ $dataGrid->closeForm() }}
                 </div>
                 <div class="white-box-content">
@@ -53,7 +54,7 @@
                                     {!! $dataGrid->makeCheckButton('admincpp.getListCategory', ['cate_show', $value]) !!}
                                     {!! $dataGrid->makeCheckButton('admincpp.getListCategory', ['cate_status', $value]) !!}
                                     <td><a href="{{ route('admincpp.getAddCategoryBanner', $value['cate_id']) }}" title="Click tạo banner" class="grid-icon"><img src="/backend/imgs/icons/banner.png" class="img-responsive"></a></td>
-                                    <td><a href="" title="Click tạo tab category" class="grid-icon"><img src="/backend/imgs/icons/add.png" class="img-responsive"></a></td>
+                                    <td><a href="{{ route('admincpp.getAddCategoryTabAction', $value['cate_id']) }}" title="Click tạo tab category" class="grid-icon"><img src="/backend/imgs/icons/add.png" class="img-responsive"></a></td>
                                     {!! $dataGrid->makeEditButton('admincpp.getEditCategory') !!}
                                 </tr>
                             @endforeach

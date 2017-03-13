@@ -1270,7 +1270,7 @@ class DataGrid
                 return $this->htmlString($html);
                 break;
 
-            case "arrayKeyStr":
+            case "arrayKeyStr": // truong hop danh cho key cua mang la mot chuoi
                 $html 			.= '<select class="form-control '. $class.' input-sm" name="' . $fieldName . '" id="' . $fieldName . '">';
                 $html 			.= '<option value="">- ' .  $labelName . ' -</option>';
                 $selected 		 = get_value($fieldName, "str", "GET");

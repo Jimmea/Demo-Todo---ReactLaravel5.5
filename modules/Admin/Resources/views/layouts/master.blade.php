@@ -17,7 +17,7 @@
 </head>
 <body>
     <div id="wrapper">
-        @include('admin::blocks.block_navbartop')
+        {{--@include('admin::blocks.block_navbartop')--}}
         @include('admin::blocks.block_sidebar')
         <div id="page-wrapper">
             <div class="container-fluid" id="layout-master">

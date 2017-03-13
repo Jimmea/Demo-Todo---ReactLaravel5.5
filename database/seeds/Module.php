@@ -20,6 +20,13 @@ class Module extends Seeder
                 'mod_order'     => 1,
             ],
             [
+                'mod_name'      => 'Quản lý group category',
+                'mod_listname'  => 'Thêm mới|Danh sách',
+                'mod_listrouter'=> 'getAddTabAction|getListTabAction',
+                'mod_icon'      => 'icon-folder',
+                'mod_order'     => 1,
+            ],
+            [
                 'mod_name'      => 'Quản lý menu',
                 'mod_listname'  => 'Thêm mới|Danh sách',
                 'mod_listrouter'=> 'getAddMenu|getListMenu',

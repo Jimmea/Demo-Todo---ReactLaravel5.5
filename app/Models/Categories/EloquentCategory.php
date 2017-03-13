@@ -13,6 +13,7 @@ use Illuminate\Http\Request;
 
 class EloquentCategory extends BaseRepository implements CategoryRepository
 {
+
     public function __construct(Category $category)
     {
         $this->model = $category;
@@ -173,25 +174,45 @@ class EloquentCategory extends BaseRepository implements CategoryRepository
      * Created by : Hungokata
      * Time : 11:15 PM / 2/10/2017
      * Lay tat ca danh muc co trong bang category
-     * @param $arrField $arrField : mảng column cần lấy thông tin
-     * @param $arrField $filter : mảng filter
+     * @param array $fields          : mảng column cần lấy thông tin
+     * @param int $parent_id         : parent_id cua category
+     * @param array $filters         : mảng filter can loc thong tin
      * @param boolean $searchCateory : false | true
-     * @param arrray $sort : mảng sắp xếp
+     * @param arrray $sort           : mảng sắp xếp
      * @return array
      */
-    public function getAllCategory($arrField= array(), $filter = array(), $search = false, $sort = ['cate_order', 'ASC'])
+    public function getAllCategory($fields= array(), $parent_id = 0, $filters = array(), $sort = ['cate_order', 'ASC'])
     {
-        $categories = $this->getAllChild('categories', 'cate_id', 'cate_parent_id', 0, $filter, $arrField, $sort , $search);
+        $categories = $this->getAllChild($this->model->getNameTable(), 'cate_id', 'cate_parent_id', $parent_id, $filters, $fields, $sort);
         return $categories;
     }
 
-    public function getAllParentCategory()
+    public function getAllParentCategory($field=array('*'), $pluck = array())
     {
         $query =  $this->model
                     ->where('cate_parent_id',0)
-                    ->orderBy('cate_order')
-                    ->get();
+                    ->orderBy('cate_order');
 
+        // ton tai pluck
+        if ($pluck)
+        {
+            list($key, $value) = $pluck;
+            return $query->pluck($value, $key);
+        }
+
+        $query = $query->get($field);
+        return $query;
+    }
+
+    /**
+     * Lấy một mảng category ứng với list category_id
+     * @param array $category_id : mảng category_id
+     * @param array $field : mảng column sẽ lấy
+     * @return mixed
+     */
+    public function getListCategoryByListCategoryId($category_id = array(), $field=array('*'))
+    {
+        $query = $this->model->whereIn('cate_id', $category_id)->get($field)->toArray();
         return $query;
     }
 

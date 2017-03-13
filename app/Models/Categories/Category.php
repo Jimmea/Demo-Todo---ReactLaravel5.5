@@ -15,6 +15,10 @@ class Category extends Model
         'cate_admin_id', 'cate_show', 'cate_view_type', 'cate_icon'
     ];
 
+    public function getNameTable()
+    {
+        return $this->table;
+    }
 
     public function getTypeView()
     {
@@ -24,6 +28,10 @@ class Category extends Model
     public function categoryBanner()
     {
         return $this->hasMany('App\Models\CategoryBanners\CategoryBanner', 'cab_category_id');
+    }
+    public function categoryTabActions()
+    {
+        return $this->hasMany('App\Models\CategoryTabActions\CategoryTabAction', 'cta_category_id');
     }
 
     public function makeCollectionCategory($categories)

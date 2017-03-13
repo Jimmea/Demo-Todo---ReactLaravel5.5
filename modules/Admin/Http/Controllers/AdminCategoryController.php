@@ -54,22 +54,23 @@ class AdminCategoryController extends AdminController
         }
 
         // Show danh sach
-        $arrayColumn = ["cate_picture", "cate_icon", "cate_name", "cate_status","cate_order",
-            "cate_show", "cate_type", "cate_meta_keyword", 'cate_total_hit'];
+        $fields = ["cate_picture", "cate_icon", "cate_name", "cate_status","cate_order", "cate_show",
+            "cate_type", "cate_meta_keyword", "cate_total_hit"];
 
         $this->setFilter($request, 'cate_type', '=');
-        $cate_sort  = get_value('cate_sort', 'str');
-        $filter     = $this->getFilter();
-        $sort       = ['cate_order', $cate_sort];
-
-        $categories     = $this->category->getAllCategory($arrayColumn, $filter, false, $sort);
+        $this->setFilter($request, 'cate_parent_id', '=');
+        $filters        = $this->getFilter();
+        $sort           = ['cate_name', 'ASC'];
+        $parentId       = get_value('cate_parent_id', 'int', 'GET');
+        $categories     = $this->category->getAllCategory($fields,$parentId, $filters, $sort);
         $categories     = $this->category->makeCollectTionCategory($categories);
         $typeCategories = $this->category->getConfigTypeCategory();
-        $dataView = array(
-            'categories'     => $categories,
-            'typeCategory'   => $typeCategories
-        );
 
+        $dataView = array(
+            'categories'      => $categories,
+            'typeCategory'    => $typeCategories,
+            'categoryParents' => $this->category->getAllParentCategory(array(), ['cate_id', 'cate_name'])
+        );
         return view(ADMIN_VIEW.'categories.index')->with($dataView);
     }
 

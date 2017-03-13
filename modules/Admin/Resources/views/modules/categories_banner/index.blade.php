@@ -39,7 +39,7 @@
                             {!! $dataGrid->makeCheckRadio() !!}
                             <td width="3%" align="center" class="bold">{{ $value->cab_id }}</td>
                             <td class="bold" nowrap="">
-                                <img src="/{{ $value->cab_picture }}"
+                                <img src="{{ $value->cab_picture }}"
                                      alt="anh" class="img-responsive" style="width: 60px">
                             </td>
                             {!! $dataGrid->makeEditColumn(['cab_title', $value]) !!}

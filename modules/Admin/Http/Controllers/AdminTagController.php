@@ -11,7 +11,8 @@ class AdminTagController extends AdminController
 {
    public function __construct(TagRepository $tagRepository)
    {
-        $this->tag = $tagRepository;
+       parent::__construct();
+       $this->tag = $tagRepository;
    }
 
    public function getListTag(Request $request)
@@ -42,9 +43,12 @@ class AdminTagController extends AdminController
         }
         $this->setFilter($request, 'tag_name', 'LIKE');
         $this->setFilter($request, 'created_at', 'LIKE');
+        $this->setFilter($request, 'tag_category_id', '=');
+
         $dataView = [
             'tags' => $this->tag->getAll($this->getFilter(), ['tag_id', 'DESC'], 30)
         ];
+
         return view(ADMIN_VIEW . 'tags.list')->with($dataView);
    }
 

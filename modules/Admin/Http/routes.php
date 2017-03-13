@@ -96,8 +96,8 @@ Route::group([
             'uses'          => 'AdminCategoryController@PostEditCategory'
         ]);
 
-        // Banner category
-        Route::group(['prefix'=> '/{ban_id}/banner'], function () {
+        // Category banner
+        Route::group(['prefix'=> '/{category_id}/banner'], function () {
             Route::any('/', [
                'as' => 'admincpp.getListCategoryBanner',
                'uses' => 'AdminCategoryBannerController@getListCategoryBanner'
@@ -121,6 +121,30 @@ Route::group([
             Route::get('/delete/{cab_id}', [
                 'as' => 'admincpp.getDeleteCategoryBanner',
                 'uses' => 'AdminCategoryBannerController@getDeleteCategoryBanner'
+            ]);
+        });
+
+        // Category tab action
+        Route::group(['prefix'=> '/{category_id}/tabaction'], function () {
+            Route::any('/', [
+                'as'    => 'admincpp.getListCategoryTabAction',
+                'uses'  => 'AdminCategoryTabActionController@getListCategoryTabAction',
+            ]);
+            Route::get('/add', [
+                'as'    => 'admincpp.getAddCategoryTabAction',
+                'uses'  => 'AdminCategoryTabActionController@getAddCategoryTabAction',
+            ]);
+            Route::post('/add', [
+                'as'    => 'admincpp.postAddCategoryTabAction',
+                'uses'  => 'AdminCategoryTabActionController@postAddCategoryTabAction',
+            ]);
+            Route::get('/edit/{cta_id}', [
+                'as'    => 'admincpp.getEditCategoryTabAction',
+                'uses'  => 'AdminCategoryTabActionController@getEditCategoryTabAction',
+            ]);
+            Route::post('/edit/{cta_id}', [
+                'as'    => 'admincpp.postEditCategoryTabAction',
+                'uses'  => 'AdminCategoryTabActionController@postEditCategoryTabAction',
             ]);
         });
     });
@@ -195,7 +219,7 @@ Route::group([
         ]);
     });
 
-    // SETTING x
+    // SETTING
     Route::group(['prefix'=> 'configuration', 'middleware'=> 'checkPermission'], function()
     {
         Route::get('/', [
@@ -235,7 +259,31 @@ Route::group([
         ]);
     });
 
-    // New
+    // TAB ACTION
+    Route::group(['prefix'=> 'tabaction'], function () {
+        Route::any('/', [
+            'as'=> 'admincpp.getListTabAction',
+            'uses' => 'AdminTabActionController@getListTabAction'
+        ]);
+        Route::get('/add', [
+            'as'=> 'admincpp.getAddTabAction',
+            'uses' => 'AdminTabActionController@getAddTabAction'
+        ]);
+        Route::post('/add', [
+            'as'=> 'admincpp.postAddTabAction',
+            'uses' => 'AdminTabActionController@postAddTabAction'
+        ]);
+        Route::get('/edit/{id}', [
+            'as'=> 'admincpp.getEditTabAction',
+            'uses' => 'AdminTabActionController@getEditTabAction'
+        ]);
+        Route::post('/edit/{id}', [
+            'as'=> 'admincpp.postEditTabAction',
+            'uses' => 'AdminTabActionController@postEditTabAction'
+        ]);
+    });
+
+    // NEW
     Route::group(['prefix'=> 'new'], function () {
         Route::any('/', [
             'as' => 'admincpp.getListNew',
@@ -269,7 +317,7 @@ Route::group([
         ]);
     });
 
-    // Event
+    // EVENT
     Route::group(['prefix'=> 'event'], function () {
         Route::any('/',[
             'as' => 'admincpp.getListEvent',
@@ -309,7 +357,7 @@ Route::group([
         });
     });
 
-    // Suggest keyword
+    // SUGGEST KEYWORD
     Route::group(['prefix'=>'suggestkeyword'], function () {
         Route::any('/', [
             'as' => 'admincpp.getListSuggestKeyword',
@@ -339,6 +387,7 @@ Route::group([
         ]);
     });
 
+    // SUGGEST SEARCH
     Route::group(['prefix'=>'suggestsearch'], function () {
         Route::any('/', [
             'as'    => 'admincpp.getListSuggestSearch',
@@ -370,7 +419,7 @@ Route::group([
         ]);
     });
 
-    // Tag
+    // TAG
     Route::group(['prefix'=> 'tag'], function () {
         Route::any('/', [
             'as' => 'admincpp.getListTag',
