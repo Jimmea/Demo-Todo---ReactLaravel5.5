@@ -18,6 +18,26 @@ class EloquentTintuc extends BaseRepository implements TintucRepository
         $this->model = $tintuc;
     }
 
+    public function countNewTrash($filter= array())
+    {
+        $queryCount = $this->model->onlyTrashed();
+
+        // get today
+        $today = array_get($filter, 'today');
+        if($today)
+        {
+            $queryCount = $queryCount->whereRaw('Date(deleted_at)= CURDATE()');
+        }
+
+        return $queryCount->count();
+    }
+
+
+    public function restoreNewTrashById($id)
+    {
+        return $this->model->onlyTrashed()->find($id)->restore();
+    }
+
     /**
      * Tim kiem tin tuc
      * @param array $filter : mang gia tri loc theo LIKE, =
@@ -42,6 +62,13 @@ class EloquentTintuc extends BaseRepository implements TintucRepository
         {
             $query = $query->join('event_new_category_users', 'encu_new_id', '=', 'new_id')
                             ->where('encu_category_id', $eventCategory);
+        }
+
+        // with trash
+        $onlyTrashed = array_get($filterAdvanced, 'onlyTrashed');
+        if ($onlyTrashed)
+        {
+            $query = $query->onlyTrashed();
         }
 
         // Get admin
@@ -124,7 +151,6 @@ class EloquentTintuc extends BaseRepository implements TintucRepository
     {
         return $instance->tags()->sync($tag_id);
     }
-
 
     /**
      * Inser noi dung text vao ben trong bang nay

@@ -5,6 +5,7 @@
     ]) !!}
     @php
         $dataGrid = new DataGrid();
+        $dataGrid->setDeleteAll(false);
         $stt      = $dataGrid->getPageStt($suggestSearchs);
     @endphp
     <div class="row">
@@ -45,7 +46,7 @@
                                 {!! $dataGrid->makeCheckButton('admincpp.getListSuggestSearch', ['sus_status', $item]) !!}
                                 <td align="center">{{ $item->admins->adm_name }}</td>
                                 {!! $dataGrid->makeEditButton('admincpp.getEditSuggestSearch') !!}
-                                {!! $dataGrid->makeDeleteButton('admincpp.getDeleteSuggestSearch') !!}
+{{--                                {!! $dataGrid->makeDeleteButton('admincpp.getDeleteSuggestSearch') !!}--}}
                             </tr>
                         @endforeach
                         </tbody>

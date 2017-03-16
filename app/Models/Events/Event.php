@@ -2,9 +2,9 @@
 
 namespace App\Models\Events;
 
-use Illuminate\Database\Eloquent\Model;
+use App\Models\ModelBase;
 
-class Event extends Model
+class Event extends ModelBase
 {
     protected $table = 'events';
     protected $primaryKey = 'evn_id';

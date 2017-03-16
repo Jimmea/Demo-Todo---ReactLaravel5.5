@@ -23,7 +23,8 @@
                 <table class="table" id="dataTableList">
                     <thead>
                         <tr>
-                            <td width="5%" align="center" class="bold">Stt</td>
+                            {!! $dataGrid->makeCheckAllRadio() !!}
+                            <td width="4%" align="center" class="bold">Stt</td>
                             <td class="bold">Tên keyword</td>
                             <td width="10%">Tên danh mục</td>
                             <td width="10%" align="center">Count hit</td>
@@ -40,7 +41,8 @@
                                 $stt ++;
                                 $dataGrid->setPrimaryKey($item->tag_id);
                             ?>
-                            <tr>
+                            <tr id="tr_{{ $item->tag_id }}">
+                                {!! $dataGrid->makeCheckRadio() !!}
                                 <td align="center">{{ $stt }}</td>
                                 <td>{{ $item->tag_name }}</td>
                                 <td>{{ $item->category->cate_name or 'NULL' }}</td>
@@ -54,6 +56,7 @@
                             </tr>
                         @endforeach
                     </tbody>
+                    {!! $dataGrid->makeUrlDelete('admincpp.getDeleteTag') !!}
                     {!! $dataGrid->getTemplateFooter($tags) !!}
                 </table>
             </div>

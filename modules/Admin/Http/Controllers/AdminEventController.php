@@ -96,8 +96,13 @@ class AdminEventController extends AdminController
         return redirect()->route('admincpp.getListEvent');
     }
 
-    public function getDeleteEvent()
+    public function getDeleteEvent($id=0)
     {
-
+        if ($id)
+        {
+            $this->event->delete($id);
+            set_flash_delete_success();
+            return redirect()->back();
+        }
     }
 }

@@ -227,7 +227,7 @@ abstract class BaseRepository
         $row = $this->findById($id);
         $row->$field = ($otherValue ? $otherValue : (($row->$field == 1) ? 0 : 1));
         $row->save();
-        return 1;
+        return $row;
     }
 
     /**

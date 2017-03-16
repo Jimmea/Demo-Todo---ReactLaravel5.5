@@ -9,9 +9,12 @@
 namespace App\Repositories\Files;
 use App\Repositories\BaseFileController;
 
+
 class FileController extends BaseFileController implements FileRepository
 {
-    use UploadAjax;
+    use UploadAjax, ValidateAndUploadFile;
+
+    public $warningError;
 
     public function getLocaleDirectory()
     {
@@ -32,6 +35,17 @@ class FileController extends BaseFileController implements FileRepository
         return $this->uploadFileAjax($upload_name, $upload_path , $extension_list, $limit_size, $inserLogo);
     }
 
+    public function uploadMulti($uploadName, $uploadPath='', $extensionList= array(), $limitSize=500, $inserLogo=0)
+    {
+
+    }
+
+    public function upload($uploadName, $uploadPath='', $extensionList= array(), $limitSize=500, $inserLogo=1)
+    {
+        $fileUpload = $this->validateFile($uploadName, $uploadPath, $extensionList, $limitSize, $inserLogo);
+        return $fileUpload;
+    }
+
     /**
      * Created by : BillJanny
      * Date: 9:14 AM - 3/2/2017
@@ -40,7 +54,7 @@ class FileController extends BaseFileController implements FileRepository
      */
     public function getWarningError()
     {
-        return $this->showWarningError();
+        return $this->warningError;
     }
 
     /**

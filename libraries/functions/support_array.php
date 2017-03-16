@@ -46,6 +46,27 @@ if (! function_exists('break_array_tostring'))
     }
 }
 
+/**
+ * $array = array( "name" => "vijayrana", "city" => "kathmandu", "county" => "nepal",  );
+ * $array = replace_key($array, "name", "FullName");
+    $array = replace_key($array, "city", "State");
+    var_dump($array);exit();
+ * @param
+ * @return
+ */
+if (! function_exists('replace_keyreplace_key'))
+{
+    function replace_key($array, $old_key, $new_key) {
+        $keys = array_keys($array);
+        if (false === $index = array_search($old_key, $keys))
+        {
+            throw new Exception(sprintf('Key "%s" does not exit', $old_key));
+        }
+        $keys[$index] = $new_key;
+        return array_combine($keys, array_values($array));
+    }
+}
+
 
 
 if (!function_exists('echo_array'))

@@ -26,7 +26,7 @@ class CreateTintuc extends Migration
             $table->string('new_description')->nullable();
             $table->integer('new_top')->nullable();
             $table->integer('new_hot')->nullable();
-            $table->integer('new_status')->nullable();
+            $table->tinyInteger('new_status')->default(0);
             $table->integer('new_order')->nullable();
             $table->tinyInteger('new_type')->default(1); // crawl 0; // ng dung dang bai 1 // bosuutap 3
             $table->integer('new_admin_id')->index();
@@ -48,7 +48,7 @@ class CreateTintuc extends Migration
             $table->string('new_param13')->nullable();
             $table->string('new_param14')->nullable();
             $table->string('new_param15')->nullable();
-            $table->integer('new_deleted_at')->default(0);
+            $table->softDeletes();
             $table->timestamps();
         });
 

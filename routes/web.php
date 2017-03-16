@@ -7,7 +7,6 @@ Route::group(['namespace'=>'Auth', 'as'=>'auth::', 'prefix'=>'account'], functio
     Route::get('/forgot', ['as'=>'forgot', 'uses'=>'ForgotPasswordController@showLinkRequestForm']);
 });
 
-
 // Auth admin
 Route::group(['namespace' => 'AuthAdmin', 'prefix' => 'authen_ticate_cook/staff' ], function() {
 
@@ -48,3 +47,12 @@ Route::group(['namespace' => 'AuthAdmin', 'prefix' => 'authen_ticate_cook/staff'
         ]);
 });
 
+require_once 'route_file.php';
+
+Route::get('/broadcast', function () {
+    event(new \App\Events\UserHasRegisterd('dfdfdfdf'));
+    return 'done';
+});
+Route::get('/pusher', function () {
+    return view('realtime.pusher');
+});

@@ -16,6 +16,7 @@ class CreateTagsTable extends Migration
             $table->tinyInteger('tag_active')->default(1);
             $table->integer('tag_count')->default(0);
             $table->integer('tag_admin_id')->default(1);
+            $table->softDeletes();
             $table->timestamps();
         });
     }

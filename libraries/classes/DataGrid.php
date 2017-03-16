@@ -1187,13 +1187,18 @@ class DataGrid
     public function makeDeleteButton($route)
     {
         $html = '<td align="center">
-                    <a title="Are You sure want to delete this record" 
+                    <a title="Bạn có chắc chắn muốn xóa tạm thời" 
                     class="delete grid-icon" 
                     href="' .$this->createUrlFromRoute($route) . '" 
                     onclick="return confirm(`Are you sure to delete this record?`)">
                     <img class="img-responsive" src="'. $this->image_path .'delete.png" border="0"></a>
                     </td>';
         return $html;
+    }
+
+    public function makeUrlDelete($routeName, $routeParam= array())
+    {
+        return '<input type="hidden" id="hrefDeleteAll" value="'. route($routeName, $routeParam) .'">';
     }
 
     /**
@@ -1212,7 +1217,7 @@ class DataGrid
                             <div class="showing pull-left">';
                                 if ($this->deleteAll)
                                 {
-                                    $html .='<button class="btn btn-sm btn-danger execute_form" data-action="deleteAll">
+                                    $html .='<button style="color:#fff" class="btn btn-sm btn-warning execute_form" data-action="deleteAll">
                                             <i class="icon-trash"></i> Delete all
                                         </button>';
                                 }

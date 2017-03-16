@@ -7,14 +7,10 @@
  */
 
 namespace App\Repositories\Files;
-use Illuminate\Support\Facades\File;
 
 trait UploadAjax
 {
     private $extention      = ["gif","jpg" ,"jpe","jpeg","png","swf"];
-    private $warningError   = '';
-    private $foreground		= "/assets/logo.png";
-    private $quantity       = 75;
     private $extentionUse   ;
     private $media          = 'media';
 
@@ -30,35 +26,8 @@ trait UploadAjax
         return 1;
     }
 
-    public function checkDir($path)
-    {
-        if (!File::exists($path))
-        {
-            File::makeDirectory($path);
-            chmod($path, 0777);
-        };
-    }
-
-    public function checkOrCreateDir($upload_path)
-    {
-        $media = $this->getLocaleDirectory() . DIRECTORY_SEPARATOR . $this->media;
-        $this->checkDir($media);
-
-        if ($upload_path)
-        {
-            foreach (explode('.', $upload_path) as $dir)
-            {
-                $media .= DIRECTORY_SEPARATOR . $dir;
-                $this->checkDir($media);
-            }
-        }
-
-        return $media;
-    }
-
     public function uploadFileAjax($upload_name, $upload_path = '', $extension_list = array(), $limit_size=500, $inserLogo = 0)
     {
-        $upload_path = $this->checkOrCreateDir($upload_path);
         if (!$upload_name)
         {
             $this->warningError = 'Vui lòng chọn một file trước khi upload';
@@ -87,15 +56,17 @@ trait UploadAjax
         }
 
         // Upload file
-        $newFilename = $this->generateName($upload_name['name']);
-        $uploaded    = move_uploaded_file($upload_name['tmp_name'], $upload_path . DIRECTORY_SEPARATOR . $newFilename);
+        $upload_path        = $this->checkOrCreateDirectory($upload_path);
+        $newFilename        = $this->generateName($upload_name['name']);
+        $pathFileName       = $this->makeFullPathFileUpload($upload_path, $newFilename);
+        $uploaded           = move_uploaded_file($upload_name['tmp_name'], $pathFileName);
         if (! $uploaded)
         {
             $this->warningError = 'Not upload file.';
             return ;
         }
 
-        chmod($upload_path . DIRECTORY_SEPARATOR . $newFilename, 0777);
+        chmod($pathFileName, 0777);
         //Check upload file path
         if ($this->checkPathFileUpload($upload_path, $newFilename) != 1)
         {
@@ -108,15 +79,7 @@ trait UploadAjax
         {
             $this->imageOverlap($upload_path, $newFilename);
         }
-
-        $media =  $upload_path . DIRECTORY_SEPARATOR . $newFilename;
-
-        return str_replace($this->getLocaleDirectory(), '', $media);
-    }
-
-    public function showWarningError()
-    {
-        return $this->warningError;
+        return str_replace($this->getLocaleDirectory(), '', $pathFileName);
     }
 
     /**
@@ -139,126 +102,6 @@ trait UploadAjax
 
     public function getExtenstion($filename)
     {
-        $sExtension = substr($filename, (strrpos($filename, ".") + 1));
-        $sExtension = strtolower($sExtension);
-        return $sExtension;
-    }
-
-    /**
-     * Tao ảnh logo cty trên sản phẩm
-     * @param string $filename : ten file ảnh
-     * @return string
-     */
-    public function imageOverlap($path, $filename)
-    {
-        // Nếu tồn tại foreground thì mới overlap
-        if(file_exists($this->getLocaleDirectory().$this->foreground))
-        {
-            $background		= $this->createImage($path, $filename);
-            if(!$background) return;
-            // Chèn ảnh overlap vào
-            $foreground		= imagecreatefrompng($this->getLocaleDirectory().$this->foreground);
-            $insertWidth	= imagesx($foreground);
-            $insertHeight	= imagesy($foreground);
-            $imageWidth		= imagesx($background);
-            $imageHeight	= imagesy($background);
-            $overlapX		= 30;
-            $overlapY		= $imageHeight - $insertHeight - 30;
-            imagecolortransparent($foreground, imagecolorat($foreground, 0, 0));
-            imagecopy($background, $foreground, $overlapX, $overlapY, 0, 0, $insertWidth, $insertHeight);
-
-            $this->outputImage($background, $path, $filename);
-
-            // Hủy biến để giải phóng bộ nhớ
-            unset($background);
-            unset($foreground);
-        }
-    }
-
-    /**
-     * Function output_image
-     */
-    public function outputImage($image_source, $path, $filename)
-    {
-        $sExtension = $this->getExtenstion($filename);
-        switch($sExtension)
-        {
-            case "gif":
-                imagegif($image_source, $path . DIRECTORY_SEPARATOR . $filename);
-                break;
-
-            case $sExtension == "jpg" || $sExtension == "jpe" || $sExtension == "jpeg":
-                imagejpeg($image_source, $path . DIRECTORY_SEPARATOR . $filename, $this->quantity);
-                break;
-
-            case "png":
-                imagepng($image_source, $path . DIRECTORY_SEPARATOR . $filename);
-                break;
-        }
-    }
-
-    /**
-     * Check image file type
-     * @param string $path : duong dan cua file anh
-     * @param string $filename : ten file ảnh
-     */
-    public function createImage($path, $filename)
-    {
-        $sExtension = $this->getExtenstion($filename);
-        //Check image file type extensiton
-        $image = false;
-        switch($sExtension)
-        {
-            case "gif":
-                $image = @imagecreatefromgif($path . DIRECTORY_SEPARATOR . $filename);
-                break;
-
-            case $sExtension == "jpg" || $sExtension == "jpe" || $sExtension == "jpeg":
-                $image = @imagecreatefromjpeg($path . DIRECTORY_SEPARATOR . $filename);
-                break;
-
-            case "png":
-                $image = @imagecreatefrompng($path . DIRECTORY_SEPARATOR . $filename);
-                break;
-        }
-        if(!$image) $this->deleteFile($path, $filename);
-
-        return $image;
-    }
-
-    /**
-     * Xóa file
-     * @param $path : duong dan file
-     * @param $filename : ten file
-     * @return int
-     */
-    public function deleteFile($path, $filename)
-    {
-        if($filename == "") return;
-
-        if(file_exists($path . DIRECTORY_SEPARATOR .$filename))
-        {
-            @unlink($path . DIRECTORY_SEPARATOR . $filename);
-        }
-//        $array_file	= array("small_", "normal_", "larger_", "");
-//        for($i=0; $i<count($array_file); $i++)
-//        {
-//            if(file_exists($path . $array_file[$i] . $filename)) @unlink($path . $array_file[$i] . $filename);
-//        }
-    }
-
-    /**
-     * Check upload file path
-     * @param string $path       : duong dan upload
-     * @param string $filename   : ten file anh
-     */
-    public function checkPathFileUpload($path, $filename)
-    {
-        if(@filesize($path . DIRECTORY_SEPARATOR . $filename) == 0)
-        {
-            @unlink($path . DIRECTORY_SEPARATOR . $filename);
-            return 0;
-        }
-        return 1;
+        return $this->getExtensionFile($filename);
     }
 }

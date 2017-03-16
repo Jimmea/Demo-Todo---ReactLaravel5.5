@@ -19,11 +19,15 @@
                 </div>
             </li>
 
-            <li class="user-pro">
-                <a href="javascript:void(0)" class="waves-effect" style="background:#03a9f3;color:#fff">
+            <li class="user-pro dropdown">
+                <a href="javascript:void(0)" class="dropdown-toggle profile-pic waves-effect" data-toggle="dropdown" href="#" style="background:#03a9f3;color:#fff;padding: 5px 10px !important">
                     <img src="{{ asset('backend/imgs/d1.jpg') }}" alt="user-img" class="img-circle">
                     <span class="hide-menu">Xin chào . {{ get_session('adm_name') }}</span>
                 </a>
+                <ul class="dropdown-menu dropdown-user animated flipInY">
+                    <li><a href="{{ route('admincpp.getProfile', get_session('adm_id')) }}"><i class="icon-user"></i>  My Profile</a></li>
+                    <li><a href="{{ route('staff.getLogoutAdmincpp') }}"><i class="icon-logout"></i>  Logout</a></li>
+                </ul>
             </li>
 
             @if($menuAccesses)

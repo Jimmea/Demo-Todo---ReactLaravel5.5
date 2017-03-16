@@ -34,10 +34,10 @@ class AdminTagController extends AdminController
                 switch ($field)
                 {
                     case 'tag_active':
-                        $this->tag->updateByField($record_id, 'tag_active');
+                        $update = $this->tag->updateByField($record_id, 'tag_active');
                         break;
                 }
-                return $this->responseSuccess();
+                return $this->responseSuccess($update);
             }
             return $this->responseError();
         }
@@ -126,17 +126,19 @@ class AdminTagController extends AdminController
 //            return ;
 //        }
 
+        if ($request->ajax())
+        {
+            $tag_id = get_value('id', 'arr', 'POST');
+            $this->tag->deleteById($tag_id);
+            return $this->responseSuccess();
+        }
+
         //  Xoa theo id khi o trang listing
         if ($id > 0)
         {
             $this->tag->deleteById($id);
             set_flash_delete_success();
         }
-        else
-        {
-            set_flash_delete_error();
-        }
-
         return redirect()->route('admincpp.getListTag');
     }
 }

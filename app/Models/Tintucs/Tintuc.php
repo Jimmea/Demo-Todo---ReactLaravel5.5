@@ -2,9 +2,9 @@
 
 namespace App\Models\Tintucs;
 
-use Illuminate\Database\Eloquent\Model;
+use App\Models\ModelBase;
 
-class Tintuc extends Model
+class Tintuc extends ModelBase
 {
     protected $table = 'tintucs';
     protected $primaryKey = 'new_id';

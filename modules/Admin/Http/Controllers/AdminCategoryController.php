@@ -35,6 +35,7 @@ class AdminCategoryController extends AdminController
                 {
                     case 'cate_show' :
                     case 'cate_status' :
+                    case 'cate_hot' :
                         $this->category->updateByField($cateId, $field);
                         break;
 
@@ -54,7 +55,7 @@ class AdminCategoryController extends AdminController
         }
 
         // Show danh sach
-        $fields = ["cate_picture", "cate_icon", "cate_name", "cate_status","cate_order", "cate_show",
+        $fields = ["cate_picture", "cate_icon", "cate_name", "cate_status","cate_order", "cate_show","cate_hot",
             "cate_type", "cate_meta_keyword", "cate_total_hit"];
 
         $this->setFilter($request, 'cate_type', '=');

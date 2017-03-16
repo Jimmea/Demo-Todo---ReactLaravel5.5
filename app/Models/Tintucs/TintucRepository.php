@@ -13,6 +13,8 @@ interface TintucRepository
 {
     public function getListNewPaginate($filter, $sort, $limit, $filterAdvanced= array());
     public function storeData($attributes);
+    public function countNewTrash($filter);
+    public function restoreNewTrashById($id);
     public function updateById($id, $attributes);
     public function updateByField($id, $field, $otherValue);
     public function findByNewId($id);

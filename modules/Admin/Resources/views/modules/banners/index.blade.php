@@ -1,7 +1,10 @@
 @extends('admin::layouts.master')
 @section('content')
     {!! bread_crumb([trans('admin::listing.title') ]) !!}
-    @php $dataGrid = new DataGrid(); @endphp
+    @php
+        $dataGrid = new DataGrid();
+        $dataGrid->setDeleteAll(false);
+    @endphp
     <div class="row">
         <div class="col-md-12">
             <div class="white-box padd-0">
@@ -16,7 +19,6 @@
                     <table class="table table-bordered table-stripped" id="dataTableList">
                     	<thead>
                             <tr>
-                                {!! $dataGrid->makeCheckAllRadio() !!}
                                 <td width="4%" align="center" class="bold">ID</td>
                                 <td width="10%" align="center" class="bold">Picture</td>
                                 <td class="bold">Thông tin banner</td>
@@ -34,7 +36,6 @@
                             @foreach($banners as $key => $value)
                                 <?php $dataGrid->setPrimaryKey($value->ban_id)?>
                                 <tr id="tr_{{ $value->ban_id }}">
-                                    {!! $dataGrid->makeCheckRadio() !!}
                                     <td width="3%" align="center" class="bold">{{ $value->ban_id }}</td>
                                     <td class="bold" nowrap=""><img src="{{ asset($value->ban_picture) }}" alt="anh" class="img-responsive" style="width: 60px"></td>
                                     <td>{{ $value->ban_title }}</td>

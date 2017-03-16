@@ -286,8 +286,23 @@ Route::group([
     // NEW
     Route::group(['prefix'=> 'new'], function () {
         Route::any('/', [
-            'as' => 'admincpp.getListNew',
+            'as'  => 'admincpp.getListNew',
             'uses'=> 'AdminNewController@getListNew'
+        ]);
+
+        Route::get('/trash', [
+            'as'  => 'admincpp.getListTrashNew',
+            'uses'=> 'AdminNewController@getListTrashNew'
+        ]);
+
+        Route::get('/restore/{id}', [
+            'as' => 'admincpp.getStoreTrashNew',
+            'uses' => 'AdminNewController@getStoreTrashNew'
+        ]);
+
+        Route::get('/show/{id}', [
+            'as'  => 'admincpp.getShowNew',
+            'uses'=> 'AdminNewController@getShowNew'
         ]);
 
         Route::get('/add', [
@@ -311,7 +326,7 @@ Route::group([
             'as' => 'admincpp.postAddStep',
             'uses' => 'AdminNewController@postAddStep'
         ]);
-        Route::get('/delete/{id}', [
+        Route::any('/delete/{id?}', [
             'as' => 'admincpp.getDeleteNew',
             'uses' => 'AdminNewController@getDeleteNew'
         ]);
@@ -323,6 +338,7 @@ Route::group([
             'as' => 'admincpp.getListEvent',
             'uses' => 'AdminEventController@getListEvent'
         ]);
+
         Route::get('/add',[
             'as' => 'admincpp.getAddEvent',
             'uses' => 'AdminEventController@getAddEvent'
@@ -381,10 +397,10 @@ Route::group([
             'as'=> 'admincpp.postEditSuggestKeyword',
             'uses'=> 'AdminSuggestKeywordController@postEditSuggestKeyword'
         ]);
-        Route::get('/delete/{id}', [
-            'as' => 'admincpp.getDeleteSuggestKeyword',
-            'uses' => 'AdminSuggestKeywordController@getDeleteSuggestKeyword'
-        ]);
+//        Route::get('/delete/{id}', [
+//            'as' => 'admincpp.getDeleteSuggestKeyword',
+//            'uses' => 'AdminSuggestKeywordController@getDeleteSuggestKeyword'
+//        ]);
     });
 
     // SUGGEST SEARCH

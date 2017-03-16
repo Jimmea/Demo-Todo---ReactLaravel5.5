@@ -5,6 +5,7 @@
     ]) !!}
     @php
         $dataGrid = new DataGrid();
+        $dataGrid->setDeleteAll(false);
         $stt      = $dataGrid->getPageStt($suggestKeywords);
     @endphp
     <div class="row">
@@ -18,7 +19,7 @@
                     {{ $dataGrid->closeForm() }}
                 </div>
                 <div class="white-box-content">
-                    <table class="table table-bordered" id="tableList">
+                    <table class="table" id="tableList">
                         <thead>
                         <tr>
                             <td width="4%" align="center">Stt</td>
@@ -49,7 +50,7 @@
                                 {!! $dataGrid->makeCheckButton('admincpp.getListSuggestKeyword', ['suk_status', $item]) !!}
                                 <td align="center">{{ $item->admins->adm_name }}</td>
                                 {!! $dataGrid->makeEditButton('admincpp.getEditSuggestKeyword') !!} }
-                                {!! $dataGrid->makeDeleteButton('admincpp.getDeleteSuggestKeyword') !!}
+{{--                                {!! $dataGrid->makeDeleteButton('admincpp.getDeleteSuggestKeyword') !!}--}}
                             </tr>
                         @endforeach
                         </tbody>

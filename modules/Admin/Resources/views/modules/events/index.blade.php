@@ -22,7 +22,6 @@
                         <thead>
                             <tr>
                                 <td width="4%" align="center">Stt</td>
-                                {!! $dataGrid->makeCheckAllRadio() !!}
                                 <td width="4%" align="center">ID</td>
                                 <td width="4%" align="center">Ảnh </td>
                                 <td align="center">Tên event</td>
@@ -37,7 +36,6 @@
                                 @php $dataGrid->setPrimaryKey($item->evn_id) @endphp
                                 <tr>
                                     <td align="center">{{ $stt ++ }}</td>
-                                    {!! $dataGrid->makeCheckRadio() !!}
                                     <td align="center">{{ $item->evn_id }}</td>
                                     <td align="center">
                                         <img src="{{ $item->evn_picture }}" style="width: 60px">

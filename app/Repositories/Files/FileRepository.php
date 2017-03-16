@@ -13,5 +13,7 @@ interface FileRepository
 {
     public function delete($path);
     public function uploadAjax($upload_name, $upload_path, $extension_list, $limit_size, $inserLogo);
+    public function uploadMulti($uploadName, $uploadPath, $extensionList, $limitSize, $inserLogo);
+    public function upload($uploadName, $uploadPath, $extensionList, $limitSize, $inserLogo);
     public function getWarningError();
 }

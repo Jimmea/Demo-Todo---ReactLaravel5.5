@@ -4,7 +4,10 @@
         "admincpp.getListCategory"                       => 'Danh sách danh mục',
         "admincpp.getListCategoryBanner|".$categoryId    => 'Danh sách banner category - '.$category->cate_name,
     ]) !!}
-    @php $dataGrid = new DataGrid(); @endphp
+    @php
+        $dataGrid = new DataGrid();
+        $dataGrid->setDeleteAll(false);
+    @endphp
     <div class="row">
         <div class="col-md-12">
             <div class="white-box padd-0">
@@ -18,7 +21,7 @@
                     <table class="table table-bordered table-stripped" id="dataTableList">
                         <thead>
                         <tr>
-                            {!! $dataGrid->makeCheckAllRadio() !!}
+                            {{--{!! $dataGrid->makeCheckAllRadio() !!}--}}
                             <td width="4%" align="center" class="bold">ID</td>
                             <td width="7%" align="center" class="bold">Picture</td>
                             <td width="20%" class="bold">Tiêu đề</td>
@@ -36,7 +39,7 @@
                         @foreach($categoryBanners as $key => $value)
                         @php $dataGrid->setPrimaryKey($value->cab_id)@endphp
                         <tr id="tr_{{ $value->cab_id }}">
-                            {!! $dataGrid->makeCheckRadio() !!}
+{{--                            {!! $dataGrid->makeCheckRadio() !!}--}}
                             <td width="3%" align="center" class="bold">{{ $value->cab_id }}</td>
                             <td class="bold" nowrap="">
                                 <img src="{{ $value->cab_picture }}"
@@ -59,7 +62,7 @@
                             <td align="center">{{ $value->admins->adm_name }}</td>
                             {!! $dataGrid->makeCheckButton('admincpp.getListCategoryBanner|'.$categoryId, ['cab_status', $value]) !!}
                             {!! $dataGrid->makeEditButton('admincpp.getEditCategoryBanner|'.$categoryId) !!}
-                            {!! $dataGrid->makeDeleteButton('admincpp.getDeleteCategoryBanner|'.$categoryId) !!}
+{{--                            {!! $dataGrid->makeDeleteButton('admincpp.getDeleteCategoryBanner|'.$categoryId) !!}--}}
                         </tr>
                         @endforeach
                         </tbody>

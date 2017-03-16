@@ -32,29 +32,50 @@ class AdminNewController extends AdminController
                 switch ($field)
                 {
                     case 'new_status':
-                         $this->tintuc->updateByField($recordId, 'new_status');
+                         $update = $this->tintuc->updateByField($recordId, 'new_status');
                         break;
                 }
-                return $this->responseSuccess();
+                return $this->responseSuccess($update);
             }
             return $this->responseError();
         }
 
+        $news       = $this->tintuc->getListNewPaginate($this->filterRequest($request), ['new_id', 'DESC'], 30);
+        $dataView   = [
+            'news'               => $news,
+            'newTypes'           => $this->getNewType(),
+            'totalNewTrash'      => $this->tintuc->countNewTrash(),
+            'totalNewTrashToday' => $this->tintuc->countNewTrash(['today'=> 1])
+        ];
+        return view(ADMIN_VIEW . 'news.list')->with($dataView);
+    }
+
+    private function filterRequest(Request $request)
+    {
         $this->setFilter($request, 'new_id', '=');
         $this->setFilter($request, 'new_title', 'LIKE');
         $this->setFilter($request, 'new_cate_id', '=');
         $this->setFilter($request, 'new_type', '=');
         $this->setFilter($request, 'new_admin_id', '=');
+        return $this->getFilter();
+    }
 
-        $filter     = $this->getFilter();
-        $sort       = ['new_id', 'DESC'];
-        $news       = $this->tintuc->getListNewPaginate($filter, $sort, 30);
-
-        $dataView   = [
-            'news'       => $news,
-            'newTypes'   => $this->getNewType()
+    public function getListTrashNew(Request $request)
+    {
+        $filterAdvanced = [
+            'onlyTrashed' => 1,
         ];
-        return view(ADMIN_VIEW . 'news.list')->with($dataView);
+        $dataView = [
+            'newTypes'      => $this->getNewType(),
+            'newTrashs'     => $this->tintuc->getListNewPaginate($this->filterRequest($request), ['new_id', 'DESC'], 30, $filterAdvanced)
+        ];
+        return view(ADMIN_VIEW .'news.list_trash')->with($dataView);
+    }
+
+    public function getStoreTrashNew($id)
+    {
+        $this->tintuc->restoreNewTrashById($id);
+        return redirect()->back();
     }
 
     /**
@@ -254,9 +275,21 @@ class AdminNewController extends AdminController
         return redirect()->route('admincpp.getListNew');
     }
 
-    public function getDeleteNew($id)
+    public function getDeleteNew(Request $request, $id=0)
     {
-        
+        if ($request->ajax())
+        {
+            $id = get_value('id', 'arr', 'POST');
+            $this->tintuc->delete($id);
+            return $this->responseSuccess();
+        }
+
+        if ($id>0)
+        {
+            $this->tintuc->delete($id);
+            set_flash_delete_success();
+            return redirect()->back();
+        }
     }
 
     /**

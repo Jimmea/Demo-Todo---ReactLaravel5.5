@@ -184,34 +184,6 @@ function executeFormTable()
     $('.execute_form').click(function ()
     {
         $action = $(this).attr('data-action');
-        $href   = $('#formTable').attr('action');
-        $token  = $("meta[name=_token]").attr('content');
-
-        // lay thong tin cac thuoc tinh de update
-        $id             = $(this).attr('data-id');
-        $check_active   = $(this).attr('data-check');
-        $check          = 'fa-check-circle';
-        $unCheck        = 'fa-circle';
-
-        $arrayUpdateChecked = [
-            'updateShowHome','updateStatus'
-        ];
-
-        if ($arrayUpdateChecked.indexOf($action) != -1)
-        {
-            if($check_active == "checked")
-            {
-                $(this).attr('data-check', '');
-                $(this).removeClass($check);
-                $(this).addClass($unCheck);
-            }else
-            {
-                $(this).attr('data-check', 'checked');
-                $(this).addClass($check);
-                $(this).removeClass($unCheck);
-            }
-        }
-
         // Do something
         if ($click_flag) { alert('The system is processing ...'); return ''; }
 
@@ -221,10 +193,13 @@ function executeFormTable()
                     var $valueCheckedArr = getAllValueCheckedTable();
                     if($valueCheckedArr.length <1)
                     {
-                        alert('Please choice a item. Thank you.');
+                        alert('Vui lòng chọn một bản ghi.');
                         return false;
                     }
+                    var isConfirm = confirm('Bạn có chắc chắn muốn xóa tạm thời');
+                    if (!isConfirm) return ;
 
+                    var $href   = $('#hrefDeleteAll').val();
                     // Send ajax
                     $click_flag = true;
                     $.ajax({
@@ -232,9 +207,8 @@ function executeFormTable()
                         url     : $href,
                         dataType: 'json',
                         data: {
-                            id: $valueCheckedArr,
-                            _token  : $token,
-                            action  : 'deleteall'
+                            id      : $valueCheckedArr,
+                            action  : 'deleteAll'
                         },
                     })
                     .done(function(response)
@@ -244,7 +218,7 @@ function executeFormTable()
                             for ($i=0,$total = $valueCheckedArr.length ; $i< $total; $i++)
                             {
                                 $('#tr_'+$valueCheckedArr[$i]).hide('slow').remove();
-                                location.reload();
+                                // location.reload();
                             }
                         }
                     })
@@ -258,54 +232,6 @@ function executeFormTable()
                     });
 
                 break;
-
-            // case 'updateShowHome':
-            //     // Send ajax
-            //     $click_flag = true;
-            //     $.ajax({
-            //         type    :'POST',
-            //         url     : $href,
-            //         dataType: 'json',
-            //         data: {
-            //             id      : $id,
-            //             _token  : $token,
-            //             action  : 'showhome'
-            //         }
-            //     })
-            //     .fail(function(e)
-            //     {
-            //         alert('The wrong is went ...');
-            //     })
-            //     .always(function()
-            //     {
-            //         $click_flag = false;
-            //     });
-            //
-            //     break;
-
-            // case 'updateStatus':
-            //     // Send ajax
-            //     $click_flag = true;
-            //     $.ajax({
-            //         type    :'POST',
-            //         url     : $href,
-            //         dataType: 'json',
-            //         data: {
-            //             id      : $id,
-            //             _token  : $token,
-            //             action  : 'editstatus'
-            //         }
-            //     })
-            //     .fail(function(e)
-            //     {
-            //         alert('The wrong is went ...');
-            //     })
-            //     .always(function()
-            //     {
-            //         $click_flag = false;
-            //     });
-            //
-            //     break;
         }
         return false;
     })

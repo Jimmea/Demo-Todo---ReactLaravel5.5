@@ -107,14 +107,14 @@ class AdminController extends Controller
         return 1;
     }
 
-    public function getValueXeditTable()
-    {
-        return [
-            strtolower(get_value('name', 'str', 'POST')), // action(desc alias action of any filed)
-            get_value('value', 'int', 'POST'), // value update
-            get_value('pk', 'int', 'POST') // primary key
-        ];
-    }
+//    public function getValueXeditTable()
+//    {
+//        return [
+//            strtolower(get_value('name', 'str', 'POST')), // action(desc alias action of any filed)
+//            get_value('value', 'int', 'POST'), // value update
+//            get_value('pk', 'int', 'POST') // primary key
+//        ];
+//    }
     public function responseSuccess($message='')
     {
         return response()->json(['status'=>1, 'msg'=> $message ? $message : trans('admin::message.message_update_success')]);
