@@ -6,7 +6,7 @@
     @php
         $dataGrid = new DataGrid();
         $dataGrid->setDeleteAll(false);
-        $stt      = $dataGrid->getPageStt($suggestKeywords);
+        $stt      = $dataGrid->getPageStt($suggestKeywords)
     @endphp
     <div class="row">
         <div class="col-md-12">
@@ -21,19 +21,19 @@
                 <div class="white-box-content">
                     <table class="table" id="tableList">
                         <thead>
-                        <tr>
-                            <td width="4%" align="center">Stt</td>
-                            <td width="4%" align="center">ID</td>
-                            <td>Tên từ khóa</td>
-                            <td>Đường dẫn</td>
-                            <td width="3%" align="center">Icon</td>
-                            <td width="13%" align="center">Vị trí</td>
-                            <td width="6%" align="center">Sắp xếp</td>
-                            <td width="10%" align="center">Cửa sổ</td>
-                            <td width="7%" align="center">Trạng thái</td>
-                            <td width="5%" align="center">Admin</td>
-                            <td colspan="2" width="5%" align="center">Action</td>
-                        </tr>
+                            <tr>
+                                <td width="4%" align="center">Stt</td>
+                                <td width="4%" align="center">ID</td>
+                                <td>Tên từ khóa</td>
+                                <td>Đường dẫn</td>
+                                <td width="3%" align="center">Icon</td>
+                                <td width="13%" align="center">Vị trí</td>
+                                <td width="6%" align="center">Sắp xếp</td>
+                                <td width="10%" align="center">Cửa sổ</td>
+                                <td width="7%" align="center">Trạng thái</td>
+                                <td width="5%" align="center">Admin</td>
+                                <td colspan="2" width="5%" align="center">Action</td>
+                            </tr>
                         </thead>
                         <tbody id="tableContent">
                         @foreach($suggestKeywords as $item)
@@ -49,7 +49,7 @@
                                 <td align="center">{{ $configTarget[$item->suk_target] }}</td>
                                 {!! $dataGrid->makeCheckButton('admincpp.getListSuggestKeyword', ['suk_status', $item]) !!}
                                 <td align="center">{{ $item->admins->adm_name }}</td>
-                                {!! $dataGrid->makeEditButton('admincpp.getEditSuggestKeyword') !!} }
+                                {!! $dataGrid->makeEditButton('admincpp.getEditSuggestKeyword') !!}
 {{--                                {!! $dataGrid->makeDeleteButton('admincpp.getDeleteSuggestKeyword') !!}--}}
                             </tr>
                         @endforeach
