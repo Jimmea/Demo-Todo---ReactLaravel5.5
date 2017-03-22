@@ -21,8 +21,8 @@
                     <table class="table table-stripped" id="dataTableList">
                         <thead>
                             <tr>
-                                <td width="5%" align="center">Stt</td>
-                                <td width="5%" align="center">Id</td>
+                                <td width="4%" align="center">Stt</td>
+                                <td width="4%" align="center">ID</td>
                                 <td width="8%" align="center">Avatar</td>
                                 <td>Tên danh mục</td>
                                 <td width="10%" align="center">Kiểu</td>
@@ -40,7 +40,7 @@
                                 @php $dataGrid->setPrimaryKey($value['cate_id']) @endphp
                                 <tr>
                                     <td align="center">{{ $stt++ }}</td>
-                                    <td>{{ $value['cate_id'] }}</td>
+                                    <td align="center">{{ $value['cate_id'] }}</td>
                                     <td><img src="{{ asset( $value['cate_picture'])  }}" class="img-responsive img9070"></td>
                                     <td>
                                         <a href="javascript:void(0)">

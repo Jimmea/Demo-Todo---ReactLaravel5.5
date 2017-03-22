@@ -21,8 +21,8 @@
                     <table class="table table-stripped" id="dataTableList">
                         <thead>
                         <tr>
-                            <td width="5%" align="center" class="bold">Stt</td>
-                            <td width="5%" align="center" class="bold">Id</td>
+                            <td width="4%" align="center" class="bold">Stt</td>
+                            <td width="4%" align="center" class="bold">ID</td>
                             <td width="18%" class="bold">Tiêu đề</td>
                             <td class="bold">Đi tới</td>
                             <td width="8%" align="center" class="bold">Vị trí hiển thị</td>

@@ -18,7 +18,7 @@
                     {{ $dataGrid->closeForm() }}
                 </div>
                 <div class="white-box-content">
-                    <table class="table table-bordered" id="tableList">
+                    <table class="table" id="tableList">
                         <thead>
                             <tr>
                                 <td width="4%" align="center">Stt</td>
