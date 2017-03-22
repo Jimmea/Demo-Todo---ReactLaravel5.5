@@ -22,18 +22,6 @@ class Admin extends Authenticatable
         return $this->belongsTo('App\Models\Admins\Admin', 'adm_admin_id');
     }
 
-    /**
-     * Tong hop cac module tai day
-     * @param string : name module
-     * @return int
-     */
-    public function getIdModule($nameModule)
-    {
-        $modules = config('configModuleID');
-
-        return isset($modules[$nameModule]) ? $modules[$nameModule] : '';
-    }
-
     public function getLimit()
     {
         return $this->limit;
@@ -71,6 +59,8 @@ class Admin extends Authenticatable
         // Check neu loai nay duoc luu adm_isadmin  = 1: Ok admin
         $isAdmin = get_session('isadmin');
         $admId   = get_session('adm_id');
+
+        // Neu la admin thi redirect luon
         if ($isAdmin === 1) return true;
 
         // Check khong ton tai role
@@ -78,14 +68,12 @@ class Admin extends Authenticatable
 
         // Bat buoc phai co permission
         if(!isset($permissions[0]) || !isset($permissions[1])) return false;
-        $nameModule  = $permissions[0];
+        $moduleId    = $permissions[0];
         $actionRight = $permissions[1];
-        $moduleID    = $this->getIdModule($nameModule);
 
-        if (!$moduleID) return false;
-
+        if (!$moduleId) return false;
         $row         =  app('App\Models\AdminUserRights\AdminUserRightRepository');
-        $row         =  $row->findAdminRightBy(['adm_id'=> $admId, 'mod_id'=> $moduleID]);
+        $row         =  $row->findAdminRightBy(['adm_id'=> $admId, 'mod_id'=> $moduleId]);
 
         if ($row)
         {
@@ -99,6 +87,10 @@ class Admin extends Authenticatable
                     if($row["adu_add"]) return true;
                     break;
 
+                case "edit_quick":
+                    if($row["edit_quick"]) return true;
+                    break;
+
                 case "edit":
                     if($row["adu_edit"]) return true;
                     break;
@@ -108,6 +100,7 @@ class Admin extends Authenticatable
                     break;
             }
         }
+
         return false;
     }
 

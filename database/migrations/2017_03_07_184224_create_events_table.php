@@ -24,6 +24,7 @@ class CreateEventsTable extends Migration
             $table->string('evn_meta_title');
             $table->text('evn_meta_keyword');
             $table->text('evn_meta_description')->nullable();
+            $table->softDeletes();
             $table->timestamps();
         });
 

@@ -7,6 +7,13 @@
         $dataGrid = new DataGrid();
         $stt      = $news->perPage()*($news->currentPage() - 1);
     @endphp
+    {{-- Neu ton tai session tao cong thuc thi xoa trong localStorage di--}}
+    @if(has_session('create'))
+        <script type="text/javascript">sessionStorage.removeItem("dataRecipe");</script>
+        @php
+            delete_session('create');
+        @endphp
+    @endif
     <div class="row">
         <div class="col-md-12">
             <div class="white-box padd-0">
@@ -45,8 +52,7 @@
                                 <td><img src="{{ $value->new_picture }}"  class="img-responsive img9070" alt=""></td>
                                 <td>
                                     <div>Tiêu đề    : <a title="{{ $value->new_status ? 'Xem ngay' : 'Bài viết đăng ở chế độ ẩn' }}" href="/{{ $value->new_slug }}">{{ ucfirst($value->new_title) }}</a></div>
-                                    <div>Pre time   : {{ $value->new_pre_time or '0' }} minutes</div>
-                                    <div>Cook time  : {{ $value->new_cook_time or '0' }} minutes</div>
+                                    <div>Mô tả ngắn : {{ $value->new_description }}</div>
                                 </td>
                                 <td align="center">{{ $value->categories->cate_name }}</td>
                                 <td align="center">

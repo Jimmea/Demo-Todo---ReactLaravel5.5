@@ -63,6 +63,7 @@
             {{ $form->groupSelect('Danh mục', 'new_cate_id', 'new_cate_id', true, $categories, ['cate_id', 'cate_name'], true, ['label'=> '', 'div'=> '']) }}
             {{ $form->groupText('Tên món ăn', 'new_title', 'new_title', true, ['label'=> '', 'div' => '']) }}
             {{ $form->groupTextArea('Giới thiệu món ăn', 'new_description', 'new_description', true, ['label'=> '', 'div' => '']) }}
+{{--            @php $form->groupTextAreaCkeditor('Giới thiệu món ăn', 'new_description') @endphp--}}
         </section>
 
         <section id="ingredient">

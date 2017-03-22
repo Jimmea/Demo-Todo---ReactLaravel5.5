@@ -23,6 +23,7 @@ class AdminCheckPermission
         // Lấy tên quyền ứng với route truy cập | Lay (table|pers)
         $action = $request->route()->getAction();
         $allPermision = isset($action['permissions']) ? explode('.', $action['permissions']) : array();
+
         // Khong co quyen nao thi khong co phep truy cap
         if (!$allPermision) return redirectAccessDenied();
         $admin = new Admin();
@@ -30,7 +31,6 @@ class AdminCheckPermission
         {
             return redirectAccessDenied();
         }
-
         return $next($request);
     }
 }

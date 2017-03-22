@@ -1,23 +1,29 @@
 @php $form = new Form($errors, $admin) @endphp
 {{ $form->beginForm([$routeName,$routeParam]) }}
-    {!! ul_tab_begin() !!}
-        {!! li_tab(['id'=> 'general', 'title'=> 'Thông tin cơ bản (*)'], true) !!}
-        {!! li_tab(['id'=> 'permission', 'title'=> 'Quyền Module (*)']) !!}
-        {{--{!! li_tab(['id'=> 'category', 'title'=> 'Quyền category']) !!}--}}
-    {!! ul_tab_close() !!}
-
-    <div class="tab-content">
-        <div role="tabpanel" class="tab-pane fade in active" id="general">
-            {!! $form->groupText('Login Name', 'adm_loginname', 'adm_loginname', true) !!}
+    <h5 class="box-title">Thông tin cơ bản & Quyền sử dụng</h5>
+        <div role="tabpanel" class="tab-pane" id="general">
+            @if($admin)
+                <div class="form-group">
+                    <label class="control-label col-md-2">Login name</label>
+                    <div class="col-md-8">
+                        <input type="text" class="form-control" readonly value="{{ $admin->adm_loginname }}">
+                    </div>
+                    <input type="hidden" name="adm_loginname" value="{{ $admin->adm_loginname }}">
+                </div>
+            @else
+                {!! $form->groupText('Login Name', 'adm_loginname', 'adm_loginname', true) !!}    
+            @endif
             {!! $form->groupText('Full Name', 'adm_name', 'adm_name', true) !!}
             {!! $form->groupText('Phone', 'adm_phone', 'adm_phone') !!}
             {!! $form->groupText('Email', 'adm_email', 'adm_email', true) !!}
-            {!! $form->groupText('Password', 'adm_password', 'adm_password') !!}
+            @if(!$admin)
+                 {!! $form->groupText('Password', 'adm_password', 'adm_password') !!}
+            @endif
             {!! $form->groupFile('Hình ảnh', 'adm_picture', 'adm_picture') !!}
             {!! $form->groupTextArea('Address', 'adm_address', 'adm_address') !!}
         </div>
-        <div role="tabpanel" class="tab-pane fade" id="permission">
-            <div class="col-md-5 col-md-offset-1">
+        <div role="tabpanel" class="tab-pane" id="permission">
+            <div class="col-md-5 col-md-offset-2">
                 @if($errors->has('mod_id'))
                     <div class="has-error">
                         <span class="help-block">{{ $errors->first('mod_id') }}</span>
@@ -75,7 +81,6 @@
             {{--</div>--}}
         {{--</div>--}}
         <div class="clearfix"></div>
-    </div>
     {!! $form->groupSubmitReset() !!}
 {!! $form->closeForm() !!}
 <script language="javascript">

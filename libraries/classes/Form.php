@@ -116,7 +116,7 @@ class Form
         $previewImage   = $type == 'file' ? '<span class="icon-eye labelPreviewImage hide"></span>' : '';
         $hasError       = $require ? has_error($this->errors, $name)  : '';
         $classLabel     = $this->classLabel     ? $this->classLabel     : 'col-md-2';
-        $classDivInput  = $this->classDivInput  ? $this->classDivInput  : 'col-md-10';
+        $classDivInput  = $this->classDivInput  ? $this->classDivInput  : 'col-md-8';
 
         $formGroup = '<div class="form-group '. $hasError .'">';
 
@@ -349,6 +349,28 @@ class Form
         $formGroup  = '<textarea name="'.$nameInput.'" '. $attributeHtml .' '. $styleInput .' cols="30" rows="3">' . $value . '</textarea>';
 
         return $this->createFormGroup($formGroup, $title, $nameInput, $require);
+    }
+
+    /**
+     * Noi dung ckeditor with text
+     * @param
+     * @return
+     */
+    public function groupTextAreaCkeditor($title, $id, $basePath='/backend/ckeditor/', $width='100%', $height=450)
+    {
+        require_once (public_path().$basePath."ckeditor.php");
+        $value                  = get_value_field($id, $this->formDb);
+        $oFCKeditor				= new CKeditor();
+        $value				    = str_replace('\"', '"', $value);
+        $value					= str_replace("\'", "'", $value);
+        $value					= str_replace("\&quot;", "&quot;", $value);
+        $value					= str_replace("\\\\", "\\", $value);
+        $oFCKeditor->Value		= $value;
+        $oFCKeditor->basePath	= $basePath;
+        $oFCKeditor->Width		= $width;
+        $oFCKeditor->Height		= $height;
+        echo '<div style="text-align:left; padding:5px; width:' . $width . '">' . $title . '</div>';
+        $oFCKeditor->editor($id,$value);
     }
 
     /**

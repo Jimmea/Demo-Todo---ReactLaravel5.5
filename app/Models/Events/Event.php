@@ -2,6 +2,8 @@
 
 namespace App\Models\Events;
 
+//use App\Models\ModelBase;
+
 use App\Models\ModelBase;
 
 class Event extends ModelBase

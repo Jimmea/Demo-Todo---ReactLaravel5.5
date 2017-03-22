@@ -1,6 +1,6 @@
 @extends('admin::layouts.master_tab')
 @section('content')
-    @include('admin::blocks.block_navbartop')
+    {{--@include('admin::blocks.block_navbartop')--}}
     @include('admin::blocks.block_sidebar')
     <div id="page-wrapper">
         <div class="container-fluid">

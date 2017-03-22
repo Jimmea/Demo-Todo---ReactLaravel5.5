@@ -15,7 +15,7 @@ class TintucRequest extends FilterForm
     {
         return [
             'new_cate_id'          => 'required',
-            'new_title'            => 'required',
+            'new_title'            => 'required|unique:tintucs,new_title,'.$this->id.',new_id',
             'new_ingredient'       => 'required',
             'nec_seo_title'        => 'required',
             'nec_seo_keyword'      => 'required',

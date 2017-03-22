@@ -45,7 +45,7 @@
                                 {!! $dataGrid->makeCheckRadio() !!}
                                 <td align="center">{{ $stt }}</td>
                                 <td>{{ $item->tag_name }}</td>
-                                <td>{{ $item->category->cate_name or 'NULL' }}</td>
+                                <td align="center">{{ $item->category->cate_name or 'NULL' }}</td>
                                 <td width="6%" align="center">{{ $item->tag_count }}</td>
                                 <td>{{ $item->created_at }}</td>
                                 <td>{{ $item->updated_at }}</td>

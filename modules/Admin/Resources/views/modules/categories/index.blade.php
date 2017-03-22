@@ -25,12 +25,12 @@
                                 <td width="5%" align="center">Id</td>
                                 <td width="8%" align="center">Avatar</td>
                                 <td>Tên danh mục</td>
-                                <td align="center">Kiểu</td>
+                                <td width="10%" align="center">Kiểu</td>
                                 <td width="25%">Từ khóa tìm kiếm SEO</td>
                                 <td width="7%" align="center">Total view</td>
                                 <td width="5%" align="center">Vị trí</td>
-                                <td width="8%" align="center" title="Hiển thị category đang hot">Hot</td>
-                                <td width="8%" align="center" title="Hiển thị trang home">Home</td>
+                                <td width="4%" align="center" title="Hiển thị category đang hot">Hot</td>
+                                <td width="4%" align="center" title="Hiển thị trang home">Home</td>
                                 <td width="7%" align="center">Trạng thái</td>
                                 <td width="5%" colspan="3" align="center">Action</td>
                             </tr>
@@ -48,7 +48,7 @@
                                             <span field="cate_name" record_id="{{ $value['cate_id'] }}" class="clickEdit">{{ $value['cate_name'] }}</span>
                                         </a>
                                     </td>
-                                    <td>{{ $typeCategory[$value['cate_type']] }}</td>
+                                    <td align="center">{{ $typeCategory[$value['cate_type']] }}</td>
                                     {!! $dataGrid->makeEditColumn(['cate_meta_keyword', $value]) !!}
                                     <td align="center">{{ $value['cate_total_hit'] }}</td>
                                     {!! $dataGrid->makeEditColumn(['cate_order', $value], "align=center") !!}

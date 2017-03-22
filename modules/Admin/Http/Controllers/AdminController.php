@@ -101,10 +101,9 @@ class AdminController extends Controller
         return $newType;
     }
 
-
     public function getAdminId()
     {
-        return 1;
+        return get_session('adm_id');
     }
 
 //    public function getValueXeditTable()

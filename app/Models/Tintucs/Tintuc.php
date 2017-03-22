@@ -27,6 +27,4 @@ class Tintuc extends ModelBase
     {
         return $this->belongsToMany('App\Models\Tags\Tag', 'tag_news', 'tagn_new_id', 'tagn_tag_id');
     }
-
-
 }

@@ -158,7 +158,7 @@ class AdminNewController extends AdminController
             if ($tagIds) $this->tintuc->attachTag($newAdd, $tagIds);
         }
         set_flash_add_success();
-        echo '<script type="text/javascript">sessionStorage.removeItem("dataRecipe");</script>';
+        set_session('create', 1);
         return redirect()->route('admincpp.getListNew');
     }
 
