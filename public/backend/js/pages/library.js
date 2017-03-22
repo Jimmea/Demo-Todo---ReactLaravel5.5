@@ -12,7 +12,7 @@ var hei = $(window).height();
 // Tính số frameHeight
 function calcHeightFrame(id)
 {
-    var divHeight = hei - 100;
+    var divHeight = hei - 70;
     $("#"+id).height(divHeight);
 }
 

@@ -885,13 +885,13 @@ pre {
   padding: 0px;
   min-height: 568px;
   background: #edf1f5;
-  padding-bottom: 60px;
+  padding-bottom: 35px;
 }
 .footer {
   bottom: 0;
   color: #58666e;
   left: 0px;
-  padding: 20px 30px;
+  padding: 10px 30px;
   position: absolute;
   right: 0;
   background: #ffffff;
