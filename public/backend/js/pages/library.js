@@ -302,5 +302,5 @@ $(document).ready(function()
     hoverTrContentTable();
     initIntergratePlugin();
     scrollTop();
-    // clickMenuSidebar();
+    clickMenuSidebar();
 });

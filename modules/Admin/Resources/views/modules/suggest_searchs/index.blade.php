@@ -1,8 +1,8 @@
-@extends('admin::layouts.master')
+@extends('admin::layouts.master_tab')
 @section('content')
-    {!! bread_crumb([
-        'admincpp.getListSuggestSearch' => 'Danh sách suggest search',
-    ]) !!}
+    {{--{!! bread_crumb([--}}
+        {{--'admincpp.getListSuggestSearch' => 'Danh sách suggest search',--}}
+    {{--]) !!}--}}
     @php
         $dataGrid = new DataGrid();
         $dataGrid->setDeleteAll(false);

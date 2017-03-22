@@ -1,9 +1,5 @@
-@extends('admin::layouts.master')
+@extends('admin::layouts.master_tab')
 @section('content')
-{!! bread_crumb([
-        'List tag'
-    ])
-!!}
 @php
     $dataGrid = new DataGrid();
     $stt      = $tags->perPage()*($tags->currentPage() - 1);

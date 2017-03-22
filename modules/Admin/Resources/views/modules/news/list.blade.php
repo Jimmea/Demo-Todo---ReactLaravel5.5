@@ -1,8 +1,8 @@
-@extends('admin::layouts.master')
+@extends('admin::layouts.master_tab')
 @section('content')
-{!! bread_crumb([
-    'admincpp.getListNew' => 'Danh sách bài viết'
-]) !!}
+{{--{!! bread_crumb([--}}
+    {{--'admincpp.getListNew' => 'Danh sách bài viết'--}}
+{{--]) !!}--}}
     @php
         $dataGrid = new DataGrid();
         $stt      = $news->perPage()*($news->currentPage() - 1);

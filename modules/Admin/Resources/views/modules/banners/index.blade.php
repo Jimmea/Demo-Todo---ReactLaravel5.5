@@ -1,6 +1,6 @@
-@extends('admin::layouts.master')
+@extends('admin::layouts.master_tab')
 @section('content')
-    {!! bread_crumb([trans('admin::listing.title') ]) !!}
+{{--    {!! bread_crumb([trans('admin::listing.title') ]) !!}--}}
     @php
         $dataGrid = new DataGrid();
         $dataGrid->setDeleteAll(false);

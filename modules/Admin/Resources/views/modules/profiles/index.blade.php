@@ -1,9 +1,9 @@
-@extends('admin::layouts.master')
+@extends('admin::layouts.master_tab')
 @section('content')
-    {!! bread_crumb([
-            'Update infomation'
-        ])
-    !!}
+    {{--{!! bread_crumb([--}}
+            {{--'Update infomation'--}}
+        {{--])--}}
+    {{--!!}--}}
     <div class="row">
         <div class="col-md-12">
             <div class="white-box">

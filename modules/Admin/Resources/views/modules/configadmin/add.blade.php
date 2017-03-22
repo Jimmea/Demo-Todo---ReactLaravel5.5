@@ -1,9 +1,9 @@
-@extends('admin::layouts.master')
+@extends('admin::layouts.master_tab')
 @section('content')
-    {!! bread_crumb([
-        'admincpp.getListConfigAdmin' => trans('admin::configadmin.list.title'),
-        trans('admin::configadmin.add.title')
-    ]) !!}
+    {{--{!! bread_crumb([--}}
+        {{--'admincpp.getListConfigAdmin' => trans('admin::configadmin.list.title'),--}}
+        {{--trans('admin::configadmin.add.title')--}}
+    {{--]) !!}--}}
     <div class="row">
         <div class="col-md-12">
             <div class="white-box">

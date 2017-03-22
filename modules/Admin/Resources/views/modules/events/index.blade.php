@@ -1,8 +1,8 @@
-@extends('admin::layouts.master')
+@extends('admin::layouts.master_tab')
 @section('content')
-    {!! bread_crumb([
-        'admincpp.getListEvent' => 'Danh sách event',
-    ]) !!}
+    {{--{!! bread_crumb([--}}
+        {{--'admincpp.getListEvent' => 'Danh sách event',--}}
+    {{--]) !!}--}}
     @php
         $dataGrid = new DataGrid();
         $stt      = $dataGrid->getPageStt($events);

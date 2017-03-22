@@ -1,8 +1,8 @@
-@extends('admin::layouts.master')
+@extends('admin::layouts.master_tab')
 @section('content')
-    {!! bread_crumb([
-        'admincpp.getListTabAction' => 'Danh mục tab'
-    ]) !!}
+{{--{!! bread_crumb([--}}
+    {{--'admincpp.getListTabAction' => 'Danh mục tab'--}}
+{{--]) !!}--}}
     @php $dataGrid = new DataGrid() @endphp
 <div class="row">
     <div class="col-md-12">

@@ -1,9 +1,9 @@
-@extends('admin::layouts.master')
+@extends('admin::layouts.master_tab')
 @section('content')
-    {!! bread_crumb([
-        'admincpp.getListEvent' => 'Danh sách event',
-        'admincpp.getAddEvent'  => 'Edit event',
-    ]) !!}
+    {{--{!! bread_crumb([--}}
+        {{--'admincpp.getListEvent' => 'Danh sách event',--}}
+        {{--'admincpp.getAddEvent'  => 'Edit event',--}}
+    {{--]) !!}--}}
     <div class="row">
         <div class="col-md-12">
             <div class="white-box">

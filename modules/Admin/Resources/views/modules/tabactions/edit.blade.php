@@ -1,9 +1,9 @@
-@extends('admin::layouts.master')
+@extends('admin::layouts.master_tab')
 @section('content')
-    {!! bread_crumb([
-          'admincpp.getListTabAction' => 'Danh sách',
-          'Cập nhật'
-      ]) !!}
+    {{--{!! bread_crumb([--}}
+          {{--'admincpp.getListTabAction' => 'Danh sách',--}}
+          {{--'Cập nhật'--}}
+      {{--]) !!}--}}
     <div class="row">
         <div class="col-md-12">
             <div class="white-box">

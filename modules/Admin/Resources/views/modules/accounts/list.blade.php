@@ -1,11 +1,10 @@
 @inject('adminRepository', 'App\Models\Admins\AdminRepository')
-@extends('admin::layouts.master')
+@extends('admin::layouts.master_tab')
 @section('content')
-    {!! bread_crumb([
-            'List account'
-        ])
-    !!}
-
+    {{--{!! bread_crumb([--}}
+            {{--'List account'--}}
+        {{--])--}}
+    {{--!!}--}}
     @php
         $dataGrid   = new DataGrid();
         $dataGrid->setDeleteAll(false);

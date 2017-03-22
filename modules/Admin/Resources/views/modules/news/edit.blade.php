@@ -1,9 +1,9 @@
-@extends('admin::layouts.master')
+@extends('admin::layouts.master_tab')
 @section('content')
-    {!! bread_crumb([
-        'admincpp.getListNew' => trans('admin::listing.title'),
-        trans('admin::form.edit.title')
-    ]) !!}
+    {{--{!! bread_crumb([--}}
+        {{--'admincpp.getListNew' => trans('admin::listing.title'),--}}
+        {{--trans('admin::form.edit.title')--}}
+    {{--]) !!}--}}
     @if (count($errors) > 0)
         <div class="alert alert-danger">
             <ul>

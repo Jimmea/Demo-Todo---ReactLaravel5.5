@@ -1,6 +1,5 @@
 @extends('admin::layouts.master_tab')
 @section('content')
-    {{--@include('admin::blocks.block_navbartop')--}}
     @include('admin::blocks.block_sidebar')
     <div id="page-wrapper">
         <div class="container-fluid">
@@ -28,7 +27,4 @@
         <!-- /.container-fluid -->
         @include('admin::blocks.block_footer')
     </div>
-@stop
-@section('js')
-    @include('admin::blocks.block_js')
 @stop

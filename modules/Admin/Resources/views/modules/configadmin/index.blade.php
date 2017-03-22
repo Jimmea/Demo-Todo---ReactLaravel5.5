@@ -1,8 +1,8 @@
-@extends('admin::layouts.master')
+@extends('admin::layouts.master_tab')
 @section('content')
-    {!! bread_crumb([
-        'List Module'
-    ]) !!}
+    {{--{!! bread_crumb([--}}
+        {{--'List Module'--}}
+    {{--]) !!}--}}
     @php $dataGrid = new DataGrid(); $stt = 1 @endphp
     <div class="row">
         <div class="col-md-12">

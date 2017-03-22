@@ -1,10 +1,10 @@
-@extends('admin::layouts.master')
+@extends('admin::layouts.master_tab')
 @section('content')
-    {!! bread_crumb([
-            'admincpp.getListAccount'=> 'List account',
-            'Add account'
-        ])
-    !!}
+    {{--{!! bread_crumb([--}}
+            {{--'admincpp.getListAccount'=> 'List account',--}}
+            {{--'Add account'--}}
+        {{--])--}}
+    {{--!!}--}}
     <div class="row">
         <div class="col-md-12">
             <div class="white-box">

@@ -6,12 +6,13 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         @include('admin::blocks.block_css')
         @yield('css')
-        @yield('js')
     </head>
     <body>
         <div id="wrapper" class="wrapper-use-tab">
             @yield('content')
         </div>
+        @include('admin::blocks.block_js')
         <script src="{{ asset('backend/js/pages/library.js') }}"></script>
+        @yield('js')
     </body>
 </html>

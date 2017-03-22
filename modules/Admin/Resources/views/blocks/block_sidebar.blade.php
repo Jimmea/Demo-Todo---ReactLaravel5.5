@@ -77,8 +77,8 @@
                                     @if(isset($adminUserRight[$value['mod_id']][$key]))
                                     <li>
                                         <a class="tab"
-                                           {{--onclick="return false;"--}}
-                                           {{--target="_blank"--}}
+                                           onclick="return false;"
+                                           target="_blank"
                                            id="{{ $arraySubRouter[$key] }}"
                                            rel="{{ $value->mod_name }} <span class='raquo'>&raquo;</span> {{ $subvalue }}"
                                            href="{{ route($router) }}">
@@ -93,48 +93,6 @@
                     @endif
                 @endforeach
             @endif
-
-            {{--<li> <a href="javascript:void(0)" class="waves-effect">--}}
-                    {{--<i class="icon-grid"></i>--}}
-                    {{--<span class="hide-menu">Menus</span></a>--}}
-            {{--</li>--}}
-            {{--<li> <a href="javascript:void(0)" class="waves-effect">--}}
-                    {{--<i class="icon-folder"></i>--}}
-                    {{--<span class="hide-menu">Category</span></a>--}}
-            {{--</li>--}}
-            {{--<li> <a href="javascript:void(0)" class="waves-effect">--}}
-                    {{--<i class="icon-frame"></i>--}}
-                    {{--<span class="hide-menu">Banners</span></a>--}}
-            {{--</li>--}}
-            {{--<li> <a href="javascript:void(0)" class="waves-effect">--}}
-                    {{--<i class="icon-note"></i>--}}
-                    {{--<span class="hide-menu">News</span></a>--}}
-            {{--</li>--}}
-            {{--<li> <a href="javascript:void(0)" class="waves-effect">--}}
-                    {{--<i class="icon-handbag"></i>--}}
-                    {{--<span class="hide-menu">Shopping <span class="arrow icon-arrow-left"></span></span></a>--}}
-
-            {{--</li>--}}
-            {{--<li> <a href="javascript:void(0)" class="waves-effect">--}}
-                    {{--<i class="icon-picture"></i>--}}
-                    {{--<span class="hide-menu">Media <span class="arrow icon-arrow-left"></span></span></a>--}}
-                {{--<ul class="nav nav-second-level collapse" aria-expanded="true">--}}
-                    {{--<li> <a href="fontawesome.html">Font awesome</a> </li>--}}
-                {{--</ul>--}}
-            {{--</li>--}}
-
-            {{--<li> <a href="javascript:void(0)" class="waves-effect">--}}
-                    {{--<i class="icon-wrench "></i>--}}
-                    {{--<span class="hide-menu">Setting config</span></a>--}}
-            {{--</li>--}}
-            {{--<li> <a href="javascript:void(0)" class="waves-effect">--}}
-                    {{--<i class="icon-people p-r-10"></i>--}}
-                    {{--<span class="hide-menu">Manager account</span></a>--}}
-            {{--</li>--}}
-            {{--<li> <a href="javascript:void(0)" class="waves-effect">--}}
-                    {{--<i class="icon-eye p-r-10"></i>--}}
-                    {{--<span class="hide-menu">Config display</span></a>--}}
-            {{--</li>--}}
         </ul>
     </div>
 </div>

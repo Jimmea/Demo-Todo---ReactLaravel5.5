@@ -1,10 +1,10 @@
-@extends('admin::layouts.master')
+@extends('admin::layouts.master_tab')
 @section('content')
-    {!! bread_crumb([
-        'admincpp.getListCategory'          => 'Danh sách danh mục',
-        "admincpp.getListCategoryTabAction|$category->cate_id" => 'Danh sách danh mục tab',
-        "admincpp.getAddCategoryTabAction|$category->cate_id" => 'Thêm mới'
-    ]) !!}
+    {{--{!! bread_crumb([--}}
+        {{--'admincpp.getListCategory'          => 'Danh sách danh mục',--}}
+        {{--"admincpp.getListCategoryTabAction|$category->cate_id" => 'Danh sách danh mục tab',--}}
+        {{--"admincpp.getAddCategoryTabAction|$category->cate_id" => 'Thêm mới'--}}
+    {{--]) !!}--}}
     @php $dataGrid = new DataGrid(); @endphp
     <div class="row">
         <div class="col-md-12">

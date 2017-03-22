@@ -1,9 +1,9 @@
-@extends('admin::layouts.master')
+@extends('admin::layouts.master_tab')
 @section('content')
-{!! bread_crumb([
-    'admincpp.getListSuggestKeyword' => 'Danh sách keyword suggest',
-    'admincpp.getAddSuggestKeyword' => 'Thêm từ khóa',
-]) !!}
+{{--{!! bread_crumb([--}}
+    {{--'admincpp.getListSuggestKeyword' => 'Danh sách keyword suggest',--}}
+    {{--'admincpp.getAddSuggestKeyword' => 'Thêm từ khóa',--}}
+{{--]) !!}--}}
 <div class="row">
     <div class="col-md-12">
         <div class="white-box">

@@ -1,9 +1,9 @@
-@extends('admin::layouts.master')
+@extends('admin::layouts.master_tab')
 @section('content')
-    {!! bread_crumb([
-            'admincpp.getListMenu'=> trans('admin::menu.list.title')
-        ])
-    !!}
+    {{--{!! bread_crumb([--}}
+            {{--'admincpp.getListMenu'=> trans('admin::menu.list.title')--}}
+        {{--])--}}
+    {{--!!}--}}
     @php
         $dataGrid = new DataGrid(); $stt = 1
     @endphp

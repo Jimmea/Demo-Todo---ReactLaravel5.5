@@ -1,9 +1,9 @@
-@extends('admin::layouts.master')
+@extends('admin::layouts.master_tab')
 @section('content')
-    {!! bread_crumb([
-        'admincpp.getListNew'       => 'Danh sách bài viết',
-        'admincpp.getListTrashNew'  => 'Danh sách bài viết rác'
-    ]) !!}
+    {{--{!! bread_crumb([--}}
+        {{--'admincpp.getListNew'       => 'Danh sách bài viết',--}}
+        {{--'admincpp.getListTrashNew'  => 'Danh sách bài viết rác'--}}
+    {{--]) !!}--}}
     @php
         $dataGrid = new DataGrid();
         $dataGrid->setDeleteAll(false);
