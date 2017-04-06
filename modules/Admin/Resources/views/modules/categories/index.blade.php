@@ -3,7 +3,7 @@
     {{--{!! bread_crumb([--}}
             {{--trans('admin::category.list.title'),--}}
          {{--])--}}
-     {{--!!}--}}
+     {{--!!}--}}    
     @php
         $dataGrid = new DataGrid();$stt = 1;
     @endphp

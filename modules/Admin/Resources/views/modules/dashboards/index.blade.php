@@ -25,6 +25,6 @@
             </div>
         </div>
         <!-- /.container-fluid -->
-        @include('admin::blocks.block_footer')
+        <!-- @include('admin::blocks.block_footer') -->
     </div>
 @stop

@@ -1,9 +1,4 @@
-@extends(VIEW_FRONTEND_MASTER)
-
-@section('css')
-<link href="https://secureimages.allrecipes.com/assets/deployables/v-1.55.0.3383/account-css.bundled.Css" rel="stylesheet">
-@stop
-
+@extends(MASTER_V1.'.layout_auth')
 @section('content')
 <div class="container-content body-content">
     <div data-role="page" id="myallrecipes_forgot_password">

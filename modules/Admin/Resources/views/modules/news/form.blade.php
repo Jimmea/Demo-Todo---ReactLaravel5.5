@@ -62,8 +62,8 @@
             <hr>
             {{ $form->groupSelect('Danh mục', 'new_cate_id', 'new_cate_id', true, $categories, ['cate_id', 'cate_name'], true, ['label'=> '', 'div'=> '']) }}
             {{ $form->groupText('Tên món ăn', 'new_title', 'new_title', true, ['label'=> '', 'div' => '']) }}
-            {{ $form->groupTextArea('Giới thiệu món ăn', 'new_description', 'new_description', true, ['label'=> '', 'div' => '']) }}
-{{--            @php $form->groupTextAreaCkeditor('Giới thiệu món ăn', 'new_description') @endphp--}}
+            {{-- {{ $form->groupTextArea('Giới thiệu món ăn', 'new_description', 'new_description', true, ['label'=> '', 'div' => '']) }} --}}
+            @php $form->groupTextAreaCkeditor('Giới thiệu món ăn', 'new_description') @endphp
         </section>
 
         <section id="ingredient">
@@ -94,7 +94,7 @@
             </div>
             <div class="clearfix"></div>
             <div class="form-group">
-                <a href="#" class="text-center btn btn-link btn-block button_add_step" id="button_add_step" data-behavior="add_step">
+                <a href="#" style="color: #54667a" class="text-center btn btn-link btn-block button_add_step" id="button_add_step" data-behavior="add_step">
                     <i class="fa fa-plus"></i> <b>Bước tiếp theo</b>
                 </a>
             </div>

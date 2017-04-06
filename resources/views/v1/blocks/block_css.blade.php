@@ -1,5 +1,7 @@
-<link href='http://css01.media-allrecipes.com/assets/deployables/v-1.55.0.3383/main-css.bundled.Css' rel='stylesheet'/>
+<link href='http://css01.media-allrecipes.com/assets/deployables/v-1.65.0.3982/main-css.bundled.Css' rel='stylesheet'/>
 <link rel="stylesheet" href="{{ asset('css/family.min.css') }}">
+<link rel="stylesheet" href="{{ asset('sass/myrecipe-user.css') }}">
+<link rel="stylesheet" href="{{ asset('sass/myrecipe.css') }}">
 <script src='http://js01.media-allrecipes.com/assets/deployables/v-1.55.0.3383/main-top.bundled.js' ></script>
 <style type="text/css">
     #zergnet-widget-33596 .zerglayoutcl {
@@ -90,7 +92,8 @@
     #grid[data-columns]::before {
         visibility: hidden;
     }
-    @media screen and (max-width:625px) {
+    @media screen and (max-width:625px)
+    {
         #grid[data-columns]::before {
             content: '1 .column.size-1of1';
         }
@@ -98,7 +101,8 @@
             content: '2 .column.size-1of2';
         }
     }
-    @media screen and (min-width: 626px) and (max-width: 767px) {
+    @media screen and (min-width: 626px) and (max-width: 767px)
+    {
         #grid[data-columns]::before {
             content: '2 .column.size-1of2';
         }
@@ -106,7 +110,8 @@
             content: '4 .column.size-1of4';
         }
     }
-    @media screen and (min-width: 768px) and (max-width: 1023px) {
+    @media screen and (min-width: 768px) and (max-width: 1023px)
+    {
         #grid[data-columns]::before {
             content: '2 .column.size-1of2';
         }
@@ -127,14 +132,15 @@
             content: '2 .column.size-1of2';
         }
     }
-    .site-content {
+    .site-content
+    {
         background: url("/imgs/bg.jpg");
         background-repeat: no-repeat;
         background-position: center top;
         background-attachment: fixed;    
     }
     .container-content {
-        background: #f9f9f9;
+        background: #fff;
     }
     .ar-nav-section li {
         height: 70px;
@@ -142,7 +148,8 @@
     .header.new-nav {
         height: auto !important;
     }
-    .header.new-nav .history-keyword {
+    .header.new-nav .history-keyword
+    {
         margin-bottom: 10px;
     }
     .header.new-nav .history-keyword .link-keyword {
@@ -168,8 +175,7 @@
         font-size: 14px;
         padding-left: 20px;
     }
-    .header.new-nav .menu-link .link-title {
-        font-weight: bold;
+    .header.new-nav .menu-link .link-title {        
         color: #f4540f;
         text-transform: uppercase;
     }
@@ -206,7 +212,7 @@
         /*width: 73%;*/
     }
     .full-page .grid-fixed {
-        margin-top: 20px;
+        /*margin-top: 20px;*/
     }
     .full-page .grid-fixed .grid-col--fixed-tiles {
         /*width: 45%;*/
@@ -214,7 +220,7 @@
         float: left;
     }
     #profile-follow-content .cook-invitation {
-        top: 40px;
+        /*top: 40px;*/
     }
     .header {
         background: #fff;
@@ -253,5 +259,5 @@
     }
     #pageFooter .title-social-sharing__icons {
         margin-bottom: 10px;
-    }
+    }  
 </style>

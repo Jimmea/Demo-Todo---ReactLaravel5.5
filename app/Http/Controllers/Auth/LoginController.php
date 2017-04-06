@@ -39,6 +39,6 @@ class LoginController extends Controller
 
     public function showLoginForm()
     {
-        return view(VIEW_FRONTEND_MODULES . '.auth.login');
+        return view('auths.login');
     }
 }

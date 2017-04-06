@@ -1,12 +1,6 @@
-@extends(VIEW_FRONTEND_MASTER)
-
-@section('css')
-<link href="https://secureimages.allrecipes.com/assets/deployables/v-1.55.0.3383/account-css.bundled.Css" rel="stylesheet">
-@stop
-
+@extends(MASTER_V1.'.layout_auth')
 @section('content')
-<div class="container-content body-content">
-	<script>var adManager = {};</script>
+<div class="container-content body-content">	
 	<div data-role="page" id="account_login">
 		<div class="authentication">
 			<section>
@@ -61,7 +55,7 @@
 						<aside class="aside-right">
 							<a id="lnkForgotPassword" tabindex="500" href="/account/forgotpassword/?layout=Standard" class="btn-right" target="_self">Forgot password?</a>
 						</aside>
-						<a href="{{ route('account::collection') }}">
+						<a href="">
 							<input type="button" id="submitLogInForm" data-action="submit" data-role="none" value="Sign In" class="btnSubmit">
 						</a>
 					</form>

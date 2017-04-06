@@ -18,10 +18,16 @@ Route::group(['middleware' => 'web','as'=> 'tintuc::', 'namespace' => 'Modules\T
        'uses' => 'CategoryController@getCategory'
     ]);
 
+    // Danh sach noi tieng
+    Route::get('/recipe', [
+        'as'  => 'getRecipe',
+        'uses'=> 'MyRecipeController@getPopularRecipe'
+    ]);
+
     // Danh sách router cho bài viết chi tiết
     Route::get('/new/{id?}/{slug?}', [
         'as'=> 'getNewDetail',
-        'uses' => 'NewDetailController@getNewDetailTest'
+        'uses' => 'NewDetailController@getNewDetail'
     ]);
 
     // Danh sách router load ajax

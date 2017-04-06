@@ -15,6 +15,7 @@ define('VIEW_FRONTEND_PATH', 'frontend/');
 
 // Tong hop cac hang so cho cac file view cho version 1 viet bang hang so chho de nho
 define('MASTER_V1', 'v1');
+define('MASTER_USER_V1', 'user::v1.layouts');
 define('NEW_V1', 'tintuc::v1');
 define('SHOP_V1', 'shop::v1');
 define('USER_V1', 'user::v1');
