@@ -1,9 +1,5 @@
-/**
- * Created by hung on 26/02/17.
- */
+'use strict';
 var formSessionStorage = function () {
-    'use strict';
-
     var stepDefault          = 2;
     var clicked              = false;
     var imgPlaceholder       = '/assets/img_pre.jpg';
@@ -22,7 +18,7 @@ var formSessionStorage = function () {
     var stepHtmlDefault = function ($id, $value, $src)
     {
         var html  = '<div class="form-group form-group-step" data-id="' + $id + '" id="step-' + $id + '">';
-                html += '<input type="hidden" name="new__step_picure[]" value="' + $src + '" class="hidden new__step_picure">';
+                html += '<input type="text" name="new__step_picure[]" placeholder="Đường dẫn hình ảnh với bước làm..." value="' + $src + '" class="new__step_picure form-control">';
                 html += '<div class="control-label-header">';
                     html += '<label class="label label-warning label-step label-step-' + $id + '">' + $id + '</label>';
                     html += '<label class="label label-upload" for="new_step_picure' + $id + '" title="click tải hình ảnh minh họa"><i class="fa fa-camera"></i></label>';
@@ -35,7 +31,7 @@ var formSessionStorage = function () {
                             html += '<input type="file" name="new_step_picture[]" accept="image/*" class="hidden new_step_picure" id="new_step_picure' + $id + '"/>';
                             html += '<div class="image__button editor_tool_step">';
                                 html += '<label class="image_upload" title="Sửa ảnh" for="new_step_picure' + $id + '"><i class="fa fa-camera"></i></label>';
-                                html += '<label class="button_delete_step" title="Xóa ảnh"><i class="fa fa-trash-o"></i></label>';
+                                html += '<label class="button_delete" title="Xóa ảnh"><i class="fa fa-trash-o"></i></label>';
                             html += '</div>';
                         html += '</div>';
                     html += '</div>';
@@ -75,7 +71,7 @@ var formSessionStorage = function () {
     var addStepMethod = function ()
     {
         $('.button_add_step').click(function (e)
-        {
+        {            
             e.preventDefault();
             if(clicked) { alert('The system is processing... Please wait'); return '';}
 
@@ -122,6 +118,40 @@ var formSessionStorage = function () {
                 clicked = false;
             });
         });
+    }
+
+    var showAvatarMethod = function()
+    {
+        $(document).on('change', '.new__step_picure', function(){
+            let self     = $(this);
+            let urlImage = self.val(); 
+            let groupstep = self.closest('.form-group')        
+            let groupstep_id = groupstep.attr('data-id')
+            let step_img_placeholder = groupstep.find('.step_img_placeholder');            
+            const { methods } = dataRecipe  
+            let existStep  = groupstep_id in methods;   
+                                          
+            if(existStep)
+            {
+                if(urlImage)           
+                {
+                    // Save url online toi sessionStorage                    
+                    if (groupstep_id in methods) 
+                    {
+                        methods[groupstep_id].image = urlImage;
+                        // Gui link server crawl duong dan anh nay              
+                        step_img_placeholder.attr('src', urlImage);
+                        step_img_placeholder.removeClass('hidden')        
+                    }                
+                }
+                else
+                {            
+                    methods[groupstep_id].image = urlImage;       
+                    step_img_placeholder.addClass('hidden')    
+                }       
+                storeDataRecipe();
+            }                
+        })
     }
 
     // Upload hinh anh avatar cua recipe
@@ -330,6 +360,7 @@ var formSessionStorage = function () {
                 {
                     var listGroupStep       = dataRecipe.methods;
                     var lengthListGroupStep = countObjectLength(listGroupStep);
+
                     // Xoa o sessionStorage va Browser
                     for(var i =1; i <= lengthListGroupStep; i++)
                     {
@@ -346,7 +377,7 @@ var formSessionStorage = function () {
                                     dataType: 'json',
                                     success: function(response)
                                     {
-                                        console.log(response);
+                                        // console.log(response);
                                     },
                                     error: function(jqXHR, textStatus, errorThrown)
                                     {
@@ -491,7 +522,7 @@ var formSessionStorage = function () {
                 {
                     if (item && i)
                     {
-                        if (item) html += stepHtmlDefault(item.id, item.value, item.image);
+                        if (item) html += stepHtmlDefault(i, item.value, item.image);
                     }
                 });
                 formListGroup.html(html);
@@ -505,6 +536,7 @@ var formSessionStorage = function () {
             autoSaveForm();
             autoloadFormRecipe();
             addStepMethod();
+            showAvatarMethod();
             uploadAvatarRecipe();
             deleteAvatarRecipe();
             deleteStepMethod();

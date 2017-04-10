@@ -34,7 +34,7 @@ CKEDITOR.editorConfig = function( config ) {
 	config.uiColor = '#CCCCCC';
 
 	// Skin
-	config.skin = 'moono_blue';
+	config.skin = 'moono-lisa';
 
 	/***
 	 * Cho phep cac the

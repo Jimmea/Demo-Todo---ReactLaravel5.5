@@ -2133,8 +2133,8 @@ table.dataTable thead .sorting:after {
   height: 17px;
 }
 .checkbox-primary input[type="checkbox"]:checked + label::before {
-  background-color: #ab8ce4;
-  border-color: #ab8ce4;
+  background-color: #2196F3;
+  border-color: #03A9F4;
 }
 .checkbox-primary input[type="checkbox"]:checked + label::after {
   color: #ffffff;

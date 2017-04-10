@@ -366,7 +366,7 @@ class Form
         $value					= str_replace("\&quot;", "&quot;", $value);
         $value					= str_replace("\\\\", "\\", $value);
         $oFCKeditor->Value		= $value;
-        $oFCKeditor->basePath	= $basePath;
+        $oFCKeditor->BasePath	= $basePath;
         $oFCKeditor->Width		= $width;
         $oFCKeditor->Height		= $height;
         echo '<div style="text-align:left; padding:5px; width:' . $width . '">' . $title . '</div>';

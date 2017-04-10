@@ -144,9 +144,17 @@ if (! function_exists('set_session'))
  */
 if (! function_exists('get_session'))
 {
-    function get_session($key)
+    function get_session($key='')
     {
         return \Session::get($key);
+    }
+}
+
+if (! function_exists('get_all_session'))
+{
+    function get_all_session()
+    {
+        return \Session::all();
     }
 }
 

@@ -8,9 +8,12 @@
         <link rel="stylesheet" href="{{ asset('backend/css/style.css') }}">
         <style>
             .login-register {
-                background: url('/imgs/login.jpg') center center/cover no-repeat!important;
+                background: url('/imgs/bg.jpg') center center/cover no-repeat!important;
                 height: 100%;
                 position: fixed;
+            }
+            .white-box {
+                background : rgba(208, 208, 208, 0.18);
             }
         </style>
     </head>

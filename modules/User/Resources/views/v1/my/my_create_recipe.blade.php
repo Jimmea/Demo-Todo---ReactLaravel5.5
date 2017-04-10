@@ -87,7 +87,7 @@
                                 <div class="create-recipe_item_box_photos">
                                     <div class="create-recipe_step_button_upload" title="Click để tải hình ảnh">
                                         <a href="javascript:void(0)" class="create-recipe_step_button">
-                                            Tải hình ảnh bước thực hiện                                            
+                                            Tải hình ảnh thực hiện
                                             <input type="file" name="files[]" multiple="" class="hidden">
                                         </a>
                                         <div class="text_step_photos_limit">
@@ -127,6 +127,10 @@
                             </a>
                         </div>                        
                     </li>
+                    <li>
+                        <label for="with friend">Bạn nấu cùng ai</label>
+                        <input class="input-wrap" id="Title" type="text" value="">
+                    </li>
                 </ul>               
                 <ul class="create-recipe__priv-pub-ka">
                     <li>
@@ -165,6 +169,5 @@ $(function() {
         $(this).find('.create-recipe_item_box_photos').fadeOut('slow');
     })
 })
-
 </script>
 @stop

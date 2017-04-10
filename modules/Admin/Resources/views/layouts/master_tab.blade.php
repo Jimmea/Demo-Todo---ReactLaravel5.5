@@ -8,9 +8,9 @@
         @include('admin::blocks.block_css')
         @yield('css')
         <script>
-        var BASE_URL  = "{{ url('/admincpp') }}";
-        var _token    = document.getElementById('meta_token').content;
-    </script>
+            var BASE_URL  = "{{ url('/admincpp') }}";
+            var _token    = document.getElementById('meta_token').content;
+        </script>
     </head>
     <body>
         <div id="wrapper" class="wrapper-use-tab">

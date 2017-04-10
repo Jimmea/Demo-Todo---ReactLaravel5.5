@@ -20,6 +20,7 @@ class FileController extends AdminController
             $file = isset($_FILES[0]) ?  $_FILES[0] : array();
             $src  = get_value('src', 'str', 'POST');
             $path = $this->file->uploadAjax($file, 'recipes');
+
             if ($src) $this->file->delete($src);
             if (!$path) return $this->responseError($this->file->getWarningError());
 

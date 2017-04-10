@@ -43,7 +43,7 @@
             {{ $form->groupTextArea('Meta description', 'nec_seo_description', 'nec_seo_description', true, ['label'=> '', 'div' => '', 'placeholder="Description cho google"']) }}
         </section>
         <section>
-            <h4 class="text-title">Tag bài viết & Trạng thái</h4>
+            <h4 class="text-title">Tag bài viết &amp; Trạng thái</h4>
             <hr>
             {{ $form->groupText('Tags', 'new_tag', 'tags', false, ['label'=> '', 'div' => 'group-tags']) }}
             <input type="hidden" name="tap_temp_key" id="tap_temp_key" value="{{ md5(time() . "friendcook") }}">
@@ -62,8 +62,8 @@
             <hr>
             {{ $form->groupSelect('Danh mục', 'new_cate_id', 'new_cate_id', true, $categories, ['cate_id', 'cate_name'], true, ['label'=> '', 'div'=> '']) }}
             {{ $form->groupText('Tên món ăn', 'new_title', 'new_title', true, ['label'=> '', 'div' => '']) }}
-            {{-- {{ $form->groupTextArea('Giới thiệu món ăn', 'new_description', 'new_description', true, ['label'=> '', 'div' => '']) }} --}}
-            @php $form->groupTextAreaCkeditor('Giới thiệu món ăn', 'new_description') @endphp
+             {{ $form->groupTextArea('Giới thiệu món ăn', 'new_description', 'new_description', true, ['label'=> '', 'div' => '']) }}
+{{--            @php $form->groupTextAreaCkeditor('Giới thiệu món ăn', 'new_description') @endphp--}}
         </section>
 
         <section id="ingredient">
