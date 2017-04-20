@@ -23,7 +23,6 @@
 
 require_once dirname(__FILE__) . '/curl.php';
 require_once dirname(__FILE__) . '/request.php';
-require_once dirname(__FILE__) . '/sample_data.php';
 require_once dirname(__FILE__) . '/support_string.php';
 require_once dirname(__FILE__) . '/support_array.php';
 require_once dirname(__FILE__) . '/support_date.php';

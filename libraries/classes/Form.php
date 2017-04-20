@@ -107,7 +107,7 @@ class Form
      */
     public function closeForm()
     {
-        return (new \Illuminate\Support\HtmlString('</div>'));
+        return (new \Illuminate\Support\HtmlString('</form>'));
     }
 
     public function createFormGroup($inputControl, $titleControl, $name='', $require= false, $type='')

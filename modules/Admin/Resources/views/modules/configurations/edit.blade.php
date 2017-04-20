@@ -10,6 +10,7 @@
                 {!! box_title('Edit configuration') !!}
                 <?php $form = new Form($errors, $configuration); ?>
                 {!! $form->beginForm(['admincpp.postEditConfiguration', 1]) !!}
+                
                     {!! ul_tab_begin() !!}
                         {!! li_tab(['id'=> 'general', 'title'=> 'Thông tin cơ bản (*)'], true) !!}
                         {!! li_tab(['id'=> 'seo', 'title'=> 'SEO (*)']) !!}
@@ -17,6 +18,7 @@
                         {!! li_tab(['id'=> 'setting', 'title'=> 'Setting']) !!}
                         {!! li_tab(['id'=> 'supportcode', 'title'=> 'Support code']) !!}
                     {!! ul_tab_close() !!}
+
                     <div class="tab-content">
 
                         <div role="tabpanel" class="tab-pane fade in active" id="general">

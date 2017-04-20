@@ -139,6 +139,34 @@ class DataGrid
         return $items->perPage()*($items->currentPage() - 1) + 1;
     }
 
+    public function getStatusPost($status)
+    {
+        switch ($status)
+        {
+            case 0 :
+                $status = 'Đang ẩn';
+                break;
+
+            case 1 :
+                $status = 'Đang hoạt động';
+                break;
+
+            case 2 :
+                $status = 'Chờ duyệt bài';
+                break;
+
+            case 3 :
+                $status = 'Mới sửa bài';
+                break;
+
+            default:
+                $status = 'không xác định';
+                break;
+        }
+
+        return $status;
+    }
+
     /**
     * Add các trường vào trong table hiển thị
 	* @param strin $field_name  : Tên trường trong bảng csdl

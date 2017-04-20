@@ -227,3 +227,6 @@ span.fa-2x {
 hr {
     margin: 10px 0;
 }
+.text-bold {
+    font-weight: 600;
+}

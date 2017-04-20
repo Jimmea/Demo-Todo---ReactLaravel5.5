@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateTodosTable extends Migration
+class CreateTintucCategoriesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,9 @@ class CreateTodosTable extends Migration
      */
     public function up()
     {
-        Schema::create('todos', function (Blueprint $table) {
-            $table->increments('id');
-            $table->string('body');
-            $table->boolean('done')->default(0);
-            $table->timestamps();
+        Schema::create('tintuc_categories', function (Blueprint $table) {
+            $table->integer('tc_new_id')->unsigned();
+            $table->integer('tc_category_id')->unsigned();                        
         });
     }
 
@@ -28,6 +26,6 @@ class CreateTodosTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('todos');
+        Schema::dropIfExists('tintuc_categories');
     }
 }

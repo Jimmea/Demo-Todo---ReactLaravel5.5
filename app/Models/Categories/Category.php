@@ -34,6 +34,11 @@ class Category extends Model
         return $this->hasMany('App\Models\CategoryTabActions\CategoryTabAction', 'cta_category_id');
     }
 
+    public function news()
+    {
+        return $this->belongsToMany('App\Models\Tintucs\Tintuc', 'tintuc_categories', 'tc_category_id', 'tc_new_id');
+    }
+
     public function makeCollectionCategory($categories)
     {
         $collection = new Collection();

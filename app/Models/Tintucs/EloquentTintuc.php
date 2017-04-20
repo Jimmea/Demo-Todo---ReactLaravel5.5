@@ -49,6 +49,7 @@ class EloquentTintuc extends BaseRepository implements TintucRepository
     public function getListNewPaginate($filter, $sort, $limit=30, $filterAdvanced= array())
     {
         $query = $this->model->whereRaw(1);
+
         // Ton tai filter
         if ($filter)
         {
@@ -64,24 +65,28 @@ class EloquentTintuc extends BaseRepository implements TintucRepository
                             ->where('encu_category_id', $eventCategory);
         }
 
-        // with trash
+        // Relation ...
+        $query->with([
+            'tags' => function ($q)
+            {
+                $q->select('tag_id', 'tag_name');
+            },
+            'categories' => function($q)
+            {
+                $q->select('cate_id', 'cate_name');
+            }        
+        ]);
+
+        // with tat ca cac tin da xoa
         $onlyTrashed = array_get($filterAdvanced, 'onlyTrashed');
         if ($onlyTrashed)
         {
             $query = $query->onlyTrashed();
         }
 
-        // Get admin
+        // Get infomation admin
         $query = $this->scopeInforAdmin($query);
-
-        // get category
-        $query = $query->with([
-            'categories' => function($q)
-            {
-                $q->select('cate_id', 'cate_name');
-            }
-        ]);
-
+    
         // Ton tai $sorts
         if ($sort)
         {
@@ -115,6 +120,10 @@ class EloquentTintuc extends BaseRepository implements TintucRepository
                                 'tags' => function ($q)
                                 {
                                     $q->select('tag_id', 'tag_name');
+                                },
+                                'categories'=> function($q)
+                                {
+                                    $q->select('cate_id', 'cate_name');
                                 }
                             ])
                             ->leftJoin($tableContent, 'new_id', '=', 'nec_id')
@@ -125,6 +134,9 @@ class EloquentTintuc extends BaseRepository implements TintucRepository
 
     }
 
+    /*
+    * Xoa tam thoi bang ban ghi tin tuc
+    */
     public function delete($id)
     {
         return parent::delete($id);
@@ -145,23 +157,53 @@ class EloquentTintuc extends BaseRepository implements TintucRepository
      * Đồng bộ lại thông tin bảng tag_new
      * @param $instance : the instance of object tintuc
      * @param $tag_id : mang tag id
-     * @return
+     * @return mixed
      */
     public function syncTag($instance, $tag_id = array())
     {
         return $instance->tags()->sync($tag_id);
     }
 
+    
+    /*
+    * Gan mang the new product 
+    * @param object $instance the instance of object tin tuc
+    * @param array $categoryId  : mang category nguoi dufng chon
+    * @return mixed
+    */
+    public function attachCategory($instance, $categoryId = array())
+    {   
+        return $instance->categories()->attach($categoryId);
+    }
+    
     /**
-     * Inser noi dung text vao ben trong bang nay
-     * @param string $table : Ten table se insert vao
+     * Sync lai thong tin bang tintuc_categories
+     * @param object $instance the instance of object tin tuc
+     * @param array $categoryId  : mang category nguoi dufng chon
      * @return mixed
-     */
+    */
+    public function syncCategory($instance, $categoryId = array())
+    {
+        return $instance->categories()->sync($categoryId);
+    }
+    
+
+    /*
+    * Luu thong tin content cua tin tuc vao bang phu hop ung voi id bang duoc kiem tra ben controller
+    * @param string $table : ten table luu noi dung
+    * @param array $attribute : mang du lieu duoc insert vao
+    */
     public function storeNewContentByTable($table, $attribute = array())
     {
         return DB::table($table)->insert($attribute);
     }
 
+    /*
+    * Cap nhat thong tin content cua tin tuc vao bang phu hop ung voi id bang duoc kiem tra ben controller
+    * @param string $table : ten table luu noi dung
+    * @param integer $id : key chinh cua bang tin tuc
+    * @param array $attribute : mang du lieu duoc insert vao
+    */
     public function updateNewContentById($table, $id, $attribute)
     {
         return DB::table($table)->where('nec_id', $id)->update($attribute);

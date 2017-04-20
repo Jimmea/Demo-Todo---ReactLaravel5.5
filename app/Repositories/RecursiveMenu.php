@@ -95,10 +95,9 @@ trait RecursiveMenu
             {
                 $this->arrayCategory[$value->$parentIdField][$value->$idField] = (array)$value;
             }
-        }
+        }        
         // Goi ham sap xep theo dung vi tri
-        $this->sortLevel($this->arrayCategory, $parentId);
-
+        $this->sortLevel($this->arrayCategory, $parentId);        
         return $this->menu;
     }
 

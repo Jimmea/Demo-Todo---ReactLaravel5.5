@@ -40,7 +40,10 @@ class AdminNewController extends AdminController
             return $this->responseError();
         }
 
-        $news       = $this->tintuc->getListNewPaginate($this->filterRequest($request), ['new_id', 'DESC'], 30);
+        // Danh sach tin
+        $news       = $this->tintuc->getListNewPaginate($this->filterRequest($request),
+                        ['new_id', 'DESC'], 30);
+
         $dataView   = [
             'news'               => $news,
             'newTypes'           => $this->getNewType(),
@@ -67,7 +70,8 @@ class AdminNewController extends AdminController
         ];
         $dataView = [
             'newTypes'      => $this->getNewType(),
-            'newTrashs'     => $this->tintuc->getListNewPaginate($this->filterRequest($request), ['new_id', 'DESC'], 30, $filterAdvanced)
+            'newTrashs'     => $this->tintuc->getListNewPaginate($this->filterRequest($request), 
+                ['new_id', 'DESC'], 30, $filterAdvanced)
         ];
         return view(ADMIN_VIEW .'news.list_trash')->with($dataView);
     }
@@ -84,7 +88,8 @@ class AdminNewController extends AdminController
      */
     public function getAddNew()
     {
-        $dataView = [ 'new' => NULL ];
+
+        $dataView = [ 'new' => NULL, 'tintucActiveArr' => array()];
         return view(ADMIN_VIEW . 'news.add')->with($dataView);
     }
 
@@ -109,6 +114,7 @@ class AdminNewController extends AdminController
             }
         }
 
+        $categoryId         = get_value('new_cate_id', 'arr', 'POST');        
         $newTitle           = get_value('new_title', 'str', 'POST');
         $newDescription     = get_value('new_description', 'str', 'POST');
         $dataForm = [
@@ -118,7 +124,7 @@ class AdminNewController extends AdminController
             'new_domain_id'        => 1,
             'new_link_from_domain' => 'NULL',
             'new_picture'          => get_value('new_picture', 'arr', 'POST'),
-            'new_cate_id'          => get_value('new_cate_id', 'int', 'POST'),
+            'new_cate_id'          => '',
             'new_description'      => $newDescription,
             'new_top'              => 0,
             'new_hot'              => 0,
@@ -133,11 +139,13 @@ class AdminNewController extends AdminController
         $dataForm   = $request->filterDataForm($dataForm);
         $newAdd     = $this->tintuc->storeData($dataForm);
 
+        // Ban ghi insert thanh cong moi cho vao day
         if ($newAdd)
         {
             $lastNewId       = $newAdd->new_id;
             $ingredients     = break_string_toarray(get_value('new_ingredient', 'str', 'POST'));
-            // Add thong tin content
+
+            // Add thong tin content //
             $dataFormContent = [
                 'nec_id'               => $lastNewId,
                 'nec_seo_metah1'       => $newTitle,
@@ -153,10 +161,21 @@ class AdminNewController extends AdminController
             $tableContent  = get_table_of_content_new($lastNewId);
             $this->tintuc->storeNewContentByTable($tableContent, $dataFormContent);
 
-            // Add thong tin the tag
+            // Add thong tin the tag //
             $tagIds = $this->tag->getListTagIdByListName(get_value('new_tag', 'str', 'POST'));
-            if ($tagIds) $this->tintuc->attachTag($newAdd, $tagIds);
+            if ($tagIds)
+            {
+                $this->tintuc->attachTag($newAdd, $tagIds);
+            }
+
+            // Add thong tin category //
+            if($categoryId)
+            {
+                $this->tintuc->attachCategory($newAdd,$categoryId);
+            }
+            
         }
+
         set_flash_add_success();
         set_session('create', 1);
         return redirect()->route('admincpp.getListNew');
@@ -170,7 +189,7 @@ class AdminNewController extends AdminController
     public function getEditNew($id)
     {
         $tintuc      = $this->tintuc->findByNewId($id);
-        $tags        = $tintuc->tags->toArray();
+        $tags        = $tintuc->tags->toArray();        
         $listTag     = '';
         if ($tags)
         {
@@ -179,6 +198,9 @@ class AdminNewController extends AdminController
                 $listTag.= $item['tag_name'] . ',';
             }
         }
+        
+        $tintucCategoriesActive = $tintuc->categories;
+        
         $tintuc = [
             'new_id'              => $id,
             'new_title'           => $tintuc->new_title,
@@ -197,11 +219,14 @@ class AdminNewController extends AdminController
             'new_status'          => $tintuc->new_status,
             'new_tag'             => rtrim($listTag, ','),
         ];
+        
         $dataView = [
-            'new' => (object)$tintuc
+            'new' => (object)$tintuc,
+            'tintucActiveArr' => $tintucCategoriesActive->pluck('cate_id')->toArray()
         ];
+
         return view(ADMIN_VIEW . 'news.edit')->with($dataView);
-    }
+    }   
 
     /**
      * @param
@@ -226,6 +251,8 @@ class AdminNewController extends AdminController
 
         $newTitle           = get_value('new_title', 'str', 'POST');
         $newDescription     = get_value('new_description', 'str', 'POST');
+        $categoryId         = get_value('new_cate_id', 'arr', 'POST');
+
         $dataForm = [
             'new_title'            => $newTitle,
             'new_slug'             => str_remove_accent($newTitle),
@@ -233,7 +260,7 @@ class AdminNewController extends AdminController
             'new_domain_id'        => 1,
             'new_link_from_domain' => 'NULL',
             'new_picture'          => get_value('new_picture', 'arr', 'POST'),
-            'new_cate_id'          => get_value('new_cate_id', 'int', 'POST'),
+            'new_cate_id'          => '',
             'new_description'      => $newDescription,
             'new_top'              => 0,
             'new_hot'              => 0,
@@ -269,7 +296,17 @@ class AdminNewController extends AdminController
 
             // Add thong tin the tag
             $tagIds = $this->tag->getListTagIdByListName(get_value('new_tag', 'str', 'POST'));
-            if ($tagIds) $this->tintuc->syncTag($newUpdate, $tagIds);
+            if ($tagIds)
+            {
+                $this->tintuc->syncTag($newUpdate, $tagIds);
+            }
+
+
+            // Update thong tin vao bang tin tuc category
+            if ($categoryId) 
+            {
+                $this->tintuc->syncCategory($newUpdate, $categoryId);
+            }
         }
         set_flash_update_success();
         return redirect()->route('admincpp.getListNew');

@@ -23,6 +23,7 @@ class ConfigurationServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        $this->app->singleton('App\Models\Configurations\ConfigurationRepository', 'App\Models\Configurations\EloquentConfiguration');
+        $this->app->singleton('App\Models\Configurations\ConfigurationRepository',
+            'App\Models\Configurations\EloquentConfiguration');
     }
 }

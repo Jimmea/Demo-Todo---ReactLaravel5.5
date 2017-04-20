@@ -110,6 +110,7 @@ abstract class BaseRepository
                 }
             });
         }
+
         return $query;
     }
 

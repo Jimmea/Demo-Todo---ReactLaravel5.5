@@ -170,6 +170,7 @@ var formSessionStorage = function () {
 
             clicked = true;
             $.each(files, function(key, value) { data.append(key, value); });
+
             data.append('src', path);
             if (files.length >0)
             {

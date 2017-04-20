@@ -13,7 +13,6 @@ use Illuminate\Http\Request;
 
 class EloquentCategory extends BaseRepository implements CategoryRepository
 {
-
     public function __construct(Category $category)
     {
         $this->model = $category;

@@ -60,8 +60,7 @@ img.img9070 {
   background-color: #EAF7FF !important;
 }
 .table * {
-  font-size: 12px;
-  color: #3b728c;
+  font-size: 13px;
 }
 .white-box-header {
   padding: 10px !important;
@@ -75,9 +74,8 @@ img.img9070 {
 .table thead tr td {
   font-weight: bold;
 }
-.table td {
-  color: #607D8B;
-  font-size: 11px;
+.table td {  
+  font-size: 12px;
 }
 button.btn.dropdown-toggle.btn-default {
   padding: 3px;

@@ -28,13 +28,13 @@ class TintucRequest extends FilterForm
     public function messages()
     {
          return [
-                'new_cate_id.required'          => trans('admin::form.messages.required'),
-                'new_title.required'            => trans('admin::form.messages.required'),
-                'new_ingredient.required'       => trans('admin::form.messages.required'),
-                'nec_seo_title.required'        => trans('admin::form.messages.required'),
-                'nec_seo_keyword.required'      => trans('admin::form.messages.required'),
-                'nec_seo_description.required'  => trans('admin::form.messages.required'),
-                'new_description.required'      => trans('admin::form.messages.required'),
+                'new_cate_id.required'         => 'Vui lòng chọn ít nhất một danh mục phân loại ',
+                'new_title.required'           => trans('admin::form.messages.required'),
+                'new_ingredient.required'      => trans('admin::form.messages.required'),
+                'nec_seo_title.required'       => trans('admin::form.messages.required'),
+                'nec_seo_keyword.required'     => trans('admin::form.messages.required'),
+                'nec_seo_description.required' => trans('admin::form.messages.required'),
+                'new_description.required'     => trans('admin::form.messages.required'),
          ];
     }
 

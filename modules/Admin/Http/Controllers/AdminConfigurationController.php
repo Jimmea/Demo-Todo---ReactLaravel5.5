@@ -29,8 +29,8 @@ class AdminConfigurationController extends AdminController
         $dataForm   = $request->except('_token');
         $dataForm['con_admin_id'] = $this->getAdminId();
         $dataForm   = $request->filterDataForm($dataForm);
-        $this->configuration->updateOrCreateData($id, $dataForm);
 
+        $this->configuration->updateOrCreateData($id, $dataForm);
         set_flash_update_success();
         return redirect()->back();
     }

@@ -374,4 +374,6 @@ class Category extends Seeder
             \App\Models\Categories\Category::create($category);
         }
     }
+
+    
 }

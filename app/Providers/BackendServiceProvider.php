@@ -23,6 +23,7 @@ class BackendServiceProvider extends ServiceProvider
      */
     public function register()
     {
+        // v1 chua nang cap , can thay doi then interface co hau to la interface va eloquen la respository        
         $models = [
             'Tintucs'                  => 'Tintuc',
             'Admins'                   => 'Admin',
@@ -48,5 +49,8 @@ class BackendServiceProvider extends ServiceProvider
                 'App\Models\\' . $dir .'\\' . $concrete . $model
             );
         }
+
+        // Nang cap cho v2 thao tac voi elequent : SampleRespository. Interface : SampleRepositoryInterface
+        // 
     }
 }

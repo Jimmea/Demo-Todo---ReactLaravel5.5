@@ -27,18 +27,16 @@
                     </div>
                 </div>
                 <div class="white-box-content">
-                    <table class="table table-stripped" id="dataTableList">
+                    <table class="table table-bordered table-stripped" id="dataTableList">
                         <thead>
                             <tr>
                                 {!! $dataGrid->makeCheckAllRadio() !!}
                                 <td class="bold" width="4%" align="center">Stt</td>
                                 <td class="bold" width="4%" align="center">ID</td>
                                 <td class="bold" width="8%" align="center">Picture</td>
-                                <td class="bold" align="center">Thông tin cơ bản</td>
-                                <td class="bold" align="center">Danh mục</td>
-                                <td class="bold" width="14%" align="center">User | Admin</td>
-                                <td class="bold" width="7%" align="center">Kiểu bài</td>
-                                <td class="bold" width="7%" align="center">Trạng thái</td>
+                                <td class="bold" width="30%" align="center">Thông tin cơ bản</td>
+                                <td class="bold" width="30%" align="center">Thông tin khác</td>
+                                <td class="bold" width="30%" align="center">Thông tin người dùng</td>
                                 <td class="bold" width="8%" align="center" colspan="2">Action</td>
                             </tr>
                         </thead>
@@ -51,17 +49,77 @@
                                 <td align="center">{{ $value->new_id }}</td>
                                 <td><img src="{{ $value->new_picture }}"  class="img-responsive img9070" alt=""></td>
                                 <td>
-                                    <div>Tiêu đề    : <a title="{{ $value->new_status ? 'Xem ngay' : 'Bài viết đăng ở chế độ ẩn' }}" href="/{{ $value->new_slug }}">{{ ucfirst($value->new_title) }}</a></div>
-                                    <div>Mô tả ngắn : {{ $value->new_description }}</div>
+                                    <div class="text-center">
+                                        <span class="text-info">Tiêu đề bài viết</span>
+                                        <p>
+                                            <a class="text-danger text-bold"
+                                               title="Click để xem thông tin"
+                                               href="/{{ $value->new_slug }}">{{ ucfirst($value->new_title) }}</a>
+                                        </p>
+                                        <hr>
+                                    </div>
+                                    <div class="text-center">
+                                        <span class="text-info">Mô tả ngắn</span>
+                                        <p>
+                                            {{ $value->new_description }}
+                                        </p>
+                                        <hr>
+                                    </div>
+                                    <div class="text-center">
+                                        <span class="text-info">Nguồn</span>
+                                        <p>
+                                            {{ $value->new_link_from_domain }}
+                                        </p>
+                                    </div>
                                 </td>
-                                <td align="center">{{ $value->categories->cate_name }}</td>
+                                <td>
+                                    <div field="cate" class="text-center">
+                                        <span class="text-info text-center">Danh mục</span>
+                                        <p> {{ $value->categories->implode('cate_name', ' / ') }} </p>
+                                        <hr>
+                                    </div>
+                                    <div field="tag" class="text-center">
+                                        <span class="text-info text-center">Tag bài viết</span>
+                                        <p>
+                                            {{ $value->tags->implode('tag_name', ' / ') }}
+                                        </p>
+                                        <hr>
+                                    </div>
+                                    <div class="text-center">
+                                        <span class="text-info text-center">Thời gian tạo</span>
+                                        <p>
+                                            Ngày tạo  : {{ $value->created_at }} <br>
+                                            Ngày cập nhật  : {{ $value->updated_at }}
+                                        </p>
+                                    </div>
+                                </td>
                                 <td align="center">
-                                    {{ $value->admins->adm_name }} | {{ $value->admins->adm_name }}
+                                    <div class="text-center">
+                                        <span class="text-info">Kiểu bài viết</span>
+                                        <p>{{ $newTypes[$value->new_type] }}</p>
+                                        <hr>
+                                    </div>
+                                    <div class="text-center">
+                                        <span class="text-info">Trạng thái bài viết</span>
+                                        <p class="text-danger">
+                                            {{ $dataGrid->getStatusPost($value->new_status) }}
+                                        </p>
+                                        <hr>
+                                    </div>
+                                    <div class="text-center">
+                                        <span class="text-info">Thông tin tác giả</span>
+                                        <div class="list-author">
+                                            <span class="text-default">Tên người dùng   : 12345</span> <br>
+                                            <span class="text-default">Tên admin dùng  : {{ $value->admins->adm_name }}</span><br>
+                                            <span class="text-default">Tên admin duyệt : 12345</span>
+                                        </div>
+                                    </div>
                                 </td>
-                                <td align="center">{{ $newTypes[$value->new_type] }}</td>
-                                {!! $dataGrid->makeCheckButton('admincpp.getListNew', ['new_status', $value]) !!}
-                                {!! $dataGrid->makeEditButton('admincpp.getEditNew') !!}
-                                {!! $dataGrid->makeDeleteButton('admincpp.getDeleteNew') !!}
+                                <td class="text-center">
+                                    <a class="btn btn-xs btn-info" href="" title="Duyệt bài"><i class="icon-check"></i></a>
+                                    <a class="help-block btn btn-xs btn-success " href="{{ $dataGrid->createUrlFromRoute('admincpp.getEditNew') }}" title="Sửa bài viết"><i class="icon-pencil"></i></a>
+                                    <a class="help-block btn btn-xs btn-danger" href="{{ $dataGrid->createUrlFromRoute('admincpp.getDeleteNew') }}" title="Xóa bài viết"><i class="icon-trash"></i></a>
+                                </td>
                             </tr>
                             @endforeach
                         </tbody>

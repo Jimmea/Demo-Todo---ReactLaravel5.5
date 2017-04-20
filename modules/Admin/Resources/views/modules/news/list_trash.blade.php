@@ -39,7 +39,7 @@
                                        <h4 class="text-danger"><strong>{{ $value->new_title }}</strong></h4>
                                        <p><span class="mail-desc">{{ $value->new_description }}.</span></p>
                                    </td>
-                                   <td align="center">{{ $value->categories->cate_name }}</td>
+                                   <td align="center">{{ $value->categories->implode('cate_name', '/') }}</td>
                                    <td align="center">
                                        {{ $value->admins->adm_name }} | {{ $value->admins->adm_name }}
                                    </td>

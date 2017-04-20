@@ -20,11 +20,13 @@ class Tintuc extends ModelBase
 
     public function categories()
     {
-        return $this->belongsTo('App\Models\Categories\Category', 'new_cate_id');
+        return $this->belongsToMany('App\Models\Categories\Category', 'tintuc_categories' , 'tc_new_id', 'tc_category_id');
     }
 
     public function tags()
     {
         return $this->belongsToMany('App\Models\Tags\Tag', 'tag_news', 'tagn_new_id', 'tagn_tag_id');
     }
+
+
 }
