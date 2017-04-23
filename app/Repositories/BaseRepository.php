@@ -14,13 +14,49 @@ abstract class BaseRepository
 {
     use ValidatesRequests, RecursiveMenu;
     protected $total = 0;
+
+    public function getAllAdmin($filter = false, $sort = false, $limit = false)
+    {
+        if ($filter === false && $sort === false && $limit === false)
+        {
+            return $this->model->all();
+        }
+
+        $query = $this->model->where(function($q) use ($filter)
+        {
+            if (!empty($filter))
+            {
+                foreach ($filter as $f)
+                {
+                    list($col, $ope, $val) = $f;
+                    $q->where($col, $ope, $val);
+                }
+            }
+        });
+
+        $query->with([
+            'admins' => function($q)
+            {
+                $q->select('adm_id', 'adm_name');
+            }
+        ]);
+
+        if ($sort)
+        {
+            list($col, $dir) = $sort;
+            $query->orderBy($col, $dir);
+        }
+
+        return $limit ? $query->paginate($limit) : $query->get();
+    }
+
     /**
      * Get all model
      * @return \Illuminate\Database\Eloquent\Collection
      */
-    public function getAll($filter = false, $sort = false, $paginate = false)
+    public function getAll($filter = false, $sort = false, $limit = false)
     {
-        if ($filter === false && $sort === false && $paginate === false)
+        if ($filter === false && $sort === false && $limit === false)
         {
             return $this->model->all();
         }
@@ -43,7 +79,58 @@ abstract class BaseRepository
             $query->orderBy($col, $dir);
         }
 
-        return $paginate ? $query->paginate($paginate) : $query->get();
+        return $limit ? $query->paginate($limit) : $query->get();
+    }
+
+    /**
+     * Scope a query to get infomation admin
+     * @param string $query :truy vấn dữ liệu
+     * @return mixed
+     */
+    public function scopeInforAdmin($query)
+    {
+        return $query->with([
+            'admins' => function($q)
+            {
+                $q->select('adm_id', 'adm_name');
+            }
+        ]);
+    }
+
+    public function scopeFilter($query, $filter)
+    {
+        if ($filter)
+        {
+            $query = $query->where(function ($q) use ($filter)
+            {
+                foreach ($filter as $f)
+                {
+                    list($col, $ope, $val) = $f;
+                    $q->where($col, $ope, $val);
+                }
+            });
+        }
+
+        return $query;
+    }
+
+    /**
+     * Sắp xếp query
+     * @param $query :truy vấn dữ liệu
+     * @param array $sorts : mảng sắp xếp kí tự
+     * @return mixed
+     */
+    public function scopeSort($query, $sorts = array())
+    {
+        if ($sorts)
+        {
+            foreach ($sorts as $sort)
+            {
+                list($col, $dir) = $sort;
+                $query->orderBy($col, $dir);
+            }
+        }
+        return $query;
     }
 
     public function getTotal()
@@ -58,6 +145,17 @@ abstract class BaseRepository
     public function findById($id)
     {
         return $this->model->findOrFail($id);
+    }
+
+    /**
+     * Cập nhật không có thì tạo mới
+     * @param int $id : trường khóa chính của bảng
+     * @param array $data: mang dữ liệu thêm
+     * @return
+     */
+    public function updateOrCreateData($id , $data = array())
+    {
+        return $this->model->updateOrCreate([$this->model->getPrimaryKey() => $id], $data);
     }
 
     /**
@@ -125,12 +223,12 @@ abstract class BaseRepository
      * @param  int $otherValue  : một giá trị nào đó được định nghĩa sẵn  (VD : -1)
      * @return int
      */
-    public function updateByField($id, $fieldInt, $otherValue='')
+    public function updateByField($id, $field, $otherValue='')
     {
         $row = $this->findById($id);
-        $row->$fieldInt = ($otherValue ? $otherValue : (($row->$fieldInt == 1) ? 0 : 1));
+        $row->$field = ($otherValue ? $otherValue : (($row->$field == 1) ? 0 : 1));
         $row->save();
-        return 1;
+        return $row;
     }
 
     /**

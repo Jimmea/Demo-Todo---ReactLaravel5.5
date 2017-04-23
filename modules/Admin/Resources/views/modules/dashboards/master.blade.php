@@ -1,5 +1,4 @@
 @extends('admin::layouts.master')
-@section('title', 'Welcome to cook')
 @section('content')
 <div class="row bg-title">
     <div class="col-xs-12">

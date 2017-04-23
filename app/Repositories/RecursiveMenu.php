@@ -38,7 +38,7 @@ trait RecursiveMenu
      * @return array
      */
     public function getAllChild($tableName, $idField, $parentIdField, $parentId =0, $filter='',$listField= array(), $orderClause = array(),
-                              $searchCateory = false , $hasChildField= array())
+                              $searchCategory = false , $hasChildField= array())
     {
         // Select thong tin tu database
         $dbQuery = DB::table($tableName)
@@ -57,6 +57,7 @@ trait RecursiveMenu
                         unset($filter[$k]);
                         continue;
                     }
+
                     list($col, $ope, $val) = $f;
                     $q->where($col, $ope, $val);
                 }
@@ -82,7 +83,7 @@ trait RecursiveMenu
         $arrayCategory  = $dbQuery ? $dbQuery->toArray() : array();
 
         // Nếu trường hợp search xảy ra
-        if ($searchCateory)
+        if ($searchCategory)
         {
             return $arrayCategory;
         }
@@ -94,11 +95,9 @@ trait RecursiveMenu
             {
                 $this->arrayCategory[$value->$parentIdField][$value->$idField] = (array)$value;
             }
-        }
-
+        }        
         // Goi ham sap xep theo dung vi tri
-        $this->sortLevel($this->arrayCategory, $parentId);
-
+        $this->sortLevel($this->arrayCategory, $parentId);        
         return $this->menu;
     }
 

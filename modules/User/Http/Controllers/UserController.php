@@ -4,70 +4,109 @@ namespace Modules\User\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
-use Illuminate\Routing\Controller;
+use Modules\User\Http\Controllers\FrontendUserController;
 
-class UserController extends Controller
-{
+class UserController extends FrontendUserController
+{   
+    const lAYOUT_IS_MY      = "my";       
 
-    public function getGeneralUser()
+    public function getTabUser($visit,$tab='')
     {
-    	$data = [
-    		'page_type'		=>	'about'
-    	];
-        return view(USER_V1.'.general.index', $data);
-    }
+    	// User xem chinh ban thna
+        if ($visit === self::lAYOUT_IS_MY) 
+        {        	        	
+        	switch ($tab) 
+        	{
+        		case 'about-me':
+        			return view(USER_V1 . '.my.my_about');
+        			break;	
 
-    // hiển thị danh sách bộ sưu tập của người dùng
-    public function getUserCollection()
-    {
-    	$data = [
-    		'page_type'		=>	'collection'
-    	];
-    	return view(USER_V1.'.collection.index', $data);
-    }
+        		case 'collections':
+        			return view(USER_V1 . '.my.my_collection');
+        			break;
 
-    // hiển thị danh sách bạn bè
-    public function getUserFriend()
-    {
-    	$data = [
-    		'page_type'		=>	'friend'
-    	];
-    	return view(USER_V1.'.friend.index', $data);
-    }
+        		case 'favorites':
+        			return view(USER_V1 . '.my.my_favorite');
+        			break;
 
-    // hiển thị danh sách món ăn tự làm
-    public function getUserMade()
-    {
-    	$data = [
-    		'page_type'		=>	'made'
-    	];
-    	return view(USER_V1.'.made.index', $data);
-    }
+        		case 'findfriends': 
+        		case 'following': 
+        		case 'followers':
+        			return view(USER_V1 . '.my.my_friend');	
+        			break;
+        				
+        		case 'made-it':
+        			return view(USER_V1 . '.my.my_made_it');
+        			break;
 
-    // hiển thị danh sách ảnh
-    public function getUserPhoto()
-    {
-    	$data = [
-    		'page_type'		=>	'photo'
-    	];
-    	return view(USER_V1.'.photo.index', $data);
-    }
+        		case 'photos':
+        			return view(USER_V1 . '.my.my_photo');
+        			break;
 
-    // hiển thị danh sách review
-    public function getUserReview()
-    {
-    	$data = [
-    		'page_type'		=>	'review'
-    	];
-    	return view(USER_V1.'.review.index', $data);
-    }
+        		case 'reviews':
+        			return view(USER_V1 . '.my.my_review');
+        			break;
+        	
+        		case 'recipes':
+        			return view(USER_V1 . '.my.my_recipe');
+        			break;
 
-    // hiển thị danh sách công thức của người dùng
-    public function getUserRecipe()
-    {
-    	$data = [
-    		'page_type'		=>	'recipe'
-    	];
-    	return view(USER_V1.'.recipe.index', $data);
-    }
+        		case 'create-recipe':
+        			return view(USER_V1 . '.my.my_create_recipe');
+        			break;
+
+        		case 'profile-settings':
+        			return view(USER_V1 . '.my.my_profile_setting');
+        			break;
+
+        		case 'account-settings':
+        			return view(USER_V1 . '.my.my_create_recipe');
+        			break;
+
+        		default:
+        			return view(USER_V1 . '.my.my_collection');
+        			break;
+        	}
+            
+        }
+        
+        // User xem ban be
+        switch ($tab) 
+    	{
+    		case 'about-me':
+    			return view(USER_V1 . '.user.user_about');
+    			break;	
+
+    		case 'collections':
+    			return view(USER_V1 . '.user.user_collection');
+    			break;
+
+    		case 'favorites':    		
+    			return view(USER_V1 . '.user.user_index');
+    			break;
+
+    		case 'findfriends': 
+    		case 'following': 
+    		case 'followers':
+    			return view(USER_V1 . '.user.user_friend');	
+    			break;
+    				
+    		case 'made-it':
+    			return view(USER_V1 . '.user.user_made_it');
+    			break;
+ 
+    		case 'reviews':
+    			return view(USER_V1 . '.user.user_review');
+    			break;
+    	
+    		case 'recipes':
+    			return view(USER_V1 . '.user.user_recipe');
+    			break;
+    		    	    
+    		default:
+    			return view(USER_V1 . '.user.user_index');
+    			break;
+    	}
+                
+    }   
 }

@@ -35,14 +35,13 @@ if (!function_exists('title_replace'))
     }
 }
 
-if (! function_exists('format_currency'))
+if (!function_exists('format_currency'))
 {
     function format_currency($interge)
     {
         return number_format($interge, 0, ',', '.');
     }
 }
-
 
 if (!function_exists('convert_array_tostring'))
 {
@@ -62,7 +61,17 @@ if (!function_exists('convert_array_tostring'))
 }
 
 
-if (! function_exists('conver_array_to_string_form'))
+if (!function_exists('conver_unique_array_tostring'))
+{
+    function conver_unique_array_tostring($data, $separator=',')
+    {
+        $data = array_unique($data);
+
+        return implode($separator, $data);
+    }
+}
+
+if (!function_exists('conver_array_to_string_form'))
 {
     function conver_array_to_string_form($data)
     {
@@ -77,7 +86,7 @@ if (! function_exists('conver_array_to_string_form'))
     }
 }
 
-if (! function_exists('replace_mq'))
+if (!function_exists('replace_mq'))
 {
     /**
      * Created by : BillJanny
@@ -99,9 +108,9 @@ if (! function_exists('replace_mq'))
  * @param string $separator
  * @return mixed
  */
-if ( ! function_exists('str_remove_accent'))
+if (!function_exists('str_remove_accent'))
 {
-    function str_remove_accent($str, $separator = ' ')
+    function str_remove_accent($str, $separator = '-')
     {
         $str = trim($str);
         $str = stripslashes($str);
@@ -126,7 +135,7 @@ if ( ! function_exists('str_remove_accent'))
     }
 }
 
-if ( ! function_exists('str_slug_uft8')) {
+if (!function_exists('str_slug_uft8')) {
     /**
      * @param $title
      * @param string $separator
@@ -144,7 +153,7 @@ if ( ! function_exists('str_slug_uft8')) {
     }
 }
 
-if (! function_exists('htmlspecialbo'))
+if (!function_exists('htmlspecialbo'))
 {
     function htmlspecialbo($str)
     {
@@ -155,7 +164,7 @@ if (! function_exists('htmlspecialbo'))
     }
 }
 
-if (! function_exists('cut_str'))
+if (!function_exists('cut_str'))
 {
     function cut_string()
     {
@@ -163,7 +172,7 @@ if (! function_exists('cut_str'))
     }
 }
 
-if (! function_exists('cut_str_separator'))
+if (!function_exists('cut_str_separator'))
 {
     function cut_str_separator($str, $length, $char="...")
     {
@@ -181,5 +190,156 @@ if (! function_exists('cut_str_separator'))
         //Return string
         if($strPoint < $length - 20) return $substr . $char;
         else return mb_substr($substr, 0, $strPoint, "UTF-8") . $char;
+    }
+}
+
+if (!function_exists('generate_name'))
+{
+    /**
+    Generate file name
+     */
+    function generate_name($filename)
+    {
+        $name = "";
+        for($i=0; $i<5; $i++){
+            $name .= chr(rand(97,122));
+        }
+        $today   = getdate();
+        $name   .= $today[0];
+        $ext	 = substr($filename, (strrpos($filename, ".") + 1));
+        return $name . "." . $ext;
+    }
+}
+
+if (!function_exists('get_extension_file'))
+{
+    function get_extension_file($filePath)
+    {
+        return @substr(@strrchr($filePath, "."), 1);
+    }
+}
+
+if (!function_exists('random'))
+{
+
+    /**
+     * Random so
+     * @param
+     * @return
+     */
+    function random()
+    {
+        $rand_value = "";
+        $rand_value.= rand(1000,9999);
+        $rand_value.= chr(rand(65,90));
+        $rand_value.= rand(1000,9999);
+        $rand_value.= chr(rand(97,122));
+        $rand_value.= rand(1000,9999);
+        $rand_value.= chr(rand(97,122));
+        $rand_value.= rand(1000,9999);
+        return $rand_value;
+    }
+}
+
+if (!function_exists('replace_keyword_search'))
+{
+    /**
+     * Replace cac ki tu khong can thiet
+     * @param
+     * @return
+     */
+    function replace_keyword_search($keyword, $lower=1)
+    {
+        if($lower == 1) $keyword	= mb_strtolower($keyword, "UTF-8");
+        $keyword	= replace_mq($keyword);
+        $arrRep	    = array("'", '"', "-", "+", "=", "*", "?", "/", "!", "~", "#", "@", "%", "$", "^", "&", "(", ")", ";", ":", "\\", ".", ",", "[", "]", "{", "}", "‘", "’", '“', '”');
+        $keyword	= str_replace($arrRep, " ", $keyword);
+        $keyword	= str_replace("  ", " ", $keyword);
+        $keyword	= str_replace("  ", " ", $keyword);
+        return $keyword;
+    }
+}
+
+if (!function_exists('rand_string'))
+{
+    //tao chuoi ran dom
+    function rand_string( $length )
+    {
+        $chars  = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+        $str    = "";
+        $size   = strlen( $chars );
+        for( $i = 0; $i < $length; $i++ )
+        {
+            $str .= $chars[ rand( 0, $size - 1 ) ];
+        }
+        return $str;
+    }
+}
+
+if (!function_exists('remove_script'))
+{
+    //Loại bỏ javascript
+    function remove_script($string)
+    {
+        $string = preg_replace ('/<script.*?\>.*?<\/script>/si', '<br />', $string);
+        $string = preg_replace ('/on([a-zA-Z]*)=".*?"/si', ' ', $string);
+        $string = preg_replace ('/On([a-zA-Z]*)=".*?"/si', ' ', $string);
+        $string = preg_replace ("/on([a-zA-Z]*)='.*?'/si", " ", $string);
+        $string = preg_replace ("/On([a-zA-Z]*)='.*?'/si", " ", $string);
+        return $string;
+    }
+}
+
+if (!function_exists('_format_bytes'))
+{
+    function _format_bytes($a_bytes)
+    {
+        if ($a_bytes < 1024) {
+            return $a_bytes . ' B';
+        } elseif ($a_bytes < 1048576) {
+            return round($a_bytes / 1024, 2) . ' KB';
+        } elseif ($a_bytes < 1073741824) {
+            return round($a_bytes / 1048576, 2) . ' MB';
+        } elseif ($a_bytes < 1099511627776) {
+            return round($a_bytes / 1073741824, 2) . ' GB';
+        } elseif ($a_bytes < 1125899906842624) {
+            return round($a_bytes / 1099511627776, 2) . ' TB';
+        } elseif ($a_bytes < 1152921504606846976) {
+            return round($a_bytes / 1125899906842624, 2) . ' PB';
+        } elseif ($a_bytes < 1180591620717411303424) {
+            return round($a_bytes / 1152921504606846976, 2) . ' EB';
+        } elseif ($a_bytes < 1208925819614629174706176) {
+            return round($a_bytes / 1180591620717411303424, 2) . ' ZB';
+        } else {
+            return round($a_bytes / 1208925819614629174706176, 2) . ' YB';
+        }
+    }
+}
+
+if (!function_exists('keyword_to_array'))
+{
+    /**
+     * Key word search.
+     */
+    function keyword_to_array($keyword)
+    {
+        $min_character = 1;
+        $max_keyword = 90;
+        $array_keyword = array();
+        //Lấy keyword còn lại sau, bẻ dấu cách
+        $array_temp = explode(" ", $keyword);
+        $j = -1;
+        for ($i = 0; $i < count($array_temp); $i++) {
+            //Lay từng từ khóa một, từ khóa có độ dài phải lớn hơn min_character hoặc là 1 ký tự số dạng iphone 4, ipad 2
+            if (trim($array_temp[$i]) != "" && (mb_strlen(trim($array_temp[$i]), "UTF-8") > $min_character || is_numeric($array_temp[$i]))) {
+                $j++;
+                //gán từ khóa
+                $array_keyword[$j][0] = trim($array_temp[$i]);
+
+                //Vượt ngưỡng max thì out khỏi vòng lặp luôn
+                if ($j >= $max_keyword) break;
+            }
+        }
+        return $array_keyword;
     }
 }

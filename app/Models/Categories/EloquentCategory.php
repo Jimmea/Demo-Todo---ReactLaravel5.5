@@ -11,7 +11,7 @@ namespace App\Models\Categories;
 use App\Repositories\BaseRepository;
 use Illuminate\Http\Request;
 
-class EloquentCategory extends BaseRepository implements InterfaceCategory
+class EloquentCategory extends BaseRepository implements CategoryRepository
 {
     public function __construct(Category $category)
     {
@@ -39,29 +39,15 @@ class EloquentCategory extends BaseRepository implements InterfaceCategory
      */
     public function getConfigTypeCategory()
     {
-        return $this->model->getConfigTypeCategory();
-    }
-
-    /**
-     * Created by : BillJanny
-     * Date: 11:25 PM - 2/10/2017
-     * Validate add category
-     * @param int $cate_id truong khoa chinh cua bang
-     * @return void
-     */
-    public function validateCategory(Request $request, $cate_id =0)
-    {
-        $rules = [
-            'cate_type'         => 'required',
-            'cate_name'         => 'required|unique:categories,cate_name,'. $cate_id . ',cate_id'
+        return [
+            'static'    => 'Trang tĩnh',
+            'news'      => 'Tin tức',
+            'product'   => 'Sản phẩm',
+            'gioithieu' => 'Giới thiệu',
+            'giaiphap'  => 'Giải pháp',
+            'tuvan'     => 'Hỏi đáp',
+            'event'     => 'Events'
         ];
-
-        $messages = [
-             'cate_type.required'  => 'The type category field is required',
-             'cate_name.required'  => 'The name category field is required',
-        ];
-
-        $this->validate($request, $rules, $messages);
     }
 
     /**
@@ -75,7 +61,7 @@ class EloquentCategory extends BaseRepository implements InterfaceCategory
      * @param $action : hành động cho update
      * @return mixed
      */
-    public function updateCategoryHasChild($cate_parent_id, $value = 0, $cate_id, $cate_type='product', $action = 'add')
+    public function updateCategoryHasChild($cate_parent_id, $hasChild = 0, $cate_id, $cate_type='product', $action = 'add')
     {
         if (! array_key_exists(strtolower($cate_type), $this->getConfigTypeCategory())) return false;
 
@@ -83,41 +69,38 @@ class EloquentCategory extends BaseRepository implements InterfaceCategory
         $category       = $this->findById($cate_parent_id);
         $cateAllChild   = $category->cate_all_child ? explode(',', $category->cate_all_child) : array();
 
-        // Cho trường hơp $action = edit
-        $action = strtolower($action);
-        if ($action == 'edit')
+        // Cho trường hơp $action = edit mới thực hiện
+        if (strtolower($action) == 'edit')
         {
             $c = null;
             foreach ($cateAllChild as $k => $v)
             {
-                // Xóa đi các cate trùng trong chuỗi
-                if ($c== $v) unset($cateAllChild[$k]);
-                $c = $v;
-                // Xóa đi cate đang update tồn tại ở list all child cate parent id trước đó
-                if ($v == $cate_id) unset($cateAllChild[$k]);
+                if ($v)
+                {
+                    // Xóa đi các cate trùng trong chuỗi
+                    if ($c== $v) unset($cateAllChild[$k]);
+                    $c = $v;
+                    // Xóa đi cate đang update tồn tại ở list all child cate parent id trước đó
+                    if ($v == $cate_id) unset($cateAllChild[$k]);
+                }
             }
 
-            // update lại danh sách cate_all_child mới trong truong.
-            $cateAllChild   = implode(',', $cateAllChild);
-            $this->updateById($cate_parent_id, ['cate_all_child'=> $cateAllChild]);
-
             // Check lại $cate_parent_id tồn tại cate child k. Nếu k tồn tại thì cate_has_child = 0 ||cate_has_child = 1
-            $categorySelect = $this->checkExistCategoryChild(array('cate_parent_id', '=', $cate_parent_id));
-            if (!$categorySelect) $this->updateById($cate_parent_id, ['cate_has_child' => 0, 'cate_all_child'=> '']);
-
-            return false;
+            $categorySelect     = $this->checkExistCategoryChild(array('cate_parent_id', '=', $cate_parent_id));
+            $hasChild           = $categorySelect ? 1 : 0;
         }
 
         // Thêm cate_id mới vừa được tạo vào trong all list child của cate cha
-        $cateAllChild[] = $cate_id;
-        if (! in_array($cate_parent_id, $cateAllChild))
-            array_unshift($cateAllChild, $cate_parent_id);
+        if ($action == 'add')
+        {
+            $cateAllChild[] = $cate_id;
+            if (! in_array($cate_parent_id, $cateAllChild)) array_unshift($cateAllChild, $cate_parent_id);
+        }
 
-
-        // Cập nhật lại ứng với id = $cate_parent_id, có tồn tại child hay k. Nếu tồn tại thì update thêm all child.
-        $cateAllChild   = implode(',', $cateAllChild);
-        $updateCategory = $this->updateById($cate_parent_id, ['cate_has_child'=> $value, 'cate_all_child'=> $cateAllChild]);
-
+        // Cập nhật thông tin
+        $cateAllChild   = conver_unique_array_tostring($cateAllChild);
+        $dataFill       = ['cate_has_child'=> $hasChild, 'cate_all_child'=> $cateAllChild];
+        $updateCategory =  $category->fill($dataFill)->save();
         return $updateCategory;
     }
 
@@ -170,19 +153,79 @@ class EloquentCategory extends BaseRepository implements InterfaceCategory
         return $this->storeData($attributes);
     }
 
+    public function findById($id)
+    {
+        return parent::findById($id);
+    }
+
+    public function updateByField($id, $field, $otherValue = '')
+    {
+        return parent::updateByField($id, $field, $otherValue);
+    }
+
+    public function makeCollectTionCategory($categories)
+    {
+        $categories = $this->model->makeCollectionCategory($categories);
+        return $categories;
+    }
 
     /**
      * Created by : Hungokata
      * Time : 11:15 PM / 2/10/2017
      * Lay tat ca danh muc co trong bang category
-     * @param $arrField $arrField : mảng column cần lấy thông tin
-     * @param $arrField $filter : mảng filter
+     * @param array $fields          : mảng column cần lấy thông tin
+     * @param int $parent_id         : parent_id cua category
+     * @param array $filters         : mảng filter can loc thong tin
      * @param boolean $searchCateory : false | true
-     * @param arrray $sort : mảng sắp xếp
+     * @param arrray $sort           : mảng sắp xếp
      * @return array
      */
-    public function getAllCategory($arrField= array(), $filter = array(), $searchCateory = false, $sort = ['cate_order', 'ASC'])
+    public function getAllCategory($fields= array(), $parent_id = 0, $filters = array(), $sort = ['cate_order', 'ASC'])
     {
-        return $this->getAllChild('categories', 'cate_id', 'cate_parent_id', 0, $filter, $arrField, $sort , $searchCateory);
+        $categories = $this->getAllChild($this->model->getNameTable(), 'cate_id', 'cate_parent_id', $parent_id, $filters, $fields, $sort);
+        return $categories;
+    }
+
+    public function getAllParentCategory($field=array('*'), $pluck = array())
+    {
+        $query =  $this->model
+                    ->where('cate_parent_id',0)
+                    ->orderBy('cate_order');
+
+        // ton tai pluck
+        if ($pluck)
+        {
+            list($key, $value) = $pluck;
+            return $query->pluck($value, $key);
+        }
+
+        $query = $query->get($field);
+        return $query;
+    }
+
+    /**
+     * Lấy một mảng category ứng với list category_id
+     * @param array $category_id : mảng category_id
+     * @param array $field : mảng column sẽ lấy
+     * @return mixed
+     */
+    public function getListCategoryByListCategoryId($category_id = array(), $field=array('*'))
+    {
+        $query = $this->model->whereIn('cate_id', $category_id)->get($field)->toArray();
+        return $query;
+    }
+
+    /**
+     * Get ton bo thong tin category theo type
+     * @param string $type : kieu danh muc category
+     * @return mixed
+     */
+    public function getCategoryByType($type)
+    {
+        $query = $this->model->where('cate_type', $type)
+                             ->where('cate_status', 1)
+                             ->get()
+                             ->toArray();
+        return $query;
     }
 }

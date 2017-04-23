@@ -1,7 +1,16 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: HUNG
- * Date: 2/10/2017
- * Time: 12:06 AM
- */
+return [
+    'module' => [
+        'select' => 'Select',
+        'module' => 'Module',
+        'add'    => 'Add',
+        'edit'   => 'Edit',
+        'delete' => 'Delete',
+    ],
+    'list' => [
+        'title' => 'List account'
+    ],
+    'add' => [
+        'title' => 'Add new',
+    ]
+];

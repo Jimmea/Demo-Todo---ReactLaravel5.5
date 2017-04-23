@@ -13,6 +13,7 @@ return [
     */
 
     'name' => 'Laravel',
+    'admin' => 'Cook',
 
     /*
     |--------------------------------------------------------------------------
@@ -64,7 +65,7 @@ return [
     |
     */
 
-    'timezone' => 'UTC',
+    'timezone' => 'ASIA/HO_CHI_MINH',
 
     /*
     |--------------------------------------------------------------------------
@@ -181,6 +182,11 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
 
+        // model service provider
+        \App\Providers\ConfigurationServiceProvider::class,
+        \App\Providers\ModuleServiceProvider::class,
+        \App\Providers\FileServiceProvider::class,
+        \App\Providers\BackendServiceProvider::class,
     ],
 
     /*

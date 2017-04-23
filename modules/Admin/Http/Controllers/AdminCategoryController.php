@@ -2,18 +2,16 @@
 
 namespace Modules\Admin\Http\Controllers;
 
-use App\Models\Categories\EloquentCategory;
+use App\Http\Requests\CategoryRequest;
+use App\Models\Categories\CategoryRepository;
 use Illuminate\Http\Request;
-use Illuminate\Http\Response;
-use Illuminate\Routing\Controller;
-use Illuminate\View\View;
 
 class AdminCategoryController extends AdminController
 {
 
-    public function __construct(EloquentCategory $eloquentCategory)
+    public function __construct(CategoryRepository $categoryRepository)
     {
-        $this->category = $eloquentCategory;
+        $this->category = $categoryRepository;
     }
 
     /**
@@ -25,20 +23,54 @@ class AdminCategoryController extends AdminController
      */
     public function getListCategory(Request $request)
     {
-        $arrayColumn = ["cate_picture", "cate_icon", "cate_name", "cate_status","cate_order", "cate_show", "cate_type",
-            'cate_total_hit'];
+        // Truong hop cap nhat
+        if ($request->ajax())
+        {
+            $field  = strtolower(get_value('field','str', 'POST'));
+            $cateId = get_value('record_id','int', 'POST');
 
-        // $this->setFilter($request, 'action', '=');
-        // $this->setFilter($request, 'cate_id', '=');
-        // $this->setFilter($request, 'cate_name', 'LIKE');
+            if ($field && $cateId)
+            {
+                switch ($field)
+                {
+                    case 'cate_show' :
+                    case 'cate_status' :
+                    case 'cate_hot' :
+                        $this->category->updateByField($cateId, $field);
+                        break;
+
+                    case 'cate_name':
+                    case 'cate_meta_keyword':
+                        $value = get_value('value', 'str', 'POST');  if (!$value) return 0;
+                        $this->category->updateByField($cateId, $field, $value);
+                        break;
+
+                    case 'cate_order':
+                        $value = get_value('value','int', 'POST'); if ($value === '') return 0;
+                        $this->category->updateByField($cateId, 'cate_order', $value);
+                        break;
+                }
+                return $this->responseSuccess();
+            }
+        }
+
+        // Show danh sach
+        $fields = ["cate_picture", "cate_icon", "cate_name", "cate_status","cate_order", "cate_show","cate_hot",
+            "cate_type", "cate_meta_keyword", "cate_total_hit"];
+
         $this->setFilter($request, 'cate_type', '=');
-        $cate_sort  = get_value('cate_sort', 'str');
-        $filter     = $this->getFilter();
-        $sort       = ['cate_order', $cate_sort];
+        $this->setFilter($request, 'cate_parent_id', '=');
+        $filters        = $this->getFilter();
+        $sort           = ['cate_name', 'ASC'];
+        $parentId       = get_value('cate_parent_id', 'int', 'GET');
+        $categories     = $this->category->getAllCategory($fields,$parentId, $filters, $sort);
+        $categories     = $this->category->makeCollectTionCategory($categories);
+        $typeCategories = $this->category->getConfigTypeCategory();
 
         $dataView = array(
-            'categories'     => $this->category->getAllCategory($arrayColumn, $filter, false, $sort),
-            'typeCategory'   => $this->category->getConfigTypeCategory()
+            'categories'      => $categories,
+            'typeCategory'    => $typeCategories,
+            'categoryParents' => $this->category->getAllParentCategory(array(), ['cate_id', 'cate_name'])
         );
         return view(ADMIN_VIEW.'categories.index')->with($dataView);
     }
@@ -65,6 +97,7 @@ class AdminCategoryController extends AdminController
     public function getDataViewDefault()
     {
         return [
+            'category'      => array(),
             'categories'    => $this->category->getAllCategory(['cate_name']),
             'cateShowMod'   => $this->getArrayBoolean(),
             'typeView'      => $this->category->getTypeView(),
@@ -78,10 +111,8 @@ class AdminCategoryController extends AdminController
      * @param
      * @return void
      */
-    public function postAddCategory(Request $request)
+    public function postAddCategory(CategoryRequest $request)
     {
-        $this->category->validateCategory($request);
-
         $dataForm = $request->except('_token');
         $dataForm['cate_admin_id']      = $this->getAdminId();
         $dataForm['cate_view_type']     = ($dataForm['cate_view_type'] ? $dataForm['cate_view_type'] : 1);
@@ -120,28 +151,27 @@ class AdminCategoryController extends AdminController
      * @param int $cateId
      * @return void
      */
-    public function PostEditCategory(Request $request, $cateId)
+    public function PostEditCategory(CategoryRequest $request, $cateId)
     {
-        // Validate dữ liệu đầu vào
-        $this->category->validateCategory($request, $cateId);
+        // Kiểm tra xem bản ghi có tồn tại không
+        $categorySelectOne              = $this->category->findById($cateId);
+        $cateParentIdBeforeUpdate       = $categorySelectOne->cate_parent_id;
+        $cateListAllChildBeforeUpdate   = $categorySelectOne->cate_all_child;
 
-        // Báo lõi trường hợp parent_key = $cateId
+        // Get data form
         $dataForm  = $request->except('_token');
         $dataForm['cate_admin_id']      = $this->getAdminId();
         $dataForm['cate_view_type']     = ($dataForm['cate_view_type'] ? $dataForm['cate_view_type'] : 1);
         $dataForm['cate_parent_id']     = ($dataForm['cate_parent_id'] ? $dataForm['cate_parent_id'] : 0);
         $cateParentIdAfterUpdate        = $dataForm['cate_parent_id'];
 
-        // Kiểm tra xem bản ghi có tồn tại không
-        $categoryExist = $this->category->findById($cateId);
-        $cateParentIdBeforeUpdate       = $categoryExist->cate_parent_id;
-        $cateListAllChildBeforeUpdate   = $categoryExist->cate_all_child;
-
+        // Báo lõi trường hợp parent_key = $cateId
+        $conflictCategory               = ($cateId == $cateParentIdAfterUpdate) ? true : false;
         // Kiểm tra tránh conflict vói list all child
-        if ($cateListAllChildBeforeUpdate)
+        if ($cateListAllChildBeforeUpdate || $conflictCategory)
         {
             $cateListAllChildBeforeUpdate   = explode(',', $cateListAllChildBeforeUpdate);
-            if (in_array($cateParentIdAfterUpdate, $cateListAllChildBeforeUpdate))
+            if (in_array($cateParentIdAfterUpdate, $cateListAllChildBeforeUpdate) || $conflictCategory)
             {
                 set_flash('error', "You can't choice this parent category to Update. Please choice other parent category");
                 return redirect()->back();
@@ -151,17 +181,20 @@ class AdminCategoryController extends AdminController
         // Cập nhật toàn bộ thông tin category
         $this->category->updateCategoryById($cateId, $dataForm);
 
-        // Cập nhật lại cate có cate_parent_id được chọn đã có has child
-        if ($dataForm['cate_parent_id'] > 0)
+        // Danh cho category update có parent khác với parent trước khi update.
+        if ($cateParentIdAfterUpdate != $cateParentIdBeforeUpdate)
         {
-            // Danh cho category update có parent khác với parent trước khi update. Xóa id này trong listAllChild của id cũ
-            if ($cateParentIdAfterUpdate != $cateParentIdBeforeUpdate)
+            // Cập nhật parent trước đó | Xóa cateId o listAllChild của parent id trước : haschild phai check
+            if ($cateParentIdBeforeUpdate >0)
             {
-                $this->category->updateCategoryHasChild($cateParentIdBeforeUpdate, 0, $cateId,  $dataForm['cate_type'], 'edit');
+                $this->category->updateCategoryHasChild($cateParentIdBeforeUpdate, false, $cateId, $dataForm['cate_type'], 'edit');
             }
 
-            // Dành cho category update có chọn bất kỳ category nào đó làm cha . Update lại cha các list con
-            $this->category->updateCategoryHasChild($cateParentIdAfterUpdate, 1, $cateId, $dataForm['cate_type']);
+            // Cap nhat parent hien tai co haschild
+            if ($cateParentIdAfterUpdate > 0)
+            {
+                $this->category->updateCategoryHasChild($cateParentIdAfterUpdate, 1, $cateId,  $dataForm['cate_type']);
+            }
         }
 
         set_flash_update_success();
@@ -178,9 +211,9 @@ class AdminCategoryController extends AdminController
     public function getDeleteCategory($cateId)
     {
         // Kiểm tra xem các cấp con đã xóa hết chưa mới được xóa đi
-        $categorySelect = $this->category->checkExistCategoryChild(['cate_parent_id','=',$cateId]);
-        if ($categorySelect)
-        {
+        $categorySelect = $this->category->checkExistCategoryChild(['cate_parent_id', '=', $cateId]);
+
+        if ($categorySelect) {
             set_flash_delete_error();
             return redirect()->back();
         }
@@ -190,50 +223,5 @@ class AdminCategoryController extends AdminController
         set_flash_delete_success();
 
         return redirect()->route('admincpp.getListCategory');
-    }
-
-    /**
-     * Created by : Hungokata
-     * Time : 9:36 PM / 2/10/2017
-     * @param void
-     * @return void
-     */
-    public function postProcessQuickCategory(Request $request)
-    {
-        if ($request->ajax())
-        {
-            $action = strtolower(get_value('action','str', 'POST'));
-            $cateId = get_value('id','int', 'POST');
-
-            // Su dung edit table de sua nhanhh thong tin
-            if (!$action)
-            {
-                $action     = strtolower(get_value('name', 'str', 'POST'));
-                $orderValue = get_value('value', 'int', 'POST');
-                $cateId     = get_value('pk', 'int', 'POST');
-            }
-            switch ($action)
-            {
-                case 'showhome' :
-                    $this->category->updateByField($cateId, 'cate_show');
-                    break;
-
-                case 'editone':
-                    $this->category->updateByField($cateId, 'cate_status');
-                    break;
-
-                case 'editname':
-                    $orderValue = get_value('value', 'str', 'POST');  if (!$orderValue) return 0;
-                    if (!$orderValue) return 0;
-                    $this->category->updateByField($cateId, 'cate_name', $orderValue);
-                    break;
-
-                case 'editorder':
-                    if (!$orderValue) return 0;
-                    $this->category->updateByField($cateId, 'cate_order', $orderValue);
-                    break;
-            }
-            return response()->json(['status'=>1, 'msg'=> trans('admin::message.message_update_success')]);
-        }
     }
 }

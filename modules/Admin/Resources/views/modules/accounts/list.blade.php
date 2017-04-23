@@ -1,33 +1,27 @@
-@extends('admin::layouts.master')
-@section('title', 'Add new account')
+@inject('adminRepository', 'App\Models\Admins\AdminRepository')
+@extends('admin::layouts.master_tab')
 @section('content')
-    {!! bread_crumb([
-            ''=> 'List account'
-        ])
-    !!}
-
+    {{--{!! bread_crumb([--}}
+            {{--'List account'--}}
+        {{--])--}}
+    {{--!!}--}}
+    @php
+        $dataGrid   = new DataGrid();
+        $dataGrid->setDeleteAll(false);
+        $stt        = $admins->perPage()*($admins->currentPage()-1) + 1;
+        $access     = '';
+    @endphp
     <div class="row">
         <div class="col-md-12">
-            <div id="wrap-table">
-                <div class="white-box">
-                    {!! box_title('List account', false) !!}
-                    <div class="search-box">
-                        <form action="" class="form-inline">
-                            <input type="hidden" name="page" value="{{ get_value('page','int', 'GET', 1) }}">
-                            <label for="login_name">
-                                Login name
-                                <input type="text" class="form-control" name="adm_loginname" value="{{ get_value('adm_loginname', 'str', 'GET', '') }}">
-                            </label>
-                            <label for="email">
-                                Email
-                                <input type="text" class="form-control" name="adm_email" value="{{ get_value('adm_email', 'str', 'GET', '') }}">
-                            </label>
-                            <label>
-                                <button type="submit" class="btn btn-info btn-sm"><i class="icon-magnifier"></i> Search</button>
-                            </label>
-                        </form>
-                    </div>
+            <div class="white-box padd-0">
+                <div class="white-box-header padd-10">
+                    {{ header_title_action('List account', 'admincpp.getAddAccount') }}
+                    {{ $dataGrid->beginFormSearch('admincpp.getListAccount') }}
+                    {{ $dataGrid->labelSearch('Tên đăng nhập', 'adm_loginname') }}
+                    {{ $dataGrid->labelSearch('Địa chỉ email', 'adm_email') }}
+                    {{ $dataGrid->closeForm() }}
                 </div>
+<<<<<<< HEAD
                 <div class="white-box padd-0">
                     <form action="{{ route('admincpp.getProcessQuickAccount') }}" id="formTable">
                         <table class="table table-bordered table-stripped" id="dataTableList">
@@ -56,14 +50,37 @@
                                 $dataGrid   = new DataGrid();
                             ?>
                             @forelse($admins as $key => $value)
+=======
+                <div class="white-box-content">
+                    <table class="table" id="dataTableList">
+                        <thead>
+                            <tr>
+                                <td width="4%" align="center" class="bold">Stt</td>
+                                <td class="bold">Login name</td>
+                                <td class="bold">Full name</td>
+                                <td class="bold">Email</td>
+                                <td class="bold">Right Modules</td>
+                                <td width="8%" align="center">Người tạo</td>
+                                @if(get_session('isadmin'))
+                                <td class="bold" align="center">Right website</td>
+                                @endif
+                                @if(get_session('isadmin'))
+                                <td width="10%" align="center" class="bold">Face login</td>
+                                @endif
+                                <td width="4%" align="center" class="bold">Status</td>
+                                <td colspan="2" width="6%" class="text-center bold">Action</td>
+                            </tr>
+                        </thead>
+                        <tbody id="tableContent">
+                            @foreach($admins as $key => $value)
+                                <?php $dataGrid->setPrimaryKey($value['adm_id']) ;?>
+>>>>>>> 66e958c9a1a8727b9a81298d15ba2f0c8de38a1c
                                 <tr bgcolor="" id="tr_{{ $value->adm_id }}">
                                     <td align="center">{{ $stt ++ }}</td>
-                                    <td align="center">
-                                        <input type="checkbox" class="check-one" name="check-one" value="{{ $value->adm_id }}">
-                                    </td>
                                     <td>{{ $value->adm_loginname }}</td>
                                     <td>{{ $value->adm_name }}</td>
                                     <td>{{ $value->adm_email }}</td>
+<<<<<<< HEAD
                                     {{--<td>...</td>--}}
                                     <td align="center"><a href="#" class="btn btn-xs btn-success">Login</a></td>
                                     <td align="center">
@@ -128,6 +145,47 @@
 >>>>>>> origin/dev
                         </table>
                     </form>
+=======
+                                    <td>
+                                        @if($value->adm_id == 1)
+                                            All permission website
+                                        @else
+                                            @foreach($adminRepository->findAccessById($value->adm_id) as $rowAccess)
+                                                <?php $access .= $rowAccess['mod_name'] . ", "; ?>
+                                            @endforeach
+                                            {{ rtrim($access, ', ') }}
+                                            <?php $access = ''; ?>
+                                        @endif
+                                    </td>
+                                    <td align="center">{{ $value->admins->adm_name }}</td>
+
+                                    @if(get_session('isadmin'))
+                                    {!! $dataGrid->makeCheckButton('admincpp.getListAccount', ['adm_isadmin', $value]) !!}
+                                    @endif
+
+                                    @if(get_session('isadmin') && $value->adm_id != 1)
+                                    <td align="center"><a target="_blank" href="{{ route('admincpp.getFaceLogin', $value->adm_id) }}" class="btn btn-xs btn-success">Login</a></td>
+                                    @else
+                                        <td align="center">...</td>
+                                    @endif
+
+                                    @if($value->adm_id != 1)
+                                        {!! $dataGrid->makeCheckButton('admincpp.getListAccount', ['adm_active', $value]) !!}
+                                    @else
+                                        <td align="center">...</td>
+                                    @endif
+
+                                    @if(get_session('adm_id') == 1)
+                                    {!! $dataGrid->makeEditButton('admincpp.geteditAccount') !!}
+                                    @else
+                                        <td></td>
+                                    @endif
+                                </tr>
+                            @endforeach
+                        </tbody>
+                        {!! $dataGrid->getTemplateFooter($admins) !!}
+                    </table>
+>>>>>>> 66e958c9a1a8727b9a81298d15ba2f0c8de38a1c
                 </div>
             </div>
         </div>

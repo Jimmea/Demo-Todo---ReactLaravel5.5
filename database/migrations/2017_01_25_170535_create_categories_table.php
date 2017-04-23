@@ -18,9 +18,9 @@ class CreateCategoriesTable extends Migration
             $table->string('cate_name')->nullable();
             $table->string('cate_picture')->nullable();
             $table->string('cate_background')->nullable();
-            $table->string('cate_seo_keyword')->nullable();
-            $table->string('cate_seo_title')->nullable();
-            $table->string('cate_seo_description')->nullable();
+            $table->string('cate_meta_keyword')->nullable();
+            $table->string('cate_meta_title')->nullable();
+            $table->string('cate_meta_description')->nullable();
             $table->tinyInteger('cate_status')->default(1);
             $table->tinyInteger('cate_order')->default(0);
             $table->tinyInteger('cate_parent_id')->default(0);
@@ -29,7 +29,7 @@ class CreateCategoriesTable extends Migration
             $table->string('cate_all_child')->nullable();
             $table->string('cate_type')->nullable();
             $table->tinyInteger('cate_hot')->nullable();
-            $table->tinyInteger('cate_admin_id')->nullable();
+            $table->tinyInteger('cate_admin_id')->nullable()->index();
             $table->tinyInteger('cate_show')->nullable();
             $table->tinyInteger('cate_view_type')->default(1);
             $table->string('cate_icon')->nullable();

@@ -20,15 +20,11 @@
  */
 if (! function_exists('form_begin'))
 {
-    function form_begin($route, $file = true)
+    function form_begin($route = array(), $file = true)
     {
-        (count($route) >1)
-                ? list($routeName, $routeParam) = $route
-                : list($routeName) = $route;
+        (count($route) >1) ? list($routeName, $routeParam) = $route : list($routeName) = $route;
 
-        $route = isset($routeParam)
-                    ? route($routeName, $routeParam)
-                    : route($routeName);
+        $route = isset($routeParam) ? route($routeName, $routeParam) : route($routeName);
 
         return '<form class="form-horizontal" method="post" action="'.$route.'" '.($file ? 'enctype="multipart/form-data"' : '').'>'.csrf_field();
     }
@@ -53,30 +49,36 @@ if (! function_exists('form_close'))
  * Created by : BillJanny
 >>>>>>> 3390a7e96e5d47ba9652b289b54ee082e230de91
  * Date: 17:50 - 27/01/17
- * Kiem tra co loi khong xuat ra mot chuoi de cho form-group hien mau do neu co loi
- * @param string $key : key loi cua form
+ * Tao mot chuoi has-error neu co loi
+ * @param array $errors  : Mang loi
+ * @param  string $field : truong field_name
  * @return string
  */
 if (! function_exists('has_error'))
 {
-    function has_error($errors, $key)
+    function has_error($errors, $field)
     {
-        return isset($errors) && $errors->has($key) ? 'has-error' : '';
+        $field = str_replace(array('[', ']'), '', $field);
+        return isset($errors) && $errors->has($field) ? 'has-error' : '';
     }
 }
 
 /**
  * Created by : BillJanny
  * Date: 18:17 - 27/01/17
- * Lay thong tin loi duoc thiet lap
- * @param string $key key cua loi
+ * Xuat thong tin loi neu co
+ * @param array $errors  : Mang loi
+ * @param  string $field : truong field_name
  * @return string
  */
 if (! function_exists('get_error'))
 {
-    function get_error($errors, $key)
+    function get_error($errors, $field)
     {
-        return (isset($errors) && $errors) ? '<span class="help-block">'.$errors->first($key).'</span>' : '';
+        $field = str_replace(array('[', ']'), '', $field);
+        $helpBlock  = (isset($errors) && $errors) ? '<span class="help-block">'.$errors->first($field).'</span>' : '';
+
+        return $helpBlock;
     }
 }
 
@@ -92,7 +94,10 @@ if (! function_exists('get_value_field'))
 {
     function get_value_field($field, $dataform= array())
     {
-        return old($field, (isset($dataform) && $dataform) ? $dataform->$field : '');
+        $field = str_replace(array('[', ']'), '', $field);
+        $value = old($field, (isset($dataform) && $dataform) ? ($dataform->$field ? $dataform->$field : '') : '');
+
+        return $value;
     }
 }
 
@@ -109,7 +114,7 @@ if (! function_exists('submit_reset'))
     function button_submit_reset()
     {
         return '<div class="form-group">
-                    <div class="col-xs-offset-2">
+                    <div class="col-md-5 col-md-offset-2">
                         <button type="submit" class="btn btn-info btn-sm"><i class="icon-check"></i> '.trans('admin::form.buttonSubmit').'</button>
                         <button type="reset" class="btn btn-info btn-sm"><i class="icon-refresh"></i> '.trans('admin::form.buttonReset').'</button>
                     </div>
@@ -156,6 +161,15 @@ if (! function_exists('input_hidden'))
     function input_hidden($link, $name)
     {
         return '<input type="hidden" name="'.$name.'" value="'.$link.'"/>';
+    }
+}
+
+if (! function_exists('checkedSelect'))
+{
+    function selectedCompare($nameInput, $compare)
+    {
+        $getCateType = get_value($nameInput, 'str', 'GET', '');
+        return ($getCateType == $compare) ? 'selected=selected' : '';
     }
 }
 

@@ -6,6 +6,38 @@
  * Time: 15:33
  */
 
+/**
+ | Tao ra mot redirect url :
+ *@param string $route : chuoi tham so gom ten route truoc
+    Sau la mot chuoi tham so route cach nhau boi cac ki tu sau ("-","+","_","\"","\\","/",";",":","*")
+ * @param array $routeParamMore : mang tham so them tiep
+ * @return
+ */
+if (! function_exists('generate_url_from_route'))
+{
+    function generate_url_from_route($route, $routeParamMore= array())
+    {
+        if (empty($route)) return 'javascript:void(0)';
+        $route      = explode('|', $route);
+        $routeName  = isset($route[0]) ? $route[0] : '';
+        $routeParam = isset($route[1]) ? $route[1] : '';
+        // Ton tai ten route va tham so
+        if ($routeName && $routeParam)
+        {
+            $routeParam = multi_explode($routeParam);
+            if ($routeParamMore && $routeParam)
+            {
+                $routeParam = array_merge($routeParam, $routeParamMore);
+            }
+            $redirect       = route($routeName, $routeParam);
+        }
+        else
+        {
+            $redirect   = $routeParamMore ? route($routeName, $routeParamMore) : route($routeName);
+        }
+        return $redirect;
+    }
+}
 
 if (! function_exists('get_value'))
 {
@@ -40,6 +72,7 @@ if (! function_exists('get_value'))
             "dbl" => @doubleval($value),
             "arr" => $value
         );
+
         foreach ($valueArray as $key => $returnValue)
         {
 
@@ -75,8 +108,6 @@ if (! function_exists('get_value'))
     }
 }
 
-
-
 if (! function_exists('get_param'))
 {
     function get_param($param)
@@ -84,28 +115,6 @@ if (! function_exists('get_param'))
         return Request::has($param) ? Request::get($param) : '';
     }
 }
-
-if (!function_exists('get_uri'))
-{
-    /**
-     * Tra ve cac tham so query tren url
-     *
-=======
-if (! function_exists('get_query_string'))
-{
-    /**
-     * Created by : BillJanny
-     * Date: 2:24 PM - 2/5/2017
-     * Tra ve tat ca cac tham so query tren url
-     * @param void
-     * @return string
-     */
-    function get_query_string()
-    {
-        return $_SERVER['QUERY_STRING'];
-    }
-}
-
 
 if (! function_exists('get_uri'))
 {
@@ -119,8 +128,8 @@ if (! function_exists('get_uri'))
     }
 }
 
-
-if (! function_exists('get_full_url')) {
+if (! function_exists('get_full_url'))
+{
     /**
      *  Tra ve toan bo duong dan url
      *
@@ -209,9 +218,83 @@ if (!function_exists('get_separator_url'))
  */
 if (! function_exists('is_url'))
 {
-    function is_url($url) {
+    function is_url($url)
+    {
         return filter_var($url, FILTER_VALIDATE_URL);
     }
+}
+
+if (!function_exists('redirectAccessDenied'))
+{
+    function redirectAccessDenied()
+    {
+        return redirect("/admincpp/access_denied");
+    }
+}
+
+/**
+ * getURL()
+ *
+ * @param integer $serverName
+ * @param integer $scriptName
+ * @param integer $fileName
+ * @param integer $queryString
+ * @param string $varDenied
+ * @return
+ */
+function get_url($serverName=0, $scriptName=0, $fileName=1, $queryString=1, $varDenied='')
+{
+    $url	 = '';
+    $slash = '/';
+    if($scriptName != 0)$slash	= "";
+    if($serverName != 0)
+    {
+        if(isset($_SERVER['SERVER_NAME']))
+        {
+            $url .= 'http://' . $_SERVER['SERVER_NAME'];
+            if(isset($_SERVER['SERVER_PORT'])) $url .= ":" . $_SERVER['SERVER_PORT'];
+            $url .= $slash;
+        }
+    }
+    if($scriptName != 0)
+    {
+        if(isset($_SERVER['SCRIPT_NAME']))	$url .= substr($_SERVER['SCRIPT_NAME'], 0, strrpos($_SERVER['SCRIPT_NAME'], '/') + 1);
+    }
+    if($fileName	!= 0)
+    {
+        if(isset($_SERVER['SCRIPT_NAME']))	$url .= substr($_SERVER['SCRIPT_NAME'], strrpos($_SERVER['SCRIPT_NAME'], '/') + 1);
+    }
+    if($queryString!= 0)
+    {
+        $url .= '?';
+        reset($_GET);
+        $i = 0;
+        if($varDenied != '')
+        {
+            $arrVarDenied = explode('|', $varDenied);
+            while(list($k, $v) = each($_GET))
+            {
+                if(array_search($k, $arrVarDenied) === false)
+                {
+                    $i++;
+                    if($i > 1) $url .= '&' . $k . '=' . @urlencode($v);
+                    else $url .= $k . '=' . @urlencode($v);
+                }
+            }
+        }
+        else
+            {
+            while(list($k, $v) = each($_GET))
+            {
+                $i++;
+                if($i > 1) $url .= '&' . $k . '=' . @urlencode($v);
+                else $url .= $k . '=' . @urlencode($v);
+            }
+        }
+    }
+
+    $url = str_replace('"', '&quot;', strval($url));
+    return $url;
 }
 
 

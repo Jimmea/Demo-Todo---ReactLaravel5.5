@@ -2,13 +2,23 @@
 
 namespace Modules\Admin\Http\Controllers;
 
+
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Config;
+use Illuminate\Support\Facades\View;
+
 
 class AdminController extends Controller
 {
+
+    public function __construct()
+    {
+        $category = app('App\Models\Categories\CategoryRepository');
+        View::share('categories', $category->getAllCategory(['cate_name']));
+        View::share('configStatus', $this->getArrayBoolean());
+    }
+
     /**
      * Filter list
      * @var array
@@ -27,14 +37,12 @@ class AdminController extends Controller
     public function setFilter(Request $request, $field, $ope, $defValue = null)
     {
         $value = ($defValue == null) ? $request->get($field) : $defValue;
-
         if ($value != '' || $value != null)
         {
-            if ($ope == 'LIKE')
+            if (strtoupper($ope) == 'LIKE')
             {
                 $value = '%' . trim($value) . '%';
             }
-
             $this->filter[] = [$field, $ope, trim($value)];
         }
     }
@@ -58,13 +66,62 @@ class AdminController extends Controller
     public function getArrayBoolean()
     {
         return [
-            0 => 'Disable',
-            1 => 'Unable'
+            0 => 'Cho phép ẩn',
+            1 => 'Cho phép hiển thị'
         ];
+    }
+
+    public function getTarget()
+    {
+        return [
+            '_self' => 'Cùng cửa sổ',
+            '_blank' => 'Cửa sổ mới'
+        ];
+    }
+
+    public function getTypeNew()
+    {
+        $newType = [
+            'crawl'         => 1,
+            'user_write'    => 2,
+            'albumn'        => 3,
+            'friend'        => 4,
+        ];
+
+        return $newType;
+    }
+
+    public function getNewType()
+    {
+        $newType = array();
+        foreach ($this->getTypeNew() as $name => $stt)
+        {
+            $newType[$stt] = $name;
+        }
+        return $newType;
     }
 
     public function getAdminId()
     {
-        return 1;
+        return get_session('adm_id');
+    }
+
+//    public function getValueXeditTable()
+//    {
+//        return [
+//            strtolower(get_value('name', 'str', 'POST')), // action(desc alias action of any filed)
+//            get_value('value', 'int', 'POST'), // value update
+//            get_value('pk', 'int', 'POST') // primary key
+//        ];
+//    }
+    public function responseSuccess($message='')
+    {
+        return response()->json(['status'=>1, 'msg'=> $message ? $message : trans('admin::message.message_update_success')]);
+    }
+
+    
+    public function responseError($message='')
+    {
+        return response()->json(['status'=>0, 'msg'=> $message ? $message : trans('admin::message.message_update_error')]);
     }
 }

@@ -8,22 +8,8 @@
  * Neu co bat ki su thay doi nao. Vui long viet tren day de cai thien code
  */
 
-/**
- * Thong tin cai thien
- *
- */
-
-
-/**
- * Cach import vao project
- * su dung composer.json de chen autoload
- *
- *
- */
-
 require_once dirname(__FILE__) . '/curl.php';
 require_once dirname(__FILE__) . '/request.php';
-require_once dirname(__FILE__) . '/sample_data.php';
 require_once dirname(__FILE__) . '/support_string.php';
 require_once dirname(__FILE__) . '/support_array.php';
 require_once dirname(__FILE__) . '/support_date.php';

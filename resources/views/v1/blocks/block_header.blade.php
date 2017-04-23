@@ -19,7 +19,7 @@
             <li class="ar-logo-tab">
                 <a href="/" target="_self">
                     <div class="ar-logo">
-                        {{--<img alt="Allrecipes" height="36" src="http://images.media-allrecipes.com/ar-images/ARlogo.svg" width="96">--}}
+                        <img alt="Allrecipes" height="36" src="http://images.media-allrecipes.com/ar-images/ARlogo.svg" width="96">
                     </div>
                 </a>
             </li>
@@ -52,7 +52,7 @@
             <li class="nav-profile anonymous-user">
                 <a href="">
                     <div class="login-state">
-                        <div class="img-profile icon svg-icon--top-nav-bar--userhead svg-icon--top-nav-bar--userhead-dims fsrHidden"></div>
+                        <img class="img-profile" src="http://images.media-allrecipes.com/mobile/allrecipes/images/icon-user-default_v2.png" alt="">
                         <span class="username icon-user--default" id="offCanvasDisplayName" >
 							Create a profile
 						</span>

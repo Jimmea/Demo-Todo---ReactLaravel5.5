@@ -1,135 +1,84 @@
-@extends('admin::layouts.master')
+@extends('admin::layouts.master_tab')
 @section('content')
-    {!! bread_crumb([
-            trans('admin::category.list.title'),
-         ])
-     !!}
+    {{--{!! bread_crumb([--}}
+    {{--trans('admin::category.list.title'),--}}
+    {{--])--}}
+    {{--!!}--}}
+    @php
+        $dataGrid = new DataGrid();$stt = 1;
+    @endphp
     <div class="row">
         <div class="col-md-12">
-            <div id="wrap-table">
-                <div class="white-box">
-                    {!! box_title(trans('admin::category.list.title'), false) !!}
-                    <div class="search-box">
-                        <form action="{{ route('admincpp.getListCategory') }}" class="form-inline">
-                            {{--<input type="hidden" name="action" value="search">--}}
-                            <label for="cate_type">
-                               Type Category
-                                <?php $getCateType = get_value('cate_type', 'str') ; ?>
-                                <select name="cate_type" id="cate_type" class="form-control input-sm">
-                                    <option value="">All type category</option>
-                                    @foreach($typeCategory as $key => $name)
-                                        <?php $selected = ($getCateType == $key) ? 'selected=selected' : '' ;?>
-                                        <option {{ $selected }} value="{{ $key }}">{{ $name }}</option>
-                                    @endforeach
-                                </select>
-                            </label>
-                            {{--<label for="">ID Category--}}
-                                {{--<input type="text" name="cate_id" class="form-control" id="cate_id" value="{!! ( ($cate_id = get_value('cate_id')) ? $cate_id : '') !!}">--}}
-                            {{--</label>--}}
-                            <label for="">
-                                Order
-                                <select name="cate_sort" id="cate_sort" class="form-control input-sm">
-                                    <?php $getCateSort = get_value('cate_sort', 'str') ; ?>
-                                    <option value="">--[ Select One ]--</option>
-                                    <option {{ ($getCateSort == 'asc') ? 'selected=selected' : '' }} value="asc">Ascending</option>
-                                    <option {{ ($getCateSort == 'desc') ? 'selected=selected' : '' }} value="desc">Decreasing</option>
-                                </select>
-                            </label>
-                            <label>
-                                <button type="submit" class="btn btn-info btn-sm"><i class="icon-magnifier"></i> Search</button>
-                            </label>
-                        </form>
-                    </div>
+            <div class="white-box padd-0">
+                <div class="white-box-header padd-10">
+                    {{ header_title_action('Danh sách category', 'admincpp.getAddCategory') }}
+                    {{ $dataGrid->beginFormSearch() }}
+                    {{ $dataGrid->labelSearch('Kiểu category', 'cate_type', ARRKEY , $typeCategory) }}
+                    {{ $dataGrid->labelSearch('Category Parent', 'cate_parent_id', ARR , $categoryParents, ['cate_id', 'cate_name']) }}
+                    {{ $dataGrid->closeForm() }}
                 </div>
-                <div class="white-box padd-0">
-                    <form action="{{ route('admincpp.postProcessQuickCategory') }}" id="formTable">
-                        <table class="table table-bordered table-stripped" id="dataTableList">
-                            <thead>
-                                <tr bgcolor="#428BCA" style="color: #fff">
-                                    {{--<td width="3%" align="center" class="bold">STT</td>--}}
-                                    <td width="3%" align="center" class="bold">ID</td>
-                                    <td width="8%"  align="center" class="bold">Picture</td>
-                                    <td width="8%" align="center" class="bold">Type</td>
-                                    <td class="bold">Name</td>
-                                    <td width="5%" align="center">Total view</td>
-                                    <td width="3%" align="center" class="bold">Order</td>
-                                    <td width="3%" align="center" class="bold">Show Home</td>
-                                    <td width="3%" align="center" class="bold">Status</td>
-                                    <td width="3%" align="center" class="bold">Edit</td>
-                                    <td width="3%" align="center" class="bold">Delete</td>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <?php $stt = 0; $dataGrid = new DataGrid(); ?>
-                                @forelse($categories as $key => $value)
-                                <?php $value = (array)$value;  $stt ++ ?>
-                                <tr>
-                                    {{--<td align="center">{{ $stt }}</td>--}}
-                                    <td align="center">{{ $value['cate_id'] }}</td>
-                                    <td align="center">
-                                        <img src="{{ asset(STATIC_MEDIA. '/demo.jpg') }}" class="img-responsive" style="width: 60px;height:60px" alt="img">
-                                    </td>
-                                    <td align="center">
-                                        <b>{{ $typeCategory[$value['cate_type']] }}</b>
-                                    </td>
-                                    <td>
-                                        <a href="javascript:void(0)">
-                                            <?php if(isset($value['level'])) { for($j=0; $j< $value["level"];$j++) echo "--"; }?>
-                                            <span class="editCateName"
-                                                  title="Click to update quick this field"
-                                                  data-name="editname"
-                                                  data-pk="{{ $value['cate_id'] }}">
-                                                <b>{{ $value['cate_name'] }}</b>
-                                            </span>
-                                        </a>
-                                    </td>
-                                    <td align="center"><b>{{ $value['cate_total_hit'] }}</b></td>
-                                    <td align="center">
-                                        <a href="javascript:void(0)">
-                                            <span
-                                                  title="Click to update quick this field"
-                                                  data-name="editorder"
-                                                  data-pk="{{ $value['cate_id'] }}"
-                                                  class="editCateOrder editable editable-click">
-                                                <b>{{ $value['cate_order'] }}</b>
-                                            </span>
-                                        </a>
-                                    </td>
-                                    <td align="center">
-                                        <a href="javascript:void(0)"
-                                           data-action="updateShowHome"
-                                           data-id="{{ $value['cate_id'] }}"
-                                           data-check="{{ ($value['cate_show'] == 1 ? 'checked' : '') }}"
-                                           class="execute_form fa fa-2x {{ ($value['cate_show'] == 1 ? 'fa-check-circle' : 'fa-circle') }}"></a>
-                                    </td>
-                                    <td align="center">
-                                        <a href="javascript:void(0)"
-                                           data-action="updateStatus"
-                                           data-id="{{ $value['cate_id'] }}"
-                                           data-check="{{ ($value['cate_status'] == 1 ? 'checked' : '') }}"
-                                           class="execute_form fa fa-2x {{ ($value['cate_status'] == 1 ? 'fa-check-circle' : 'fa-circle') }}"></a>
-                                    </td>
-                                    <td align="center">
-                                        {!! $dataGrid->makeEditButton(['admincpp.getEditCategory',$value['cate_id']]) !!}
-                                    </td>
-                                    <td align="center">
-                                        {!! $dataGrid->makeDeleteButton(['admincpp.getDeleteCategory',$value['cate_id']]) !!}
-                                    </td>
-                                </tr>
-                                @empty
-                                    <tr><td colspan="10" align="center">{{ trans('admin::category.list.not_exist_data') }}</td></tr>
-                                @endforelse
-                            </tbody>
-                        </table>
-                    </form>
+                <div class="white-box-content">
+                    <table class="table table-stripped" id="dataTableList">
+                        <thead>
+                        <tr>
+                            <td width="4%" align="center">Stt</td>
+                            <td width="4%" align="center">ID</td>
+                            <td width="8%" align="center">Avatar</td>
+                            <td>Tên danh mục</td>
+                            <td width="10%" align="center">Kiểu</td>
+                            <td width="25%">Từ khóa tìm kiếm SEO</td>
+                            <td width="7%" align="center">Total view</td>
+                            <td width="5%" align="center">Vị trí</td>
+                            <td width="4%" align="center" title="Hiển thị category đang hot">Hot</td>
+                            <td width="4%" align="center" title="Hiển thị trang home">Home</td>
+                            <td width="7%" align="center">Trạng thái</td>
+                            <td width="5%" colspan="3" align="center">Action</td>
+                        </tr>
+                        </thead>
+                        <tbody id="tableContent">
+                        @foreach($categories as $value)
+                            @php $dataGrid->setPrimaryKey($value['cate_id']) @endphp
+                            <tr>
+                                <td align="center">{{ $stt++ }}</td>
+                                <td align="center">{{ $value['cate_id'] }}</td>
+                                <td><img src="{{ asset( $value['cate_picture'])  }}" class="img-responsive img9070">
+                                </td>
+                                <td>
+                                    <a href="javascript:void(0)">
+                                        <?php if (isset($value['level'])) for ($j = 0; $j < $value["level"]; $j++) echo "--"; ?>
+                                        <span field="cate_name" record_id="{{ $value['cate_id'] }}"
+                                              class="clickEdit">{{ $value['cate_name'] }}</span>
+                                    </a>
+                                </td>
+                                <td align="center">{{ $typeCategory[$value['cate_type']] }}</td>
+                                {!! $dataGrid->makeEditColumn(['cate_meta_keyword', $value]) !!}
+                                <td align="center">{{ $value['cate_total_hit'] }}</td>
+                                {!! $dataGrid->makeEditColumn(['cate_order', $value], "align=center") !!}
+                                {!! $dataGrid->makeCheckButton('admincpp.getListCategory', ['cate_hot', $value]) !!}
+                                {!! $dataGrid->makeCheckButton('admincpp.getListCategory', ['cate_show', $value]) !!}
+                                {!! $dataGrid->makeCheckButton('admincpp.getListCategory', ['cate_status', $value]) !!}
+                                <td><a href="{{ route('admincpp.getAddCategoryBanner', $value['cate_id']) }}"
+                                       title="Click tạo banner" class="grid-icon">
+                                        <i class="icon-pencil"></i>
+                                    </a>
+                                </td>
+                                <td><a href="{{ route('admincpp.getAddCategoryTabAction', $value['cate_id']) }}"
+                                       title="Click tạo tab category" class="grid-icon">
+                                        <i class="icon-pencil"></i>
+                                    </a>
+                                </td>
+                                {!! $dataGrid->makeEditButton('admincpp.getEditCategory') !!}
+                            </tr>
+                        @endforeach
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </div>
     </div>
 @stop
 @section('js')
-<script>
-    EditQuickXtable('/category/process-quick-category', '.editCateOrder');
-    EditQuickXtable('/category/process-quick-category', '.editCateName');
-</script>
+    <script>
+        EditQuickXtable('{{ route('admincpp.getListCategory') }}', '.clickEdit');
+    </script>
 @stop

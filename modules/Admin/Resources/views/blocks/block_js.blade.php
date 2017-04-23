@@ -3,6 +3,7 @@
         <script src="{{ asset($path) }}"></script>
     @endforeach
 @endif
+<script src="{{ asset('backend/js/pages/library.js') }}"></script>
 <script type="text/javascript">
 $.ajaxSetup({
     headers: {

@@ -9,13 +9,6 @@ use Illuminate\Routing\Controller;
 class WelcomeController extends Controller
 {
 
-    /**
-     * Created by : BillJanny
-     * Date: 11:02 - 19/01/17
-     * Hien thi trang tru bai viet
-     * @param void
-     * @return void
-     */
     public function getIndex()
     {
         return view(NEW_V1.'.home.index');

@@ -4,15 +4,19 @@
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>Cook admin - @yield('title')</title>
+        <meta name="_token" id="meta_token" content="{{ csrf_token() }}">
         @include('admin::blocks.block_css')
         @yield('css')
-        @yield('js')
+        <script>
+            var BASE_URL  = "{{ url('/admincpp') }}";
+            var _token    = document.getElementById('meta_token').content;
+        </script>
     </head>
     <body>
-        <div id="wrapper">
+        <div id="wrapper" class="wrapper-use-tab">
             @yield('content')
         </div>
-        <script src="{{ asset('backend/js/pages/library.js') }}"></script>
+        @include('admin::blocks.block_js')
+        @yield('js')
     </body>
 </html>

@@ -60,6 +60,14 @@ if (!function_exists('generate_sql_batch_insert'))
     }
 }
 
+if (!function_exists('translate_text'))
+{
+    function translate_text($text)
+    {
+        return $text;
+    }
+}
+
 /**
  * Created by : BillJanny
  * Date: 10:44 PM - 1/21/2017
@@ -72,6 +80,6 @@ if (!function_exists('get_table_of_content_new'))
 {
     function get_table_of_content_new($newId, $recordsNewsContent=50000)
     {
-        return 'news_content_' . (int)ceil($newId/$recordsNewsContent);
+        return 'new_content_' . (int)ceil($newId/$recordsNewsContent);
     }
 }

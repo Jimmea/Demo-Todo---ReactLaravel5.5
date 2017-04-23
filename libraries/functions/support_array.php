@@ -8,6 +8,67 @@
  *
  */
 
+
+if (! function_exists('break_string_toarray'))
+{
+    function break_string_toarray($string)
+    {
+        $string = str_replace(array("\r\n", "\r", "\n", "\t"), '|||', $string);
+        return explode('|||', $string);
+    }
+}
+
+if (! function_exists('multi_explode'))
+{
+    function multi_explode ($string='')
+    {
+        $delimiter = array(" ","-","+","_","\"","\\","/",";",":","*");
+        $replace = str_replace($delimiter, $delimiter[0], $string);
+        $explode = explode($delimiter[0], $replace);
+
+        return $explode;
+    }
+}
+
+
+
+if (! function_exists('break_array_tostring'))
+{
+    function break_array_tostring($array)
+    {
+        if ($array)
+        {
+            $string = implode('|||', $array);
+            $string = str_replace('|||',"\r\n", $string);
+            return $string;
+        };
+        return '';
+    }
+}
+
+/**
+ * $array = array( "name" => "vijayrana", "city" => "kathmandu", "county" => "nepal",  );
+ * $array = replace_key($array, "name", "FullName");
+    $array = replace_key($array, "city", "State");
+    var_dump($array);exit();
+ * @param
+ * @return
+ */
+if (! function_exists('replace_keyreplace_key'))
+{
+    function replace_key($array, $old_key, $new_key) {
+        $keys = array_keys($array);
+        if (false === $index = array_search($old_key, $keys))
+        {
+            throw new Exception(sprintf('Key "%s" does not exit', $old_key));
+        }
+        $keys[$index] = $new_key;
+        return array_combine($keys, array_values($array));
+    }
+}
+
+
+
 if (!function_exists('echo_array'))
 {
     /**
@@ -52,7 +113,7 @@ if (! function_exists('get_query_array'))
 {
     function get_query_array()
     {
-        $string = get_query_string();
+        $string = $_SERVER['QUERY_STRING'];
         parse_str($string, $query);
         return $query;
     }

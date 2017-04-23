@@ -15,17 +15,27 @@ class CreateBannersTable extends Migration
     {
         Schema::create('banners', function (Blueprint $table) {
             $table->increments('ban_id');
-            $table->string('ban_picture');
-            $table->string('ban_link');
             $table->string('ban_title');
-            $table->string('ban_description');
-            $table->enum('ban_target', ['_self','_blank', '_parent', '_top']);
-            $table->tinyInteger('ban_type');
-            $table->tinyInteger('ban_position');
-            $table->tinyInteger('ban_start_date');
-            $table->tinyInteger('ban_end_date');
-            $table->tinyInteger('ban_order');
-            $table->tinyInteger('ban_status');
+            $table->string('ban_link')->nullale();
+            $table->string('ban_picture')->nullale();
+            $table->enum('ban_target', ['_self','_blank', '_parent', '_top'])->nullale();
+            $table->tinyInteger('ban_position')->default(0);
+            $table->tinyInteger('ban_type')->default(0);
+            $table->tinyInteger('ban_order')->default(0);
+            $table->tinyInteger('ban_status')->default(0);
+            $table->date('ban_start_date')->nullable();
+            $table->date('ban_end_date')->nullable();
+            $table->string('ban_description')->nullale();
+            $table->tinyInteger('ban_isevent')->default(0);
+            $table->integer('ban_admin_id')->default(1)->index();
+            $table->timestamps();
+        });
+
+        Schema::create('banner_data_click', function (Blueprint $table) {
+            $table->increments('bdc_banner_id');
+            $table->integer('bdc_click')->index();
+            $table->integer('bdc_last_ip')->index();
+            $table->integer('bdc_last_update')->index();
             $table->timestamps();
         });
     }
@@ -37,6 +47,7 @@ class CreateBannersTable extends Migration
      */
     public function down()
     {
+        Schema::dropIfExists('banner_data_click');
         Schema::dropIfExists('banners');
     }
 }
